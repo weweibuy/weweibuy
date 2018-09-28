@@ -1,0 +1,26 @@
+spring:
+   application:
+    name: weweibuy-hystrix
+
+server:
+  port: 9001
+
+#配置日志
+logging:
+  config: classpath:logback-spring.xml
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+    instance:
+        instance-id: small-backstage-8001
+        prefer-ip-address: true     #访问路径可以显示IP地址
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: cn.du.po    # 所有Entity别名类所在包
+  mapper-locations:
+  - classpath:mybatis/mapper/**/*.xml                       # mapper映射文件
+

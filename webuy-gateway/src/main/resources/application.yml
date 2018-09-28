@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: weweibuy-gateway
+
+server:
+  port: 8080
+
+
+#配置日志
+logging:
+  config: classpath:logback-spring.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: small
+    prefer-ip-address: true
+
+
+zuul:
+  #ignored-services: microservicecloud-dept
+  prefix: /small
+  ignored-services: "*"
+  routes:
+    small:
+      serviceId: small-backstage
+      path: /backstage/**
+
+small-backstage: #是serviceId
+  ribbon:
+    listOfServers: http://localhost:8001 ,http://localhost:8002
+
+
+
