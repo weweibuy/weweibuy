@@ -16,6 +16,7 @@
         <module>webuy-hystrix</module>
         <module>webuy-backstage</module>
         <module>webuy-search</module>
+        <module>webuy-bus</module>
     </modules>
 
 
