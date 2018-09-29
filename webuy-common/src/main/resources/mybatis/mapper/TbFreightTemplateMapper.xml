@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.weiwei.mapper.TbFreightTemplateMapper" >
-  <resultMap id="BaseResultMap" type="com.weiwei.po.TbFreightTemplate" >
+<mapper namespace="com.weweibuy.mapper.TbFreightTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.weweibuy.po.TbFreightTemplate" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
     <result column="is_default" property="isDefault" jdbcType="VARCHAR" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     id, seller_id, is_default, name, send_time_type, price, create_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weiwei.po.TbFreightTemplateExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weweibuy.po.TbFreightTemplateExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,13 +95,13 @@
     delete from tb_freight_template
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weiwei.po.TbFreightTemplateExample" >
+  <delete id="deleteByExample" parameterType="com.weweibuy.po.TbFreightTemplateExample" >
     delete from tb_freight_template
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weiwei.po.TbFreightTemplate" >
+  <insert id="insert" parameterType="com.weweibuy.po.TbFreightTemplate" >
     insert into tb_freight_template (id, seller_id, is_default, 
       name, send_time_type, price, 
       create_time)
@@ -109,7 +109,7 @@
       #{name,jdbcType=VARCHAR}, #{sendTimeType,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.weiwei.po.TbFreightTemplate" >
+  <insert id="insertSelective" parameterType="com.weweibuy.po.TbFreightTemplate" >
     insert into tb_freight_template
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -158,7 +158,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weiwei.po.TbFreightTemplateExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.weweibuy.po.TbFreightTemplateExample" resultType="java.lang.Integer" >
     select count(*) from tb_freight_template
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -206,7 +206,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.po.TbFreightTemplate" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.po.TbFreightTemplate" >
     update tb_freight_template
     <set >
       <if test="sellerId != null" >
@@ -230,7 +230,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weiwei.po.TbFreightTemplate" >
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.po.TbFreightTemplate" >
     update tb_freight_template
     set seller_id = #{sellerId,jdbcType=VARCHAR},
       is_default = #{isDefault,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.weiwei.mapper.TbGoodsDescMapper" >
-  <resultMap id="BaseResultMap" type="com.weiwei.po.TbGoodsDesc" >
+<mapper namespace="com.weweibuy.mapper.TbGoodsDescMapper" >
+  <resultMap id="BaseResultMap" type="com.weweibuy.po.TbGoodsDesc" >
     <id column="goods_id" property="goodsId" jdbcType="BIGINT" />
     <result column="introduction" property="introduction" jdbcType="VARCHAR" />
     <result column="specification_items" property="specificationItems" jdbcType="VARCHAR" />
@@ -72,7 +72,7 @@
     goods_id, introduction, specification_items, custom_attribute_items, item_images, 
     package_list, sale_service
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weiwei.po.TbGoodsDescExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weweibuy.po.TbGoodsDescExample" >
     select
     <if test="distinct" >
       distinct
@@ -96,13 +96,13 @@
     delete from tb_goods_desc
     where goods_id = #{goodsId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weiwei.po.TbGoodsDescExample" >
+  <delete id="deleteByExample" parameterType="com.weweibuy.po.TbGoodsDescExample" >
     delete from tb_goods_desc
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weiwei.po.TbGoodsDesc" >
+  <insert id="insert" parameterType="com.weweibuy.po.TbGoodsDesc" >
     insert into tb_goods_desc (goods_id, introduction, specification_items, 
       custom_attribute_items, item_images, package_list, 
       sale_service)
@@ -110,7 +110,7 @@
       #{customAttributeItems,jdbcType=VARCHAR}, #{itemImages,jdbcType=VARCHAR}, #{packageList,jdbcType=VARCHAR}, 
       #{saleService,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.weiwei.po.TbGoodsDesc" >
+  <insert id="insertSelective" parameterType="com.weweibuy.po.TbGoodsDesc" >
     insert into tb_goods_desc
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="goodsId != null" >
@@ -159,7 +159,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weiwei.po.TbGoodsDescExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.weweibuy.po.TbGoodsDescExample" resultType="java.lang.Integer" >
     select count(*) from tb_goods_desc
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -207,7 +207,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.po.TbGoodsDesc" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.po.TbGoodsDesc" >
     update tb_goods_desc
     <set >
       <if test="introduction != null" >
@@ -231,7 +231,7 @@
     </set>
     where goods_id = #{goodsId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weiwei.po.TbGoodsDesc" >
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.po.TbGoodsDesc" >
     update tb_goods_desc
     set introduction = #{introduction,jdbcType=VARCHAR},
       specification_items = #{specificationItems,jdbcType=VARCHAR},

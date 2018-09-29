@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.weiwei.mapper.TbUserMapper" >
-  <resultMap id="BaseResultMap" type="com.weiwei.po.TbUser" >
+<mapper namespace="com.weweibuy.mapper.TbUserMapper" >
+  <resultMap id="BaseResultMap" type="com.weweibuy.po.TbUser" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -88,7 +88,7 @@
     status, head_pic, qq, account_balance, is_mobile_check, is_email_check, sex, user_level, 
     points, experience_value, birthday, last_login_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weiwei.po.TbUserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weweibuy.po.TbUserExample" >
     select
     <if test="distinct" >
       distinct
@@ -112,13 +112,13 @@
     delete from tb_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weiwei.po.TbUserExample" >
+  <delete id="deleteByExample" parameterType="com.weweibuy.po.TbUserExample" >
     delete from tb_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weiwei.po.TbUser" >
+  <insert id="insert" parameterType="com.weweibuy.po.TbUser" >
     insert into tb_user (id, username, password, 
       phone, email, created, 
       updated, source_type, nick_name, 
@@ -136,7 +136,7 @@
       #{points,jdbcType=INTEGER}, #{experienceValue,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP}, 
       #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.weiwei.po.TbUser" >
+  <insert id="insertSelective" parameterType="com.weweibuy.po.TbUser" >
     insert into tb_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -275,7 +275,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weiwei.po.TbUserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.weweibuy.po.TbUserExample" resultType="java.lang.Integer" >
     select count(*) from tb_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -383,7 +383,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.po.TbUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.po.TbUser" >
     update tb_user
     <set >
       <if test="username != null" >
@@ -452,7 +452,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weiwei.po.TbUser" >
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.po.TbUser" >
     update tb_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

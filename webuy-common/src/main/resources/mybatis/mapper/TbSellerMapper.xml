@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.weiwei.mapper.TbSellerMapper" >
-  <resultMap id="BaseResultMap" type="com.weiwei.po.TbSeller" >
+<mapper namespace="com.weweibuy.mapper.TbSellerMapper" >
+  <resultMap id="BaseResultMap" type="com.weweibuy.po.TbSeller" >
     <id column="seller_id" property="sellerId" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
@@ -91,7 +91,7 @@
     org_number, address, logo_pic, brief, create_time, legal_person, legal_person_card_id, 
     bank_user, bank_name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weiwei.po.TbSellerExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weweibuy.po.TbSellerExample" >
     select
     <if test="distinct" >
       distinct
@@ -115,13 +115,13 @@
     delete from tb_seller
     where seller_id = #{sellerId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weiwei.po.TbSellerExample" >
+  <delete id="deleteByExample" parameterType="com.weweibuy.po.TbSellerExample" >
     delete from tb_seller
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weiwei.po.TbSeller" >
+  <insert id="insert" parameterType="com.weweibuy.po.TbSeller" >
     insert into tb_seller (seller_id, name, nick_name, 
       password, email, mobile, 
       telephone, status, address_detail, 
@@ -141,7 +141,7 @@
       #{legalPersonCardId,jdbcType=VARCHAR}, #{bankUser,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.weiwei.po.TbSeller" >
+  <insert id="insertSelective" parameterType="com.weweibuy.po.TbSeller" >
     insert into tb_seller
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="sellerId != null" >
@@ -292,7 +292,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weiwei.po.TbSellerExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.weweibuy.po.TbSellerExample" resultType="java.lang.Integer" >
     select count(*) from tb_seller
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -408,7 +408,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.po.TbSeller" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.po.TbSeller" >
     update tb_seller
     <set >
       <if test="name != null" >
@@ -483,7 +483,7 @@
     </set>
     where seller_id = #{sellerId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weiwei.po.TbSeller" >
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.po.TbSeller" >
     update tb_seller
     set name = #{name,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},

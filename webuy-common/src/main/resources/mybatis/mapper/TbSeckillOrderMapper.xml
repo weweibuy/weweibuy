@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.weiwei.mapper.TbSeckillOrderMapper" >
-  <resultMap id="BaseResultMap" type="com.weiwei.po.TbSeckillOrder" >
+<mapper namespace="com.weweibuy.mapper.TbSeckillOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.weweibuy.po.TbSeckillOrder" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="seckill_id" property="seckillId" jdbcType="BIGINT" />
     <result column="money" property="money" jdbcType="DECIMAL" />
@@ -77,7 +77,7 @@
     id, seckill_id, money, user_id, seller_id, create_time, pay_time, status, receiver_address, 
     receiver_mobile, receiver, transaction_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weiwei.po.TbSeckillOrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weweibuy.po.TbSeckillOrderExample" >
     select
     <if test="distinct" >
       distinct
@@ -101,13 +101,13 @@
     delete from tb_seckill_order
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weiwei.po.TbSeckillOrderExample" >
+  <delete id="deleteByExample" parameterType="com.weweibuy.po.TbSeckillOrderExample" >
     delete from tb_seckill_order
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weiwei.po.TbSeckillOrder" >
+  <insert id="insert" parameterType="com.weweibuy.po.TbSeckillOrder" >
     insert into tb_seckill_order (id, seckill_id, money, 
       user_id, seller_id, create_time, 
       pay_time, status, receiver_address, 
@@ -119,7 +119,7 @@
       #{receiverMobile,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, #{transactionId,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.weiwei.po.TbSeckillOrder" >
+  <insert id="insertSelective" parameterType="com.weweibuy.po.TbSeckillOrder" >
     insert into tb_seckill_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -198,7 +198,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weiwei.po.TbSeckillOrderExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.weweibuy.po.TbSeckillOrderExample" resultType="java.lang.Integer" >
     select count(*) from tb_seckill_order
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -266,7 +266,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.po.TbSeckillOrder" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.po.TbSeckillOrder" >
     update tb_seckill_order
     <set >
       <if test="seckillId != null" >
@@ -305,7 +305,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weiwei.po.TbSeckillOrder" >
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.po.TbSeckillOrder" >
     update tb_seckill_order
     set seckill_id = #{seckillId,jdbcType=BIGINT},
       money = #{money,jdbcType=DECIMAL},

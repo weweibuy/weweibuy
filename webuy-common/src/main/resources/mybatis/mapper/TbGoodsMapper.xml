@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.weiwei.mapper.TbGoodsMapper" >
-  <resultMap id="BaseResultMap" type="com.weiwei.po.TbGoods" >
+<mapper namespace="com.weweibuy.mapper.TbGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.weweibuy.po.TbGoods" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
     <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
@@ -82,7 +82,7 @@
     caption, category1_id, category2_id, category3_id, small_pic, price, type_template_id, 
     is_enable_spec, is_delete
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weiwei.po.TbGoodsExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weweibuy.po.TbGoodsExample" >
     select
     <if test="distinct" >
       distinct
@@ -106,13 +106,13 @@
     delete from tb_goods
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weiwei.po.TbGoodsExample" >
+  <delete id="deleteByExample" parameterType="com.weweibuy.po.TbGoodsExample" >
     delete from tb_goods
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weiwei.po.TbGoods" >
+  <insert id="insert" parameterType="com.weweibuy.po.TbGoods" >
     insert into tb_goods (id, seller_id, goods_name, 
       default_item_id, audit_status, is_marketable, 
       brand_id, caption, category1_id, 
@@ -126,7 +126,7 @@
       #{price,jdbcType=DECIMAL}, #{typeTemplateId,jdbcType=BIGINT}, #{isEnableSpec,jdbcType=VARCHAR}, 
       #{isDelete,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.weiwei.po.TbGoods" >
+  <insert id="insertSelective" parameterType="com.weweibuy.po.TbGoods" >
     insert into tb_goods
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -229,7 +229,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weiwei.po.TbGoodsExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.weweibuy.po.TbGoodsExample" resultType="java.lang.Integer" >
     select count(*) from tb_goods
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -313,7 +313,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weiwei.po.TbGoods" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.po.TbGoods" >
     update tb_goods
     <set >
       <if test="sellerId != null" >
@@ -364,7 +364,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weiwei.po.TbGoods" >
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.po.TbGoods" >
     update tb_goods
     set seller_id = #{sellerId,jdbcType=VARCHAR},
       goods_name = #{goodsName,jdbcType=VARCHAR},
