@@ -19,22 +19,12 @@ spring:
              stat:
                mergeSql: true   # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
                slowSqlMillis: 5000
-#     dbcp2:
-#       min-idle: 5                                           # 数据库连接池的最小维持连接数
-#       initial-size: 5                                       # 初始化连接数
-#       max-total: 5                                         # 最大连接数
-#       max-wait-millis: 200
+    data:
+      solr:
+        host: #http://127.0.0.1:8081/solr   #solr地址
 
 server:
   port: 8101
-
-##配置日志
-                #logging:
-                #  #配置日志文件路径
-                #  file: log
-                #  level:
-                #    root: debug
-
 
 logging:
   config: classpath:logback-spring.xml
@@ -45,7 +35,7 @@ eureka:
     service-url:
       defaultZone: http://localhost:7001/eureka
     instance:
-        instance-id: weweibuy-backstage
+        instance-id: weweibuy-search
         prefer-ip-address: true     #访问路径可以显示IP地址
 
 mybatis:
@@ -62,5 +52,5 @@ feign:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 2000
+            timeoutInMilliseconds: 2500  #超时fallback时间
 

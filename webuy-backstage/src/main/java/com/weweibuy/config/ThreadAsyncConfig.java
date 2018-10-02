@@ -19,7 +19,7 @@ public class ThreadAsyncConfig implements AsyncConfigurer {
     private final int queueCapacity = 3;
     private final boolean waitForTasksToCompleteOnShutdown = false;
     private final int waitTerminationSeconds = 2;
-    private final String threadNamePrefix = "Thread";
+    private final String threadNamePrefix = "AsyncThread";
 
     @Bean
     public Executor AsyncExecutor() {

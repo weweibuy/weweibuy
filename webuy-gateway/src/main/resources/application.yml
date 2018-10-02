@@ -1,6 +1,27 @@
 spring:
   application:
     name: weweibuy-gateway
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true  #开启重试模式的loadBalancer
+  redis:
+      database: 0
+      host: 192.168.248.131
+      port: 6379
+      password:
+      timeout: 20000
+      #cluster:
+        #nodes: 192.168.211.134:7000,192.168.211.134:7001
+        #-
+        #max-redirects:
+      jedis:
+        pool:
+          max-active: 8  # 连接池最大连接数（使用负值表示没有限制）
+          max-wait: -1  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-idle: 8  # 连接池中的最大空闲连接
+          min-idle: 1  # 连接池中的最小空闲连接
+          timeout: 1000  # 连接超时时间（毫秒）
 
 server:
   port: 8080
@@ -13,24 +34,38 @@ logging:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka
+      defaultZone: http://localhost:7001/eureka
   instance:
-    instance-id: small
+    instance-id: weweibuy-gateway
     prefer-ip-address: true
 
 
 zuul:
-  #ignored-services: microservicecloud-dept
-  prefix: /small
-  ignored-services: "*"
+  prefix: /weweibuy
+  ignored-services: "*"  #忽略所有未配置的service
+  host:
+      connect-timeout-millis: 3000
+      socket-timeout-millis: 3000
   routes:
     small:
-      serviceId: small-backstage
+      serviceId: weweibuy-backstage
+      sensitiveHeaders: "*"  #用于session共享
       path: /backstage/**
 
-small-backstage: #是serviceId
+hystrix: #hystrix配置
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2500
+
+weweibuy-backstage: #是serviceId
   ribbon:
+    ServerListRefreshInterval: 2000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:8001 ,http://localhost:8002
-
-
-
+    ConnectTimeout: 1000   #建立连接超时时间
+    ReadTimeout: 2000  #连接超时时间
+    OkToRetryOnAllOperations: true  #所有操作都重试
+    MaxAutoRetries: 2  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
