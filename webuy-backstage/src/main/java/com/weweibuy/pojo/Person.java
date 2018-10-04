@@ -15,9 +15,7 @@ public class Person {
 
     private Integer age;
 
-    {
-        init ();
-    }
+
 
     public void init ()  {
         this.name = "tom";

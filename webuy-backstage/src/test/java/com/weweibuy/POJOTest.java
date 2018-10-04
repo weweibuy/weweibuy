@@ -1,8 +1,5 @@
 package com.weweibuy;
 
-import com.weweibuy.pojo.Person;
-import org.junit.Test;
-
 /**
  * @ClassName POJOTest
  * @Author durenhao  ak514250@126.com
@@ -10,10 +7,6 @@ import org.junit.Test;
  */
 public class POJOTest {
 
-    @Test
-    public void test01(){
-        String a  = "";
-        System.out.println(new Person().getName());
-    }
+
 
 }
