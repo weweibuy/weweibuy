@@ -17,6 +17,7 @@
         <module>webuy-backstage</module>
         <module>webuy-search</module>
         <module>webuy-bus</module>
+        <module>webuy-message</module>
     </modules>
 
 
