@@ -18,6 +18,8 @@
         <module>webuy-search</module>
         <module>webuy-bus</module>
         <module>webuy-message</module>
+        <module>webuy-order</module>
+        <module>webuy-task</module>
     </modules>
 
 
@@ -40,6 +42,12 @@
         <pagehelper.version>1.2.3</pagehelper.version>
         <bootstrap.version>3.3.5</bootstrap.version>
         <jquery.version>3.1.1</jquery.version>
+        <xxl-job.version>1.9.1</xxl-job.version>
+        <quartz.version>2.3.0</quartz.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <commons-lang3.version>3.7</commons-lang3.version>
+        <freemarker.version>2.3.23</freemarker.version>
+        <commons-email.version>1.5</commons-email.version>
     </properties>
 
     <dependencyManagement>
@@ -130,6 +138,48 @@
                 <groupId>org.webjars</groupId>
                 <artifactId>jquery</artifactId>
                 <version>${jquery.version}</version>
+            </dependency>
+
+            <!-- http://repo1.maven.org/maven2/com/xuxueli/xxl-job-core/ -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
+            </dependency>
+
+            <!-- quartz ：quartz-2.2.3/c3p0-0.9.1.1/slf4j-api-1.6.6 -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+
+            <!-- commons-collections4 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+
+            <!-- commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <!-- freemarker -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+
+            <!-- commons-email -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>${commons-email.version}</version>
             </dependency>
 
         </dependencies>

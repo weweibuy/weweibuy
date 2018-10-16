@@ -1,0 +1,43 @@
+1.confirmCallback 与 returnCallback 是broker给消息生产者的回执,与消费者没有任何关系！！
+2.returnCallback 是当RoutingKey错误broker无法将消息送到指定队列的回调，
+    注意：当returnCallback执行完成后会跟着执行confirmCallback且ACK=true！！！(不知为何)
+3.confirmCallback会在下面3中情况回调：
+    (1)消息送达指定Queue回调 ACK=true;
+    (2)交换机错误回调 ACK=false;
+    (3)returnCallback回调完成之后，ACK=true;
+4.消的2种状态
+    (1)Ready  消息已经发送到指定队列，但这个队列没有监听,消息仍在队列中
+    (2)Unacked  消息已被监听捕获,但没有被Ack或者Nack
+4.topicExchange、topicExchange、directExchange只是在路由策略上不同，其余没有什么不同
+5.消费端的ACK机制是其给broker的机制;不管是ACK还是NACK,对生产者都不会有任何影响;怎么处理是broker自身策略决定的
+    (1)channel.basicAck(long deliveryTag, boolean multiple),消费端给broker回执,指定deliveryTag的消息将被删除
+    (2)channel.basicNack(long deliveryTag, boolean multiple, boolean requeue),该方法的第三个参数为：是否重回队列,
+        如果为false,并且没有指定死信队列,那么该消息将被删除(与ACK没有任何区别),如果设置了死信队列将进入死信队列;
+        如果为true,消息将重回队列尾部等待下次消费。
+    (3)不给broker回执,消息状态将变为Unacked;当其对应的监听(消费者关闭后)消息状态会重回Ready;
+6.当一个队列有多个监听是RabbitMQ使用轮询策略进行消息分发。
+
+
+=============================== rabbitTemplate ====================================
+rabbitTemplate的发送流程是这样的：
+1 发送数据并返回(不确认rabbitmq服务器已成功接收)
+2 异步的接收从rabbitmq返回的ack确认信息
+3 收到ack后调用confirmCallback函数
+如果在2，3步中任何时候切断连接，我们都无法确认数据是否真的已经成功发送出去，从而造成数据丢失的问题。
+
+============================== 重试机制  ======================================
+1.重试机制,当监听发放抛出异常后,会自动进行重新发送
+2.重试失败且没有ACK或NACK的状态变为 unacked
+3.重试几次均失败后后RabbitMQ,就停止向那个监听发消息了(前提是那个队列有多个监听);很像hystrix的服务熔断
+
+================================ 死信队列 ==============================================
+1.更改了队列的属性后必须,必须将原有的队列删除,然后启动新的队列
+
+
+================================= 线程问题 ===================================================
+1.同一个监听容器,监听多个队列,必要要等待前一个监听处理完消息,下一个监听才能执行；
+    再次期间消息的转态一值处于unacked;(不知道是不是哪里没有配置好)
+2.listener.simple.concurrency=10  可以配置监听数量,但是监听方法仍然是处于阻塞状态！！
+3.我是这么认为的：消费者（consumer）这是个业务层的概念，而消费或者说订阅（也就是 consume）是 AMQP 协议层的东西，
+    所以，你问一个消费者能否订阅多个queue，答案是当然可以。方案也就一种，按照协议的流程分别向不同的 queue 进行 consume。
+    至于是使用多线程方式来处理，还是使用事件驱动的方式（单线程）来处理这就取决于实现了。
