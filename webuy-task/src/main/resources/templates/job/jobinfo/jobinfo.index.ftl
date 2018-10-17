@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  	<#import "/common/common.macro.ftl" as netCommon>
+  	<#import "../common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
 	<!-- DataTables -->
-  	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.css">
+  	<link rel="stylesheet" href="${request.contextPath}/adminlte/plugins/datatables/dataTables.bootstrap.css">
     <title>${I18n.admin_name}</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if>">
@@ -13,17 +13,17 @@
 	<@netCommon.commonHeader />
 	<!-- left -->
 	<@netCommon.commonLeft "jobinfo" />
-	
+
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>${I18n.jobinfo_name}</h1>
 		</section>
-		
+
 		<!-- Main content -->
 	    <section class="content">
-	    
+
 	    	<div class="row">
 	    		<div class="col-xs-3">
 	              	<div class="input-group">
@@ -54,7 +54,7 @@
 	            	<button class="btn btn-block btn-success add" type="button">${I18n.jobinfo_field_add}</button>
 	            </div>
           	</div>
-	    	
+
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box">
@@ -88,7 +88,7 @@
 			</div>
 	    </section>
 	</div>
-	
+
 	<!-- footer -->
 	<@netCommon.commonFooter />
 </div>
@@ -254,7 +254,7 @@ console.log("${I18n.jobinfo_shard_total}: " + arguments[4])
 
 console.log("Good bye!")
 process.exit(0)
-</textarea>		
+</textarea>
 				</form>
          	</div>
 		</div>
@@ -352,13 +352,14 @@ process.exit(0)
 	</div>
 </div>
 
-<@netCommon.commonScript />
+<#--<@netCommon.commonScript />-->
+
 <!-- DataTables -->
-<script src="${request.contextPath}/static/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="${request.contextPath}/static/plugins/jquery/jquery.validate.min.js"></script>
+<script src="${request.contextPath}/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="${request.contextPath}/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="${request.contextPath}/plugins/jquery/jquery.validate.min.js"></script>
 <!-- moment -->
-<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
-<script src="${request.contextPath}/static/js/jobinfo.index.1.js"></script>
+<script src="${request.contextPath}/adminlte/plugins/daterangepicker/moment.min.js"></script>
+<script src="${request.contextPath}/js/jobinfo.index.1.js"></script>
 </body>
 </html>

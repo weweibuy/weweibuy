@@ -32,13 +32,19 @@ public class IndexController {
 	@Resource
 	private XxlJobService xxlJobService;
 
+	@RequestMapping("/hello")
+	public String hello(Model model){
+		model.addAttribute("hello", "nihao ");
+		return "/hello";
+	}
+
 	@RequestMapping("/")
 	public String index(Model model) {
 
 		Map<String, Object> dashboardMap = xxlJobService.dashboardInfo();
 		model.addAllAttributes(dashboardMap);
 
-		return "job/index.ftl";
+		return "/index";
 	}
 
     @RequestMapping("/chartInfo")
@@ -54,7 +60,7 @@ public class IndexController {
 		if (PermissionInterceptor.ifLogin(request)) {
 			return "redirect:/";
 		}
-		return "login";
+		return "/login";
 	}
 	
 	@RequestMapping(value="login", method= RequestMethod.POST)
@@ -97,7 +103,7 @@ public class IndexController {
 			return "redirect:/toLogin";
 		}*/
 
-		return "help";
+		return "/help";
 	}
 
 	@InitBinder

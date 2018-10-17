@@ -46,7 +46,7 @@ public class JobCodeController {
 
 		model.addAttribute("jobInfo", jobInfo);
 		model.addAttribute("jobLogGlues", jobLogGlues);
-		return "jobcode/jobcode.index";
+		return "/jobcode/jobcode.index";
 	}
 	
 	@RequestMapping("/save")

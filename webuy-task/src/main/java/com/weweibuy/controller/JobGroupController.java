@@ -35,7 +35,7 @@ public class JobGroupController {
 		List<XxlJobGroup> list = xxlJobGroupDao.findAll();
 
 		model.addAttribute("list", list);
-		return "jobgroup/jobgroup.index";
+		return "/jobgroup/jobgroup.index";
 	}
 
 	@RequestMapping("/save")

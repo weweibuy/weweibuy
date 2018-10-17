@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  	<#import "/common/common.macro.ftl" as netCommon>
+  	<#import "../common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
 	<!-- DataTables -->
-  	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.css">
+  	<link rel="stylesheet" href="${request.contextPath}/adminlte/plugins/datatables/dataTables.bootstrap.css">
   	<!-- daterangepicker -->
-  	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.css">
+  	<link rel="stylesheet" href="${request.contextPath}/adminlte/plugins/daterangepicker/daterangepicker.css">
     <title>${I18n.admin_name}</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if> ">
@@ -174,11 +174,11 @@
     </#list>
 </script>
 <!-- DataTables -->
-<script src="${request.contextPath}/static/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="${request.contextPath}/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="${request.contextPath}/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <!-- daterangepicker -->
-<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
-<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
-<script src="${request.contextPath}/static/js/joblog.index.1.js"></script>
+<script src="${request.contextPath}/adminlte/plugins/daterangepicker/moment.min.js"></script>
+<script src="${request.contextPath}/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="${request.contextPath}/js/joblog.index.1.js"></script>
 </body>
 </html>

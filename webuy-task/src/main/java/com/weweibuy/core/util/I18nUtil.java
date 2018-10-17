@@ -33,7 +33,7 @@ public class I18nUtil {
             // bild i18n prop
             String i18n = XxlJobAdminConfig.getAdminConfig().getI18n();
             i18n = StringUtils.isNotBlank(i18n)?("_"+i18n):i18n;
-            String i18nFile = MessageFormat.format("i18n/message{0}.properties", i18n);
+            String i18nFile = MessageFormat.format("config/i18n/message{0}.properties", i18n);
 
             // load prop
             Resource resource = new ClassPathResource(i18nFile);

@@ -19,12 +19,9 @@ spring:
           stat:
             mergeSql: true   # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
             slowSqlMillis: 5000
-#     dbcp2:
-#       min-idle: 5                                           # 数据库连接池的最小维持连接数
-#       initial-size: 5                                       # 初始化连接数
-#       max-total: 5                                          # 最大连接数
-#       max-wait-millis: 200
-
+#  boot:
+#    admin:
+#      url: http://localhost:8001/application/admin
 
 server:
   port: 8001

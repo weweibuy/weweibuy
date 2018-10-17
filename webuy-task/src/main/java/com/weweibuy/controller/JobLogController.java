@@ -59,7 +59,7 @@ public class JobLogController {
 			model.addAttribute("jobInfo", jobInfo);
 		}
 
-		return "joblog/joblog.index";
+		return "/joblog/joblog.index";
 	}
 
 	@RequestMapping("/getJobsByGroup")
@@ -115,7 +115,7 @@ public class JobLogController {
         model.addAttribute("executorAddress", jobLog.getExecutorAddress());
         model.addAttribute("triggerTime", jobLog.getTriggerTime().getTime());
         model.addAttribute("logId", jobLog.getId());
-		return "joblog/joblog.detail";
+		return "/joblog/joblog.detail";
 	}
 
 	@RequestMapping("/logDetailCat")

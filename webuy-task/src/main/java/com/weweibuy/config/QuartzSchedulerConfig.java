@@ -11,8 +11,6 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 /**
  * @ClassName quartzSchedulerConfig
@@ -21,7 +19,7 @@ import java.util.Properties;
  * @Date 2018/10/16 22:43
  **/
 @Configuration
-public class quartzSchedulerConfig {
+public class QuartzSchedulerConfig {
 
     private PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
