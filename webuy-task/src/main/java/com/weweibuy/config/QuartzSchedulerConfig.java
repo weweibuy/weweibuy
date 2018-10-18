@@ -45,7 +45,7 @@ public class QuartzSchedulerConfig {
         return quartzScheduler;
     }
 
-    @Bean
+    @Bean(initMethod = "init", destroyMethod = "destroy")
     @Autowired
     public XxlJobDynamicScheduler xxlJobDynamicScheduler(SchedulerFactoryBean quartzScheduler){
         XxlJobDynamicScheduler xxlJobDynamicScheduler = new XxlJobDynamicScheduler();

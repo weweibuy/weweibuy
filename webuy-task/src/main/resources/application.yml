@@ -4,7 +4,7 @@ spring:
    datasource:
      type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
      driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-     url: jdbc:mysql://localhost:3306/xxl-job             # 数据库名称
+     url: jdbc:mysql://192.168.1.103:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
      username: root
      password: root
      initialSize: 5
@@ -30,24 +30,6 @@ spring:
      exposeRequestAttributes: true
      exposeSpringMacroHelpers: true
      exposeSessionAttributes: true
-#   mvc:
-#     view:
-#       prefix: job
-#       suffix: .ftl
-#
-#  freemarker:
-#      allow-request-override: false
-#      cache: false
-#      check-template-location: true
-#      charset: UTF-8
-#      content-type: text/html; charset=utf-8
-#      expose-request-attributes: false
-#      expose-session-attributes: false
-#      expose-spring-macro-helpers: false
-#      suffix: .ftl
-
-
-
 
 server:
   port: 9301

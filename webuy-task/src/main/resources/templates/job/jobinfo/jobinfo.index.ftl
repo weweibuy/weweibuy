@@ -352,7 +352,7 @@ process.exit(0)
 	</div>
 </div>
 
-<#--<@netCommon.commonScript />-->
+<@netCommon.commonScript />
 
 <!-- DataTables -->
 <script src="${request.contextPath}/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
