@@ -1,0 +1,7 @@
+1.Error response from daemon: error creating overlay mount to /var/lib/docker/overlay2
+    解决：vi /run/systemd/system/docker.service
+       修改这一项
+       Environment=DOCKER_SELINUX=--selinux-enabled=false
+       然后
+       systemctl daemon-reload
+       systemctl restart docker

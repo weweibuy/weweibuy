@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
+    <name>webuy-eureka</name>
 
     <artifactId>webuy-eureka</artifactId>
 
@@ -20,29 +21,17 @@
             <version>1.4.5.RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-
         <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-security</artifactId>-->
-        <!--<version>RELEASE</version>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-config</artifactId>-->
+            <!--<version>RELEASE</version>-->
         <!--</dependency>-->
 
-        <!-- 修改后立即生效，热部署 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>springloaded</artifactId>
-            <version>RELEASE</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <version>RELEASE</version>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
     </dependencies>
 
 

@@ -1,0 +1,8 @@
+1.加速配置
+  cd /etc/docker
+  touch daemon.json
+  加入：
+  {
+    "registry-mirrors": ["https://registry.docker-cn.com"]
+  }
+   service docker restart

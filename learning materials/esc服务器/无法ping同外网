@@ -1,0 +1,5 @@
+1.无法通过域名ping同外网，但IP可以
+    vi /etc/resolv.conf
+    加入：
+    nameserver 8.8.8.8
+                          nameserver 8.8.4.4

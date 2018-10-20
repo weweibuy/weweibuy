@@ -1,0 +1,11 @@
+1.登录
+    docker login --username=514250798@qq.com registry.cn-qingdao.aliyuncs.com
+2.提交
+    docker tag [ImageId] registry.cn-qingdao.aliyuncs.com/weweibuy/01:[镜像版本号]
+3.推送
+    docker push registry.cn-qingdao.aliyuncs.com/weweibuy/01:[镜像版本号]
+
+4.拉取镜像
+    docker pull registry.cn-qingdao.aliyuncs.com/weweibuy/01:[镜像版本号]
+
+注意中文在linux中会导致命令错误，不要复制中文的部分！！！

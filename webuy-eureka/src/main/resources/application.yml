@@ -1,13 +1,18 @@
 spring:
   application:
     name: weweibuy-eureka
+  security:
+    user:
+      name: admin
+      password: admin
 
 server:
   port: 7001
 
 #配置日志
 logging:
-  config: classpath:logback-spring.xml
+  config: classpath:config/logback/logback-spring.xml
+
 
 eureka:
   instance:
