@@ -3,6 +3,7 @@ package com.weweibuy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 /**
  * @ClassName Application_Eureka
@@ -13,6 +14,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @SpringBootApplication
 @EnableEurekaServer
+@EnableWebSecurity
 public class Application_Eureka {
 
     public static void main(String[] args) {

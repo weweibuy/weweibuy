@@ -1,12 +1,12 @@
 spring:
    application:
-     name: weweibuy-backstage
+     name: webuy-backstage
    datasource:
      type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
      driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-     url: jdbc:mysql://192.168.1.104:3306/small01?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
-     username: root
-     password: root
+     url: jdbc:mysql://47.99.129.104:3306/small01?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
+     username: user01
+     password: ak402507979
      initialSize: 5
      minIdle: 5
      maxActive: 20
@@ -19,19 +19,29 @@ spring:
           stat:
             mergeSql: true   # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
             slowSqlMillis: 5000
+   cache:
+      type: redis
+      redis:
+        time-to-live: 200000  #缓存超时时间ms
+        cache-null-values: false  #是否缓存空值
+   redis:
+     database: 0 # Redis数据库索引（默认为0）
+     host: 47.99.129.104  #Redis服务器地址
+     port: 6379 # Redis服务器连接端口
+     password: ak402507979 # Redis服务器连接密码（默认为空）
+     jedis:
+       max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+       max-idle: 3 # 连接池中的最大空闲连接
+       max-wait: 2000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+       min-idle: 2 # 连接池中的最小空闲连接
+       timeout: 2000 # 连接超时时间（毫秒）
+
 #  boot:
 #    admin:
 #      url: http://localhost:8001/application/admin
 
 server:
   port: 8001
-
-##配置日志
-                #logging:
-                #  #配置日志文件路径
-                #  file: log
-                #  level:
-                #    root: debug
 
 
 logging:
@@ -41,9 +51,9 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
     instance:
-        instance-id: weweibuy-backstage
+        instance-id: webuy-backstage
         prefer-ip-address: true     #访问路径可以显示IP地址
 
 mybatis:

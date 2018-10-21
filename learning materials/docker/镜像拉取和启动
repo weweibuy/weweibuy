@@ -1,6 +1,6 @@
 ﻿docker下载 redis镜像： docker pull redis:3.2
 docker 挂载安装redis：
-docker run -d --privileged=true -p 6379:6379 -v /docker/redis/conf/redis.conf:/etc/redis/redis.conf -v /docker/redis/data:/data --name redis01 redis:3.2 redis-server /etc/redis/redis.conf --requirepass "root"
+docker run -d --privileged=true -p 6379:6379 -v /docker/redis/conf/redis.conf:/etc/redis/redis.conf -v /docker/redis/data:/data --name redis redis:3.2 redis-server /etc/redis/redis.conf
 客户端运行：首先进入容器   然后：redis-cli -a 密码
 
 
