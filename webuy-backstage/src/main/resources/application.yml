@@ -53,9 +53,18 @@ eureka:
     service-url:
       defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
     instance:
-        instance-id: webuy-backstage
-        prefer-ip-address: true     #访问路径可以显示IP地址
+      instance-id: webuy-backstage
+      prefer-ip-address: true   #访问路径可以显示IP地址
+    registry-fetch-interval-seconds: 15  #eureka client刷新本地缓存时间
 
+
+
+  instance:
+    lease-expiration-duration-in-seconds: 30  #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除
+                                              #注意，EurekaServer一定要设置eureka.server.eviction-interval-timer-in-ms否则这个配置无效，这个配置一般为服务刷新时间配置的三倍
+                                              #默认90s
+    lease-renewal-interval-in-seconds: 10   #服务刷新时间配置，每隔这个时间会主动心跳一次
+                                           #默认30s
 mybatis:
   config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
   type-aliases-package: com.weweibuy.po    # 所有Entity别名类所在包
@@ -64,6 +73,8 @@ mybatis:
 ribbon:
   ReadTimeout: 4000  #请求处理的超时时间
   ConnectTimeout: 3000 #请求连接的超时时间
+  ServerListRefreshInterval: 5000  #eureka客户端ribbon刷新时间,默认30s
+
 
 feign:
   client:
