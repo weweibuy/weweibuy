@@ -61,14 +61,38 @@ mybatis:
   type-aliases-package: com.weweibuy.po    # 所有Entity别名类所在包
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
 
+ribbon:
+  ReadTimeout: 4000  #请求处理的超时时间
+  ConnectTimeout: 3000 #请求连接的超时时间
 
 feign:
+  client:
+    config:
+      remote-service:           #服务名，填写default为所有服务
+        connectTimeout: 2000   #请求处理的超时时间
+        readTimeout: 12000  #请求连接的超时时间
   hystrix:
-    enabled: true
+    enabled: false  #是否启用feign的 hystrix
+  compression: #Spring Cloud Feign支持对请求和响应进行GZIP压缩，以提高通信效率
+      request:
+        enabled:  true   # 开启对 request 请求压缩
+        mime-types:
+          - text/xml
+          - application/xml
+          - application/json    # 指定压缩格式
+        min-request-size: 2048  # 压缩的最小阀值，默认 2048，超过2048 （字节） 进行压缩。
+
+      response:
+        enabled:  true  # 开启对 response 的压缩
+
+hystrix:
   command:
     default:
       execution:
+        timeout:
+          enable: false #是否启动Hystrix的超时 如果enabled设置为false，则请求超时交给ribbon控制
         isolation:
           thread:
             timeoutInMilliseconds: 2000
+
 

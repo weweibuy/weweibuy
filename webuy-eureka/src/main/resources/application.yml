@@ -8,6 +8,9 @@ spring:
 
 server:
   port: 7001
+  tomcat:
+    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
+    min-spare-threads: 5    #初始化线程数
 
 #配置日志
 logging:

@@ -8,3 +8,22 @@ ADD webuy-eureka.jar app.jar
 EXPOSE 7001
 # 容器启动后执行的命令
 ENTRYPOINT ["java","-jar","app.jar"]
+
+======================== 另一种 ============================
+FROM openjdk:8-jdk-alpine
+
+# Create app directory
+RUN mkdir -p /app
+VOLUME /app
+ADD webuy-eureka.jar app.jar
+WORKDIR /app
+
+# Bundle app source
+COPY . /app
+
+# Build the solution (using the gradle task)
+RUN ./gradlew build
+
+EXPOSE 7001
+
+ENTRYPOINT exec java $JAVA_OPTS -jar build/libs/{app name}.jar

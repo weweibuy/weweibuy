@@ -16,3 +16,17 @@ docker 安装rabbitMQ：
     docker tag imageid name:tag
 3.删除指定 名字和tag镜像
     docker rmi 3.6.16:latest
+
+4.java 应用程序设置 内存
+    docker run --rm -e JAVA_OPTS='-Xmx512m' tomcat:8
+
+-XX:MetaspaceSize=128m （元空间默认大小）
+-XX:MaxMetaspaceSize=128m （元空间最大大小）
+-Xms1024m 最小堆内存
+-Xmx1024m 最大堆内存
+-Xmn256m （新生代大小）
+-Xss256k （棧最大深度大小）
+-XX:SurvivorRatio=8 （新生代分区比例 8:2）
+-XX:+UseConcMarkSweepGC （指定使用的垃圾收集器，这里使用CMS收集器）
+-XX:+PrintGCDetails （打印详细的GC日志）
+-Djava.compiler=NONE 关闭 JIT的CompilerThread
