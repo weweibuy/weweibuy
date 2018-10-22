@@ -29,4 +29,4 @@ docker 安装rabbitMQ：
 -XX:SurvivorRatio=8 （新生代分区比例 8:2）
 -XX:+UseConcMarkSweepGC （指定使用的垃圾收集器，这里使用CMS收集器）
 -XX:+PrintGCDetails （打印详细的GC日志）
--Djava.compiler=NONE 关闭 JIT的CompilerThread
+gu 关闭 JIT的CompilerThread
