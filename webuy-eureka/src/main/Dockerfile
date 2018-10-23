@@ -6,15 +6,19 @@ VOLUME /tmp
 # 这个app.jar 一定要和ENTRYPOINT 参数中app.jar名字一样
 ADD webuy-eureka.jar app.jar
 EXPOSE 7001
+ENV JAVA_OPTS -Djava.compiler=NONE
+ENV JAVA_OPTS -Duser.timezone=GMT+08
 # 容器启动后执行的命令
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar", "$JAVA_OPTS" , "app.jar"]
+
+
 
 ======================== 另一种 ============================
 FROM openjdk:8-jdk-alpine
 
 # Create app directory
 RUN mkdir -p /app
-VOLUME /app
+VOLUME /docker/app
 ADD webuy-eureka.jar app.jar
 WORKDIR /app
 
@@ -27,3 +31,34 @@ RUN ./gradlew build
 EXPOSE 7001
 
 ENTRYPOINT exec java $JAVA_OPTS -jar build/libs/{app name}.jar
+
+
+====================另一种==============================
+FROM java:8
+VOLUME /tmp
+ADD app.jar app.jar
+RUN bash -c 'touch /app.jar'
+EXPOSE 9001
+ENV JAVA_OPTS="\
+-server \
+-Xmx4g \
+-Xms4g \
+-Xmn2g \
+-XX:SurvivorRatio=8 \
+-XX:MetaspaceSize=256m \
+-XX:MaxMetaspaceSize=512m \
+-XX:+UseParallelGC \
+-XX:ParallelGCThreads=4 \
+-XX:+UseParallelOldGC \
+-XX:+UseAdaptiveSizePolicy \
+-XX:+PrintGCDetails \
+-XX:+PrintTenuringDistribution \
+-XX:+PrintGCTimeStamps \
+-XX:+HeapDumpOnOutOfMemoryError \
+-XX:HeapDumpPath=/ \
+-Xloggc:/gc.log \
+-XX:+UseGCLogFileRotation \
+-XX:NumberOfGCLogFiles=5 \
+-Duser.timezone=GMT+08 \
+-XX:GCLogFileSize=10M"
+ENTRYPOINT java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /app.jar
