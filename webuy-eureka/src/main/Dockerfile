@@ -1,64 +1,29 @@
-# 将项目打包成jar，与Dockerfile 放在同一目录下
-# 加载JDK
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
-# 添加springboot项目到镜像中的home目录，并重命名为app.jar
-# 这个app.jar 一定要和ENTRYPOINT 参数中app.jar名字一样
+VOLUME /logs
+RUN mkdir -p /tmp  \
+mkdir -p /logs \
+mkdir -p /logs/eureka01
 ADD webuy-eureka.jar app.jar
-EXPOSE 7001
-ENV JAVA_OPTS -Djava.compiler=NONE
-ENV JAVA_OPTS -Duser.timezone=GMT+08
-# 容器启动后执行的命令
-ENTRYPOINT ["java","-jar", "$JAVA_OPTS" , "app.jar"]
+#RUN sh -c 'touch /app.jar'
 
-
-
-======================== 另一种 ============================
-FROM openjdk:8-jdk-alpine
-
-# Create app directory
-RUN mkdir -p /app
-VOLUME /docker/app
-ADD webuy-eureka.jar app.jar
-WORKDIR /app
-
-# Bundle app source
-COPY . /app
-
-# Build the solution (using the gradle task)
-RUN ./gradlew build
-
-EXPOSE 7001
-
-ENTRYPOINT exec java $JAVA_OPTS -jar build/libs/{app name}.jar
-
-
-====================另一种==============================
-FROM java:8
-VOLUME /tmp
-ADD app.jar app.jar
-RUN bash -c 'touch /app.jar'
-EXPOSE 9001
-ENV JAVA_OPTS="\
+#ENV命令用于设置环境变量。这些变量以”key=value”的形式存在，并可以在容器内被脚本或者程序调用。
+ENV JAVA_OPTS=" \
 -server \
--Xmx4g \
--Xms4g \
--Xmn2g \
--XX:SurvivorRatio=8 \
--XX:MetaspaceSize=256m \
--XX:MaxMetaspaceSize=512m \
--XX:+UseParallelGC \
--XX:ParallelGCThreads=4 \
--XX:+UseParallelOldGC \
--XX:+UseAdaptiveSizePolicy \
+-Xmx150m \
+-Xms56m \
 -XX:+PrintGCDetails \
 -XX:+PrintTenuringDistribution \
 -XX:+PrintGCTimeStamps \
+-XX:+PrintGCDateStamps \
 -XX:+HeapDumpOnOutOfMemoryError \
--XX:HeapDumpPath=/ \
--Xloggc:/gc.log \
--XX:+UseGCLogFileRotation \
--XX:NumberOfGCLogFiles=5 \
+-XX:HeapDumpPath=/log/eureka01/heapdump \
+-Xloggc:/logs/eureka01/gc.log \
+-Djava.compiler=NONE \
 -Duser.timezone=GMT+08 \
--XX:GCLogFileSize=10M"
-ENTRYPOINT java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /app.jar
+-Djava.security.egd=file:/dev/./urandom"
+# ENTRYPOINT 帮助你配置一个容器使之可执行化
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
+
+#启动容器:
+    #docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 7001:7001 --name eureka webuy-eureka:1.0
