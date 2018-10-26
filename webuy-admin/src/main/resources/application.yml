@@ -1,0 +1,44 @@
+spring:
+   application:
+     name: webuy-admin
+   security:
+     user:
+       name: admin
+       password: ak402507979
+
+
+server:
+  port: 7501
+  tomcat:
+    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
+    min-spare-threads: 5    #初始化线程数
+
+
+logging:
+  config: classpath:config/logback/logback-spring.xml
+
+# 2.0开始，actuator默认不开放，所以要设置为开放
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #<2>
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
+    instance:
+        metadata-map:
+          "user.name": ${spring.security.user.name}         #These two are needed so that the server
+          "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+        instance-id: webuy-admin
+        prefer-ip-address: true     #访问路径可以显示IP地址
+
+

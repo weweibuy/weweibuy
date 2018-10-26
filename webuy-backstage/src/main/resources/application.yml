@@ -55,6 +55,7 @@ eureka:
     instance:
         instance-id: webuy-backstage
         prefer-ip-address: true     #访问路径可以显示IP地址
+        health-check-url-path: /actuator/health #2.0后actuator的地址发生了变化
 
 mybatis:
   config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径

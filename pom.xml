@@ -22,6 +22,7 @@
         <module>webuy-message</module>
         <module>webuy-order</module>
         <module>webuy-task</module>
+        <module>webuy-admin</module>
     </modules>
 
 
