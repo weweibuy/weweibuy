@@ -5,6 +5,16 @@ spring:
     user:
       name: admin
       password: ak402507979
+  boot:
+    admin:
+      auto-registration: true  #客户端是否自动注册
+      client:
+        enabled: true
+        service-url: "http://localhost:7501"
+        username: admin
+        password: ak402507979
+        instance:
+          prefer-ip: true  #客户端是否提供本机真实ip
 
 server:
   port: 7001
@@ -29,4 +39,12 @@ eureka:
        #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
       #defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 

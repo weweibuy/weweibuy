@@ -1,6 +1,6 @@
 spring:
    application:
-     name: weweibuy-backstage
+     name: webuy-task
    datasource:
      type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
      driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
@@ -30,6 +30,21 @@ spring:
      exposeRequestAttributes: true
      exposeSpringMacroHelpers: true
      exposeSessionAttributes: true
+   boot:
+      admin:
+        auto-registration: true  #客户端是否自动注册
+        client:
+          enabled: true
+          service-url: "http://47.99.129.104:7501"
+          username: admin
+          password: ak402507979
+          instance:
+            prefer-ip: true  #客户端是否提供本机真实ip
+
+   security:
+     user:
+       name: admin
+       password: ak402507979
 
 server:
   port: 9301
@@ -49,9 +64,9 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
     instance:
-        instance-id: weweibuy-backstage
+        instance-id: webuy-task
         prefer-ip-address: true     #访问路径可以显示IP地址
 
 mybatis:
@@ -70,3 +85,11 @@ feign:
           thread:
             timeoutInMilliseconds: 2000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

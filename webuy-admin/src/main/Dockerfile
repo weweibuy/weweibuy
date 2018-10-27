@@ -3,7 +3,8 @@ VOLUME /tmp
 VOLUME /logs
 RUN mkdir -p /tmp  \
 mkdir -p /logs \
-mkdir -p /logs/admin
+mkdir -p /logs/admin \
+touck -p /logs/admin/gc.log
 ADD webuy-admin.jar app.jar
 #RUN sh -c 'touch /app.jar'
 
@@ -17,7 +18,7 @@ ENV JAVA_OPTS=" \
 -XX:+PrintGCTimeStamps \
 -XX:+PrintGCDateStamps \
 -XX:+HeapDumpOnOutOfMemoryError \
--XX:HeapDumpPath=/log/admin/heapdump \
+-XX:HeapDumpPath=/logs/admin/heapdump \
 -Xloggc:/logs/admin/gc.log \
 -Djava.compiler=NONE \
 -Duser.timezone=GMT+08 \
@@ -26,4 +27,4 @@ ENV JAVA_OPTS=" \
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
 
 #启动容器:
-    #docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 7001:7001 --name webuy-admin webuy-eureka:1.0
+#docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 7501:7501 --name webuy-admin webuy-admin:1.0
