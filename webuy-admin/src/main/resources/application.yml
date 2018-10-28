@@ -45,7 +45,7 @@ eureka:
     service-url:
       defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
   instance:
-    instance-id: webuy-admin
+    instance-id: webuy-admin::${eureka.instance.ip-address}:${server.port}
     prefer-ip-address: true     #访问路径可以显示IP地址
     ip-address: 119.3.11.116   #server和client不在同一网段使用ip-address:配置
     health-check-url-path: /actuator/health

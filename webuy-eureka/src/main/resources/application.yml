@@ -31,7 +31,7 @@ logging:
 
 eureka:
   instance:
-    instance-id: webuy-eureka
+    instance-id: webuy-eureka:${eureka.instance.ip-address}:${server.port}
     hostname: localhost #eureka服务端的实例名称
     ip-address: 47.99.129.104
   client:
