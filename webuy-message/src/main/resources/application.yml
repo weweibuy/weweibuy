@@ -3,7 +3,7 @@ server:
 
 spring:
    application:
-     name: weweibuy-message
+     name: webuy-message
    datasource:
         type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
         driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
@@ -23,10 +23,10 @@ spring:
                mergeSql: true   # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
                slowSqlMillis: 5000
    rabbitmq:
-     host: 192.168.1.104
+     host: 47.99.129.104
      port: 5672
-     username: guest
-     password: guest
+     username: user01
+     password: ak402507979
      virtual-host: /message
      connection-timeout: 15000
      listener:    #监听数量
@@ -49,6 +49,18 @@ spring:
      template:
        mandatory: true    #使用returnCallback必须为true
 
+   boot:
+     admin:
+       auto-registration: true  #客户端是否自动注册
+       client:
+         enabled: true
+         service-url: "http://119.3.11.116:7501"
+         username: admin
+         password: ak402507979
+         instance:
+           prefer-ip: true  #客户端是否提供本机真实ip
+
+
 ##配置日志
 logging:
   config: classpath:config/logback/logback-spring.xml
@@ -58,9 +70,9 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone:  http://admin:ak402507979@47.99.129.104:7001/eureka
     instance:
-        instance-id: weweibuy-backstage
+        instance-id: webuy-message
         prefer-ip-address: true     #访问路径可以显示IP地址
 
 mybatis:
@@ -77,3 +89,12 @@ feign:
         isolation:
           thread:
             timeoutInMilliseconds: 2000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

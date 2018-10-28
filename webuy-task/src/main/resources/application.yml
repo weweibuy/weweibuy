@@ -30,16 +30,17 @@ spring:
      exposeRequestAttributes: true
      exposeSpringMacroHelpers: true
      exposeSessionAttributes: true
-   boot:
-      admin:
-        auto-registration: true  #客户端是否自动注册
-        client:
-          enabled: true
-          service-url: "http://47.99.129.104:7501"
-          username: admin
-          password: ak402507979
-          instance:
-            prefer-ip: true  #客户端是否提供本机真实ip
+#   boot:
+#     admin:
+#        client:
+#          auto-registration: true  #客户端是否自动注册
+#          url: 119.3.11.116:7501  #admin server 的地址
+#          enabled: true
+#          username: admin
+#          password: ak402507979
+#          instance:
+#            prefer-ip: true  #客户端是否提供本机真实ip
+#            service-url: http://${eureka.instance.ip-address}:${server.port}  #如果server和client不在同一网段,填写真实ip，否则服务奖处于offline状态
 
    security:
      user:
@@ -48,14 +49,9 @@ spring:
 
 server:
   port: 9301
-
-##配置日志
-                #logging:
-                #  #配置日志文件路径
-                #  file: log
-                #  level:
-                #    root: debug
-
+  tomcat:
+    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
+    min-spare-threads: 5    #初始化线程数
 
 logging:
   config: classpath:config/logback/logback-spring.xml
@@ -65,9 +61,20 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
-    instance:
-        instance-id: webuy-task
-        prefer-ip-address: true     #访问路径可以显示IP地址
+  instance:
+    instance-id: webuy-task:${eureka.instance.ip-address}:${server.port}  #必须唯一
+    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
+    ip-address: 127.0.0.1
+    metadata-map:
+       context-path: /actuator
+       startup: ${random.int}    #needed to trigger info and endpoint update after restart
+       "user.name": ${spring.security.user.name}         #These two are needed so that the server
+       "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+    health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
+    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
+
+
 
 mybatis:
   config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径

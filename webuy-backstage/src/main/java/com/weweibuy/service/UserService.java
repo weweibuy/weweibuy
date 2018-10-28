@@ -3,6 +3,7 @@ package com.weweibuy.service;
 
 import com.weweibuy.po.TbUser;
 import com.weweibuy.po.TbUserExample;
+import com.weweibuy.service.base.BaseService;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
-package com.weweibuy.service.impl;
+package com.weweibuy.service.base.impl;
 
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.weweibuy.dto.PageResult;
 import com.weweibuy.mapper.base.BaseMapper;
-import com.weweibuy.service.BaseService;
+import com.weweibuy.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;

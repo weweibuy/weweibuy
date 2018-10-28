@@ -7,7 +7,7 @@
   	<link rel="stylesheet" href="${request.contextPath}/adminlte/plugins/datatables/dataTables.bootstrap.css">
     <title>${I18n.admin_name}</title>
 </head>
-<body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if> ">
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 	<!-- header -->
 	<@netCommon.commonHeader />
@@ -74,7 +74,7 @@
                                                     title="${group.title}"
                                                     order="${group.order}"
                                                     addressType="${group.addressType}"
-                                                    addressList="${group.addressList}" >${I18n.system_opt_edit}</button>
+                                                    addressList="${group.addressList !}  " >${I18n.system_opt_edit}</button>
                                             <button class="btn btn-danger btn-xs remove" id="${group.id}" >${I18n.system_opt_del}</button>
 										</td>
 									</tr>

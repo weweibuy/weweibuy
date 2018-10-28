@@ -3,9 +3,9 @@ VOLUME /tmp
 VOLUME /logs
 RUN mkdir -p /tmp  \
 mkdir -p /logs \
-mkdir -p /logs/eureka01 \
-touch -p /logs/eureka01/gc.log
-ADD webuy-eureka.jar app.jar
+mkdir -p /logs/task \
+touch -p /logs/task/gc.log
+ADD webuy-task.jar app.jar
 #RUN sh -c 'touch /app.jar'
 
 #ENV命令用于设置环境变量。这些变量以”key=value”的形式存在，并可以在容器内被脚本或者程序调用。
@@ -18,8 +18,8 @@ ENV JAVA_OPTS=" \
 -XX:+PrintGCTimeStamps \
 -XX:+PrintGCDateStamps \
 -XX:+HeapDumpOnOutOfMemoryError \
--XX:HeapDumpPath=/log/eureka01/heapdump \
--Xloggc:/logs/eureka01/gc.log \
+-XX:HeapDumpPath=/logs/task/heapdump \
+-Xloggc:/logs/task/gc.log \
 -Djava.compiler=NONE \
 -Duser.timezone=GMT+08 \
 -Djava.security.egd=file:/dev/./urandom"
@@ -27,4 +27,4 @@ ENV JAVA_OPTS=" \
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
 
 #启动容器:
-    #docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 7001:7001 --name eureka webuy-eureka:1.0
+#docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 7501:7501 --name webuy-task webuy-task:1.0

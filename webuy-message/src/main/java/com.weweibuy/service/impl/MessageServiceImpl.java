@@ -3,6 +3,7 @@ package com.weweibuy.service.impl;
 import com.weweibuy.po.WeweibuyMessage;
 import com.weweibuy.po.WeweibuyMessageExample;
 import com.weweibuy.service.MessageService;
+import com.weweibuy.service.base.impl.BaseServiceImpl;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;

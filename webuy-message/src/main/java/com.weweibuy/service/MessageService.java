@@ -2,6 +2,7 @@ package com.weweibuy.service;
 
 import com.weweibuy.po.WeweibuyMessage;
 import com.weweibuy.po.WeweibuyMessageExample;
+import com.weweibuy.service.base.BaseService;
 
 /**
  * @InterfaceName MessageService
