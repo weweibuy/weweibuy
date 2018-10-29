@@ -1,0 +1,33 @@
+1.堆内存
+       JVM初始分配的内存由-Xms指定，默认是物理内存的1/64；
+       JVM最大分配的内存由-Xmx指 定，默认是物理内存的1/4。
+       默认空余堆内存小于40%时，JVM就会增大堆直到-Xmx的最大限制；
+       空余堆内存大于70%时，JVM会减少堆直到 -Xms的最小限制。
+       因此服务器一般设置-Xms、-Xmx相等以避免在每次GC 后调整堆的大小。
+       对象的堆内存由称为垃圾回收器的自动内存管理系统回收。
+
+2.非堆内存
+    非堆内存分配
+      -XX:MaxMetaspaceSize：用来指定永久区的最大可用值；
+
+3.JVM设置参数
+    -Xmx300m                   　　　　　　最大堆大小
+    -Xms300m                　　　　　　　　初始堆大小
+    -Xmn100m                　  　　　　　　年轻代大小
+    -XX:SurvivorRatio=8        　　　　　　Eden区与Survivor区的大小比值，设置为8,则两个Survivor区与一个Eden区的比值为2:8,一个Survivor区占整个年轻代的1/10
+
+    -XX:+UseG1GC                　　　　　　使用 G1 (Garbage First) 垃圾收集器
+    -XX:MaxTenuringThreshold=14        　　提升年老代的最大临界值(tenuring threshold). 默认值为 15[每次GC，增加1岁，到15岁如果还要存活，放入Old区]
+    -XX:ParallelGCThreads=8            　　设置垃圾收集器在并行阶段使用的线程数[一般设置为本机CPU线程数相等，即本机同时可以处理的个数，设置过大也没有用]
+    -XX:ConcGCThreads=8            　　　　并发垃圾收集器使用的线程数量
+
+    -XX:+DisableExplicitGC　　　　　　　　　　禁止在启动期间显式调用System.gc()
+
+    -XX:+HeapDumpOnOutOfMemoryError        OOM时导出堆到文件
+    -XX:HeapDumpPath=d:/a.dump        　　  导出OOM的路径
+    -XX:+PrintGCDetails           　　　　   打印GC详细信息
+    -XX:+PrintGCTimeStamps            　　　 打印CG发生的时间戳
+    -XX:+PrintHeapAtGC            　　　　　  每一次GC前和GC后，都打印堆信息
+    -verbose:gc
+    -Xloggc:gcc.log            GC 日志输出文件
+    -XX:+TraceClassLoading            　　　  监控类的加载
