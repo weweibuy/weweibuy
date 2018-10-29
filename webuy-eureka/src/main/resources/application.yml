@@ -7,7 +7,7 @@ spring:
       password: ak402507979
   boot:
     admin:
-      auto-registration: true  #客户端是否自动注册
+      auto-registration: true  #客户端是否自动注 册
       client:
         url: 119.3.11.116:7501
         enabled: true
