@@ -31,7 +31,9 @@ logging:
 
 eureka:
   instance:
-    hostname: localhost #eureka服务端的实例名称
+    instance-id: webuy-eureka:${eureka.instance.ip-address}:${server.port}
+    hostname: localhost  #eureka服务端的实例名称
+    ip-address: 47.99.129.104
   server:
     enable-self-preservation: false  #关闭自我保护
     response-cache-auto-expiration-in-seconds: 120
