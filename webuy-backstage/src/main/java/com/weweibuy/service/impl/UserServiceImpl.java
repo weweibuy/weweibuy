@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.weweibuy.po.TbUser;
 import com.weweibuy.po.TbUserExample;
 import com.weweibuy.service.UserService;
+import com.weweibuy.service.base.impl.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

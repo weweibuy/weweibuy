@@ -53,9 +53,8 @@ eureka:
     service-url:
       defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
     instance:
-      instance-id: webuy-backstage
-      prefer-ip-address: true   #访问路径可以显示IP地址
-    registry-fetch-interval-seconds: 15  #eureka client刷新本地缓存时间
+        instance-id: webuy-backstage
+        prefer-ip-address: true     #访问路径可以显示IP地址
 
 
 

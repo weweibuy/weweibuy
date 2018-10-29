@@ -1,7 +1,6 @@
 package com.weweibuy.controller;
 
 import com.rabbitmq.client.Channel;
-import com.weweibuy.mapper.TbUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
@@ -28,9 +27,6 @@ import java.util.List;
 @Slf4j
 public class HelloController {
 
-
-    @Autowired
-    private TbUserMapper userMapper;
 
     @Autowired
     private RabbitTemplate rabbitTemplate;

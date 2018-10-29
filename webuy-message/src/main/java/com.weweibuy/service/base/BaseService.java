@@ -1,4 +1,4 @@
-package com.weweibuy.service;
+package com.weweibuy.service.base;
 
 
 import com.weweibuy.dto.PageResult;
