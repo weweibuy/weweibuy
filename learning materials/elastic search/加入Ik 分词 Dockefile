@@ -1,0 +1,7 @@
+1.下载ik分词
+2.解压
+3.Dockerfile
+    FROM elasticsearch:5.5.1
+    RUN mkdir -p /usr/share/elasticsearch/plugins/ik
+    ADD elasticsearch /usr/share/elasticsearch/plugins/ik/
+4.构建镜像
