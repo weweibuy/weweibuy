@@ -1,4 +1,4 @@
 docker run -e ES_JAVA_OPTS="-Xms256m -Xmx256m" -d -p 9200:9200 -p 9300:9300 --name ES 37ad37f1c8a7
 
 
-docker run  -v /docker/es/config/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml -v /docker/es/data:/usr/share/elasticsearch/data -v /docker/es/logs:/usr/share/elasticsearch/logs -e ES_JAVA_OPTS="-Xms64m -Xmx256m" -e "discovery.type=single-node"  -p 9200:9200 -p 9300:9300 --name ES elasticsearch:5.5.0
+docker run  -v /docker/es/config/elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml -v /docker/es/data:/usr/share/elasticsearch/data -v /docker/es/logs:/usr/share/elasticsearch/logs -e ES_JAVA_OPTS="-Xms64m -Xmx256m" -e "discovery.type=single-node"  -p 9200:9200 -p 9300:9300 --name ES elasticsearch:5.5.1
