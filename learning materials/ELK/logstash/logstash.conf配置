@@ -1,0 +1,25 @@
+input {
+  file {
+    path => "/tmp/access_log"
+    start_position => "beginning"
+  }
+}
+output {
+  elasticsearch {
+    hosts => ["localhost:9200"]
+    user => "user01"
+    password => "ak402507979"
+  }
+}
+
+
+input {
+    tcp {
+        port => 4560   //从本地的4560端口取日志。这里笔者将Logstash部署在了虚拟机192.168.226.132上，所以取的是本地地址。
+        codec => json_lines  //需要安装logstash-codec-json_lines插件
+    }
+}
+output{
+  elasticsearch { hosts => ["localhost:9200"] }  //输出到ElasticSearch
+  stdout { codec => rubydebug }  //若不需要在控制台中输出，此行可以删除
+}

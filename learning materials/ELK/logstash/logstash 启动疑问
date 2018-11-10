@@ -1,0 +1,18 @@
+docker run -v /docker/logstash/config/conf.d:/usr/share/logstash/pipeline/:ro -v /docker/logstash/config/logstash.yml:/etc/logstash/logstash.yml  -it --rm --name my-logstash --network host logstash:5.5.1
+
+一、挂载启动疑问
+    必须打开logstash.yml  path.config的注释！！！！！！！！！！！！！
+    path.config注释的路径就是/docker/logstash/config/conf.d目录的挂载路径！！！
+    这样 自己配置的input output才会生效！！！
+
+
+其中必须必须将/docker/logstash/config/conf.d 挂载到/usr/share/logstash/pipeline/:ro中
+否则将无法输入到es 中
+疑问：
+    1./usr/share/logstash/pipeline   应该是一个管道还配置？？
+    1.1 logstash 中 pipeline  意思是什么？
+    2.docker 中 ro 命令意思
+    3.将/docker/logstash/config/conf.d 挂载到/etc/logstash/conf.d 为何不能输出到es中？？
+
+ 二、正确启动
+ docker run --rm -it -v /docker/logstash/config/conf.d/:/etc/logstash/conf.d/ -v /docker/logstash/config/logstash.yml:/etc/logstash/logstash.yml -p 4560:4560   --name logstash logstash:5.5.1

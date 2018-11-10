@@ -1,0 +1,5 @@
+一、挂载启动
+1.es容器中有两个 elasticsearch.yml 一个在etc下，一个在usr/share下，容器应该读取的是usr下的
+    这两个有什么区别
+2.配置transport.host: 0.0.0.0导致esmax virtual memory areas vm.max_map_count无法启动
+    而不配置却可以启动？

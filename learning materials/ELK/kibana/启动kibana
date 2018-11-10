@@ -1,0 +1,1 @@
+docker run -v /docker/kibana/config/kibana.yml:/etc/kibana/kibana.yml -p 5601:5601 --rm --name ki kibana:5.5.1

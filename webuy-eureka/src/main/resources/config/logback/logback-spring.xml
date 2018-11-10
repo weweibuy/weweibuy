@@ -141,8 +141,6 @@
     <!--输出到logstash-->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>119.3.11.116:4560</destination>
-        <!--<port>5000</port>-->
-        <!-- encoder is required -->
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 
@@ -187,6 +185,7 @@
         <!--<appender-ref ref="INFO_FILE" />-->
         <!--<appender-ref ref="WARN_FILE" />-->
         <!--<appender-ref ref="ERROR_FILE" />-->
+        <!--<appender-ref ref="LOGSTASH" />-->
     <!--</root>-->
 
     <!--4.2 生产环境:输出到文档-->

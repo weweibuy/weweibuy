@@ -1,0 +1,12 @@
+1.配置文件 elasticsearch.yml
+
+http.host: 0.0.0.0
+cluster.name: my-es
+node.name: node-1
+# Uncomment the following lines for a production cluster deployment
+#transport.host: 0.0.0.0
+#discovery.zen.minimum_master_nodes: 1
+
+
+2.挂载启动
+docker run  -e ES_JAVA_OPTS="-Xms256m -Xmx256m"  -v /docker/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml -v /docker/elasticsearch/data/:/usr/share/elasticsearch/data/  -v /docker/elasticsearch/logs/:/usr/share/elasticsearch/logs/  -p 9200:9200 -p 9300:9300    -d --name es elasticsearch_ik:5.5.1

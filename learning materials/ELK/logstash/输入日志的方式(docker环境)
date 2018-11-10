@@ -1,0 +1,30 @@
+1.读取文件形式
+    input{
+        file {  
+                path =>[  
+                    "/home/husen/Desktop/log/test1.log",  
+                    "/home/husen/Desktop/log/test2.log"  
+                ]  
+                start_position => "beginning"
+        }
+    }
+    注意：文件必须是在容器内部才能读取；容器外部(宿主机)文件无法读取到，可能需要挂载日志文件
+
+2.监听TCP端口
+    --------------logstash中--------------
+    input {
+       tcp {
+            port => 4560
+            codec => json_lines  #这个干什么的还不清楚
+       }
+      stdin {}
+    }
+
+    ----------------springBoot App 中--------------------
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>119.3.11.116:4560</destination>
+            <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
+    这个 encoder的匹配规则  logstash会自动给我切割出 "level" "thread_name" "logger_name" 等信息
+    注意：在启动容器时必须与宿主机端口互相映射
+    Debug情况下有很多日志丢失！！！！(未解决)
