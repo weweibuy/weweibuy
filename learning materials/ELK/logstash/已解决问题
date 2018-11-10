@@ -1,0 +1,19 @@
+1.logstash 输出@timestamp 时区错误问题
+
+    filter {
+        json {   #线将日志json格式化
+            source => "message"
+        }
+        ruby {  #创建一个临时field timestamp
+            code => "event.set('timestamp', event.get('@timestamp').time.localtime + 8*60*60)"
+        }
+        ruby {  #将临时timestamp  赋值给@timestamp
+            code => "event.set('@timestamp',event.get('timestamp'))"
+        }
+        mutate {  #删除将临时timestamp
+            remove_field => ["timestamp"]
+       }
+    }
+
+    注意：如果@timestamp默认使用的是格林尼治时间，如果以 index => "eureka-%{+YYYY.MM.dd}"
+          方式建立索引，将出现早上8点建立的情况。改变timestamp可以解决

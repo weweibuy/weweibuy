@@ -1,25 +1,81 @@
-input {
-  file {
-    path => "/tmp/access_log"
-    start_position => "beginning"
-  }
-}
-output {
-  elasticsearch {
-    hosts => ["localhost:9200"]
-    user => "user01"
-    password => "ak402507979"
-  }
-}
-
-
-input {
-    tcp {
-        port => 4560   //从本地的4560端口取日志。这里笔者将Logstash部署在了虚拟机192.168.226.132上，所以取的是本地地址。
-        codec => json_lines  //需要安装logstash-codec-json_lines插件
+1.input
+    input {
+       tcp {
+            port => 4560
+            tags => "eureka_log"
+       }
+      stdin {}
     }
+
+2.filter
+    filter {
+        json {
+            source => "message"
+        }
+        ruby {
+            code => "event.set('timestamp', event.get('@timestamp').time.localtime + 8*60*60)"
+        }
+        ruby {
+            code => "event.set('@timestamp',event.get('timestamp'))"
+        }
+        mutate {
+            remove_field => ["timestamp"]
+       }
+    }
+
+    ruby {
+            code => "event.set('tags', event.get('appname'))"
+        }
+
+
+3.output
+    output {
+      if "eureka_log" in [tags] {
+            elasticsearch {
+                    hosts => ["119.3.11.116:9200"]
+                    index => "eureka-%{+YYYY.MM}"
+                    document_type  => "eureka-%{+YYYY.MM.dd}"
+            }
+      } else if "task_log" in [tags] {
+            elasticsearch {
+                    hosts => ["119.3.11.116:9200"]
+                    index => "task-%{+YYYY.MM}"
+                    document_type  => "task-%{+YYYY.MM.dd}"
+            }
+      }
+      stdout { codec => rubydebug }
+    }
+
+-----------------最终版---------------------
+input {
+   tcp {
+        port => 4560
+   }
+  stdin {}
 }
-output{
-  elasticsearch { hosts => ["localhost:9200"] }  //输出到ElasticSearch
-  stdout { codec => rubydebug }  //若不需要在控制台中输出，此行可以删除
+
+filter {
+    json {
+        source => "message"
+    }
+    ruby {
+        code => "event.set('timestamp', event.get('@timestamp').time.localtime + 8*60*60)"
+    }
+    ruby {
+        code => "event.set('@timestamp',event.get('timestamp'))"
+    }
+    mutate {
+        remove_field => ["timestamp"]
+   }
 }
+
+output {
+    elasticsearch {
+        hosts => ["119.3.11.116:9200"]
+        index => "%{app_name}-%{+YYYY.MM}"
+        document_type  => "%{app_name}-%{+YYYY.MM.dd}"
+    }
+  stdout { codec => rubydebug }
+}
+
+------------------------------------------------

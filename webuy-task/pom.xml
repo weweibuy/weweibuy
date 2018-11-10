@@ -80,6 +80,12 @@
             <version>5.0.2.RELEASE</version>
         </dependency>
 
+        <!--logstash日志收集-->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>4.9</version>
+        </dependency>
 
     </dependencies>
 
