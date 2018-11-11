@@ -1,0 +1,4 @@
+1.时区问题
+    在logstash中将@timestamp增加8h后，kibana的Discover中进行过滤时，会在原来的基础上在加8h
+    解决：
+        Management => Advanced Setting => dateFormat:Tz  改为：Etc/UTC

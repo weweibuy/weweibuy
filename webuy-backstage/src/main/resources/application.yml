@@ -1,4 +1,9 @@
+server:
+  port: 8001
+
 spring:
+   profiles:
+     active: @profileActive@
    application:
      name: webuy-backstage
    datasource:
@@ -40,8 +45,7 @@ spring:
 #    admin:
 #      url: http://localhost:8001/application/admin
 
-server:
-  port: 8001
+
 
 
 logging:

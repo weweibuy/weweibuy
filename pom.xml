@@ -172,13 +172,6 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
 
-            <!-- freemarker -->
-            <!--<dependency>-->
-                <!--<groupId>org.freemarker</groupId>-->
-                <!--<artifactId>freemarker</artifactId>-->
-                <!--<version>${freemarker.version}</version>-->
-            <!--</dependency>-->
-
             <!-- commons-email -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -195,6 +188,42 @@
         </dependencies>
     </dependencyManagement>
 
+
+    <profiles>
+        <!--开发环境-->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>dev</profileActive>
+            </properties>
+        </profile>
+        <!--测试环境-->
+        <profile>
+            <id>test</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>test</profileActive>
+            </properties>
+        </profile>
+        <!--生产环境-->
+        <profile>
+            <id>prod</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile.id>prod</build.profile.id>
+            </properties>
+        </profile>
+    </profiles>
+
+
+
     <build>
         <finalName>${artifactId}</finalName>
         <resources>
@@ -209,6 +238,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.0.1.RELEASE</version>
                 <executions>
                     <execution>
                         <goals>
@@ -221,19 +251,32 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
                 <configuration>
                     <delimiters>
-                        <delimit>$</delimit>
+                        <delimiter>@</delimiter>
                     </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <repository>
-        <id>alimaven</id>
-        <name>aliyun maven</name>
-        <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-    </repository>
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <name>Nexus aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <developers>
+        <developer>
+            <name>durenhao</name>
+            <email>ak514250@126.com</email>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
 
 </project>
