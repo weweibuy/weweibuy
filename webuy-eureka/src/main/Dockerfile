@@ -3,8 +3,8 @@ VOLUME /tmp
 VOLUME /logs
 RUN mkdir -p /tmp  \
 mkdir -p /logs \
-mkdir -p /logs/eureka01 \
-touch -p /logs/eureka01/gc.log
+mkdir -p /logs/webuy-eureka \
+touch -p /logs/webuy-eureka/gc.log
 ADD webuy-eureka.jar app.jar
 #RUN sh -c 'touch /app.jar'
 
@@ -15,11 +15,11 @@ ENV JAVA_OPTS=" \
 -Xms56m \
 -XX:+PrintGCDetails \
 -XX:+PrintTenuringDistribution \
--XX:+PrintGCTimeStamps \
+#-XX:+PrintGCTimeStamps \
 -XX:+PrintGCDateStamps \
 -XX:+HeapDumpOnOutOfMemoryError \
--XX:HeapDumpPath=/log/eureka01/heapdump \
--Xloggc:/logs/eureka01/gc.log \
+-XX:HeapDumpPath=/log/webuy-eureka/webuy-eureka-heap.dump \
+-Xloggc:/logs/webuy-eureka/webuy-eureka-gc.log \
 -Djava.compiler=NONE \
 -Duser.timezone=GMT+08 \
 -Djava.security.egd=file:/dev/./urandom"

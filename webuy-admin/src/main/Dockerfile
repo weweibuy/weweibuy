@@ -3,8 +3,8 @@ VOLUME /tmp
 VOLUME /logs
 RUN mkdir -p /tmp  \
 mkdir -p /logs \
-mkdir -p /logs/admin \
-touck -p /logs/admin/gc.log
+mkdir -p /logs/webuy-admin \
+touch -p /logs/webuy-admin/gc.log
 ADD webuy-admin.jar app.jar
 #RUN sh -c 'touch /app.jar'
 
@@ -15,11 +15,11 @@ ENV JAVA_OPTS=" \
 -Xms56m \
 -XX:+PrintGCDetails \
 -XX:+PrintTenuringDistribution \
--XX:+PrintGCTimeStamps \
+#-XX:+PrintGCTimeStamps \
 -XX:+PrintGCDateStamps \
 -XX:+HeapDumpOnOutOfMemoryError \
--XX:HeapDumpPath=/logs/admin/heapdump \
--Xloggc:/logs/admin/gc.log \
+-XX:HeapDumpPath=/logs/webuy-admin/webuy-admin-heap.dump \
+-Xloggc:/logs/webuy-admin/webuy-admin-gc.log \
 -Djava.compiler=NONE \
 -Duser.timezone=GMT+08 \
 -Djava.security.egd=file:/dev/./urandom"

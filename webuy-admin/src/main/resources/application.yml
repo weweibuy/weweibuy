@@ -1,4 +1,12 @@
+server:
+  port: 7501
+  tomcat:
+    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
+    min-spare-threads: 5    #初始化线程数
+
 spring:
+   profiles:
+     active: @profileActive@
    application:
      name: webuy-admin
    security:
@@ -11,14 +19,6 @@ spring:
          period: 10000 #监控刷新时间
        discovery:
          enabled: true  #是否开启自动发现服务
-
-
-
-server:
-  port: 7501
-  tomcat:
-    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
-    min-spare-threads: 5    #初始化线程数
 
 
 logging:
@@ -38,14 +38,37 @@ management:
 
 
 
-
+---
+spring:
+  profiles: dev
 eureka:
   client:
     register-with-eureka: true
     service-url:
       defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
   instance:
-    instance-id: webuy-admin::${eureka.instance.ip-address}:${server.port}
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+    prefer-ip-address: true     #访问路径可以显示IP地址
+    ip-address: 127.0.0.01   #server和client不在同一网段使用ip-address:配置
+    health-check-url-path: /actuator/health
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
+    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
+    metadata-map:
+      context-path: /actuator
+      startup: ${random.int}    #needed to trigger info and endpoint update after restart
+      "user.name": ${spring.security.user.name}         #These two are needed so that the server
+      "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+
+---
+spring:
+  profiles: test
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
     prefer-ip-address: true     #访问路径可以显示IP地址
     ip-address: 119.3.11.116   #server和client不在同一网段使用ip-address:配置
     health-check-url-path: /actuator/health
@@ -56,3 +79,4 @@ eureka:
       startup: ${random.int}    #needed to trigger info and endpoint update after restart
       "user.name": ${spring.security.user.name}         #These two are needed so that the server
       "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+---
