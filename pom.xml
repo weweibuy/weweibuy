@@ -23,6 +23,11 @@
         <module>webuy-order</module>
         <module>webuy-task</module>
         <module>webuy-admin</module>
+        <module>webuy-product</module>
+        <module>webuy-inventory</module>
+        <module>webuy-pay</module>
+        <module>webuy-auth</module>
+        <module>webuy-user</module>
     </modules>
 
 
