@@ -1,0 +1,1 @@
+docker run -d -p 80:80 -v /docker/nginx/config/nginx.conf:/etc/nginx/nginx.conf -v /docker/nginx/config/conf.d:/etc/nginx/conf.d -v /docker/nginx/html:/usr/share/nginx/html --name nginx nginx:1.14
