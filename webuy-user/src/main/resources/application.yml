@@ -1,14 +1,14 @@
 server:
   port: 8201
   tomcat:
-    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
+    max-threads: 10
     min-spare-threads: 5    #初始化线程数
 
 spring:
    profiles:
      active: @profileActive@
    application:
-     name: webuy-task
+     name: webuy-user
    datasource:
      type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
      driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
@@ -38,22 +38,24 @@ spring:
      exposeRequestAttributes: true
      exposeSpringMacroHelpers: true
      exposeSessionAttributes: true
-#   boot:
-#     admin:
-#        client:
-#          auto-registration: true  #客户端是否自动注册
-#          url: 119.3.11.116:7501  #admin server 的地址
-#          enabled: true
-#          username: admin
-#          password: ak402507979
-#          instance:
-#            prefer-ip: true  #客户端是否提供本机真实ip
-#            service-url: http://${eureka.instance.ip-address}:${server.port}  #如果server和client不在同一网段,填写真实ip，否则服务奖处于offline状态
 
    security:
      user:
        name: admin
        password: ak402507979
+
+   redis:
+     database: 1 # Redis数据库索引（默认为0）
+     host: 47.99.129.104  #Redis服务器地址
+     port: 6379 # Redis服务器连接端口
+     password: ak402507979 # Redis服务器连接密码（默认为空）
+     jedis:
+       max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+       max-idle: 3 # 连接池中的最大空闲连接
+       max-wait: 2000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+       min-idle: 2 # 连接池中的最小空闲连接
+       timeout: 2000 # 连接超时时间（毫秒）
+
 
 
 
@@ -110,7 +112,7 @@ eureka:
 
 mybatis:
   config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
-  type-aliases-package: com.weweibuy.po    # 所有Entity别名类所在包
+  type-aliases-package: com.weweibuy.user.po    # 所有Entity别名类所在包
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
 
 
@@ -132,3 +134,4 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+

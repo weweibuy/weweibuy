@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jq/jquery-1.4.2.min.js"></script>
+    <script src="jsrsasign/jsencrypt.min.js"></script>
+</head>
+<body>
+    用户名<br>
+    <input id="username" type="text" name="username"><br>
+    密码<br>
+    <input id="pwd" type="text" name="password"><br>
+    验证码<br>
+    <input id="code" type="text" name="verificationCode"><br>
+    <button id="action">提交</button>
+
+    <script>
+        $("#action").click(function () {
+            var encryptData = encrypt.encrypt($("#pwd").val() + "||" + $("#verificationCode").val());//加密后的字符串
+            console.log(encryptData);
+            $.ajax({
+                type: "post",
+                url: '/user/register',
+                data: {'pwd': encryptData},
+                success: function (data) {
+                    alert("success");
+                }
+            });
+        })
+
+    </script>
+
+</body>
+</html>
