@@ -60,11 +60,6 @@
             <artifactId>spring-boot-starter-redis</artifactId>
         </dependency>
 
-        <!--spring-retry-->
-        <dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
-        </dependency>
 
         <!--lombok-->
         <dependency>
@@ -88,6 +83,12 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>4.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

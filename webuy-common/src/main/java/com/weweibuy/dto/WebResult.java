@@ -28,15 +28,27 @@ public class WebResult implements Serializable {
     }
 
     public static WebResult success(){
-        return new WebResult();
+        return new WebResult(1, "SUCCESS", "", null);
     }
 
     public static WebResult success(Object data){
-        return new WebResult(1, "", "", data);
+        return new WebResult(1, "SUCCESS", "", data);
+    }
+
+    public static WebResult success(String msg, Object data){
+        return new WebResult(1, "SUCCESS", msg, data);
+    }
+
+    public static WebResult success(String msg){
+        return new WebResult(1, "SUCCESS", msg, null);
     }
 
     public static WebResult fail(){
-        return new WebResult();
+        return new WebResult(0, "FAIL", null, null);
+    }
+
+    public static WebResult fail(String msg){
+        return new WebResult(0, "FAIL", msg, null);
     }
 
 }
