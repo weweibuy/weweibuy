@@ -656,7 +656,7 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
   def("text/x-nesc", {
     name: "clike",
     keywords: words(cKeywords + "as atomic async call command component components configuration event generic " +
-                    "implementation includes interface module new norace nx_struct nx_union post provides " +
+                    "implementation includes interface model new norace nx_struct nx_union post provides " +
                     "signal task uses abstract extends"),
     types: words(cTypes),
     blockKeywords: words("case do else for if switch while struct"),
@@ -725,7 +725,7 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
   def("text/x-ceylon", {
     name: "clike",
     keywords: words("abstracts alias assembly assert assign break case catch class continue dynamic else" +
-                    " exists extends finally for function given if import in interface is let module new" +
+                    " exists extends finally for function given if import in interface is let model new" +
                     " nonempty object of out outer package return satisfies super switch then this throw" +
                     " try value void while"),
     types: function(word) {
@@ -733,8 +733,8 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
         var first = word.charAt(0);
         return (first === first.toUpperCase() && first !== first.toLowerCase());
     },
-    blockKeywords: words("case catch class dynamic else finally for function if interface module new object switch try while"),
-    defKeywords: words("class dynamic function interface module object package value"),
+    blockKeywords: words("case catch class dynamic else finally for function if interface model new object switch try while"),
+    defKeywords: words("class dynamic function interface model object package value"),
     builtin: words("abstract actual aliased annotation by default deprecated doc final formal late license" +
                    " native optional sealed see serializable shared suppressWarnings tagged throws variable"),
     isPunctuationChar: /[\[\]{}\(\),;\:\.`]/,

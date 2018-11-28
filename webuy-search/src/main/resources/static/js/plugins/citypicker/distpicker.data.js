@@ -10,7 +10,7 @@
 
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
-    // AMD. Register as anonymous module.
+    // AMD. Register as anonymous model.
     define('ChineseDistricts', [], factory);
   } else {
     // Browser globals.

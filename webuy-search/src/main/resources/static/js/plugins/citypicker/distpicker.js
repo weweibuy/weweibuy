@@ -10,7 +10,7 @@
 
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
-    // AMD. Register as anonymous module.
+    // AMD. Register as anonymous model.
     define(['jquery', 'ChineseDistricts'], factory);
   } else if (typeof exports === 'object') {
     // Node / CommonJS
