@@ -1,4 +1,4 @@
-package com.weweibuy.user.module.vo;
+package com.weweibuy.user.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

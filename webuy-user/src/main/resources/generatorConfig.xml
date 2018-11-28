@@ -11,48 +11,44 @@
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/mybatis" userId="root"
-			password="mysql">
+			connectionURL="jdbc:mysql://47.99.129.104:3306/webuy_user?characterEncoding=UTF-8" userId="user01"
+			password="ak402507979">
 		</jdbcConnection>
-		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
-			connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg" 
-			userId="yycg"
-			password="yycg">
-		</jdbcConnection> -->
 
-		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
 			NUMERIC 类型解析为java.math.BigDecimal -->
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
 		<!-- targetProject:生成PO类的位置 -->
-		<javaModelGenerator targetPackage="cn.itcast.ssm.po"
-			targetProject=".\src">
+		<javaModelGenerator targetPackage="com.weweibuy.user.model.po"
+			targetProject="src/main/java">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 			<!-- 从数据库返回的值被清理前后的空格 -->
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
         <!-- targetProject:mapper映射文件生成的位置 -->
-		<sqlMapGenerator targetPackage="cn.itcast.ssm.mapper" 
-			targetProject=".\src">
+		<sqlMapGenerator targetPackage="config.mybatis.mapper"
+			targetProject="src/main/resources">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 		<!-- targetPackage：mapper接口生成的位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="cn.itcast.ssm.mapper" 
-			targetProject=".\src">
+							 targetPackage="com.weweibuy.user.mapper"
+							 targetProject="src/main/java">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
-		<!-- 指定数据库表 -->
-		<table schema="" tableName="user"></table>
-		<table schema="" tableName="orders"></table>
-		<table schema="" tableName="items"></table>
-		<table schema="" tableName="orderdetail"></table>
-		
+
+		<!--数据库中表生成类的信息-->
+		<table tableName="webuy_user"
+			   enableCountByExample="true" enableUpdateByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true" >
+		</table>
+
 		<!-- 有些表的字段需要指定java类型
 		 <table schema="" tableName="">
 			<columnOverride column="" javaType="" />

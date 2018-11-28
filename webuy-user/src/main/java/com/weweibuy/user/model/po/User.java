@@ -1,4 +1,4 @@
-package com.weweibuy.user.module.po;
+package com.weweibuy.user.model.po;
 
 import lombok.Data;
 

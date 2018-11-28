@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public WebResult registerUser(String phone, String data) {
+    public WebResult registerUser(String phone, String pwd) {
         // TODO 注册用户
         return null;
     }
