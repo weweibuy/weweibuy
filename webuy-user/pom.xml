@@ -36,6 +36,13 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
 
+        <!--邮件发送-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+
         <!--mybatis分页插件-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
