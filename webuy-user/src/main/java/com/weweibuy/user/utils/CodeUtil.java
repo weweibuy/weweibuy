@@ -1,5 +1,7 @@
 package com.weweibuy.user.utils;
 
+import org.springframework.util.DigestUtils;
+
 /**
  * @ClassName CodeUtil
  * @Description 各科验证码工具
@@ -12,6 +14,8 @@ public class CodeUtil {
         return (int)((Math.random()*9+1)*100000);
     }
 
-
+    public static String getStrMD5(String str){
+        return DigestUtils.md5DigestAsHex(str.getBytes());
+    }
 
 }

@@ -16,7 +16,6 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
     <result column="head_pic" jdbcType="VARCHAR" property="headPic" />
-    <result column="is_mobile_activated" jdbcType="TINYINT" property="isMobileActivated" />
     <result column="is_email_activated" jdbcType="TINYINT" property="isEmailActivated" />
     <result column="is_certification" jdbcType="TINYINT" property="isCertification" />
     <result column="acount_status" jdbcType="TINYINT" property="acountStatus" />
@@ -85,9 +84,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, username, password, phone, pay_password, user_score, total_score, nick_name, 
-    true_name, gender, birthday, email, id_card, head_pic, is_mobile_activated, is_email_activated, 
-    is_certification, acount_status, last_login_time, last_login_address, create_time, 
-    modify_time
+    true_name, gender, birthday, email, id_card, head_pic, is_email_activated, is_certification, 
+    acount_status, last_login_time, last_login_address, create_time, modify_time
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.user.model.po.WebuyUserExample" resultMap="BaseResultMap">
     select
@@ -124,18 +122,18 @@
       phone, pay_password, user_score, 
       total_score, nick_name, true_name, 
       gender, birthday, email, 
-      id_card, head_pic, is_mobile_activated, 
-      is_email_activated, is_certification, acount_status, 
-      last_login_time, last_login_address, create_time, 
-      modify_time)
+      id_card, head_pic, is_email_activated, 
+      is_certification, acount_status, last_login_time, 
+      last_login_address, create_time, modify_time
+      )
     values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{payPassword,jdbcType=VARCHAR}, #{userScore,jdbcType=INTEGER}, 
       #{totalScore,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
       #{gender,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, #{email,jdbcType=VARCHAR}, 
-      #{idCard,jdbcType=VARCHAR}, #{headPic,jdbcType=VARCHAR}, #{isMobileActivated,jdbcType=TINYINT}, 
-      #{isEmailActivated,jdbcType=TINYINT}, #{isCertification,jdbcType=TINYINT}, #{acountStatus,jdbcType=TINYINT}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP})
+      #{idCard,jdbcType=VARCHAR}, #{headPic,jdbcType=VARCHAR}, #{isEmailActivated,jdbcType=TINYINT}, 
+      #{isCertification,jdbcType=TINYINT}, #{acountStatus,jdbcType=TINYINT}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.weweibuy.user.model.po.WebuyUser">
     insert into webuy_user
@@ -181,9 +179,6 @@
       </if>
       <if test="headPic != null">
         head_pic,
-      </if>
-      <if test="isMobileActivated != null">
-        is_mobile_activated,
       </if>
       <if test="isEmailActivated != null">
         is_email_activated,
@@ -249,9 +244,6 @@
       </if>
       <if test="headPic != null">
         #{headPic,jdbcType=VARCHAR},
-      </if>
-      <if test="isMobileActivated != null">
-        #{isMobileActivated,jdbcType=TINYINT},
       </if>
       <if test="isEmailActivated != null">
         #{isEmailActivated,jdbcType=TINYINT},
@@ -327,9 +319,6 @@
       <if test="record.headPic != null">
         head_pic = #{record.headPic,jdbcType=VARCHAR},
       </if>
-      <if test="record.isMobileActivated != null">
-        is_mobile_activated = #{record.isMobileActivated,jdbcType=TINYINT},
-      </if>
       <if test="record.isEmailActivated != null">
         is_email_activated = #{record.isEmailActivated,jdbcType=TINYINT},
       </if>
@@ -372,7 +361,6 @@
       email = #{record.email,jdbcType=VARCHAR},
       id_card = #{record.idCard,jdbcType=VARCHAR},
       head_pic = #{record.headPic,jdbcType=VARCHAR},
-      is_mobile_activated = #{record.isMobileActivated,jdbcType=TINYINT},
       is_email_activated = #{record.isEmailActivated,jdbcType=TINYINT},
       is_certification = #{record.isCertification,jdbcType=TINYINT},
       acount_status = #{record.acountStatus,jdbcType=TINYINT},
@@ -426,9 +414,6 @@
       <if test="headPic != null">
         head_pic = #{headPic,jdbcType=VARCHAR},
       </if>
-      <if test="isMobileActivated != null">
-        is_mobile_activated = #{isMobileActivated,jdbcType=TINYINT},
-      </if>
       <if test="isEmailActivated != null">
         is_email_activated = #{isEmailActivated,jdbcType=TINYINT},
       </if>
@@ -468,7 +453,6 @@
       email = #{email,jdbcType=VARCHAR},
       id_card = #{idCard,jdbcType=VARCHAR},
       head_pic = #{headPic,jdbcType=VARCHAR},
-      is_mobile_activated = #{isMobileActivated,jdbcType=TINYINT},
       is_email_activated = #{isEmailActivated,jdbcType=TINYINT},
       is_certification = #{isCertification,jdbcType=TINYINT},
       acount_status = #{acountStatus,jdbcType=TINYINT},

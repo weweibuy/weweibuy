@@ -31,8 +31,6 @@ public class WebuyUser {
 
     private String headPic;
 
-    private Byte isMobileActivated;
-
     private Byte isEmailActivated;
 
     private Byte isCertification;
@@ -157,14 +155,6 @@ public class WebuyUser {
 
     public void setHeadPic(String headPic) {
         this.headPic = headPic == null ? null : headPic.trim();
-    }
-
-    public Byte getIsMobileActivated() {
-        return isMobileActivated;
-    }
-
-    public void setIsMobileActivated(Byte isMobileActivated) {
-        this.isMobileActivated = isMobileActivated;
     }
 
     public Byte getIsEmailActivated() {

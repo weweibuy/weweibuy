@@ -57,7 +57,7 @@ public class VerificationCodeUtil {
         if(json == null){
             return null;
         }
-        return JSONObject.parseObject(json, PhoneVerifyCodeVo.class).getCode()+"";
+        return (JSONObject.parseObject(json, PhoneVerifyCodeVo.class).getCode()+"").trim();
     }
 
     /**

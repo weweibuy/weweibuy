@@ -7,24 +7,43 @@
     <script src="jsrsasign/jsencrypt.min.js"></script>
 </head>
 <body>
-    用户名<br>
-    <input id="username" type="text" name="username"><br>
+    手机号<br>
+    <input id="phone" type="text" name="phone"><br>
     密码<br>
-    <input id="pwd" type="text" name="password"><br>
+    <input id="pwdData" type="text" name="password"><br>
     验证码<br>
-    <input id="code" type="text" name="verificationCode"><br>
+    <input id="code" type="text" name="verificationCode"><button id="get_code_btn">获取验证码</button><br>
     <button id="action">提交</button>
 
     <script>
+
+        $("#get_code_btn").click(function () {
+            $.ajax({
+                type: "get",
+                url: '/user/verificationCode/' + $("#phone").val(),
+                success: function (data) {
+                    if(data.status == "SUCCESS"){
+                        alert("成功")
+                    }else{
+                        alert("失败：" + data.msg);
+                    }
+                }
+            });
+        });
+
         $("#action").click(function () {
-            var encryptData = encrypt.encrypt($("#pwd").val() + "||" + $("#verificationCode").val());//加密后的字符串
+            var encryptData = encrypt.encrypt($("#pwdData").val() + "," + $("#code").val());//加密后的字符串
             console.log(encryptData);
             $.ajax({
                 type: "post",
                 url: '/user/register',
-                data: {'pwd': encryptData},
+                data: {'phone':$("#phone").val() ,'pwdData': encryptData},
                 success: function (data) {
-                    alert("success");
+                    if(data.status == "SUCCESS"){
+                        alert("成功")
+                    }else{
+                        alert("失败：" + data.msg);
+                    }
                 }
             });
         })

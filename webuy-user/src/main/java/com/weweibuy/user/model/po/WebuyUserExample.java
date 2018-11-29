@@ -1062,66 +1062,6 @@ public class WebuyUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsMobileActivatedIsNull() {
-            addCriterion("is_mobile_activated is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedIsNotNull() {
-            addCriterion("is_mobile_activated is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedEqualTo(Byte value) {
-            addCriterion("is_mobile_activated =", value, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedNotEqualTo(Byte value) {
-            addCriterion("is_mobile_activated <>", value, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedGreaterThan(Byte value) {
-            addCriterion("is_mobile_activated >", value, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedGreaterThanOrEqualTo(Byte value) {
-            addCriterion("is_mobile_activated >=", value, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedLessThan(Byte value) {
-            addCriterion("is_mobile_activated <", value, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedLessThanOrEqualTo(Byte value) {
-            addCriterion("is_mobile_activated <=", value, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedIn(List<Byte> values) {
-            addCriterion("is_mobile_activated in", values, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedNotIn(List<Byte> values) {
-            addCriterion("is_mobile_activated not in", values, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedBetween(Byte value1, Byte value2) {
-            addCriterion("is_mobile_activated between", value1, value2, "isMobileActivated");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsMobileActivatedNotBetween(Byte value1, Byte value2) {
-            addCriterion("is_mobile_activated not between", value1, value2, "isMobileActivated");
-            return (Criteria) this;
-        }
-
         public Criteria andIsEmailActivatedIsNull() {
             addCriterion("is_email_activated is null");
             return (Criteria) this;

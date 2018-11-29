@@ -57,11 +57,11 @@ public class UserController {
         }
         byte[] bytes = RSAUtil.decryptByPrivateKey(pwdData, PRIVATE_KEY);
         String data = new String(bytes);
-        String[] split = data.split("||");
+        String[] split = data.split(",");
         if(split.length != 2){
             return WebResult.fail("输入参数错误");
         }
-        if(split[1] != VerificationCodeUtil.getVerificationCode(phone)){
+        if(!split[1].trim().equals(VerificationCodeUtil.getVerificationCode(phone))){
             return WebResult.fail("验证码错误");
         }
         return userService.registerUser(phone, split[0]);
