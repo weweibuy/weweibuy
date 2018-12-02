@@ -225,6 +225,18 @@
                 <build.profile.id>prod</build.profile.id>
             </properties>
         </profile>
+
+        <!--开发环境-->
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <profileActive>local</profileActive>
+            </properties>
+        </profile>
+
     </profiles>
 
 

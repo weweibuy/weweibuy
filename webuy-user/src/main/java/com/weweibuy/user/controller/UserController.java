@@ -1,11 +1,13 @@
 package com.weweibuy.user.controller;
 
-import com.weweibuy.dto.WebResult;
+import com.weweibuy.user.eum.UserWebMsgEum;
+import com.weweibuy.user.model.dto.UserWebResult;
 import com.weweibuy.user.service.UserService;
 import com.weweibuy.user.utils.RSAUtil;
 import com.weweibuy.user.utils.VerificationCodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
  **/
 @PropertySource("classpath:config/key/key.properties")
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/user", produces="application/json;charset=UTF-8")
 @Validated  // 如果对单个参数验证这个注解要加载类上
 @Api(value = "用户接口")
 public class UserController {
@@ -42,27 +44,38 @@ public class UserController {
      */
     @GetMapping("/verificationCode/{phoneNum}")
     @ApiOperation(value = "获取验证码", notes = "1分钟获取一次验证码")
-    public WebResult sendVerificationCode(@PathVariable  String phoneNum){
+    public UserWebResult sendVerificationCode(@PathVariable  String phoneNum){
         if(phoneNum == null || !phoneNum.matches("^[1][3,4,5,7,8][0-9]{9}$")){
-            return WebResult.fail("手机号码格式错误");
+            return UserWebResult.fail(UserWebMsgEum.PHONE_NUM_PATTERN_WRONG);
         }
         return userService.sendVerificationCode(phoneNum);
     }
 
+    @GetMapping("/checkAccountExist/{phoneNum}")
+    @ApiOperation(value = "检测手机号对应账号是否存在")
+    public UserWebResult checkAccountExist(@PathVariable String phoneNum){
+        if(StringUtils.isBlank(phoneNum)){
+            return UserWebResult.paramBlank();
+        }
+        return userService.checkAccountExist(phoneNum);
+    }
+
+
     @PostMapping("/register")
     @ApiOperation(value = "注册用户")
-    public WebResult registerUser(String phone, String pwdData) throws Exception {
+    public UserWebResult registerUser(@ApiParam(required = true) String phone,
+                                      @ApiParam(value = "密码与验证码通过逗号凭借并加密数据", required = true) String pwdData) throws Exception {
         if(StringUtils.isBlank(phone) || StringUtils.isBlank(pwdData)){
-            return WebResult.fail("用户名或密码不能为空");
+            return UserWebResult.fail(UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL);
         }
         byte[] bytes = RSAUtil.decryptByPrivateKey(pwdData, PRIVATE_KEY);
         String data = new String(bytes);
         String[] split = data.split(",");
         if(split.length != 2){
-            return WebResult.fail("输入参数错误");
+            return UserWebResult.paramWrong();
         }
         if(!split[1].trim().equals(VerificationCodeUtil.getVerificationCode(phone))){
-            return WebResult.fail("验证码错误");
+            return UserWebResult.fail(UserWebMsgEum.VERIFICATION_CODE_WRONG);
         }
         return userService.registerUser(phone, split[0]);
     }

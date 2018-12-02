@@ -1,6 +1,6 @@
 package com.weweibuy.user.service;
 
-import com.weweibuy.dto.WebResult;
+import com.weweibuy.user.model.dto.UserWebResult;
 import com.weweibuy.user.model.po.WebuyUser;
 import com.weweibuy.user.model.po.WebuyUserExample;
 import com.weweibuy.user.service.base.BaseCrudService;
@@ -13,8 +13,9 @@ import com.weweibuy.user.service.base.BaseCrudService;
  **/
 public interface UserService extends BaseCrudService<WebuyUser, WebuyUserExample>{
 
-    WebResult sendVerificationCode(String phoneNum);
+    UserWebResult sendVerificationCode(String phoneNum);
 
-    WebResult registerUser(String phone, String pwd);
+    UserWebResult registerUser(String phone, String pwd);
 
+    UserWebResult checkAccountExist(String phoneNum);
 }

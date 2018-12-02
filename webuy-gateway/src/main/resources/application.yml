@@ -1,56 +1,94 @@
-spring:
-  application:
-    name: weweibuy-gateway
-  cloud:
-    loadbalancer:
-      retry:
-        enabled: true  #开启重试模式的loadBalancer
-  redis:
-      database: 0
-      host: 192.168.248.131
-      port: 6379
-      password:
-      timeout: 20000
-      #cluster:
-        #nodes: 192.168.211.134:7000,192.168.211.134:7001
-        #-
-        #max-redirects:
-      jedis:
-        pool:
-          max-active: 8  # 连接池最大连接数（使用负值表示没有限制）
-          max-wait: -1  # 连接池最大阻塞等待时间（使用负值表示没有限制）
-          max-idle: 8  # 连接池中的最大空闲连接
-          min-idle: 1  # 连接池中的最小空闲连接
-          timeout: 1000  # 连接超时时间（毫秒）
-
 server:
   port: 8080
+  tomcat:
+    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
+    min-spare-threads: 5    #初始化线程数
+
+spring:
+   profiles:
+     active: @profileActive@
+   application:
+     name: webuy-gateway
+   security:
+     basic:
+       enabled: false
+     user:
+       name: admin
+       password: ak402507979
+     oauth2:
+       client:
+         access-token-uri: http://localhost:8080/webuy-auth/oauth/token  #网关的地址
+         user-authorization-uri: http://localhost:8080/webuy-auth/oauth/authorize
+       resource:
+         user-info-uri:  http://localhost:8080/backstage/hello
+         prefer-token-info: false
 
 
-#配置日志
 logging:
-  config: classpath:logback-spring.xml
+  config: classpath:config/logback/logback-spring.xml
+
+
+---
+  #dev environment
+spring:
+  profiles: dev
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
+    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
+    ip-address: 127.0.0.1
+    metadata-map:
+       context-path: /actuator
+       startup: ${random.int}    #needed to trigger info and endpoint update after restart
+       "user.name": ${spring.security.user.name}         #These two are needed so that the server
+       "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+    health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
+    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
+
+---
+  #test environment
+spring:
+  profiles: test
 
 eureka:
   client:
+    register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
   instance:
-    instance-id: weweibuy-gateway
-    prefer-ip-address: true
-
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
+    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
+    ip-address: 119.3.11.116
+    metadata-map:
+       context-path: /actuator
+       startup: ${random.int}    #needed to trigger info and endpoint update after restart
+       "user.name": ${spring.security.user.name}         #These two are needed so that the server
+       "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+    health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
+    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
+---
 
 zuul:
-  prefix: /weweibuy
   ignored-services: "*"  #忽略所有未配置的service
   host:
       connect-timeout-millis: 3000
       socket-timeout-millis: 3000
   routes:
-    small:
-      serviceId: weweibuy-backstage
-      sensitiveHeaders: "*"  #用于session共享
+    webuy:
       path: /backstage/**
+      strip-prefix: true  #忽略前缀
+      serviceId: webuy-backstage
+    auth:
+      path: /auth/**
+      strip-prefix: true
+      sensitiveHeaders:
+      serviceId: webuy-auth
 
 hystrix: #hystrix配置
   command:
@@ -60,10 +98,10 @@ hystrix: #hystrix配置
           thread:
             timeoutInMilliseconds: 2500
 
-weweibuy-backstage: #是serviceId
+webuy-backstage: #是serviceId
   ribbon:
     ServerListRefreshInterval: 2000  # Interval to refresh the server list from the source
-    listOfServers: http://localhost:8001 ,http://localhost:8002
+    listOfServers: http://localhost:8001
     ConnectTimeout: 1000   #建立连接超时时间
     ReadTimeout: 2000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试

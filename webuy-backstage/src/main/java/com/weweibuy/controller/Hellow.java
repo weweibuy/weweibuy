@@ -36,7 +36,7 @@ public class Hellow {
 
     @GetMapping("/hello")
     public String hello(){
-        return "hello-8001";
+        return "这个资源需要登录";
     }
 
     @GetMapping("/cache/users")

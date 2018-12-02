@@ -2,7 +2,7 @@ package com.weweibuy.user.service.impl.base;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.weweibuy.dto.PageResult;
+import com.weweibuy.dto.CommonPageResult;
 import com.weweibuy.user.mapper.base.BaseCrudMapper;
 import com.weweibuy.user.service.base.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +78,10 @@ public class BaseCrudServiceImpl<T, V> implements BaseCrudService<T, V> {
     }
 
     @Override
-    public PageResult selectPageList(Integer page, Integer rows) {
+    public CommonPageResult selectPageList(Integer page, Integer rows) {
         Page<Object> pages = PageHelper.startPage(page, rows);
         List<T> list = selectByExample(null);
-        PageResult pageBean = new PageResult();
+        CommonPageResult pageBean = new CommonPageResult();
         pageBean.setTotal(pages.getTotal());
         pageBean.setRows(list);
         return pageBean;

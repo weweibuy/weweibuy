@@ -1,7 +1,7 @@
 package com.weweibuy.service.base;
 
 
-import com.weweibuy.dto.PageResult;
+import com.weweibuy.dto.CommonPageResult;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,7 +30,7 @@ public interface BaseService<T, V> {
 
     int updateByPrimaryKey(T t);
 
-    PageResult selectPageList(Integer page, Integer rows);
+    CommonPageResult selectPageList(Integer page, Integer rows);
 
 
 }

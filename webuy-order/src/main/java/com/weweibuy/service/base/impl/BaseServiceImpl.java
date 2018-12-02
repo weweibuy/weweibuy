@@ -3,7 +3,7 @@ package com.weweibuy.service.base.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.weweibuy.dto.PageResult;
+import com.weweibuy.dto.CommonPageResult;
 import com.weweibuy.mapper.base.BaseMapper;
 import com.weweibuy.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,10 +72,10 @@ public class BaseServiceImpl<T, V> implements BaseService<T, V> {
     }
 
     @Override
-    public PageResult selectPageList(Integer page, Integer rows) {
+    public CommonPageResult selectPageList(Integer page, Integer rows) {
         Page<Object> page1 = PageHelper.startPage(page, rows);
         List<T> list = selectByExample(null);
-        PageResult pageBean = new PageResult();
+        CommonPageResult pageBean = new CommonPageResult();
         pageBean.setRows(list);
         pageBean.setTotal(page1.getTotal());
         return pageBean;

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class PageResult implements Serializable {
+public class CommonPageResult implements Serializable {
 
     private Long total;
 

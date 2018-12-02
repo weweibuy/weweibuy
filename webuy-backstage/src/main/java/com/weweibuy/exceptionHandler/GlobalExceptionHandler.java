@@ -1,6 +1,6 @@
 package com.weweibuy.exceptionHandler;
 
-import com.weweibuy.dto.WebResult;
+import com.weweibuy.dto.CommonWebResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public WebResult handleException(Exception e){
+    public CommonWebResult handleException(Exception e){
         e.printStackTrace();
         return null;
     }

@@ -1,6 +1,6 @@
 package com.weweibuy.controller;
 
-import com.weweibuy.dto.WebResult;
+import com.weweibuy.dto.CommonWebResult;
 import com.weweibuy.po.WeweibuyMessage;
 import com.weweibuy.service.MessageService;
 import com.weweibuy.utils.IDUtil;
@@ -32,13 +32,14 @@ public class MessageController {
      * @return
      */
     @PostMapping("/message/save")
-    public WebResult saveMessage(@RequestBody @Validated WeweibuyMessage message, BindingResult result){
+    public CommonWebResult saveMessage(@RequestBody @Validated WeweibuyMessage message, BindingResult result){
         if(result.getErrorCount() > 0){
-            return WebResult.paramWrong();
+            return null;
         }
         message.setDeliverTag(IDUtil.getRandomMessage());
         messageService.insertSelective(message);
-        return WebResult.success(message);
+            return null;
+
     }
 
 
@@ -47,9 +48,9 @@ public class MessageController {
      * @return
      */
     @PutMapping("/message/sendMessage")
-    public WebResult sendMessage(@RequestBody WeweibuyMessage message){
+    public CommonWebResult sendMessage(@RequestBody WeweibuyMessage message){
         messageService.sendMessage(message);
-        return WebResult.success();
+        return null;
     }
 
     /**
@@ -58,7 +59,7 @@ public class MessageController {
      * @return
      */
     @DeleteMapping("/message/confirmMessage")
-    public WebResult confirmMessage(@Validated @NotBlank String deliverTag){
+    public CommonWebResult confirmMessage(@Validated @NotBlank String deliverTag){
         return null;
     }
 
@@ -68,7 +69,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("/message/{id}")
-    public WebResult getMessageById(@PathVariable Long id){
+    public CommonWebResult getMessageById(@PathVariable Long id){
         return null;
     }
 
@@ -78,7 +79,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("/message/deliverTag/{deliverTag}")
-    public WebResult getMessageByDeliverTag(@PathVariable String deliverTag) {
+    public CommonWebResult getMessageByDeliverTag(@PathVariable String deliverTag) {
         return null;
     }
 
@@ -87,7 +88,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("/messages")
-    public WebResult getMessages(){
+    public CommonWebResult getMessages(){
         return null;
     }
 
@@ -96,7 +97,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("/messages/dead")
-    public WebResult getDeadMessage(){
+    public CommonWebResult getDeadMessage(){
         return null;
     }
 
@@ -105,7 +106,7 @@ public class MessageController {
      * @return
      */
     @PostMapping("/message/dead/send")
-    public WebResult reSendDeadMessage(){
+    public CommonWebResult reSendDeadMessage(){
         return null;
     }
 
