@@ -1,4 +1,4 @@
-package com.weweibuy.config;
+package com.weweibuy.gateway.config;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;

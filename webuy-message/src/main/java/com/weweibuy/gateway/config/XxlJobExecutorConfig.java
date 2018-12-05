@@ -1,4 +1,4 @@
-package com.weweibuy.config;
+package com.weweibuy.gateway.config;
 
 import com.xxl.job.core.executor.XxlJobExecutor;
 import lombok.extern.slf4j.Slf4j;

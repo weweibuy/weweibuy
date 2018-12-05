@@ -1,4 +1,4 @@
-package com.weweibuy.congif;
+package com.weweibuy.gateway.config;
 
 /**
  * @ClassName RedisSessionConfig

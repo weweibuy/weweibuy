@@ -1,4 +1,4 @@
-package com.weweibuy.config;
+package com.weweibuy.gateway.config;
 
 import com.weweibuy.core.util.I18nUtil;
 import freemarker.ext.beans.BeansWrapper;

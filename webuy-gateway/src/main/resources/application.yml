@@ -22,6 +22,8 @@ spring:
        resource:
          user-info-uri:  http://localhost:8080/backstage/hello
          prefer-token-info: false
+       sso:
+         loginPath: /login
 
 
 logging:

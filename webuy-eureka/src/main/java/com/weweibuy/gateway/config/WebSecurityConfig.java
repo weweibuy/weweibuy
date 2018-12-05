@@ -1,4 +1,4 @@
-package com.weweibuy.config;
+package com.weweibuy.gateway.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
