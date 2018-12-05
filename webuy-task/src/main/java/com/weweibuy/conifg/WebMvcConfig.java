@@ -1,4 +1,4 @@
-package com.weweibuy.gateway.config;
+package com.weweibuy.conifg;
 
 import com.weweibuy.controller.interceptor.CookieInterceptor;
 import com.weweibuy.controller.interceptor.PermissionInterceptor;

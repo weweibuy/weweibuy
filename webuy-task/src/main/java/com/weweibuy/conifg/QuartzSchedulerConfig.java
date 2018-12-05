@@ -1,4 +1,4 @@
-package com.weweibuy.gateway.config;
+package com.weweibuy.conifg;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.weweibuy.core.schedule.XxlJobDynamicScheduler;
