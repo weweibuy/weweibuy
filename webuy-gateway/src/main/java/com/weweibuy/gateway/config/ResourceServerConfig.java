@@ -60,7 +60,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/uaa/**", "/login").permitAll().anyRequest().authenticated()
+        // 登录方式
+        http.formLogin().loginPage("/login")
+                .loginProcessingUrl("/sdasfds");// 处理登录表单的地址 username password
+        // 授权方式
+        http.authorizeRequests().antMatchers("/uaa/**", "/login").permitAll() // 指定页面无序身份认证
+                .anyRequest().authenticated() // 其余请求需要认证
                 .and()
                 .csrf().requireCsrfProtectionMatcher(csrfRequestMatcher()).csrfTokenRepository(csrfTokenRepository())
                 .and()
