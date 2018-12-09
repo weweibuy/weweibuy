@@ -1,14 +1,20 @@
 package com.weweibuy.gateway.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -52,6 +58,28 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private ResourceServerTokenServices resourceServerTokenServices;
 
+    @Autowired
+    private AuthenticationSuccessHandler iAuthenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler iAuthenticationFailureHandler;
+
+    @Autowired
+    private UserDetailsService iUserDetailsService;
+
+
+    /**
+     * 配置 token的存储仓库，需数据源
+     * @return
+     */
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        // jdbcTokenRepository.setCreateTableOnStartup(true); 启动执行创建表的 脚本 
+        return jdbcTokenRepository;
+    }
+
+
 //    @Bean
 //    @Primary
 //    public OAuth2ClientContextFilter dynamicOauth2ClientContextFilter() {
@@ -60,9 +88,19 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
         // 登录方式
         http.formLogin().loginPage("/login")
-                .loginProcessingUrl("/sdasfds");// 处理登录表单的地址 username password
+                .loginProcessingUrl("/sdasfds") // 处理登录表单的地址 username password
+                .successHandler(iAuthenticationSuccessHandler) // 授权成功处理方式
+                .failureHandler(iAuthenticationFailureHandler); // 授权失败处理方式
+        // 记住用户
+        http.rememberMe()
+                .tokenRepository(persistentTokenRepository()) // 从token仓库中取出 token
+                .tokenValiditySeconds(3600) // token的保持时间
+                .userDetailsService(iUserDetailsService); // 取出token后使用 iUserDetailsService 进行认证
+
+
         // 授权方式
         http.authorizeRequests().antMatchers("/uaa/**", "/login").permitAll() // 指定页面无序身份认证
                 .anyRequest().authenticated() // 其余请求需要认证
