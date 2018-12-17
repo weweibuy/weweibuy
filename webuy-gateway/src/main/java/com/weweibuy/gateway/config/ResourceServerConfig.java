@@ -75,7 +75,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
-        // jdbcTokenRepository.setCreateTableOnStartup(true); 启动执行创建表的 脚本 
+        // jdbcTokenRepository.setCreateTableOnStartup(true); 启动执行创建表的 脚本
         return jdbcTokenRepository;
     }
 
