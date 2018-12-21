@@ -32,8 +32,8 @@ public class IAuthenticationFailureHandler extends SimpleUrlAuthenticationFailur
         if(LoginResponseType.REDIRECT.equals(securityProperties.getLoginResponseType())){
             super.onAuthenticationFailure(httpServletRequest, httpServletResponse, e);
         }else {
-            httpServletResponse.setContentType("application/json;chart=UTF-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(e));
+            httpServletResponse.setContentType("application/json;charset=UTF-8");
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(e.getMessage()));
         }
     }
 }

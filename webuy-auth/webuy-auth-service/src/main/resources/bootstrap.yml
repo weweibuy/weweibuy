@@ -1,4 +1,4 @@
 webuy:
   security:
-    loginResponseType: REDIRECT
+    loginResponseType: JSON
 

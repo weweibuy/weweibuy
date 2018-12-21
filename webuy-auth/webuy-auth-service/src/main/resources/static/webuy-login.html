@@ -61,7 +61,7 @@
             </div>
             <h3>欢迎使用 hAdmin 手机登录</h3>
 
-            <form class="m-t" role="form" method="post" action="/authentication/mobile">
+            <form class="m-t" role="form" id="mobile_form" method="POST" action="/authentication/mobile">
                 <div class="form-group">
                     <input type="text" class="form-control" id="mobile" name="mobile" value="13800000000"  required="">
                 </div>
@@ -69,12 +69,11 @@
                     <input type="text" name="smsCode" class="form-control"  required="">
                 </div>
                 <button type="button" id="get_code_button" class="btn btn-primary block full-width m-b">获取验证码</button>
-                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+                <button type="button" id="mobile_submit" class="btn btn-primary block full-width m-b">登 录</button>
 
 
                 <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
                 </p>
-
             </form>
         </div>
     </div>
@@ -93,6 +92,11 @@
                 data: {"mobile": $("#mobile").val()}
             });
         })
+
+        $("#mobile_submit").click(function () {
+            $("#mobile_form").submit();
+        })
+
     </script>
     
 

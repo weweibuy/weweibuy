@@ -53,14 +53,13 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
-
+        log.info("请求的url{}, 方法{}",httpServletRequest.getRequestURI(), httpServletRequest.getMethod());
         try {
             ValidateCodeProcessor validateCodeProcessor = getValidateCodeProcessor(httpServletRequest);
             if(validateCodeProcessor != null){
                 validateCodeProcessor.validate(new ServletWebRequest(httpServletRequest, httpServletResponse));
-            }else {
-                filterChain.doFilter(httpServletRequest, httpServletResponse);
             }
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
         }catch (ValidateCodeException exception){
             authenticationFailureHandler.onAuthenticationFailure(httpServletRequest, httpServletResponse, exception);
         }
