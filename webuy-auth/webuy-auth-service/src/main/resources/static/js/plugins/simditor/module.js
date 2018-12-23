@@ -51,7 +51,7 @@ Module = (function() {
       return;
     }
     if (!cls.pluginName) {
-      throw new Error('Module.connect: cannot connect plugin without pluginName');
+      throw new Error('Module.connection: cannot connection plugin without pluginName');
       return;
     }
     cls.prototype._connected = true;

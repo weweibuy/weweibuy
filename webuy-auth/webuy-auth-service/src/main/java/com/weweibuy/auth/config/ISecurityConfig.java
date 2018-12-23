@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * web安全配置
@@ -39,6 +40,9 @@ public class ISecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
+    @Autowired
+    private SpringSocialConfigurer iSpringSocialConfigurer;
+
 
     @Override
     protected void configure (HttpSecurity http) throws Exception{
@@ -51,6 +55,8 @@ public class ISecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(iAuthenticationFailureHandler)
             .and()
                 .apply(smsCodeAuthenticationSecurityConfig)
+            .and()
+                .apply(iSpringSocialConfigurer)
             .and()
                 .authorizeRequests() //  对请求授权
                 // 对指定目录放行

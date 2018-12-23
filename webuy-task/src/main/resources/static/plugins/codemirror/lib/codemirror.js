@@ -6179,7 +6179,7 @@
 
     var marker = new TextMarker(doc, type), diff = cmp(from, to);
     if (options) copyObj(options, marker, false);
-    // Don't connect empty markers unless clearWhenEmpty is false
+    // Don't connection empty markers unless clearWhenEmpty is false
     if (diff > 0 || diff == 0 && marker.clearWhenEmpty !== false)
       return marker;
     if (marker.replacedWith) {

@@ -41,9 +41,12 @@
                 <div class="form-group">
                     <input type="password" name="password" class="form-control"  required="">
                 </div>
+
                 <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
 
+                <button type="button" id="login_qq" style="width: 48%; display: inline-block" class="btn btn-primary block  m-b">QQ登录</button>
 
+                <button type="button" id="login_weixin" style="width: 48%; display: inline-block" class="btn btn-primary block  m-b">微信登录</button>
                 <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
                 </p>
 
@@ -79,11 +82,20 @@
     </div>
 
 
+
     <!-- 全局js -->
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.6"></script>
 
     <script>
+
+        $("#login_qq").click(function () {
+            window.location.href = "/connect/callback/callback.do";
+        })
+
+        $("#login_weixin").click(function () {
+            window.location.href = "/auth/weixin";
+        })
 
         $("#get_code_button").click(function () {
             $.ajax({

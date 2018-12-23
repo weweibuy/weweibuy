@@ -17,8 +17,10 @@ public class SecurityProperties {
     /** 登录成功的响应方式， 默认重定向 */
     private LoginResponseType loginResponseType = LoginResponseType.REDIRECT;
 
-    private ValidateCodeProperties ValidateCodeProperties = new ValidateCodeProperties();
+    private ValidateCodeProperties validateCode = new ValidateCodeProperties();
 
-    private LoginProperties loginProperties = new LoginProperties();
+    private LoginProperties login = new LoginProperties();
+
+    private SocialProperties social = new SocialProperties();
 
 }

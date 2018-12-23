@@ -255,7 +255,7 @@ CodeMirror.defineMode("perl",function(){
                 foreach                         :[1,1],
                                                 //      PERL functions
                 'abs'                           :1,     // - absolute value function
-                accept                          :1,     // - accept an incoming socket connect
+                accept                          :1,     // - accept an incoming socket connection
                 alarm                           :1,     // - schedule a SIGALRM
                 'atan2'                         :1,     // - arctangent of Y/X in the range -PI to PI
                 bind                            :1,     // - binds an address to a socket
@@ -273,7 +273,7 @@ CodeMirror.defineMode("perl",function(){
                 chroot                          :1,     // - make directory new root for path lookups
                 close                           :1,     // - close file (or pipe or socket) handle
                 closedir                        :1,     // - close directory handle
-                connect                         :1,     // - connect to a remote socket
+                connect                         :1,     // - connection to a remote socket
                 'continue'                      :[1,1], // - optional trailing block in a while or foreach
                 'cos'                           :1,     // - cosine function
                 crypt                           :1,     // - one-way passwd-style encryption

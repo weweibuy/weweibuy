@@ -46,14 +46,13 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     @Override
     public void afterPropertiesSet(){
-//        urlMap.put(securityProperties.getLoginProperties().getFormLoginUrl(), ValidateCodeType.IMAGE);
-        urlMap.put(securityProperties.getLoginProperties().getMobileLoginUrL(), ValidateCodeType.SMS);
+        urlMap.put(securityProperties.getLogin().getMobileLoginUrL(), ValidateCodeType.SMS);
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
-        log.info("请求的url{}, 方法{}",httpServletRequest.getRequestURI(), httpServletRequest.getMethod());
+        log.debug("请求的url{}, 方法{}",httpServletRequest.getRequestURI(), httpServletRequest.getMethod());
         try {
             ValidateCodeProcessor validateCodeProcessor = getValidateCodeProcessor(httpServletRequest);
             if(validateCodeProcessor != null){
