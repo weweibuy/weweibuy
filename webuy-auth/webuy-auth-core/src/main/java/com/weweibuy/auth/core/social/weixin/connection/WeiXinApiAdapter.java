@@ -14,6 +14,19 @@ import org.springframework.social.connect.UserProfile;
  **/
 public class WeiXinApiAdapter implements ApiAdapter<WeiXin> {
 
+    /**
+     * 这里的openid 是为了获取微信的 WeiXinUserInfo；
+     * 因为微信的api要求传入openid 获取用户信息
+     */
+    private String openid;
+
+    public WeiXinApiAdapter(){
+    }
+
+    public WeiXinApiAdapter(String openid){
+        this.openid = openid;
+    }
+
     @Override
     public boolean test(WeiXin weiXin) {
         return true;
@@ -22,7 +35,7 @@ public class WeiXinApiAdapter implements ApiAdapter<WeiXin> {
     @Override
     public void setConnectionValues(WeiXin weiXin, ConnectionValues connectionValues) {
         // TODO 这里要传入openid
-        WeiXinUserInfo userInfo = weiXin.getWeiXinUserInfo("");
+        WeiXinUserInfo userInfo = weiXin.getWeiXinUserInfo(openid);
         connectionValues.setDisplayName(userInfo.getNickname());
         connectionValues.setProviderUserId(userInfo.getOpenid());
         connectionValues.setProfileUrl(null);

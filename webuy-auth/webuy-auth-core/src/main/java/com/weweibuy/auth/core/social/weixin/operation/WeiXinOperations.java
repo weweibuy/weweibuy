@@ -5,6 +5,7 @@ import com.weweibuy.auth.core.model.vo.WeiXinTokenResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -23,9 +24,60 @@ import java.nio.charset.Charset;
 @Slf4j
 public class WeiXinOperations extends OAuth2Template {
 
+    private String clientId;
+
+    private String clientSecret;
+
+    private String authorizeUrl;
+
+    private String accessTokenUrl;
+
     public WeiXinOperations(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
         super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.authorizeUrl = authorizeUrl;
+        this.accessTokenUrl = accessTokenUrl;
         setUseParametersForClientAuthentication(true);
+    }
+
+
+
+    @Override
+    public AccessGrant exchangeForAccess(String authorizationCode, String redirectUri, MultiValueMap<String, String> additionalParameters) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap();
+        /*
+        appid	是	应用唯一标识，在微信开放平台提交应用审核通过后获得
+        secret	是	应用密钥AppSecret，在微信开放平台提交应用审核通过后获得
+        code	是	填写第一步获取的code参数
+        grant_type	是	填authorization_code
+        */
+
+        params.set("appid", this.clientId);
+        params.set("secret", this.clientSecret);
+        params.set("code", authorizationCode);
+        params.set("grant_type", "authorization_code");
+        if(additionalParameters != null) {
+            params.putAll(additionalParameters);
+        }
+
+        return this.postForAccessGrant(this.accessTokenUrl, params);
+    }
+
+    public AccessGrant refreshAccess(String refreshToken, MultiValueMap<String, String> additionalParameters) {
+        /*
+        appid	是	应用唯一标识
+        grant_type	是	填refresh_token
+        refresh_token	是	填写通过access_token获取到的refresh_token参数
+         */
+        MultiValueMap<String, String> params = new LinkedMultiValueMap();
+        params.set("appid", this.clientId);
+        params.set("refresh_token", refreshToken);
+        params.set("grant_type", "refresh_token");
+        if(additionalParameters != null) {
+            params.putAll(additionalParameters);
+        }
+        return this.postForAccessGrant(this.accessTokenUrl, params);
     }
 
     @Override
@@ -41,39 +93,27 @@ public class WeiXinOperations extends OAuth2Template {
                 tokenResponse.getExpires_in(), tokenResponse.getOpenid());
     }
 
+    /**
+     * 构建获取授权码的请求。也就是引导用户跳转到微信的地址。
+     */
     @Override
-    public AccessGrant exchangeForAccess(String authorizationCode, String redirectUri, MultiValueMap<String, String> additionalParameters) {
-        MultiValueMap<String, String> params = new LinkedMultiValueMap();
-
-        params.set("appid", super.clientId);
-        params.set("client_secret", this.clientSecret);
-
-        params.set("code", authorizationCode);
-        params.set("redirect_uri", redirectUri);
-        params.set("grant_type", "authorization_code");
-        if(additionalParameters != null) {
-            params.putAll(additionalParameters);
-        }
-
-        return this.postForAccessGrant(this.accessTokenUrl, params);
+    public String buildAuthenticateUrl(OAuth2Parameters parameters) {
+        String url = super.buildAuthenticateUrl(parameters);
+        url = url + "&appid=" + this.clientId+"&scope=snsapi_login";
+        return url;
     }
 
-    public AccessGrant refreshAccess(String refreshToken, MultiValueMap<String, String> additionalParameters) {
-        MultiValueMap<String, String> params = new LinkedMultiValueMap();
-        if(this.useParametersForClientAuthentication) {
-            params.set("client_id", this.clientId);
-            params.set("client_secret", this.clientSecret);
-        }
-
-        params.set("refresh_token", refreshToken);
-        params.set("grant_type", "refresh_token");
-        if(additionalParameters != null) {
-            params.putAll(additionalParameters);
-        }
-
-        return this.postForAccessGrant(this.accessTokenUrl, params);
+    @Override
+    public String buildAuthorizeUrl(OAuth2Parameters parameters) {
+        /*appid	是	应用唯一标识
+            redirect_uri	是	请使用urlEncode对链接进行处理
+            response_type	是	填code
+            scope	是	应用授权作用域，拥有多个作用域用逗号（,）分隔，网页应用目前仅填写snsapi_login即
+            state	否	用于保持请求和回调的状态，授权请求后原样带回给第三方。
+            该参数可用于防止csrf攻击（跨站请求伪造攻击），建议第三方带上该参数，可设置为简单的随机数加session进行校验
+        */
+        return buildAuthenticateUrl(parameters);
     }
-
 
     /**
      * 微信返回的contentType是html/text，添加相应的HttpMessageConverter来处理。

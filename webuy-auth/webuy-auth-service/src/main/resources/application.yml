@@ -1,5 +1,5 @@
 server:
-  port: 8301
+  port: 80
   tomcat:
     max-threads: 10
     min-spare-threads: 5    #初始化线程数
