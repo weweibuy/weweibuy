@@ -70,8 +70,20 @@ public class ISecurityConfig extends WebSecurityConfigurerAdapter {
 //                .tokenRepository() // token 存储仓库
 //                .tokenValiditySeconds() // token有效时间
 //                .userDetailsService(userDetailsService)
-            .and().
-                csrf()
+            .and()
+                .sessionManagement()
+                .maximumSessions(1) // 最大允许的session
+                .maxSessionsPreventsLogin(true) // 是佛允许剔除用户
+                .expiredUrl("") //Session 失效跳转的url
+            .and()
+            .and()
+                .logout()
+                .logoutSuccessUrl("")
+//                .logoutSuccessHandler() // 登出成功处理器
+                .deleteCookies("JESSIONID")
+                .logoutUrl("/logout")
+            .and()
+                .csrf()
                 .disable();
 
     }

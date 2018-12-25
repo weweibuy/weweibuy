@@ -3,6 +3,12 @@ server:
   tomcat:
     max-threads: 10
     min-spare-threads: 5    #初始化线程数
+  session:
+    store-type: REDIS
+  servlet:
+    session:
+      timeout: 600
+
 
 spring:
    profiles:

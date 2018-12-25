@@ -3,13 +3,17 @@ package com.weweibuy.auth.core.social.weixin.config;
 import com.weweibuy.auth.core.config.properties.SecurityProperties;
 import com.weweibuy.auth.core.config.properties.WeiXinProperties;
 import com.weweibuy.auth.core.social.weixin.connection.WeiXinConnectionFactory;
+import com.weweibuy.auth.core.view.WeiXinConnectionBindView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactory;
+import org.springframework.web.servlet.View;
 
 /**
  * @ClassName WeiWinConfig
@@ -36,5 +40,9 @@ public class WeiWinConfig extends SocialConfigurerAdapter {
                 weixin.getAppSecurity());
     }
 
-
+    @Bean("/connect/weixinConnected")
+    @ConditionalOnMissingBean(name = "weixinConnectView")
+    public View weixinConnectView(){
+        return new WeiXinConnectionBindView();
+    }
 }

@@ -2,6 +2,8 @@ package com.weweibuy.auth.core.model.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @ClassName WeiXinUserInfo
  * @Description
@@ -9,7 +11,7 @@ import lombok.Data;
  * @Date 2018/12/23 22:13
  **/
 @Data
-public class WeiXinUserInfo {
+public class WeiXinUserInfo implements Serializable {
 
     /** 普通用户的标识，对当前开发者帐号唯一 */
     private String openid;

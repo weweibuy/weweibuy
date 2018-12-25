@@ -2,6 +2,8 @@ package com.weweibuy.auth.core.model.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * QQ登录返回的用户信息
  * @ClassName QQUserInfo
@@ -10,7 +12,7 @@ import lombok.Data;
  * @Date 2018/12/23 9:52
  **/
 @Data
-public class QQUserInfo {
+public class QQUserInfo implements Serializable {
 
     /** qq 获取用户信息不包含openid 获取openid是设上 */
     private String openId;

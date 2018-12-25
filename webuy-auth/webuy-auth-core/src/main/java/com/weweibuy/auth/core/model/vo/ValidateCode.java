@@ -3,6 +3,7 @@ package com.weweibuy.auth.core.model.vo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
  **/
 @Data
 @NoArgsConstructor
-public class ValidateCode {
+public class ValidateCode implements Serializable {
 
     private String code;
 
