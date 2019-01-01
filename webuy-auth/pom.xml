@@ -15,6 +15,7 @@
         <module>webuy-auth-core</module>
         <module>webuy-auth-service</module>
         <module>webuy-auth-client</module>
+        <module>webuy-auth-browser</module>
     </modules>
 
     <dependencies>

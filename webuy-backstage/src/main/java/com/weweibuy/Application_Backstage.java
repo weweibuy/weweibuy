@@ -9,7 +9,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.retry.annotation.EnableRetry;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
  * @ClassName Application
@@ -25,7 +24,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableRetry
 @MapperScan(basePackages = {"com.weweibuy.mapper"})
 @EnableCaching
-@EnableResourceServer
 public class Application_Backstage {
 
     public static void main(String[] args) {

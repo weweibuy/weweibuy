@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.weweibuy</groupId>
-            <artifactId>webuy-auth-core</artifactId>
+            <artifactId>webuy-auth-browser</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -84,6 +84,15 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!--解析jwt-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

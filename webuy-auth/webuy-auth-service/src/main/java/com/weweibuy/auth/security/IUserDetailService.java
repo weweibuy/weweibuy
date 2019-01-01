@@ -34,7 +34,7 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("【安全服务】：登录用户名{}", username);
-        return new User(username, encoder.encode("123"), AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return new User(username, encoder.encode("123"), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
     }
 
     /**

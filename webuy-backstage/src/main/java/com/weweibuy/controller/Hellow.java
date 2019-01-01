@@ -8,9 +8,10 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * @Author durenhao
  * @Date 2018/9/22 13:07
  **/
-@RestController()
+@Controller
 @RequestMapping(produces="application/json;charset=UTF-8")
 @CacheConfig(cacheNames = "users")
 public class Hellow {
@@ -35,8 +36,14 @@ public class Hellow {
     private StringRedisTemplate stringRedisTemplate;
 
     @GetMapping("/hello")
+    @ResponseBody
     public String hello(){
-        return "这个资源需要登录";
+        return "这个资源需要登录...";
+    }
+
+    @GetMapping("/helloRedirect")
+    public String helloRedirect(){
+        return "redirect:localhost:8080/backstage/hello";
     }
 
     @GetMapping("/cache/users")

@@ -10,20 +10,36 @@ spring:
    application:
      name: webuy-gateway
    security:
-     basic:
-       enabled: false
      user:
        name: admin
        password: ak402507979
-     oauth2:
-       client:
-         access-token-uri: http://localhost:8080/webuy-auth/oauth/token  #网关的地址
-         user-authorization-uri: http://localhost:8080/webuy-auth/oauth/authorize
-       resource:
-         user-info-uri:  http://localhost:8080/backstage/hello
-         prefer-token-info: false
-       sso:
-         loginPath: /login
+#     oauth2:
+#       client:
+#         access-token-uri: http://localhost:8080/webuy-auth/oauth/token  #网关的地址
+#         user-authorization-uri: http://localhost:8080/webuy-auth/oauth/authorize
+#       resource:
+#         user-info-uri:  http://localhost:8080/backstage/hello
+#         prefer-token-info: false
+#       sso:
+#         loginPath: /login
+#   cloud:
+#     refresh:
+#       extra-refreshable: none
+
+security:
+  oauth2:
+    client:
+      client-id: webuy
+      client-secret: webuy123
+      user-authorization-uri: http://localhost:8080/auth/oauth/authorize
+      access-token-uri: http://localhost:8080/auth/oauth/token
+    resource:
+      user-info-uri: http://localhost:8080/auth/oauth/user
+      jwt:
+        key-value: -----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9utDRxl0vykGVncIrPSrqJICtKfTRHMjyEtKfUWrr3215N69c0nMx2xQL2lVk0q2u3xSE04PIEaTNW4UWj4q3MdWEk++j0ztdM39GVTGu78TjjeIsjVwWKTO/uiBvCgEpFV3ztlNoIcxVR7Y24JT1f7aVu8aFww8pnxQzKmNnmwIDAQAB-----END PUBLIC KEY-----
+      client-id: webuy
+      client-secret: webuy123
+
 
 
 logging:
@@ -46,8 +62,8 @@ eureka:
     metadata-map:
        context-path: /actuator
        startup: ${random.int}    #needed to trigger info and endpoint update after restart
-       "user.name": ${spring.security.user.name}         #These two are needed so that the server
-       "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+       "user.name": admin         #These two are needed so that the server
+       "user.password": ak402507979  #can access the protected client endpoints
     health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
     status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
     home-page-url: http://${eureka.instance.ip-address}:${server.port}/
@@ -69,8 +85,8 @@ eureka:
     metadata-map:
        context-path: /actuator
        startup: ${random.int}    #needed to trigger info and endpoint update after restart
-       "user.name": ${spring.security.user.name}         #These two are needed so that the server
-       "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+       "user.name": admin         #These two are needed so that the server
+       "user.password": ak402507979  #can access the protected client endpoints
     health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
     status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
     home-page-url: http://${eureka.instance.ip-address}:${server.port}/
@@ -79,33 +95,52 @@ eureka:
 zuul:
   ignored-services: "*"  #忽略所有未配置的service
   host:
-      connect-timeout-millis: 3000
-      socket-timeout-millis: 3000
+      connect-timeout-millis: 100000
+      socket-timeout-millis: 100000
   routes:
     webuy:
       path: /backstage/**
       strip-prefix: true  #忽略前缀
+#      sensitiveHeaders: Cookie,Set-Cookie,Authorization
       serviceId: webuy-backstage
     auth:
       path: /auth/**
       strip-prefix: true
-      sensitiveHeaders:
-      serviceId: webuy-auth
+#      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      serviceId: webuy-auth  #转发到对应的 serviceID上
+  #add-host-header: true    # 此处解决后端服务重定向导致用户浏览的 host 变成 后端服务的 host 问题
+
+
 
 hystrix: #hystrix配置
   command:
     default:
       execution:
+        timeout:
+        enabled: false
         isolation:
           thread:
-            timeoutInMilliseconds: 2500
+            timeoutInMilliseconds: 100000
+            ribbon:
+              ReadTimeout: 600000
+              ConnectTimeout: 600000
 
 webuy-backstage: #是serviceId
   ribbon:
-    ServerListRefreshInterval: 2000  # Interval to refresh the server list from the source
+    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:8001
-    ConnectTimeout: 1000   #建立连接超时时间
-    ReadTimeout: 2000  #连接超时时间
+    ConnectTimeout: 100000   #建立连接超时时间
+    ReadTimeout: 100000  #连接超时时间
+    OkToRetryOnAllOperations: true  #所有操作都重试
+    MaxAutoRetries: 2  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
+
+webuy-auth: #是serviceId
+  ribbon:
+    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
+    listOfServers: http://localhost:80
+    ConnectTimeout: 100000   #建立连接超时时间
+    ReadTimeout: 100000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试
     MaxAutoRetries: 2  #单个节点重试最大值
     MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
