@@ -10,6 +10,8 @@ spring:
    application:
      name: webuy-gateway
    security:
+     basic:
+       enabled: false
      user:
        name: admin
        password: ak402507979
@@ -27,6 +29,7 @@ spring:
 #       extra-refreshable: none
 
 security:
+  basic:
   oauth2:
     client:
       client-id: webuy
@@ -37,8 +40,7 @@ security:
       user-info-uri: http://localhost:8080/auth/oauth/user
       jwt:
         key-value: -----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9utDRxl0vykGVncIrPSrqJICtKfTRHMjyEtKfUWrr3215N69c0nMx2xQL2lVk0q2u3xSE04PIEaTNW4UWj4q3MdWEk++j0ztdM39GVTGu78TjjeIsjVwWKTO/uiBvCgEpFV3ztlNoIcxVR7Y24JT1f7aVu8aFww8pnxQzKmNnmwIDAQAB-----END PUBLIC KEY-----
-      client-id: webuy
-      client-secret: webuy123
+
 
 
 
@@ -101,12 +103,15 @@ zuul:
     webuy:
       path: /backstage/**
       strip-prefix: true  #忽略前缀
-#      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      # TODO 下面这个配置的作用一定眼弄清楚; 如果不加在请求后面的auth服务时 basic登录无法成功
+      sensitiveHeaders: #Cookie,Set-Cookie,Authorization
       serviceId: webuy-backstage
     auth:
       path: /auth/**
       strip-prefix: true
-#      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      # TODO 下面这个配置的作用一定要弄清楚; 如果不加在请求后面的auth服务时 basic登录无法成功;
+      # TODO 即使使用正确的参数访问 http://localhost:8080/auth/oauth/token; 也是返回401
+      sensitiveHeaders: # TODO 加上后面这些也是返回401,什么都不加可以正确返回 #Cookie,Set-Cookie,Authorization
       serviceId: webuy-auth  #转发到对应的 serviceID上
   #add-host-header: true    # 此处解决后端服务重定向导致用户浏览的 host 变成 后端服务的 host 问题
 
@@ -135,12 +140,12 @@ webuy-backstage: #是serviceId
     MaxAutoRetries: 2  #单个节点重试最大值
     MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
 
-webuy-auth: #是serviceId
-  ribbon:
-    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
-    listOfServers: http://localhost:80
-    ConnectTimeout: 100000   #建立连接超时时间
-    ReadTimeout: 100000  #连接超时时间
-    OkToRetryOnAllOperations: true  #所有操作都重试
-    MaxAutoRetries: 2  #单个节点重试最大值
-    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
+#webuy-auth: #是serviceId
+#  ribbon:
+#    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
+#    listOfServers: http://localhost:80
+#    ConnectTimeout: 100000   #建立连接超时时间
+#    ReadTimeout: 100000  #连接超时时间
+#    OkToRetryOnAllOperations: true  #所有操作都重试
+#    MaxAutoRetries: 2  #单个节点重试最大值
+#    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值

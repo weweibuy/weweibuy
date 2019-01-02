@@ -80,6 +80,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("isAuthenticated()");
+//          .tokenKeyAccess("permitAll()")
+//                .checkTokenAccess("permitAll()")
     }
 
 

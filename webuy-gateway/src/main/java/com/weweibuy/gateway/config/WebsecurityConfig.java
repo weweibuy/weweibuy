@@ -1,6 +1,5 @@
 package com.weweibuy.gateway.config;
 
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -11,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @Author durenhao
  * @Date 2018/12/15 11:11
  **/
-//@Configuration
-@EnableOAuth2Sso
 public class WebsecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
