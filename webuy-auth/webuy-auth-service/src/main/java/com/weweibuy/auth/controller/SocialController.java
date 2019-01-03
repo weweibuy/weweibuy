@@ -1,4 +1,4 @@
-package com.weweibuy.auth.browser.controller;
+package com.weweibuy.auth.controller;
 
 import com.weweibuy.auth.core.model.vo.SocialUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
