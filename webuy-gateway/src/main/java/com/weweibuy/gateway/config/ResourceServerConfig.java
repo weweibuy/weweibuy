@@ -23,7 +23,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() /* .antMatchers().hasAnyRole("ADMIN") */
-            .antMatchers("/auth/**","/*/hello", "*.css", "*.js", "*.fonts")
+            .antMatchers("/auth/**","/*/hello", "*.css", "*.js", "*.fonts", "/favicon.ico")
             .permitAll()
             .anyRequest()
             .authenticated()
