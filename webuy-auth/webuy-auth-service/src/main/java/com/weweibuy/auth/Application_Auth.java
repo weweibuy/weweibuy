@@ -9,6 +9,7 @@ import org.springframework.social.config.annotation.EnableSocial;
 
 /**
  * 权限服务
+ * TODO 登录或处理页面是有大量的 redisConnection  Opening 和 Closing 需要弄清是谁在操作是否影响性能是否可以优化
  * @ClassName Application_Auth
  * @Description
  * @Author durenhao

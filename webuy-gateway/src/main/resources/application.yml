@@ -140,12 +140,12 @@ webuy-backstage: #是serviceId
     MaxAutoRetries: 2  #单个节点重试最大值
     MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
 
-#webuy-auth: #是serviceId
-#  ribbon:
-#    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
-#    listOfServers: http://localhost:80
-#    ConnectTimeout: 100000   #建立连接超时时间
-#    ReadTimeout: 100000  #连接超时时间
-#    OkToRetryOnAllOperations: true  #所有操作都重试
-#    MaxAutoRetries: 2  #单个节点重试最大值
-#    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
+webuy-auth: #是serviceId
+  ribbon:
+    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
+    listOfServers: http://localhost:80
+    ConnectTimeout: 100000   #建立连接超时时间
+    ReadTimeout: 100000  #连接超时时间
+    OkToRetryOnAllOperations: true  #所有操作都重试
+    MaxAutoRetries: 2  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值

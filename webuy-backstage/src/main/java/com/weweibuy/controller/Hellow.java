@@ -1,6 +1,7 @@
 package com.weweibuy.controller;
 
 import com.weweibuy.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -24,6 +25,7 @@ import java.util.List;
 @Controller
 @RequestMapping(produces="application/json;charset=UTF-8")
 @CacheConfig(cacheNames = "users")
+@Slf4j
 public class Hellow {
 
     @Autowired

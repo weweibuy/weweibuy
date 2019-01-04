@@ -26,6 +26,15 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
     @Autowired
     private SecurityProperties securityProperties;
 
+    /**
+     * TODO 使用网关代理后应写入TOKEN(可能是由于跨域的Session,有待弄清楚)
+     * TODO 写入TOKEN可以使用OAuth的/oauth/token 这里已经有用户的authentication需要将authentication转为TOKEN
+     * @param httpServletRequest
+     * @param httpServletResponse
+     * @param authentication
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {

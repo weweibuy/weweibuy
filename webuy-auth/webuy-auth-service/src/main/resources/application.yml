@@ -133,3 +133,15 @@ management:
     health:
       show-details: ALWAYS
 
+hystrix: #hystrix配置
+  command:
+    default:
+      execution:
+        timeout:
+        enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 100000
+            ribbon:
+              ReadTimeout: 600000
+              ConnectTimeout: 600000
