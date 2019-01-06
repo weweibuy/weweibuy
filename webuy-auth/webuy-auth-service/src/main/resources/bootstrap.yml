@@ -1,6 +1,6 @@
 webuy:
   security:
-    loginResponseType: REDIRECT
+    loginResponseType: JSON
     social:
       qq:
         #processesUrl: /qqLogin
