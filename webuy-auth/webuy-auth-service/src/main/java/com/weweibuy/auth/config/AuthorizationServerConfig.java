@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
@@ -67,9 +68,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
+
+        InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
+        builder
                 .withClient("webuy")
                 .secret(bCryptPasswordEncoder.encode("webuy123"))
+                .accessTokenValiditySeconds(3600)
+                .refreshTokenValiditySeconds(60 * 60 * 24 * 30)
+                .autoApprove(true)
+                .authorizedGrantTypes("refresh_token", "password", "authorization_code")
+                .scopes("all");
+        builder
+                .withClient("browser")
+                .secret(bCryptPasswordEncoder.encode("123"))
                 .accessTokenValiditySeconds(3600)
                 .refreshTokenValiditySeconds(60 * 60 * 24 * 30)
                 .autoApprove(true)

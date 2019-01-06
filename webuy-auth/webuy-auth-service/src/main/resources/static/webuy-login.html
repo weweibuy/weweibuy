@@ -100,7 +100,7 @@
         $("#get_code_button").click(function () {
             $.ajax({
                 type: "GET",
-                url: "/code/sms",
+                url: "code/sms",
                 data: {"mobile": $("#mobile").val()}
             });
         })

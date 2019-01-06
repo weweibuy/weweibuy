@@ -45,7 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure (HttpSecurity http) throws Exception{
-
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).
             formLogin()  // 登录方式
                 .loginPage("/webuy-login.html")

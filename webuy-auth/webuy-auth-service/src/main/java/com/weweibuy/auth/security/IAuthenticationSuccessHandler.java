@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.weweibuy.auth.config.AuthorizationServerConfig;
 import com.weweibuy.auth.core.config.eum.LoginResponseType;
 import com.weweibuy.auth.core.config.properties.SecurityProperties;
+import com.weweibuy.auth.model.dto.JwtResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -67,31 +68,9 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
         // authentication 包装这用户的信息
         if(LoginResponseType.JSON.equals(securityProperties.getLoginResponseType())){
             log.info("请求头: {}", httpServletRequest.getHeader("Authorization"));
-
-            String header = httpServletRequest.getHeader("Authorization");
-
-            if (header == null || !header.startsWith("Basic ")) {
-                throw new UnapprovedClientAuthenticationException("请求头中没有client_id 信息");
-            }
-            // 获取请求投中的 client_id 和 client_secret
-            String[] tokens = extractAndDecodeHeader(header, httpServletRequest);
-            assert tokens.length == 2;
-            String client_id = tokens[0];
-            String client_secret = tokens[1];
-
-            ClientDetails clientDetails = clientDetailsService.loadClientByClientId(client_id);
-            if(clientDetails == null){
-                throw new UnapprovedClientAuthenticationException("客户端信息不存在");
-            }else if(clientDetails.getClientSecret().equals(client_secret)){
-                throw new UnapprovedClientAuthenticationException("客户端信息密码错误");
-            }
-            TokenRequest tokenRequest = new TokenRequest(new HashMap<String, String>(), client_id, clientDetails.getScope(), "abc");
-            OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
-            OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
-            OAuth2AccessToken accessToken = tokenServices.createAccessToken(oAuth2Authentication);
-
+            OAuth2AccessToken accessToken = createOAuth2AccessToken(httpServletRequest, authentication);
             httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(accessToken));
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(convertOAuth2AccessTokenToJwtResponse(accessToken)));
 
         }else{
             super.setDefaultTargetUrl("/index.html");
@@ -99,6 +78,43 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
         }
     }
 
+    private OAuth2AccessToken createOAuth2AccessToken(HttpServletRequest request,  Authentication authentication) throws IOException {
+        String client_id;
+        String client_secret;
+        if(isBrowseRequest(request)){
+            client_id = "browser";
+            client_secret = "123";
+        }else {
+            String header = request.getHeader("Authorization");
+            if (header == null || !header.startsWith("Basic ")) {
+                throw new UnapprovedClientAuthenticationException("请求头中没有client_id 信息");
+            }
+            // 获取请求投中的 client_id 和 client_secret
+            String[] tokens = extractAndDecodeHeader(header, request);
+            assert tokens.length == 2;
+            client_id = tokens[0];
+            client_secret = tokens[1];
+        }
+
+        ClientDetails clientDetails = clientDetailsService.loadClientByClientId(client_id);
+        if(clientDetails == null){
+            throw new UnapprovedClientAuthenticationException("客户端信息不存在");
+        }else if(clientDetails.getClientSecret().equals(client_secret)){
+            throw new UnapprovedClientAuthenticationException("客户端信息密码错误");
+        }
+        TokenRequest tokenRequest = new TokenRequest(new HashMap<String, String>(), client_id, clientDetails.getScope(), "abc");
+        OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
+        OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
+        OAuth2AccessToken accessToken = tokenServices.createAccessToken(oAuth2Authentication);
+        return accessToken;
+    }
+
+
+
+
+    public boolean isBrowseRequest(HttpServletRequest request){
+        return request.getRequestURI().equals("/authentication/form");
+    }
 
     private String[] extractAndDecodeHeader(String header, HttpServletRequest request)
             throws IOException {
@@ -118,6 +134,17 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
             throw new BadCredentialsException("Invalid basic authentication token");
         }
         return new String[] { token.substring(0, delim), token.substring(delim + 1) };
+    }
+
+    public JwtResponseDto convertOAuth2AccessTokenToJwtResponse(OAuth2AccessToken oAuth2AccessToken){
+        JwtResponseDto jwtResponse = new JwtResponseDto();
+        jwtResponse.setAccess_token(oAuth2AccessToken.getValue());
+        jwtResponse.setExpires_in(oAuth2AccessToken.getExpiresIn());
+        jwtResponse.setJti(oAuth2AccessToken.getAdditionalInformation().get("jti"));
+        jwtResponse.setScope(oAuth2AccessToken.getScope());
+        jwtResponse.setRefresh_token(oAuth2AccessToken.getRefreshToken().getValue());
+        jwtResponse.setToken_type(oAuth2AccessToken.getTokenType());
+        return jwtResponse;
     }
 
 
