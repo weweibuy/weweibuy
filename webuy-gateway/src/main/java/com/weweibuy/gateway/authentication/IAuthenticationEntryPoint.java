@@ -1,5 +1,8 @@
 package com.weweibuy.gateway.authentication;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -19,10 +22,22 @@ import java.io.IOException;
  * @Date 2019/1/4 22:18
  **/
 @Component
+@PropertySource("classpath:application.yml")
+@ConfigurationProperties(prefix = "security.oauth2.client")
 public class IAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
+    @Value("${user-authorization-uri}")
+    private String userAuthorizationUri;
+
+    @Value("${client-id}")
+    private String clientId;
+
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        // http://localhost/oauth/authorize?client_id=webuy&redirect_uri=http://localhost:8201/login&response_type=code&state=OsxohM'
+//        String s = userAuthorizationUri + "?" + "client_id=%s&redirect_uri=%s&response_type=code&state=OsxohM";
+//        String url = String.format(s, clientId, request.getRequestURI());
         response.sendRedirect("/auth/webuy-login.html");
     }
 }

@@ -98,6 +98,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!--oauth2-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+            <version>1.2.1.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
 

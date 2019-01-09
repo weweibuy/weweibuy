@@ -64,7 +64,7 @@
             </div>
             <h3>欢迎使用 hAdmin 手机登录</h3>
 
-            <form class="m-t" role="form" id="mobile_form" method="POST" action="/authentication/mobile">
+            <form class="m-t" role="form" id="mobile_form" method="POST" action="authentication/mobile">
                 <div class="form-group">
                     <input type="text" class="form-control" id="mobile" name="mobile" value="13800000000"  required="">
                 </div>
@@ -90,11 +90,11 @@
     <script>
 
         $("#login_qq").click(function () {
-            window.location.href = "/auth/qq";
+            window.location.href = "auth/qq";
         })
 
         $("#login_weixin").click(function () {
-            window.location.href = "/auth/weixin";
+            window.location.href = "auth/weixin";
         })
 
         $("#get_code_button").click(function () {

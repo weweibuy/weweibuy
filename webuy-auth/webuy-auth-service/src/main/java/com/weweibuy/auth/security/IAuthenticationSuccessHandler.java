@@ -20,11 +20,12 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.HashMap;
 
@@ -48,11 +49,6 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
 
     private AuthorizationServerTokenServices tokenServices;
 
-    @PostConstruct
-    public void init(){
-        log.info("IAuthenticationSuccessHandler 加载了.........");
-    }
-
     /**
      * TODO 使用网关代理后应写入TOKEN(可能是由于跨域的Session,有待弄清楚)
      * TODO 写入TOKEN可以使用OAuth的/oauth/token 这里已经有用户的authentication需要将authentication转为TOKEN
@@ -69,11 +65,15 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
         if(LoginResponseType.JSON.equals(securityProperties.getLoginResponseType())){
             log.info("请求头: {}", httpServletRequest.getHeader("Authorization"));
             OAuth2AccessToken accessToken = createOAuth2AccessToken(httpServletRequest, authentication);
+            JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(accessToken);
+            Cookie cookie = new Cookie("Authorization", URLEncoder.encode(jwtResponseDto.getAccess_token(), "UTF-8"));
+            cookie.setMaxAge(3600 * 24);
+            httpServletResponse.addCookie(cookie);
             httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(convertOAuth2AccessTokenToJwtResponse(accessToken)));
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(jwtResponseDto));
 
         }else{
-            super.setDefaultTargetUrl("/index.html");
+//            super.setDefaultTargetUrl("/index.html");
             super.onAuthenticationSuccess(httpServletRequest, httpServletResponse, authentication);
         }
     }

@@ -14,8 +14,13 @@ public class HelloWorldController {
 
     @RequestMapping("/hello")
     public String sayHello(){
-        return "hello";
+        return "hello..user...";
     }
 
+
+    @RequestMapping("/helloSso")
+    public String sayHelloSSO(){
+        return "hello..SSO...";
+    }
 
 }

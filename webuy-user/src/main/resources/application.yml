@@ -70,6 +70,19 @@ logging:
   config: classpath:config/logback/logback-spring.xml
 
 
+security:
+  oauth2:
+    client:
+      client-id: webuy
+      client-secret: webuy123
+      user-authorization-uri: http://localhost/oauth/authorize
+      access-token-uri: http://localhost/oauth/token
+    resource:
+      user-info-uri: http://localhost/oauth/user
+      jwt:
+        key-value: -----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9utDRxl0vykGVncIrPSrqJICtKfTRHMjyEtKfUWrr3215N69c0nMx2xQL2lVk0q2u3xSE04PIEaTNW4UWj4q3MdWEk++j0ztdM39GVTGu78TjjeIsjVwWKTO/uiBvCgEpFV3ztlNoIcxVR7Y24JT1f7aVu8aFww8pnxQzKmNnmwIDAQAB-----END PUBLIC KEY-----
+
+
 ---
   #dev environment
 spring:

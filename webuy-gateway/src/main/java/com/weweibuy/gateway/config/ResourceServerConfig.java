@@ -1,12 +1,16 @@
 package com.weweibuy.gateway.config;
 
-import com.weweibuy.gateway.filter.ClientIdFilter;
+import com.weweibuy.gateway.filter.CookieFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.header.HeaderWriterFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * 资源服务器配置，这里zuul代理了所有资源服务
@@ -22,7 +26,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private AuthenticationEntryPoint IAuthenticationEntryPoint;
 
     @Autowired
-    private ClientIdFilter clientIdFilter;
+    private CookieFilter clientIdFilter;
 
     /**
      * TODO这里的http  不能使用WebSecurityConfigurerAdapter的http配置; 必须这在配
@@ -47,6 +51,21 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(IAuthenticationEntryPoint);
     }
 
-
+    /**
+     * 用于解决zuul代理后cookie 跨域丢失
+     * @return
+     */
+    @Bean
+    public CorsFilter corsFilter() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);   // 允许cookies跨域
+        config.addAllowedOrigin("*"); // 允许向该服务器提交请求的URI，*表示全部允许。。这里尽量限制来源域，比如http://xxxx:8080 ,以降低安全风险。。
+        config.addAllowedHeader("*"); // 允许访问的头信息,*表示全部
+        config.addAllowedMethod("*");
+        config.setMaxAge(18000L); // 预检请求的缓存时间（秒），即在这个时间段里，对于相同的跨域请求不会再预检了
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
 
 }
