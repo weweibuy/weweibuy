@@ -68,6 +68,7 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
             JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(accessToken);
             Cookie cookie = new Cookie("Authorization", URLEncoder.encode(jwtResponseDto.getAccess_token(), "UTF-8"));
             cookie.setMaxAge(3600 * 24);
+            cookie.setPath("/");
             httpServletResponse.addCookie(cookie);
             httpServletResponse.setContentType("application/json;charset=UTF-8");
             httpServletResponse.getWriter().write(JSONObject.toJSONString(jwtResponseDto));

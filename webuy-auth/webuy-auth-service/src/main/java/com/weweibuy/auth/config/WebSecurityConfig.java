@@ -4,7 +4,6 @@ import com.weweibuy.auth.core.config.SmsCodeAuthenticationSecurityConfig;
 import com.weweibuy.auth.core.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,7 +20,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
  * @Author durenhao
  * @Date 2018/12/15 11:11
  **/
-@Configuration
+//@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
