@@ -80,6 +80,9 @@ public class CookieAuthenticationFilter extends OncePerRequestFilter {
 
     public PreAuthenticatedAuthenticationToken extract(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
+        if(cookies == null){
+            return null;
+        }
         JwtToken jwtToken = null;
         String jwtTokenStr = null;
         for(Cookie cookie : cookies){
