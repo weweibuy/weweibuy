@@ -25,10 +25,14 @@ public class CookieFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
-        for(int i = 0; i < cookies.length; i++){
-            Cookie cookie = cookies[i];
-            log.info("cookie 名: {} , 值: {}", cookie.getName(), cookie.getValue());
+        if(cookies != null){
+            for(int i = 0; i < cookies.length; i++){
+                Cookie cookie = cookies[i];
+                log.info("cookie 名: {} , 值: {}", cookie.getName(), cookie.getValue());
+            }
+        }else {
+            filterChain.doFilter(request, response);
         }
-        filterChain.doFilter(request, response);
+
     }
 }
