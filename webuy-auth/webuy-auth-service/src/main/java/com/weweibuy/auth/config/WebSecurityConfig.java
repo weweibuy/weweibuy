@@ -43,6 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private SpringSocialConfigurer iSpringSocialConfigurer;
 
 
+    /**
+     * TODO 将写死的东西 写入配置
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure (HttpSecurity http) throws Exception{
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).

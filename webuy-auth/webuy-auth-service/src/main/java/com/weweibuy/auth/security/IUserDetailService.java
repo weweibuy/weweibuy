@@ -1,5 +1,7 @@
 package com.weweibuy.auth.security;
 
+import com.weweibuy.user.client.UserClient;
+import com.weweibuy.user.common.model.dto.UserWebResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -25,7 +27,11 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private UserClient userClient;
+
     /**
+     * TODO 应从用户 服务拉取数据
      * 表单登录
      * @param username
      * @return
@@ -34,6 +40,7 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("【安全服务】：登录用户名{}", username);
+        UserWebResult userWebResult = userClient.loadUserByUsername(username);
         return new User(username, encoder.encode("123"), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
     }
 

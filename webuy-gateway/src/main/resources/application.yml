@@ -117,7 +117,13 @@ zuul:
       # 在调取/oauth/token 时经过  BasicAuthenticationFilter 验证 Authorization(client_id 和 client_secret) 由于无法验证client信息返回401
       sensitiveHeaders: # TODO 加上后面这些也是返回401,什么都不加可RibbonRoutingFilter以正确返回 #Cookie,Set-Cookie,Authorization
       serviceId: webuy-auth  #转发到对应的 serviceID上
-  add-host-header: true    # 此处解决后端服务重定向导致用户浏览的 host 变成 后端服务的 host 问题
+      add-host-header: true    # 此处解决后端服务重定向导致用户浏览的 host 变成 后端服务的 host 问题
+    user:
+      path: /user/**
+      strip-prefix: true
+      sensitiveHeaders:
+      serviceId: webuy-user
+      add-host-header: true
 
 
 
@@ -148,6 +154,16 @@ webuy-auth: #是serviceId
   ribbon:
     ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:80
+    ConnectTimeout: 100000   #建立连接超时时间
+    ReadTimeout: 100000  #连接超时时间
+    OkToRetryOnAllOperations: true  #所有操作都重试
+    MaxAutoRetries: 2  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
+
+webuy-user: #是serviceId
+  ribbon:
+    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
+    listOfServers: http://localhost:8201
     ConnectTimeout: 100000   #建立连接超时时间
     ReadTimeout: 100000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试

@@ -66,6 +66,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         }
     }
 
+    /**
+     * TODO 从DB 中读取数据
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 

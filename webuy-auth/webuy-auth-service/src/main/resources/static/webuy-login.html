@@ -33,16 +33,16 @@
             </div>
             <h3>欢迎使用 hAdmin</h3>
 
-            <form class="m-t" role="form" method="post" action="authentication/form">
+            <form class="m-t" role="form" id="form_login" method="post" action="authentication/form">
                 <div class="form-group">
                     <input type="text" class="form-control" name="username" value="admin"  required="">
                 </div>
                 <input type="checkbox" name="remember-me" value="true">记住我
                 <div class="form-group">
-                    <input type="password" name="password" class="form-control" value="123" required="">
+                    <input type="password" name="password" id="form_password_input" class="form-control" value="123" required="">
                 </div>
 
-                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+                <button type="button" id="form_submit_button" class="btn btn-primary block full-width m-b">登 录</button>
 
                 <button type="button" id="login_qq" style="width: 48%; display: inline-block" class="btn btn-primary block  m-b">QQ登录</button>
 
@@ -86,8 +86,16 @@
     <!-- 全局js -->
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/jsrsasign/jsencrypt.min.js"></script>
 
     <script>
+
+        var encryptData = encrypt.encrypt($("#form_password_data").val());//加密后的字符串
+
+        $("#form_submit_button").click(function () {
+            $("#form_password_data").val(encryptData);
+            $("form_login").submit();
+        })
 
         $("#login_qq").click(function () {
             window.location.href = "auth/qq";

@@ -27,7 +27,9 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response){
-        requestCache.saveRequest(request, response);
+        if(request.getParameter("redirect_url") != null){
+            requestCache.saveRequest(request, response);
+        }
         return "/webuy-login.html";
     }
 
