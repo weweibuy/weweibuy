@@ -2,7 +2,6 @@ package com.weweibuy.auth.security;
 
 import com.alibaba.fastjson.JSONObject;
 import com.weweibuy.auth.config.AuthorizationServerConfig;
-import com.weweibuy.auth.core.config.eum.LoginResponseType;
 import com.weweibuy.auth.core.config.properties.SecurityProperties;
 import com.weweibuy.auth.model.dto.JwtResponseDto;
 import lombok.extern.slf4j.Slf4j;
@@ -57,8 +56,11 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
 
 
     /**
-     * TODO 使用网关代理后应写入TOKEN(可能是由于跨域的Session,有待弄清楚)
-     * TODO 写入TOKEN可以使用OAuth的/oauth/token 这里已经有用户的authentication需要将authentication转为TOKEN
+     * 认证成功后的处理逻辑
+     * TODO 在这里使用zuul 网关代理资源服务器,只是在认证服务器上做了登录,写入然后发放令牌
+     * TODO 并没有在zuul上(或者cilent上)登录;  那么如果使用zuul统一代理所有微服务,可能client也将成为资源服务
+     * TODO 这就导致oauth 协议中的角色混乱(zuul也代理了 认证服务;) 这里是否需要将个个角色单独分离出来,需要根据以后开发情况决定
+     * TODO 目前也无法支持第三方 client 登录(取消 /login的 requestCache)
      * @param httpServletRequest
      * @param httpServletResponse
      * @param authentication
@@ -68,17 +70,16 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {
-        OAuth2AccessToken accessToken = createOAuth2AccessToken(httpServletRequest, authentication);
-        JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(accessToken);
-        Cookie cookie = new Cookie("Authorization", URLEncoder.encode(jwtResponseDto.getAccess_token(), "UTF-8"));
-        cookie.setMaxAge(3600 * 24);
-        cookie.setPath("/");
-        httpServletResponse.addCookie(cookie);
-        boolean accept = httpServletRequest.getHeader("Accept").contains("text/html");
-        if(!accept && LoginResponseType.JSON.equals(securityProperties.getLoginResponseType())){
-            httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(jwtResponseDto));
-        }else{
+        if(isBrowseRequest(httpServletRequest)){
+            // TODO 浏览器
+            OAuth2AccessToken oAuth2AccessTokenForBrowse = createOAuth2AccessTokenForBrowse(httpServletRequest, authentication);
+            JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(oAuth2AccessTokenForBrowse);
+            Cookie cookie = new Cookie("Authorization", URLEncoder.encode(jwtResponseDto.getAccess_token(), "UTF-8"));
+            cookie.setMaxAge(3600 * 24);
+            cookie.setPath("/");
+            cookie.setHttpOnly(true);
+            httpServletResponse.addCookie(cookie);
+
             SavedRequest savedRequest = requestCache.getRequest(httpServletRequest, httpServletResponse);
             clearAuthenticationAttributes(httpServletRequest);
             String[] redirect_urls = savedRequest.getParameterValues("redirect_url");
@@ -87,29 +88,37 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
                 getRedirectStrategy().sendRedirect(httpServletRequest, httpServletResponse, redirect_urls[0]);
             }else {
                 httpServletResponse.sendRedirect("http://localhost:8080/auth/index.html");
-
             }
+
+        }else {
+            OAuth2AccessToken accessToken = createOAuth2AccessToken(httpServletRequest, authentication);
+            JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(accessToken);
+            httpServletResponse.setContentType("application/json;charset=UTF-8");
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(jwtResponseDto));
         }
     }
 
     private OAuth2AccessToken createOAuth2AccessToken(HttpServletRequest request,  Authentication authentication) throws IOException {
-        String client_id;
-        String client_secret;
-        if(isBrowseRequest(request)){
-            client_id = "browser";
-            client_secret = "123";
-        }else {
-            String header = request.getHeader("Authorization");
-            if (header == null || !header.startsWith("Basic ")) {
-                throw new UnapprovedClientAuthenticationException("请求头中没有client_id 信息");
-            }
-            // 获取请求投中的 client_id 和 client_secret
-            String[] tokens = extractAndDecodeHeader(header, request);
-            assert tokens.length == 2;
-            client_id = tokens[0];
-            client_secret = tokens[1];
+        String header = request.getHeader("Authorization");
+        if (header == null || !header.startsWith("Basic ")) {
+            throw new UnapprovedClientAuthenticationException("请求头中没有client_id 信息");
         }
+        // 获取请求投中的 client_id 和 client_secret
+        String[] tokens = extractAndDecodeHeader(header, request);
+        assert tokens.length == 2;
+        String client_id = tokens[0];
+        String client_secret = tokens[1];
+        return createOAuth2AccessToken(client_id, client_secret, authentication);
+    }
 
+
+    private OAuth2AccessToken createOAuth2AccessTokenForBrowse(HttpServletRequest request,  Authentication authentication) throws IOException {
+        String client_id = "browser";
+        String client_secret = "123";
+        return createOAuth2AccessToken(client_id, client_secret, authentication);
+    }
+
+    private OAuth2AccessToken createOAuth2AccessToken(String client_id, String client_secret, Authentication authentication){
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(client_id);
         if(clientDetails == null){
             throw new UnapprovedClientAuthenticationException("客户端信息不存在");
@@ -124,8 +133,18 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
     }
 
 
+    /**
+     * 判断请求是否来自浏览器
+     * @param request
+     * @return
+     */
     public boolean isBrowseRequest(HttpServletRequest request){
-        return request.getRequestURI().equals("/authentication/form");
+        String header = request.getHeader("Authorization");
+        if(request.getHeader("Accept").contains("text/html") &&
+            request.getHeader("User-Agent").startsWith("Mozilla")){
+            return true;
+        }
+        return false;
     }
 
     private String[] extractAndDecodeHeader(String header, HttpServletRequest request)
