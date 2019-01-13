@@ -55,7 +55,7 @@ public class CookieAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }else {
 
-            // 这里需要补货token失效的异常,防止无线重定向
+            // 这里需要捕获token失效的异常,防止无限重定向
             try {
                 // 解析cookie中的authentication
                 authentication = extract(request);
@@ -73,6 +73,7 @@ public class CookieAuthenticationFilter extends OncePerRequestFilter {
             }catch (InvalidTokenException e){
                 log.info("cookie 中的Authentication信息已经失效");
                 SecurityContextHolder.clearContext();
+                removeCookieAuthentication(request);
                 throw new CookieAuthenticationInvalidException(e.getMessage());
             }
         }
@@ -108,4 +109,14 @@ public class CookieAuthenticationFilter extends OncePerRequestFilter {
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
+
+    private void removeCookieAuthentication(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("Authorization")){
+                cookie.setMaxAge(0);
+            }
+        }
+    }
+
 }

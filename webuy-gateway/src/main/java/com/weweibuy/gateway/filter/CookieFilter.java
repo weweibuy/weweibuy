@@ -30,6 +30,7 @@ public class CookieFilter extends OncePerRequestFilter {
                 Cookie cookie = cookies[i];
                 log.info("cookie 名: {} , 值: {}", cookie.getName(), cookie.getValue());
             }
+            filterChain.doFilter(request, response);
         }else {
             filterChain.doFilter(request, response);
         }

@@ -6,6 +6,7 @@ import com.weweibuy.auth.core.config.eum.LoginResponseType;
 import com.weweibuy.auth.core.config.properties.SecurityProperties;
 import com.weweibuy.auth.model.dto.JwtResponseDto;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
@@ -18,6 +19,9 @@ import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAut
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -44,10 +48,13 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
     @Autowired
     private SecurityProperties securityProperties;
 
+    private RequestCache requestCache = new HttpSessionRequestCache();
+
     @Autowired
     private ClientDetailsService clientDetailsService;
 
     private AuthorizationServerTokenServices tokenServices;
+
 
     /**
      * TODO 使用网关代理后应写入TOKEN(可能是由于跨域的Session,有待弄清楚)
@@ -61,21 +68,27 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {
-        // authentication 包装这用户的信息
-        if(LoginResponseType.JSON.equals(securityProperties.getLoginResponseType())){
-            log.info("请求头: {}", httpServletRequest.getHeader("Authorization"));
-            OAuth2AccessToken accessToken = createOAuth2AccessToken(httpServletRequest, authentication);
-            JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(accessToken);
-            Cookie cookie = new Cookie("Authorization", URLEncoder.encode(jwtResponseDto.getAccess_token(), "UTF-8"));
-            cookie.setMaxAge(3600 * 24);
-            cookie.setPath("/");
-            httpServletResponse.addCookie(cookie);
+        OAuth2AccessToken accessToken = createOAuth2AccessToken(httpServletRequest, authentication);
+        JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(accessToken);
+        Cookie cookie = new Cookie("Authorization", URLEncoder.encode(jwtResponseDto.getAccess_token(), "UTF-8"));
+        cookie.setMaxAge(3600 * 24);
+        cookie.setPath("/");
+        httpServletResponse.addCookie(cookie);
+        boolean accept = httpServletRequest.getHeader("Accept").contains("text/html");
+        if(!accept && LoginResponseType.JSON.equals(securityProperties.getLoginResponseType())){
             httpServletResponse.setContentType("application/json;charset=UTF-8");
             httpServletResponse.getWriter().write(JSONObject.toJSONString(jwtResponseDto));
-
         }else{
-//            super.setDefaultTargetUrl("/index.html");
-            super.onAuthenticationSuccess(httpServletRequest, httpServletResponse, authentication);
+            SavedRequest savedRequest = requestCache.getRequest(httpServletRequest, httpServletResponse);
+            clearAuthenticationAttributes(httpServletRequest);
+            String[] redirect_urls = savedRequest.getParameterValues("redirect_url");
+            requestCache.removeRequest(httpServletRequest, httpServletResponse);
+            if(redirect_urls != null && StringUtils.isNotBlank(redirect_urls[0])){
+                getRedirectStrategy().sendRedirect(httpServletRequest, httpServletResponse, redirect_urls[0]);
+            }else {
+                httpServletResponse.sendRedirect("http://localhost:8080/auth/index.html");
+
+            }
         }
     }
 
@@ -109,8 +122,6 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
         OAuth2AccessToken accessToken = tokenServices.createAccessToken(oAuth2Authentication);
         return accessToken;
     }
-
-
 
 
     public boolean isBrowseRequest(HttpServletRequest request){
@@ -163,4 +174,5 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
         AuthorizationServerTokenServices tokenServices = applicationContext.getBean(AuthorizationServerTokenServices.class);
         this.tokenServices = tokenServices;
     }
+
 }

@@ -40,7 +40,7 @@ public class IAuthenticationEntryPoint implements AuthenticationEntryPoint {
         String accept = request.getHeader("Accept");
         log.error(authException.getMessage());
         if(accept.contains("text/html")){
-            response.sendRedirect("/auth/webuy-login.html");
+            response.sendRedirect("/auth/login?redirect_url=" + request.getRequestURL());
         }else {
             response.setContentType("application/json;charset=utf-8");
             Throwable cause = authException.getCause();

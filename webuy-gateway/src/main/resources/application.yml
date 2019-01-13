@@ -106,6 +106,7 @@ zuul:
       # TODO 下面这个配置的作用一定眼弄清楚; 如果不加在请求后面的auth服务时 basic登录无法成功
       sensitiveHeaders: #Cookie,Set-Cookie,Authorization
       serviceId: webuy-backstage
+      add-host-header: true
     auth:
       path: /auth/**
       strip-prefix: true
@@ -116,7 +117,7 @@ zuul:
       # 在调取/oauth/token 时经过  BasicAuthenticationFilter 验证 Authorization(client_id 和 client_secret) 由于无法验证client信息返回401
       sensitiveHeaders: # TODO 加上后面这些也是返回401,什么都不加可RibbonRoutingFilter以正确返回 #Cookie,Set-Cookie,Authorization
       serviceId: webuy-auth  #转发到对应的 serviceID上
-  #add-host-header: true    # 此处解决后端服务重定向导致用户浏览的 host 变成 后端服务的 host 问题
+  add-host-header: true    # 此处解决后端服务重定向导致用户浏览的 host 变成 后端服务的 host 问题
 
 
 

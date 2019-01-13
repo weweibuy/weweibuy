@@ -4,6 +4,7 @@ import com.weweibuy.auth.core.config.SmsCodeAuthenticationSecurityConfig;
 import com.weweibuy.auth.core.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,7 +21,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
  * @Author durenhao
  * @Date 2018/12/15 11:11
  **/
-//@Configuration
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -46,7 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure (HttpSecurity http) throws Exception{
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).
             formLogin()  // 登录方式
-                .loginPage("/webuy-login.html")
+                // 在使用zuul代理之后,这里的登录地址使用uri将直接暴露ip
+                .loginPage("http://localhost:8080/auth/login")
                 .loginProcessingUrl("/authentication/form") // 处理登录页面的url
                 .successHandler(iAuthenticationSuccessHandler)
                 .failureHandler(iAuthenticationFailureHandler)
@@ -57,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests() //  对请求授权
                 // 对指定目录放行
-                .antMatchers("/webuy-login.html", "/fonts/*", "/css/*", "/img/*", "/js/*",
+                .antMatchers( "/login","/fonts/*", "/css/*", "/img/*", "/js/*",
                         "/code/*", "/authentication/mobile", "/hello")
                 .permitAll()
                 .anyRequest()  // 所有请求
