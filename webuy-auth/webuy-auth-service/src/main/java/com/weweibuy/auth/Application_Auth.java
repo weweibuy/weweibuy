@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.social.config.annotation.EnableSocial;
 
@@ -19,6 +20,7 @@ import org.springframework.social.config.annotation.EnableSocial;
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableAuthorizationServer
+@EnableFeignClients(basePackages = "com.weweibuy.user.client") // 这里需要指定basePackages否则找不到bean
 @EnableSocial
 public class Application_Auth {
 

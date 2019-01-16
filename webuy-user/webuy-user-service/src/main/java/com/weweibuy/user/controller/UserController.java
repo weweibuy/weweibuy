@@ -91,7 +91,9 @@ public class UserController {
         if(StringUtils.isBlank(username)){
             return UserWebResult.fail("用户名密码不能为空");
         }
-        return userService.loadUserByUsername(username);
+        UserWebResult webResult = userService.loadUserByUsername(username);
+        return webResult;
+
     }
 
 

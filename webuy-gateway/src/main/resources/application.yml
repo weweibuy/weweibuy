@@ -100,22 +100,21 @@ zuul:
       connect-timeout-millis: 100000
       socket-timeout-millis: 100000
   routes:
-    webuy:
+    backstage:
       path: /backstage/**
       strip-prefix: true  #忽略前缀
-      # TODO 下面这个配置的作用一定眼弄清楚; 如果不加在请求后面的auth服务时 basic登录无法成功
       sensitiveHeaders: #Cookie,Set-Cookie,Authorization
       serviceId: webuy-backstage
       add-host-header: true
     auth:
       path: /auth/**
       strip-prefix: true
-      # TODO 下面这个配置的作用一定要弄清楚; 如果不加在请求后面的auth服务时 basic登录无法成功;
-      # TODO 即使使用正确的参数访问 http://localhost:8080/auth/oauth/token; 也是返回401
+      #  下面这个配置的作用一定要弄清楚; 如果不加在请求后面的auth服务时 basic登录无法成功;
+      #  即使使用正确的参数访问 http://localhost:8080/auth/oauth/token; 也是返回401
       # 这里是因为zuul 使用  RibbonRoutingFilter(ProxyRequestHelper) 重新创建请求头  在创建时调用isIncludedHeader(name)方法
       # 将原请求的请求头复制到 RibbonRoutingFilter 创建的请求中, 下面的配置是创建时选择忽略的请求头默认是:Cookie,Set-Cookie,Authorization
       # 在调取/oauth/token 时经过  BasicAuthenticationFilter 验证 Authorization(client_id 和 client_secret) 由于无法验证client信息返回401
-      sensitiveHeaders: # TODO 加上后面这些也是返回401,什么都不加可RibbonRoutingFilter以正确返回 #Cookie,Set-Cookie,Authorization
+      sensitiveHeaders: #  加上后面这些也是返回401,什么都不加可RibbonRoutingFilter以正确返回 #Cookie,Set-Cookie,Authorization
       serviceId: webuy-auth  #转发到对应的 serviceID上
       add-host-header: true    # 此处解决后端服务重定向导致用户浏览的 host 变成 后端服务的 host 问题
     user:

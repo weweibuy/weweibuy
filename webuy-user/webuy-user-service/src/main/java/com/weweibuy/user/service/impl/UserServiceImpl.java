@@ -8,7 +8,6 @@ import com.weweibuy.user.model.po.WebuyUserExample;
 import com.weweibuy.user.service.UserService;
 import com.weweibuy.user.service.impl.base.BaseCrudServiceImpl;
 import com.weweibuy.user.utils.CodeUtil;
-import com.weweibuy.user.utils.RSAUtil;
 import com.weweibuy.user.utils.VerificationCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +28,9 @@ public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExa
 
     @Value("${key.public_key}")
     private  String PUBLIC_KEY;
+
+    @Value("${key.private_key}")
+    private String PRIVATE_KEY;
 
     @Autowired
     private WebuyUserMapper userMapper;
@@ -79,9 +81,6 @@ public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExa
             return UserWebResult.fail("用户信息不存在");
         }
         WebuyUser webuyUser = webuyUsers.get(0);
-        String password = webuyUser.getPassword();
-        byte[] bytes = RSAUtil.encryptByPublicKey(password, PUBLIC_KEY);
-        webuyUser.setPassword(new String(bytes));
-        return UserWebResult.success(webuyUsers);
+        return UserWebResult.success(webuyUser);
     }
 }

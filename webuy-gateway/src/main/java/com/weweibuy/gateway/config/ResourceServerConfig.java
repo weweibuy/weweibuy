@@ -63,7 +63,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.addFilterBefore(cookieFilter, HeaderWriterFilter.class);
         http
             .authorizeRequests() /* .antMatchers().hasAnyRole("ADMIN") */
-            .antMatchers("/auth/**","/*/hello", "*.css", "*.js", "*.fonts", "/**/favicon.ico")
+            .antMatchers("/auth/**","/*/hello", "/*/js/**", "/*/css/**", "/*/fonts/**", "**/favicon.ico","/actuator/**")
             .permitAll()
             .anyRequest()
             .authenticated()

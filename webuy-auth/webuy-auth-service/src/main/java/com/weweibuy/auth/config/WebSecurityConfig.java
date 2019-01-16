@@ -64,8 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests() //  对请求授权
                 // 对指定目录放行
-                .antMatchers( "/login","/fonts/*", "/css/*", "/img/*", "/js/*",
-                        "/code/*", "/authentication/mobile", "/hello")
+                .antMatchers( "/login","/fonts/**", "/css/**", "/img/**", "/js/**",
+                        "/code/*", "/authentication/mobile", "/hello", "/actuator/**")
                 .permitAll()
                 .anyRequest()  // 所有请求
                 .authenticated()  // 需要授权
