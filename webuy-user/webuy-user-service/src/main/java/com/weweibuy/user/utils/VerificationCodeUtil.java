@@ -1,7 +1,7 @@
 package com.weweibuy.user.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.weweibuy.user.model.vo.PhoneVerifyCodeVo;
+import com.weweibuy.user.common.model.vo.PhoneVerifyCodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;

@@ -14,83 +14,9 @@
     <modules>
         <module>webuy-auth-core</module>
         <module>webuy-auth-service</module>
-        <module>webuy-auth-client</module>
     </modules>
 
     <dependencies>
-        <!--&lt;!&ndash;通用工程依赖&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.weweibuy</groupId>-->
-            <!--<artifactId>webuy-common</artifactId>-->
-            <!--<version>1.0-SNAPSHOT</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;oauth2&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-oauth2</artifactId>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-hystrix</artifactId>-->
-            <!--<version>1.4.6.RELEASE</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;mybatis&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.mybatis.spring.boot</groupId>-->
-            <!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;jdcb及事物&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-jdbc</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;druid数据源&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba</groupId>-->
-            <!--<artifactId>druid</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;redis&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-redis</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;lombok&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.projectlombok</groupId>-->
-            <!--<artifactId>lombok</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;swagger2&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-swagger2</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-swagger-ui</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;logstash日志收集&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>net.logstash.logback</groupId>-->
-            <!--<artifactId>logstash-logback-encoder</artifactId>-->
-            <!--<version>4.9</version>-->
-        <!--</dependency>-->
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
 
     </dependencies>
 

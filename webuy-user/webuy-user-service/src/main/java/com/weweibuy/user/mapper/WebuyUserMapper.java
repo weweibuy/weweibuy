@@ -1,9 +1,10 @@
 package com.weweibuy.user.mapper;
 
-import com.weweibuy.user.model.po.WebuyUser;
-import com.weweibuy.user.model.po.WebuyUserExample;
-import java.util.List;
+import com.weweibuy.user.common.model.po.WebuyUser;
+import com.weweibuy.user.common.model.po.WebuyUserExample;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface WebuyUserMapper {
     long countByExample(WebuyUserExample example);

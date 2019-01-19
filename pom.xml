@@ -28,6 +28,7 @@
         <module>webuy-pay</module>
         <module>webuy-auth</module>
         <module>webuy-user</module>
+        <module>webuy-suport</module>
     </modules>
 
 
@@ -192,6 +193,23 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+
+        <!--junit测试-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 
     <profiles>

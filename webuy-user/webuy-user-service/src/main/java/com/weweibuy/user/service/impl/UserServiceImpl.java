@@ -1,10 +1,10 @@
 package com.weweibuy.user.service.impl;
 
-import com.weweibuy.user.eum.UserWebMsgEum;
+import com.weweibuy.user.common.eum.UserWebMsgEum;
+import com.weweibuy.user.common.model.dto.UserWebResult;
+import com.weweibuy.user.common.model.po.WebuyUser;
+import com.weweibuy.user.common.model.po.WebuyUserExample;
 import com.weweibuy.user.mapper.WebuyUserMapper;
-import com.weweibuy.user.model.dto.UserWebResult;
-import com.weweibuy.user.model.po.WebuyUser;
-import com.weweibuy.user.model.po.WebuyUserExample;
 import com.weweibuy.user.service.UserService;
 import com.weweibuy.user.service.impl.base.BaseCrudServiceImpl;
 import com.weweibuy.user.utils.CodeUtil;

@@ -8,9 +8,7 @@ package com.weweibuy.user.common.eum;
  **/
 public enum UserWebMsgEum {
 
-    SUCCESS(1,"成功"),
-    FAIL(0,"失败,未知错误"),
-
+    UNKNOWN_WRONG(10000, "未知错误"),
     PHONE_NUM_PATTERN_WRONG(10001, "手机号码格式错误"),
     GET_VERIFICATION_CODE_TOO_FREQUENT(10002, "手机验证码获取太频繁，稍后再试"),
     USERNAME_OR_PWD_NOT_NULL(10003, "用户名或密码不能为空"),

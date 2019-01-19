@@ -12,6 +12,8 @@
     <artifactId>webuy-auth-service</artifactId>
 
     <dependencies>
+
+        <!--auth-core-->
         <dependency>
             <groupId>com.weweibuy</groupId>
             <artifactId>webuy-auth-core</artifactId>
@@ -59,12 +61,6 @@
             <version>2.0.1</version>
         </dependency>
 
-        <!--日志-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
-
         <!--mysql驱动-->
         <dependency>
             <groupId>mysql</groupId>
@@ -76,20 +72,6 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>4.9</version>
-        </dependency>
-
-        <!--lombok-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--解析jwt-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.0</version>
         </dependency>
 
         <dependency>

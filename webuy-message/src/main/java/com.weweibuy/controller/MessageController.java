@@ -1,6 +1,6 @@
 package com.weweibuy.controller;
 
-import com.weweibuy.dto.CommonWebResult;
+import com.weweibuy.dto.CommonJsonResponse;
 import com.weweibuy.po.WeweibuyMessage;
 import com.weweibuy.service.MessageService;
 import com.weweibuy.utils.IDUtil;
@@ -32,7 +32,7 @@ public class MessageController {
      * @return
      */
     @PostMapping("/message/save")
-    public CommonWebResult saveMessage(@RequestBody @Validated WeweibuyMessage message, BindingResult result){
+    public CommonJsonResponse saveMessage(@RequestBody @Validated WeweibuyMessage message, BindingResult result){
         if(result.getErrorCount() > 0){
             return null;
         }
@@ -48,7 +48,7 @@ public class MessageController {
      * @return
      */
     @PutMapping("/message/sendMessage")
-    public CommonWebResult sendMessage(@RequestBody WeweibuyMessage message){
+    public CommonJsonResponse sendMessage(@RequestBody WeweibuyMessage message){
         messageService.sendMessage(message);
         return null;
     }
@@ -59,7 +59,7 @@ public class MessageController {
      * @return
      */
     @DeleteMapping("/message/confirmMessage")
-    public CommonWebResult confirmMessage(@Validated @NotBlank String deliverTag){
+    public CommonJsonResponse confirmMessage(@Validated @NotBlank String deliverTag){
         return null;
     }
 
@@ -69,7 +69,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("/message/{id}")
-    public CommonWebResult getMessageById(@PathVariable Long id){
+    public CommonJsonResponse getMessageById(@PathVariable Long id){
         return null;
     }
 
@@ -79,7 +79,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("/message/deliverTag/{deliverTag}")
-    public CommonWebResult getMessageByDeliverTag(@PathVariable String deliverTag) {
+    public CommonJsonResponse getMessageByDeliverTag(@PathVariable String deliverTag) {
         return null;
     }
 
@@ -88,7 +88,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("/messages")
-    public CommonWebResult getMessages(){
+    public CommonJsonResponse getMessages(){
         return null;
     }
 
@@ -97,7 +97,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("/messages/dead")
-    public CommonWebResult getDeadMessage(){
+    public CommonJsonResponse getDeadMessage(){
         return null;
     }
 
@@ -106,7 +106,7 @@ public class MessageController {
      * @return
      */
     @PostMapping("/message/dead/send")
-    public CommonWebResult reSendDeadMessage(){
+    public CommonJsonResponse reSendDeadMessage(){
         return null;
     }
 

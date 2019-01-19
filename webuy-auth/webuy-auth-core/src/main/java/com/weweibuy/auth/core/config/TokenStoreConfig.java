@@ -22,7 +22,7 @@ import java.io.IOException;
  * @Author durenhao
  * @Date 2018/12/30 18:00
  **/
-@Configuration
+@Configuration("tokenStoreConfig")
 public class TokenStoreConfig {
 
     @Autowired
@@ -34,7 +34,7 @@ public class TokenStoreConfig {
         return new RedisTokenStore(redisConnectionFactory);
     }
 
-    @Configuration
+    @Configuration("jwtTokenStoreConfig")
     @ConditionalOnProperty(prefix = "webuy.security.ouath2", name = "tokenStore", havingValue = "jwt", matchIfMissing = true)
     public static class JwtTokenStoreConfig{
 

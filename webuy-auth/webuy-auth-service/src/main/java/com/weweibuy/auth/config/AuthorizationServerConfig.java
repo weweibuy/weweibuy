@@ -2,6 +2,7 @@ package com.weweibuy.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,7 @@ import java.util.List;
  * @Date 2018/12/30 14:01
  **/
 @Configuration
+@DependsOn("jwtTokenStoreConfig")
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter{
 
     @Autowired
@@ -40,10 +42,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private TokenStore tokenStore;
 
-    @Autowired(required = false)
+    @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
-    @Autowired(required = false)
+    @Autowired
     private TokenEnhancer tokenEnhancer;
 
 

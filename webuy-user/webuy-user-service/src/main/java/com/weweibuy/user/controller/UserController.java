@@ -1,7 +1,7 @@
 package com.weweibuy.user.controller;
 
-import com.weweibuy.user.eum.UserWebMsgEum;
-import com.weweibuy.user.model.dto.UserWebResult;
+import com.weweibuy.user.common.eum.UserWebMsgEum;
+import com.weweibuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.user.service.UserService;
 import com.weweibuy.user.utils.RSAUtil;
 import com.weweibuy.user.utils.VerificationCodeUtil;
