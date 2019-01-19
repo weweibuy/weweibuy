@@ -7,8 +7,8 @@ import com.weweibuy.auth.model.dto.JwtResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,6 +52,8 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
     @Autowired
     private ClientDetailsService clientDetailsService;
 
+    @Autowired
+    @Lazy
     private AuthorizationServerTokenServices tokenServices;
 
 
@@ -185,13 +187,17 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
      * 如果直接在endpoints {@link AuthorizationServerConfig} 中使用 @Bean AuthenticationManager  @Bean DefaultTokenServices 然后getBean
      * 这样的配置给endpoints 虽然手动保证了bean的加载顺序 但是会导致,即使给 endpoints 加了JwtTokenStore 和 JwtTokenConverter
      * JwtTokenStore 也不可用
+     * 注意: ApplicationListener<ContextRefreshedEvent> 只是容器刷新并非容器记载完成!!!
+     * 注意:  使用懒加载模式也可以完美解决这种问题!!!
+     *
      * @param event
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        ApplicationContext applicationContext = event.getApplicationContext();
-        AuthorizationServerTokenServices tokenServices = applicationContext.getBean(AuthorizationServerTokenServices.class);
-        this.tokenServices = tokenServices;
+        log.info("applicationContext 加载完成");
+//        ApplicationContext applicationContext = event.getApplicationContext();
+//        AuthorizationServerTokenServices tokenServices = applicationContext.getBean(AuthorizationServerTokenServices.class);
+//        this.tokenServices = tokenServices;
     }
 
 }

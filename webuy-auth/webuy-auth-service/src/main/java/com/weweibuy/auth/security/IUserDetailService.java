@@ -1,7 +1,15 @@
 package com.weweibuy.auth.security;
 
+import com.weweibuy.eum.CommonStatus;
+import com.weweibuy.user.client.UserClient;
+import com.weweibuy.user.common.model.dto.UserWebResult;
+import com.weweibuy.user.common.model.po.WebuyUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,8 +31,15 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
     @Autowired
     private PasswordEncoder encoder;
 
-//    @Autowired
-//    private UserClient userClient;
+    private ApplicationContext applicationContext;
+
+    /**
+     * 这里注入feignCilent 会导致容器刷新两次,bean顺序加载错误
+     */
+    @Autowired
+    @Lazy
+    private UserClient userClient;
+
 
     /**
      *
@@ -36,10 +51,10 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("【安全服务】：登录用户名{}", username);
-//        UserWebResult userWebResult = userClient.loadUserByUsername(username);
-//        if(userWebResult.getStatus().equals(CommonStatus.SUCCESS)){
-//            return new User(username, encoder.encode(((WebuyUser)userWebResult.getData()).getPassword()), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
-//        }
+        UserWebResult userWebResult = userClient.loadUserByUsername(username);
+        if(userWebResult.getStatus().equals(CommonStatus.SUCCESS)){
+            return new User(username, encoder.encode(((WebuyUser)userWebResult.getData()).getPassword()), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
+        }
         return null;
     }
 
@@ -54,6 +69,7 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
         log.info("【社交登录】用户id {}", userId);
         return null;
     }
+
 
 
 }
