@@ -26,10 +26,10 @@ spring:
             slowSqlMillis: 5000
 
    rabbitmq:
-      host: 192.168.1.104
+      host: 47.99.129.104
       port: 5672
-      username: guest
-      password: guest
+      username: user01
+      password: ak402507979
       virtual-host: /message
       connection-timeout: 15000
       listener:    #监听数量
