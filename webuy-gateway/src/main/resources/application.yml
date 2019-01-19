@@ -6,7 +6,7 @@ server:
 
 spring:
    profiles:
-     active: @profileActive@
+     active: ${profileActive}
    application:
      name: webuy-gateway
    security:
@@ -70,6 +70,24 @@ eureka:
     status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
     home-page-url: http://${eureka.instance.ip-address}:${server.port}/
 
+hystrix: #hystrix配置
+  command:
+    default:
+      execution:
+        timeout:
+        enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 15000
+      circuitBreaker:
+        sleepWindowInMilliseconds: 1000 #断路器恢复时间
+        errorThresholdPercentage: 80  #触发短路,失败百分比
+  threadpool:
+    default:
+      coreSize: 10  #线程池大小
+      maxQueueSize: 10  #最大等待队列数
+      queueSizeRejectionThreshold: 5 #触发拒绝请求的的最大等待队列数
+
 ---
   #test environment
 spring:
@@ -125,46 +143,32 @@ zuul:
       add-host-header: true
 
 
-
-hystrix: #hystrix配置
-  command:
-    default:
-      execution:
-        timeout:
-        enabled: false
-        isolation:
-          thread:
-            timeoutInMilliseconds: 100000
-            ribbon:
-              ReadTimeout: 600000
-              ConnectTimeout: 600000
-
 webuy-backstage: #是serviceId
   ribbon:
-    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
+    ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:8001
-    ConnectTimeout: 100000   #建立连接超时时间
-    ReadTimeout: 100000  #连接超时时间
+    ConnectTimeout: 2000   #建立连接超时时间
+    ReadTimeout: 5000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试
-    MaxAutoRetries: 2  #单个节点重试最大值
-    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
+    MaxAutoRetries: 0  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 1   #重试发生，更换节点数最大值
 
 webuy-auth: #是serviceId
   ribbon:
-    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
+    ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:80
-    ConnectTimeout: 100000   #建立连接超时时间
-    ReadTimeout: 100000  #连接超时时间
+    ConnectTimeout: 2000   #建立连接超时时间
+    ReadTimeout: 5000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试
-    MaxAutoRetries: 2  #单个节点重试最大值
-    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
+    MaxAutoRetries: 0  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 1   #重试发生，更换节点数最大值
 
 webuy-user: #是serviceId
   ribbon:
-    ServerListRefreshInterval: 20000  # Interval to refresh the server list from the source
+    ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:8201
-    ConnectTimeout: 100000   #建立连接超时时间
-    ReadTimeout: 100000  #连接超时时间
+    ConnectTimeout: 2000   #建立连接超时时间
+    ReadTimeout: 5000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试
-    MaxAutoRetries: 2  #单个节点重试最大值
-    MaxAutoRetriesNextServer: 3   #重试发生，更换节点数最大值
+    MaxAutoRetries: 0  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 1   #重试发生，更换节点数最大值

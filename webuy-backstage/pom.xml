@@ -24,21 +24,18 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
-            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <!--feign-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
-            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <!--SpringMVC-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.0.6.RELEASE</version>
         </dependency>
 
         <!--SpringBoot 测试-->
@@ -58,14 +55,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>2.0.6.RELEASE</version>
         </dependency>
 
         <!--admin-client-->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>2.0.1</version>
         </dependency>
 
         <!--mysql驱动-->
@@ -78,7 +73,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix</artifactId>
-            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <!--oauth2-->
@@ -87,7 +81,6 @@
             <!--<artifactId>spring-cloud-starter-oauth2</artifactId>-->
             <!--<version>1.2.1.RELEASE</version>-->
         <!--</dependency>-->
-
 
         <!--mybatis-->
         <dependency>

@@ -17,7 +17,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
-            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -33,7 +32,6 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
-            <version>2.0.1</version>
         </dependency>
 
         <!-- 在管理界面中与 JMX-beans 进行交互所需要被依赖的 JAR -->
@@ -46,7 +44,6 @@
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
-            <version>4.9</version>
         </dependency>
 
     </dependencies>

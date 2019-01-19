@@ -1,6 +1,5 @@
 package com.weweibuy.dto;
 
-import com.weweibuy.eum.CommonStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CommonJsonResponse<T> implements Serializable {
 
-    private CommonStatus status; //状态 SUCCESS
+    private String status; //状态 SUCCESS
 
     private Integer code; //状态码
 

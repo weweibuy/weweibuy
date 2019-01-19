@@ -18,7 +18,7 @@ public class UserWebResult<T> extends CommonJsonResponse<T> {
 
 
     public UserWebResult( CommonStatus status, Integer code, String msg, T data){
-        super(status, code, msg, data);
+        super(status.toString(), code, msg, data);
     }
 
 

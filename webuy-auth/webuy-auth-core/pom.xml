@@ -23,7 +23,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
-            <version>1.2.1.RELEASE</version>
             <!--<exclusions>-->
                 <!--&lt;!&ndash;旧版本 2.0 版本 redis操作有问题&ndash;&gt;-->
                 <!--<exclusion>-->

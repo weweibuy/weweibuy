@@ -1,16 +1,18 @@
 package com.weweibuy.user.controller;
 
+import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.support.client.SmsCodeClient;
 import com.weweibuy.user.common.eum.UserWebMsgEum;
 import com.weweibuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.user.service.UserService;
 import com.weweibuy.user.utils.RSAUtil;
-import com.weweibuy.user.utils.VerificationCodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,10 @@ import org.springframework.web.bind.annotation.*;
 @Validated  // 如果对单个参数验证这个注解要加载类上
 @Api(value = "用户接口")
 public class UserController {
+
+    @Autowired
+    @Lazy
+    private SmsCodeClient smsCodeClient;
 
     @Autowired
     private UserService userService;
@@ -74,7 +80,9 @@ public class UserController {
         if(split.length != 2){
             return UserWebResult.paramWrong();
         }
-        if(!split[1].trim().equals(VerificationCodeUtil.getVerificationCode(phone))){
+        CommonJsonResponse<String> smsCode = smsCodeClient.getSmsCode(phone);
+        String code = smsCode.getData();
+        if(StringUtils.isBlank(code) && code.equals(split[1])){
             return UserWebResult.fail(UserWebMsgEum.VERIFICATION_CODE_WRONG);
         }
         return userService.registerUser(phone, split[0]);

@@ -6,7 +6,7 @@ server:
 
 spring:
    profiles:
-     active: @profileActive@
+     active: ${profileActive}
    application:
      name: webuy-task
    datasource:

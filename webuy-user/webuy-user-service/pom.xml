@@ -90,7 +90,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix</artifactId>
-            <version>1.4.6.RELEASE</version>
         </dependency>
 
 
@@ -105,8 +104,6 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
-
-
 
         <!--redis-->
         <dependency>
@@ -128,13 +125,24 @@
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
-            <version>4.9</version>
         </dependency>
 
-        <!--邮件发送-->
+        <!--amqp-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.weweibuy</groupId>
+            <artifactId>webuy-support-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.weweibuy</groupId>
+                    <artifactId>webuy-support-common</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--oauth2-->

@@ -6,7 +6,7 @@ server:
 
 spring:
    profiles:
-     active: @profileActive@
+     active: ${profileActive}
    application:
      name: webuy-user
    datasource:
@@ -55,15 +55,6 @@ spring:
        max-wait: 2000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
        min-idle: 2 # 连接池中的最小空闲连接
        timeout: 2000 # 连接超时时间（毫秒）
-   mail:
-     default-encoding: UTF-8
-     host: smtp.126.com
-     port: 25
-     protocol: smtp
-     username: ak514250@126.com
-     password: ak402507979
-
-
 
 
 logging:

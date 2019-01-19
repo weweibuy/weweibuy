@@ -12,7 +12,6 @@
 
     <modules>
         <module>webuy-common</module>
-        <module>webuy-api</module>
         <module>webuy-eureka</module>
         <module>webuy-gateway</module>
         <module>webuy-hystrix</module>
@@ -28,7 +27,7 @@
         <module>webuy-pay</module>
         <module>webuy-auth</module>
         <module>webuy-user</module>
-        <module>webuy-suport</module>
+        <module>webuy-support</module>
     </modules>
 
 
@@ -58,6 +57,14 @@
         <freemarker.version>2.3.23</freemarker.version>
         <commons-email.version>1.5</commons-email.version>
         <redis-starter.version>1.4.7.RELEASE</redis-starter.version>
+        <spring-cloud-feign.version>1.4.6.RELEASE</spring-cloud-feign.version>
+        <spring-cloud-hystix.version>1.4.6.RELEASE</spring-cloud-hystix.version>
+        <spring-cloud-eureka.version>1.4.6.RELEASE</spring-cloud-eureka.version>
+        <spring-cloud-server.version>1.4.5.RELEASE</spring-cloud-server.version>
+        <spring-cloud-zuul.version>1.4.6.RELEASE</spring-cloud-zuul.version>
+        <spring-cloud-oauth2.version>1.2.1.RELEASE</spring-cloud-oauth2.version>
+        <spring-boot-admin.version>2.0.1</spring-boot-admin.version>
+        <logstash-logback-encoder.version>4.9</logstash-logback-encoder.version>
     </properties>
 
     <dependencyManagement>
@@ -76,6 +83,63 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-feign</artifactId>
+                <version>${spring-cloud-feign.version}</version>
+            </dependency>
+
+            <!-- hystrix -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-hystrix</artifactId>
+                <version>${spring-cloud-hystix.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-eureka</artifactId>
+                <version>${spring-cloud-eureka.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-eureka-server</artifactId>
+                <version>${spring-cloud-server.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-zuul</artifactId>
+                <version>${spring-cloud-zuul.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${spring-cloud-oauth2.version}</version>
+            </dependency>
+
+            <!--logstash日志收集-->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -232,6 +296,22 @@
             <properties>
                 <profileActive>test</profileActive>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>2.0.1.RELEASE</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <!--生产环境-->
         <profile>
@@ -242,6 +322,22 @@
             <properties>
                 <build.profile.id>prod</build.profile.id>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>2.0.1.RELEASE</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <!--开发环境-->
@@ -261,6 +357,7 @@
 
     <build>
         <finalName>${artifactId}</finalName>
+
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -279,29 +376,11 @@
         </resources>
 
         <plugins>
-
-             <!--spring-boot-maven-plugin (提供了直接运行项目的插件：如果是通过parent方式继承spring-boot-starter-parent则不用此插件)-->
-            <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-                <!--<version>2.0.1.RELEASE</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>repackage</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
-                    <delimiters>
-                        <delimiter>@</delimiter>
-                    </delimiters>
                     <useDefaultDelimiters>false</useDefaultDelimiters>
                     <nonFilteredFileExtensions>
                         <nonFilteredFileExtension>pem</nonFilteredFileExtension>
@@ -312,7 +391,7 @@
                 </configuration>
             </plugin>
 
-
+            <!--mybatis代码生成器-->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -329,7 +408,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
         </plugins>
     </build>
 

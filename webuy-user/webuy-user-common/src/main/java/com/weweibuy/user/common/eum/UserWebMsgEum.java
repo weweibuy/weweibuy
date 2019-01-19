@@ -16,6 +16,7 @@ public enum UserWebMsgEum {
     VERIFICATION_CODE_WRONG(10005, "手机验证码错误"),
     DO_NOT_RESUBMIT(10006, "请勿重提交"),
     PARAM_BLANK(10007, "输入参数为空"),
+    USER_INFO_NOT_EXIST(10008, "用户信息不存在")
     ;
 
     private Integer code;
