@@ -155,7 +155,7 @@
     </appender>
 
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>119.3.11.116:4560</destination>
+        <destination>106.12.95.245:4560</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" >
             <!--如果配置了：<property name="appName" value="${app_name}" />  下面不用配 -->
             <!--<customFields>{"appname":"${appName}"}</customFields>-->

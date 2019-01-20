@@ -65,9 +65,15 @@ public class RabbitmqConfig {
     }
 
     @Bean
+    public Queue queue22() {
+        return new Queue("hello.queue22", true);
+    }
+
+    @Bean
     public Queue queue3() {
         return new Queue("hello.queue3", true);
     }
+
 
     @Bean
     public Queue queue4() {
@@ -137,9 +143,15 @@ public class RabbitmqConfig {
         return BindingBuilder.bind(queue3()).to(fanoutExchange());
     }
 
+
     @Bean
     public Binding binding2() {
         return BindingBuilder.bind(queue2()).to(topicExchange()).with("key.#");
+    }
+
+    @Bean
+    public Binding binding22() {
+        return BindingBuilder.bind(queue22()).to(topicExchange()).with("key.#");
     }
 
     @Bean

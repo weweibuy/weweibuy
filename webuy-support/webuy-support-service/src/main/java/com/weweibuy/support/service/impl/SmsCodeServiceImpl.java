@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @ClassName SmsCodeServiceImpl
  * @Description
@@ -24,9 +26,14 @@ public class SmsCodeServiceImpl implements SmsCodeService {
 
     private static final Integer CODE_LENGTH = 6;
 
+    private static final Long EXPIRE_IN_MINUTES = 30L;
+
     @Override
     public void sendSmsCode(String mobile) {
-        redisTemplate.opsForValue().set(KEY_PREFIX + mobile, CodeUtils.getSmsCode(CODE_LENGTH));
+        String smsCode = CodeUtils.getSmsCode(CODE_LENGTH);
+        log.info("验证码: {}", smsCode);
+        redisTemplate.opsForValue().set(KEY_PREFIX + mobile, smsCode,
+                EXPIRE_IN_MINUTES, TimeUnit.MINUTES);
     }
 
     @Override

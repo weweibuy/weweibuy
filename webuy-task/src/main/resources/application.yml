@@ -38,17 +38,6 @@ spring:
      exposeRequestAttributes: true
      exposeSpringMacroHelpers: true
      exposeSessionAttributes: true
-#   boot:
-#     admin:
-#        client:
-#          auto-registration: true  #客户端是否自动注册
-#          url: 119.3.11.116:7501  #admin server 的地址
-#          enabled: true
-#          username: admin
-#          password: ak402507979
-#          instance:
-#            prefer-ip: true  #客户端是否提供本机真实ip
-#            service-url: http://${eureka.instance.ip-address}:${server.port}  #如果server和client不在同一网段,填写真实ip，否则服务奖处于offline状态
 
    security:
      user:
@@ -96,7 +85,7 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
     prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
-    ip-address: 119.3.11.116
+    ip-address: 106.12.95.245
     metadata-map:
        context-path: /actuator
        startup: ${random.int}    #needed to trigger info and endpoint update after restart

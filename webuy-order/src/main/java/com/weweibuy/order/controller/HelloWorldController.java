@@ -89,6 +89,18 @@ public class HelloWorldController {
         channel.basicNack(deliveryTag, false, false);
     }
 
+    @RabbitListener(queues = "hello.queue22")
+    @RabbitHandler
+    public void onMessage22(Message message, Channel channel) throws Exception{
+        Object payload = message.getPayload();
+        Object id = message.getHeaders().getId();
+        log.error("【queue22】data={}  ", id);
+        log.error("【queue22】消息体是：{}", payload.toString());
+        Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
+        log.error("deliveryTag=={}", deliveryTag);
+        channel.basicNack(deliveryTag, false, false);
+    }
+
     @RabbitListener(queues = "hello.queue6")
     @RabbitHandler
     public void onMessage6(Message message, Channel channel) throws Exception{

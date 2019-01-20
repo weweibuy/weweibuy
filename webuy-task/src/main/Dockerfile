@@ -4,7 +4,7 @@ VOLUME /logs
 RUN mkdir -p /tmp  \
 mkdir -p /logs \
 mkdir -p /logs/webuy-task \
-touch -p /logs/webuy-task/gc.log
+touch -p /logs/webuy-task/webuy-task-gc.log
 ADD webuy-task.jar app.jar
 #RUN sh -c 'touch /app.jar'
 
@@ -12,7 +12,7 @@ ADD webuy-task.jar app.jar
 ENV JAVA_OPTS=" \
 -server \
 -Xmx180m \
--Xms56m \
+-Xms180m \
 -XX:+PrintGCDetails \
 -XX:+PrintTenuringDistribution \
 -XX:+PrintGCTimeStamps \

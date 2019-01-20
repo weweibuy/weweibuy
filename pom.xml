@@ -14,7 +14,6 @@
         <module>webuy-common</module>
         <module>webuy-eureka</module>
         <module>webuy-gateway</module>
-        <module>webuy-hystrix</module>
         <module>webuy-backstage</module>
         <module>webuy-search</module>
         <module>webuy-bus</module>

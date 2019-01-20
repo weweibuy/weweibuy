@@ -26,7 +26,7 @@ public class SmsCodeController {
 
     @ApiOperation("获取验证码")
     @GetMapping("/smsCode/{mobile}")
-    public CommonJsonResponse<String> getSmsCode(@PathVariable String mobile){
+    public CommonJsonResponse<String> getSmsCode(@PathVariable String mobile) throws InterruptedException {
         if(StringUtils.isBlank(mobile)){
             return new CommonJsonResponse<String>(CommonStatus.FAIL.toString(), null, null, null);
         }

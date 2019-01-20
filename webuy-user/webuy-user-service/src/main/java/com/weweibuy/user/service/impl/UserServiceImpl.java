@@ -37,6 +37,7 @@ public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExa
     @Override
     public UserWebResult registerUser(String phone, String pwd) {
         WebuyUser user = new WebuyUser();
+        user.setUsername(phone);
         user.setPhone(phone);
         user.setPassword(CodeUtil.getStrMD5(pwd));
         int i = userMapper.insertSelective(user);

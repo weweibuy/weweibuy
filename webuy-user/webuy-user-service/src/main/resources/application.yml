@@ -149,7 +149,7 @@ mybatis:
 
 feign:
   hystrix:
-    enabled: false
+    enabled: true
   command:
     default:
       execution:

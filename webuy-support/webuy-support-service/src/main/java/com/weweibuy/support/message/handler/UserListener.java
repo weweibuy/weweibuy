@@ -5,6 +5,7 @@ import com.weweibuy.support.service.SmsCodeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
@@ -26,9 +27,16 @@ public class UserListener {
     @RabbitListener(queues = "user.sms.code")
     @RabbitHandler
     public void onMessage(Message message, Channel channel) throws Exception {
-        Object payload = message.getPayload();
-        String mobile = payload.toString();
-        smsCodeService.sendSmsCode(mobile);
+        try {
+            Object payload = message.getPayload();
+            String mobile = payload.toString();
+            log.info("【smscode 收到消息:{}】", mobile);
+            smsCodeService.sendSmsCode(mobile);
+        }finally {
+            // 不确认(Ack)消息将会假死进入 unacked 状态
+            // Nack不重回队列,且没有死信队列,消息丢失
+            channel.basicAck(((Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG)), false);
+        }
     }
 
 }

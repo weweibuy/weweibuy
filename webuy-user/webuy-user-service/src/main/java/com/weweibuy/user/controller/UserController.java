@@ -4,8 +4,8 @@ import com.weweibuy.dto.CommonJsonResponse;
 import com.weweibuy.support.client.SmsCodeClient;
 import com.weweibuy.user.common.eum.UserWebMsgEum;
 import com.weweibuy.user.common.model.dto.UserWebResult;
+import com.weweibuy.user.model.form.RegisterForm;
 import com.weweibuy.user.service.UserService;
-import com.weweibuy.user.utils.RSAUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
  **/
 @PropertySource("classpath:config/key/key.properties")
 @RestController
-@RequestMapping(value = "/user", produces="application/json;charset=UTF-8")
+@RequestMapping(produces="application/json;charset=UTF-8")
 @Validated  // 如果对单个参数验证这个注解要加载类上
 @Api(value = "用户接口")
 public class UserController {
@@ -48,7 +49,7 @@ public class UserController {
      * @param
      * @return
      */
-    @GetMapping("/verificationCode/{phoneNum}")
+    @GetMapping("/register/verificationCode/{phoneNum}")
     @ApiOperation(value = "获取验证码", notes = "1分钟获取一次验证码")
     public UserWebResult sendVerificationCode(@PathVariable  String phoneNum){
         if(phoneNum == null || !phoneNum.matches("^[1][3,4,5,7,8][0-9]{9}$")){
@@ -67,25 +68,19 @@ public class UserController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping("/register/signUp")
     @ApiOperation(value = "注册用户")
-    public UserWebResult registerUser(@ApiParam(required = true) String phone,
-                                      @ApiParam(value = "密码与验证码通过逗号凭借并加密数据", required = true) String pwdData) throws Exception {
-        if(StringUtils.isBlank(phone) || StringUtils.isBlank(pwdData)){
+    public UserWebResult registerUser(RegisterForm registerForm, BindingResult result) throws Exception {
+        if(result.hasErrors()){
             return UserWebResult.fail(UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL);
         }
-        byte[] bytes = RSAUtil.decryptByPrivateKey(pwdData, PRIVATE_KEY);
-        String data = new String(bytes);
-        String[] split = data.split(",");
-        if(split.length != 2){
-            return UserWebResult.paramWrong();
-        }
-        CommonJsonResponse<String> smsCode = smsCodeClient.getSmsCode(phone);
+
+        CommonJsonResponse<String> smsCode = smsCodeClient.getSmsCode(registerForm.getUsername());
         String code = smsCode.getData();
-        if(StringUtils.isBlank(code) && code.equals(split[1])){
+        if(StringUtils.isBlank(code) || !code.equals(registerForm.getCode())){
             return UserWebResult.fail(UserWebMsgEum.VERIFICATION_CODE_WRONG);
         }
-        return userService.registerUser(phone, split[0]);
+        return userService.registerUser(registerForm.getUsername(), registerForm.getPassword());
     }
 
 

@@ -89,7 +89,7 @@ hystrix: #hystrix配置
     default:
       execution:
         timeout:
-        enabled: false
+        enabled: true
         isolation:
           thread:
             timeoutInMilliseconds: 30000
@@ -145,7 +145,7 @@ feign:
         connectTimeout: 5000   #请求处理的超时时间
         readTimeout: 12000  #请求连接的超时时间
   hystrix:
-    enabled: false  #是否启用feign的 hystrix;不启用使用ribbon的超时控制
+    enabled: true  #是否启用feign的 hystrix;不启用使用ribbon的超时控制
   compression: #Spring Cloud Feign支持对请求和响应进行GZIP压缩，以提高通信效率
       request:
         enabled:  true   # 开启对 request 请求压缩

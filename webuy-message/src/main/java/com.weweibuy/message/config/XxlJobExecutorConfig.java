@@ -1,11 +1,12 @@
 package com.weweibuy.message.config;
 
+import com.weweibuy.message.config.properties.xxljob.ExecutorProperties;
+import com.weweibuy.message.config.properties.xxljob.XxlJobProperties;
 import com.xxl.job.core.executor.XxlJobExecutor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * 任务调度执行器的配置
@@ -15,43 +16,47 @@ import org.springframework.context.annotation.PropertySource;
  * @Date 2018/10/18 22:31
  **/
 @Configuration
-@PropertySource("classpath:config/xxl-job/xxl-job-executor.properties")
+//@PropertySource("classpath:config/xxl-job/xxl-job-executor.properties")
 @Slf4j
 public class XxlJobExecutorConfig {
 
-    @Value("${xxl.job.admin.addresses}")
-    private String adminAddresses;
+    @Autowired
+    private XxlJobProperties xxlJobProperties;
 
-    @Value("${xxl.job.executor.appname}")
-    private String appName;
-
-    @Value("${xxl.job.executor.ip}")
-    private String ip;
-
-    @Value("${xxl.job.executor.port}")
-    private int port;
-
-    @Value("${xxl.job.accessToken}")
-    private String accessToken;
-
-    @Value("${xxl.job.executor.logpath}")
-    private String logPath;
-
-    @Value("${xxl.job.executor.logretentiondays}")
-    private int logRetentionDays;
+//    @Value("${xxl.job.admin.addresses}")
+//    private String adminAddresses;
+//
+//    @Value("${xxl.job.executor.appname}")
+//    private String appName;
+//
+//    @Value("${xxl.job.executor.ip}")
+//    private String ip;
+//
+//    @Value("${xxl.job.executor.port}")
+//    private int port;
+//
+//    @Value("${xxl.job.accessToken}")
+//    private String accessToken;
+//
+//    @Value("${xxl.job.executor.logpath}")
+//    private String logPath;
+//
+//    @Value("${xxl.job.executor.logretentiondays}")
+//    private int logRetentionDays;
 
 
     @Bean(initMethod = "start", destroyMethod = "destroy")
     public XxlJobExecutor xxlJobExecutor() {
         log.info(">>>>>>>>>>> xxl-job config init.");
+        ExecutorProperties executor = xxlJobProperties.getExecutor();
         XxlJobExecutor xxlJobExecutor = new XxlJobExecutor();
-        xxlJobExecutor.setAdminAddresses(adminAddresses);
-        xxlJobExecutor.setAppName(appName);
-        xxlJobExecutor.setIp(ip);
-        xxlJobExecutor.setPort(port);
-        xxlJobExecutor.setAccessToken(accessToken);
-        xxlJobExecutor.setLogPath(logPath);
-        xxlJobExecutor.setLogRetentionDays(logRetentionDays);
+        xxlJobExecutor.setAdminAddresses(xxlJobProperties.getAdmin().getAddresses());
+        xxlJobExecutor.setAppName(executor.getAppName());
+        xxlJobExecutor.setIp(executor.getIp());
+        xxlJobExecutor.setPort(executor.getPort());
+        xxlJobExecutor.setAccessToken(xxlJobProperties.getAccessToken());
+        xxlJobExecutor.setLogPath(executor.getLogPath());
+        xxlJobExecutor.setLogRetentionDays(executor.getLogRetentionDays());
 
         return xxlJobExecutor;
     }

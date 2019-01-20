@@ -6,7 +6,6 @@ import com.weweibuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.user.common.model.po.WebuyUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -31,18 +30,15 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
     @Autowired
     private PasswordEncoder encoder;
 
-    private ApplicationContext applicationContext;
-
     /**
-     * 这里注入feignCilent 会导致容器刷新两次,bean顺序加载错误
+     * 这里直接注入feignCilent 会导致容器刷新两次,bean顺序加载错误
+     * 使用懒加载防止,影响正常加载顺序
      */
     @Autowired
     @Lazy
     private UserClient userClient;
 
-
     /**
-     *
      * 表单登录
      * @param username
      * @return

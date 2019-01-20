@@ -64,7 +64,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http
             .authorizeRequests() /* .antMatchers().hasAnyRole("ADMIN") */
             .antMatchers("/auth/**","/*/hello", "/*/js/**", "/*/css/**", "/*/fonts/**", "**/favicon.ico","/actuator/**",
-                            "/user/register.html")
+                             "/user/register/**")
             .permitAll()
             .anyRequest()
             .authenticated()
