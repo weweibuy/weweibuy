@@ -64,6 +64,8 @@
         <spring-cloud-oauth2.version>1.2.1.RELEASE</spring-cloud-oauth2.version>
         <spring-boot-admin.version>2.0.1</spring-boot-admin.version>
         <logstash-logback-encoder.version>4.9</logstash-logback-encoder.version>
+        <spring-boot-admin-hystrix.version>1.5.7</spring-boot-admin-hystrix.version>
+        <spring-cloud-hystrix-dashboard.version>1.4.6.RELEASE</spring-cloud-hystrix-dashboard.version>
     </properties>
 
     <dependencyManagement>
@@ -130,6 +132,18 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-oauth2</artifactId>
                 <version>${spring-cloud-oauth2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
+                <version>${spring-boot-admin-hystrix.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+                <version>${spring-cloud-hystrix-dashboard.version}</version>
             </dependency>
 
             <!--logstash日志收集-->

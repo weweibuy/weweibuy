@@ -34,6 +34,12 @@
             <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
 
+        <!--hystrix-dashboard-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+        </dependency>
+
         <!-- 在管理界面中与 JMX-beans 进行交互所需要被依赖的 JAR -->
         <dependency>
             <groupId>org.jolokia</groupId>
@@ -44,6 +50,11 @@
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
         </dependency>
 
     </dependencies>
