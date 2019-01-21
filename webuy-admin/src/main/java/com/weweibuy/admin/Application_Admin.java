@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.netflix.turbine.EnableTurbine;
 
 /**
  * @ClassName Application_Admin
@@ -15,9 +16,10 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
  **/
 @SpringBootApplication
 @EnableEurekaClient
-@EnableAdminServer
 @EnableDiscoveryClient
 @EnableHystrixDashboard
+@EnableTurbine
+@EnableAdminServer
 public class Application_Admin {
 
     public static void main(String[] args) {

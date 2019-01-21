@@ -19,6 +19,8 @@
         <logger name="com.netflix.discovery" level="INFO" />
         <logger name="org.apache.http" level="INFO" />
         <logger name="o.s.b.f.s" level="INFO"/>
+        <logger name="r.ipc.netty.http.client" level="INFO"/>
+        <logger name="o.s.security.web" level="INFO"/>
     </springProfile>
     <springProfile name="test">
         <property name="log.path" value="/logs/${app_name}/pmp" />
