@@ -65,11 +65,11 @@ eureka:
     hostname: localhost  #eureka服务端的实例名称
     ip-address: 47.99.129.104
   server:
-    enable-self-preservation: false  #关闭自我保护
+    enable-self-preservation: false  #关闭自我保护,开启自我保护eureka不会注销任何微服务
     response-cache-auto-expiration-in-seconds: 120
     response-cache-update-interval-ms: 60000  #eureka server刷新readCacheMap的时间，注意，client读取的是readCacheMap，这个时间决定了多久会把readWriteCacheMap的缓存更新到readCacheMap上
                                              #默认30s
-    eviction-interval-timer-in-ms: 60000  #启用主动失效，并且每次主动失效检测间隔为10s
+    eviction-interval-timer-in-ms: 60000  # 清理间隔 启用主动失效，并且每次主动失效检测间隔为10s
   client:
     register-with-eureka: false     #false表示不向注册中心注册自己。
     fetch-registry: false     #  是否从eureka上获取注册信息   false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
