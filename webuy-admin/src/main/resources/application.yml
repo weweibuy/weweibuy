@@ -39,14 +39,7 @@ spring:
          period: 10000 #监控刷新时间
        discovery:
          enabled: true  #是否开启自动发现服务
-       turbine:
-         location: webuy-admin
-       routes:
-         endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream,turbine.stream
 
-turbine:
-  appConfig: webuy-backstage
-  combineHostPort: true
 
 logging:
   config: classpath:config/logback/logback-spring.xml

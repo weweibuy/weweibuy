@@ -2,11 +2,10 @@ package com.weweibuy.admin;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
-import org.springframework.cloud.netflix.turbine.EnableTurbine;
 
 /**
  * @ClassName Application_Admin
@@ -14,11 +13,10 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
  * @Author durenhao
  * @Date 2018/10/26 23:43
  **/
+@EnableAutoConfiguration
 @SpringBootApplication
 @EnableEurekaClient
 @EnableDiscoveryClient
-@EnableHystrixDashboard
-@EnableTurbine
 @EnableAdminServer
 public class Application_Admin {
 

@@ -11,15 +11,15 @@ ADD webuy-admin.jar app.jar
 #ENV命令用于设置环境变量。这些变量以”key=value”的形式存在，并可以在容器内被脚本或者程序调用。
 ENV JAVA_OPTS=" \
 -server \
--Xmx150m \
--Xms56m \
+-Xmx180m \
+-Xms180m \
 -XX:+PrintGCDetails \
 -XX:+PrintTenuringDistribution \
 #-XX:+PrintGCTimeStamps \
 -XX:+PrintGCDateStamps \
 -XX:+HeapDumpOnOutOfMemoryError \
 -XX:HeapDumpPath=/logs/webuy-admin/webuy-admin-heap.dump \
--Xloggc:/logs/webuy-admin/webuy-admin-gc.log \
+-Xloggc:/logs/webuy-admin/gc.log \
 -Djava.compiler=NONE \
 -Duser.timezone=GMT+08 \
 -Djava.security.egd=file:/dev/./urandom"
