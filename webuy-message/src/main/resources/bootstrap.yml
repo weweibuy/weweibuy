@@ -28,7 +28,7 @@ xxl:
       addresses: http://106.12.95.245:9301
     executor:
       appname: ${spring.application.name}
-      ip: ${eureka.instance.ip-address}
+      ip: 127.0.0.1
       port: 8082
       logpath: /logs/${spring.application.name}/pmp/jobhandler
       logretentiondays: 15

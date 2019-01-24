@@ -9,27 +9,21 @@ public class WebuyUser {
 
     private String password;
 
-    private String phone;
-
-    private String payPassword;
-
-    private Integer userScore;
-
-    private Integer totalScore;
-
-    private String nickName;
-
-    private String trueName;
+    private String name;
 
     private Byte gender;
 
     private Date birthday;
+
+    private String phone;
 
     private String email;
 
     private String idCard;
 
     private String headPic;
+
+    private Byte isMobileActivated;
 
     private Byte isEmailActivated;
 
@@ -69,52 +63,12 @@ public class WebuyUser {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getPhone() {
-        return phone;
+    public String getName() {
+        return name;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getPayPassword() {
-        return payPassword;
-    }
-
-    public void setPayPassword(String payPassword) {
-        this.payPassword = payPassword == null ? null : payPassword.trim();
-    }
-
-    public Integer getUserScore() {
-        return userScore;
-    }
-
-    public void setUserScore(Integer userScore) {
-        this.userScore = userScore;
-    }
-
-    public Integer getTotalScore() {
-        return totalScore;
-    }
-
-    public void setTotalScore(Integer totalScore) {
-        this.totalScore = totalScore;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
-    }
-
-    public String getTrueName() {
-        return trueName;
-    }
-
-    public void setTrueName(String trueName) {
-        this.trueName = trueName == null ? null : trueName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Byte getGender() {
@@ -131,6 +85,14 @@ public class WebuyUser {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 
     public String getEmail() {
@@ -155,6 +117,14 @@ public class WebuyUser {
 
     public void setHeadPic(String headPic) {
         this.headPic = headPic == null ? null : headPic.trim();
+    }
+
+    public Byte getIsMobileActivated() {
+        return isMobileActivated;
+    }
+
+    public void setIsMobileActivated(Byte isMobileActivated) {
+        this.isMobileActivated = isMobileActivated;
     }
 
     public Byte getIsEmailActivated() {

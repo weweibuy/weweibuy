@@ -49,7 +49,7 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
         log.info("【安全服务】：登录用户名{}", username);
         UserWebResult userWebResult = userClient.loadUserByUsername(username);
         if(userWebResult.getStatus().equals(CommonStatus.SUCCESS.toString())){
-            return new User(username, encoder.encode(((WebuyUser)userWebResult.getData()).getPassword()), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
+            return new User(username, ((WebuyUser)userWebResult.getData()).getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
         }
         return null;
     }

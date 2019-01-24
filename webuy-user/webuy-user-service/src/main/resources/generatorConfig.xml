@@ -22,7 +22,7 @@
 		</javaTypeResolver>
 
 		<!-- targetProject:生成PO类的位置 -->
-		<javaModelGenerator targetPackage="com.weweibuy.user.model.po"
+		<javaModelGenerator targetPackage="com.weweibuy.user.common.model.po"
 			targetProject="src/main/java">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />

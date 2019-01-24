@@ -5,7 +5,6 @@ import com.weweibuy.auth.config.AuthorizationServerConfig;
 import com.weweibuy.auth.core.config.properties.SecurityProperties;
 import com.weweibuy.auth.model.dto.JwtResponseDto;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Lazy;
@@ -23,6 +22,7 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +52,7 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
     @Autowired
     private ClientDetailsService clientDetailsService;
 
-    @Autowired
+    @Resource(name = "defaultAuthorizationServerTokenServices")
     @Lazy
     private AuthorizationServerTokenServices tokenServices;
 
@@ -84,13 +84,14 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
 
             SavedRequest savedRequest = requestCache.getRequest(httpServletRequest, httpServletResponse);
             clearAuthenticationAttributes(httpServletRequest);
-            String[] redirect_urls = savedRequest.getParameterValues("redirect_url");
-            requestCache.removeRequest(httpServletRequest, httpServletResponse);
-            if(redirect_urls != null && StringUtils.isNotBlank(redirect_urls[0])){
-                getRedirectStrategy().sendRedirect(httpServletRequest, httpServletResponse, redirect_urls[0]);
-            }else {
-                httpServletResponse.sendRedirect("http://localhost:8080/auth/index.html");
-            }
+            String redirect_url = "http://localhost:8080/auth/index.html";
+//            String[] redirect_urls = null;
+//            if(savedRequest != null && (redirect_urls = savedRequest.getParameterValues("redirect_url")) != null
+//                    && StringUtils.isNotBlank(redirect_urls[0])){
+//                requestCache.removeRequest(httpServletRequest, httpServletResponse);
+//                redirect_url = redirect_urls[0];
+//            }
+            getRedirectStrategy().sendRedirect(httpServletRequest, httpServletResponse, redirect_url);
 
         }else {
             OAuth2AccessToken accessToken = createOAuth2AccessToken(httpServletRequest, authentication);

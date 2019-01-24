@@ -5,17 +5,14 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="pay_password" jdbcType="VARCHAR" property="payPassword" />
-    <result column="user_score" jdbcType="INTEGER" property="userScore" />
-    <result column="total_score" jdbcType="INTEGER" property="totalScore" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
-    <result column="true_name" jdbcType="VARCHAR" property="trueName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender" jdbcType="TINYINT" property="gender" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
     <result column="head_pic" jdbcType="VARCHAR" property="headPic" />
+    <result column="is_mobile_activated" jdbcType="TINYINT" property="isMobileActivated" />
     <result column="is_email_activated" jdbcType="TINYINT" property="isEmailActivated" />
     <result column="is_certification" jdbcType="TINYINT" property="isCertification" />
     <result column="acount_status" jdbcType="TINYINT" property="acountStatus" />
@@ -83,9 +80,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password, phone, pay_password, user_score, total_score, nick_name, 
-    true_name, gender, birthday, email, id_card, head_pic, is_email_activated, is_certification, 
-    acount_status, last_login_time, last_login_address, create_time, modify_time
+    id, username, password, name, gender, birthday, phone, email, id_card, head_pic, 
+    is_mobile_activated, is_email_activated, is_certification, acount_status, last_login_time, 
+    last_login_address, create_time, modify_time
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.user.common.model.po.WebuyUserExample" resultMap="BaseResultMap">
     select
@@ -119,18 +116,16 @@
   </delete>
   <insert id="insert" parameterType="com.weweibuy.user.common.model.po.WebuyUser">
     insert into webuy_user (id, username, password, 
-      phone, pay_password, user_score, 
-      total_score, nick_name, true_name, 
-      gender, birthday, email, 
-      id_card, head_pic, is_email_activated, 
+      name, gender, birthday, 
+      phone, email, id_card, 
+      head_pic, is_mobile_activated, is_email_activated, 
       is_certification, acount_status, last_login_time, 
       last_login_address, create_time, modify_time
       )
     values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{payPassword,jdbcType=VARCHAR}, #{userScore,jdbcType=INTEGER}, 
-      #{totalScore,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, #{email,jdbcType=VARCHAR}, 
-      #{idCard,jdbcType=VARCHAR}, #{headPic,jdbcType=VARCHAR}, #{isEmailActivated,jdbcType=TINYINT}, 
+      #{name,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{headPic,jdbcType=VARCHAR}, #{isMobileActivated,jdbcType=TINYINT}, #{isEmailActivated,jdbcType=TINYINT}, 
       #{isCertification,jdbcType=TINYINT}, #{acountStatus,jdbcType=TINYINT}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
       #{lastLoginAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
       )
@@ -147,29 +142,17 @@
       <if test="password != null">
         password,
       </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="payPassword != null">
-        pay_password,
-      </if>
-      <if test="userScore != null">
-        user_score,
-      </if>
-      <if test="totalScore != null">
-        total_score,
-      </if>
-      <if test="nickName != null">
-        nick_name,
-      </if>
-      <if test="trueName != null">
-        true_name,
+      <if test="name != null">
+        name,
       </if>
       <if test="gender != null">
         gender,
       </if>
       <if test="birthday != null">
         birthday,
+      </if>
+      <if test="phone != null">
+        phone,
       </if>
       <if test="email != null">
         email,
@@ -179,6 +162,9 @@
       </if>
       <if test="headPic != null">
         head_pic,
+      </if>
+      <if test="isMobileActivated != null">
+        is_mobile_activated,
       </if>
       <if test="isEmailActivated != null">
         is_email_activated,
@@ -212,29 +198,17 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="payPassword != null">
-        #{payPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="userScore != null">
-        #{userScore,jdbcType=INTEGER},
-      </if>
-      <if test="totalScore != null">
-        #{totalScore,jdbcType=INTEGER},
-      </if>
-      <if test="nickName != null">
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="trueName != null">
-        #{trueName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         #{gender,jdbcType=TINYINT},
       </if>
       <if test="birthday != null">
         #{birthday,jdbcType=DATE},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -244,6 +218,9 @@
       </if>
       <if test="headPic != null">
         #{headPic,jdbcType=VARCHAR},
+      </if>
+      <if test="isMobileActivated != null">
+        #{isMobileActivated,jdbcType=TINYINT},
       </if>
       <if test="isEmailActivated != null">
         #{isEmailActivated,jdbcType=TINYINT},
@@ -286,29 +263,17 @@
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.payPassword != null">
-        pay_password = #{record.payPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userScore != null">
-        user_score = #{record.userScore,jdbcType=INTEGER},
-      </if>
-      <if test="record.totalScore != null">
-        total_score = #{record.totalScore,jdbcType=INTEGER},
-      </if>
-      <if test="record.nickName != null">
-        nick_name = #{record.nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.trueName != null">
-        true_name = #{record.trueName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=TINYINT},
       </if>
       <if test="record.birthday != null">
         birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
@@ -318,6 +283,9 @@
       </if>
       <if test="record.headPic != null">
         head_pic = #{record.headPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isMobileActivated != null">
+        is_mobile_activated = #{record.isMobileActivated,jdbcType=TINYINT},
       </if>
       <if test="record.isEmailActivated != null">
         is_email_activated = #{record.isEmailActivated,jdbcType=TINYINT},
@@ -350,17 +318,14 @@
     set id = #{record.id,jdbcType=BIGINT},
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      pay_password = #{record.payPassword,jdbcType=VARCHAR},
-      user_score = #{record.userScore,jdbcType=INTEGER},
-      total_score = #{record.totalScore,jdbcType=INTEGER},
-      nick_name = #{record.nickName,jdbcType=VARCHAR},
-      true_name = #{record.trueName,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=TINYINT},
       birthday = #{record.birthday,jdbcType=DATE},
+      phone = #{record.phone,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       id_card = #{record.idCard,jdbcType=VARCHAR},
       head_pic = #{record.headPic,jdbcType=VARCHAR},
+      is_mobile_activated = #{record.isMobileActivated,jdbcType=TINYINT},
       is_email_activated = #{record.isEmailActivated,jdbcType=TINYINT},
       is_certification = #{record.isCertification,jdbcType=TINYINT},
       acount_status = #{record.acountStatus,jdbcType=TINYINT},
@@ -381,29 +346,17 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="payPassword != null">
-        pay_password = #{payPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="userScore != null">
-        user_score = #{userScore,jdbcType=INTEGER},
-      </if>
-      <if test="totalScore != null">
-        total_score = #{totalScore,jdbcType=INTEGER},
-      </if>
-      <if test="nickName != null">
-        nick_name = #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="trueName != null">
-        true_name = #{trueName,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         gender = #{gender,jdbcType=TINYINT},
       </if>
       <if test="birthday != null">
         birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -413,6 +366,9 @@
       </if>
       <if test="headPic != null">
         head_pic = #{headPic,jdbcType=VARCHAR},
+      </if>
+      <if test="isMobileActivated != null">
+        is_mobile_activated = #{isMobileActivated,jdbcType=TINYINT},
       </if>
       <if test="isEmailActivated != null">
         is_email_activated = #{isEmailActivated,jdbcType=TINYINT},
@@ -442,17 +398,14 @@
     update webuy_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      pay_password = #{payPassword,jdbcType=VARCHAR},
-      user_score = #{userScore,jdbcType=INTEGER},
-      total_score = #{totalScore,jdbcType=INTEGER},
-      nick_name = #{nickName,jdbcType=VARCHAR},
-      true_name = #{trueName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=TINYINT},
       birthday = #{birthday,jdbcType=DATE},
+      phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       id_card = #{idCard,jdbcType=VARCHAR},
       head_pic = #{headPic,jdbcType=VARCHAR},
+      is_mobile_activated = #{isMobileActivated,jdbcType=TINYINT},
       is_email_activated = #{isEmailActivated,jdbcType=TINYINT},
       is_certification = #{isCertification,jdbcType=TINYINT},
       acount_status = #{acountStatus,jdbcType=TINYINT},
