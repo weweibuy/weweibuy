@@ -8,7 +8,7 @@
 │  │  └─webuy-auth-service  
 │  ├─webuy-backstage  
 │  ├─webuy-common  
-│  ├─webuy-eureka   -----------------注册中心  --- 100%
+│  ├─webuy-eureka   -----------------注册中心  --- 100%  
 │  ├─webuy-gateway  -----------------zuul网关代理Oauth2中的资源服务器 认证授权中心 --- 80%   
 │  ├─webuy-inventory  
 │  ├─webuy-message  -----------------RabbitMq结合xxl-job基于可靠消息确保服务间数据一致性(待开发)  
