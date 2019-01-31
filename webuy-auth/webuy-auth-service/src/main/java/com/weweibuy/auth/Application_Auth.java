@@ -23,7 +23,7 @@ import org.springframework.social.config.annotation.EnableSocial;
 @EnableAuthorizationServer
 @EnableFeignClients(basePackages = "com.weweibuy.user.client") // 这里需要指定basePackages否则找不到bean
 @EnableSocial
-@ComponentScan(basePackages = {"com.weweibuy.auth","com.weweibuy.user.fallback"})
+@ComponentScan(basePackages = {"com.weweibuy.auth", "com.weweibuy.user.fallback"})
 public class Application_Auth {
 
     public static void main(String[] args) {

@@ -6,7 +6,7 @@ import com.weweibuy.auth.core.config.properties.SecurityProperties;
 import com.weweibuy.auth.model.dto.JwtResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.Order;
@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -42,7 +41,7 @@ import java.util.HashMap;
 @Component
 @Order(Integer.MAX_VALUE)
 @Slf4j
-public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler implements ApplicationListener<ContextRefreshedEvent> {
+public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -72,33 +71,16 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {
-        if(isBrowseRequest(httpServletRequest)){
-            // TODO 浏览器
-            OAuth2AccessToken oAuth2AccessTokenForBrowse = createOAuth2AccessTokenForBrowse(httpServletRequest, authentication);
-            JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(oAuth2AccessTokenForBrowse);
-            Cookie cookie = new Cookie("Authorization", URLEncoder.encode(jwtResponseDto.getAccess_token(), "UTF-8"));
-            cookie.setMaxAge(3600 * 24);
-            cookie.setPath("/");
-            cookie.setHttpOnly(true);
-            httpServletResponse.addCookie(cookie);
-
-            SavedRequest savedRequest = requestCache.getRequest(httpServletRequest, httpServletResponse);
-            clearAuthenticationAttributes(httpServletRequest);
-            String redirect_url = "http://localhost:8080/auth/index.html";
-//            String[] redirect_urls = null;
-//            if(savedRequest != null && (redirect_urls = savedRequest.getParameterValues("redirect_url")) != null
-//                    && StringUtils.isNotBlank(redirect_urls[0])){
-//                requestCache.removeRequest(httpServletRequest, httpServletResponse);
-//                redirect_url = redirect_urls[0];
-//            }
-            getRedirectStrategy().sendRedirect(httpServletRequest, httpServletResponse, redirect_url);
-
-        }else {
-            OAuth2AccessToken accessToken = createOAuth2AccessToken(httpServletRequest, authentication);
-            JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(accessToken);
-            httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(jwtResponseDto));
-        }
+        // TODO 浏览器
+        OAuth2AccessToken oAuth2AccessTokenForBrowse = createOAuth2AccessTokenForBrowse(httpServletRequest, authentication);
+        JwtResponseDto jwtResponseDto = convertOAuth2AccessTokenToJwtResponse(oAuth2AccessTokenForBrowse);
+        Cookie cookie = new Cookie("Authorization", URLEncoder.encode(jwtResponseDto.getAccess_token(), "UTF-8"));
+        cookie.setMaxAge(3600 * 24);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        httpServletResponse.addCookie(cookie);
+        httpServletResponse.setContentType("application/json;charset=UTF-8");
+        httpServletResponse.getWriter().write(JSONObject.toJSONString(jwtResponseDto));
     }
 
     private OAuth2AccessToken createOAuth2AccessToken(HttpServletRequest request,  Authentication authentication) throws IOException {
@@ -134,7 +116,6 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
         OAuth2AccessToken accessToken = tokenServices.createAccessToken(oAuth2Authentication);
         return accessToken;
     }
-
 
     /**
      * 判断请求是否来自浏览器
@@ -190,15 +171,16 @@ public class IAuthenticationSuccessHandler extends SavedRequestAwareAuthenticati
      * JwtTokenStore 也不可用
      * 注意: ApplicationListener<ContextRefreshedEvent> 只是容器刷新并非容器记载完成!!!
      * 注意:  使用懒加载模式也可以完美解决这种问题!!!
+     * 注意:  关闭 cglib代理!!!!1
      *
      * @param event
      */
-    @Override
+//    @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         log.info("applicationContext 加载完成");
-//        ApplicationContext applicationContext = event.getApplicationContext();
-//        AuthorizationServerTokenServices tokenServices = applicationContext.getBean(AuthorizationServerTokenServices.class);
-//        this.tokenServices = tokenServices;
+        ApplicationContext applicationContext = event.getApplicationContext();
+        AuthorizationServerTokenServices tokenServices = applicationContext.getBean("defaultAuthorizationServerTokenServices", AuthorizationServerTokenServices.class);
+        this.tokenServices = tokenServices;
     }
 
 }

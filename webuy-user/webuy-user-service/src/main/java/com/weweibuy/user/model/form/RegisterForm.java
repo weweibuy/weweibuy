@@ -23,6 +23,10 @@ public class RegisterForm {
 
     @NotBlank
     @ApiModelProperty
+    private String phone;
+
+    @NotBlank
+    @ApiModelProperty
     private String code;
 
     @NotBlank

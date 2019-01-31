@@ -5,12 +5,14 @@ import com.weweibuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.user.common.model.po.WebuyUser;
 import com.weweibuy.user.common.model.po.WebuyUserExample;
 import com.weweibuy.user.mapper.WebuyUserMapper;
+import com.weweibuy.user.model.form.RegisterForm;
 import com.weweibuy.user.service.UserService;
 import com.weweibuy.user.service.impl.base.BaseCrudServiceImpl;
-import com.weweibuy.user.utils.CodeUtil;
 import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,17 +31,27 @@ public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExa
     @Autowired
     private WebuyUserMapper userMapper;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     public UserWebResult sendVerificationCode(String phoneNum) {
         rabbitTemplate.convertSendAndReceive("user_sms_code", "", phoneNum);
         return UserWebResult.success();
     }
 
     @Override
-    public UserWebResult registerUser(String phone, String pwd) {
+    @Transactional
+    public UserWebResult registerUser(RegisterForm registerForm) {
         WebuyUser user = new WebuyUser();
-        user.setUsername(phone);
-        user.setPhone(phone);
-        user.setPassword(CodeUtil.getStrMD5(pwd));
+        WebuyUserExample example = new WebuyUserExample();
+        example.createCriteria().andUsernameEqualTo(registerForm.getUsername());
+        List<WebuyUser> webuyUsers = userMapper.selectByExample(example);
+        if(webuyUsers != null && webuyUsers.size() > 0){
+            return UserWebResult.fail(UserWebMsgEum.USER_EXIST);
+        }
+        user.setUsername(registerForm.getUsername());
+        user.setPhone(registerForm.getPhone());
+        user.setPassword(passwordEncoder.encode(registerForm.getPassword()));
         int i = userMapper.insertSelective(user);
         if(i > 0){
             return UserWebResult.success();

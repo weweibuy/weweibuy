@@ -20,6 +20,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.ArrayList;
+
 /**
  * 资源服务器配置，这里zuul代理了所有资源服务
  * @ClassName ResourceServerConfig
@@ -95,6 +97,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         config.addAllowedOrigin("*"); // 允许向该服务器提交请求的URI，*表示全部允许。。这里尽量限制来源域，比如http://xxxx:8080 ,以降低安全风险。。
         config.addAllowedHeader("*"); // 允许访问的头信息,*表示全部
         config.addAllowedMethod("*");
+        ArrayList<String> responseHeaderAllow = new ArrayList<>();
         config.setMaxAge(18000L); // 预检请求的缓存时间（秒），即在这个时间段里，对于相同的跨域请求不会再预检了
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);

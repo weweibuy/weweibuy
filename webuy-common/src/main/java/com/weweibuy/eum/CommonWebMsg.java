@@ -1,39 +1,34 @@
 package com.weweibuy.eum;
 
+import com.weweibuy.common.WebCodeAndMsg;
+
 /**
  * @ClassName CommonWebMsg
  * @Description
  * @Author durenhao
  * @Date 2018/12/1 0:07
  **/
-public enum CommonWebMsg {
+public enum CommonWebMsg implements WebCodeAndMsg {
 
-    SUCCESS("1","成功"),
-    FAIL("0","失败,未知错误"),
+    SUCCESS(1,"成功"),
+    FAIL(0,"失败,未知错误"),
     ;
 
-    private String code;
+    private Integer code;
     private String msg;
 
-    private CommonWebMsg(String code, String msg){
+    private CommonWebMsg(Integer code, String msg){
         this.code = code;
         this.msg = msg;
     }
 
-    public String getCode() {
-        return code;
+    public Integer getCode() {
+        return this.code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
+        return this.msg;
     }
 
 

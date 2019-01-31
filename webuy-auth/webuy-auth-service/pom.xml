@@ -24,14 +24,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
-            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <!--feign-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
-            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <!--SpringBoot 测试-->
@@ -47,24 +45,17 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+
         <!--springBoot监控中心-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>2.0.6.RELEASE</version>
         </dependency>
 
         <!--spring-boot-admin-client-->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-
-        <!--mysql驱动-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <!--logstash日志收集-->
@@ -78,6 +69,12 @@
             <groupId>com.weweibuy</groupId>
             <artifactId>webuy-user-client</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.weweibuy</groupId>
+                    <artifactId>webuy-common</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

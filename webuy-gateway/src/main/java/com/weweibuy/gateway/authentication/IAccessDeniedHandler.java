@@ -1,5 +1,8 @@
 package com.weweibuy.gateway.authentication;
 
+import com.alibaba.fastjson.JSONObject;
+import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.gateway.eum.ResourcesWebMsg;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -22,6 +25,9 @@ public class IAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write("权限不足");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        CommonJsonResponse fail = CommonJsonResponse.fail(ResourcesWebMsg.ACCESS_IS_DENIED);
+        String jsonString = JSONObject.toJSONString(fail);
+        response.getWriter().write(jsonString);
     }
 }

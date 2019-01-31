@@ -18,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @ClassName UserController
  * @Description
@@ -70,17 +72,17 @@ public class UserController {
 
     @PostMapping("/register/signUp")
     @ApiOperation(value = "注册用户")
-    public UserWebResult registerUser(RegisterForm registerForm, BindingResult result) throws Exception {
+    public UserWebResult registerUser(@Valid RegisterForm registerForm, BindingResult result) throws Exception {
         if(result.hasErrors()){
             return UserWebResult.fail(UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL);
         }
 
-        CommonJsonResponse<String> smsCode = smsCodeClient.getSmsCode(registerForm.getUsername());
+        CommonJsonResponse<String> smsCode = smsCodeClient.getSmsCode(registerForm.getPhone());
         String code = smsCode.getData();
         if(StringUtils.isBlank(code) || !code.equals(registerForm.getCode())){
             return UserWebResult.fail(UserWebMsgEum.VERIFICATION_CODE_WRONG);
         }
-        return userService.registerUser(registerForm.getUsername(), registerForm.getPassword());
+        return userService.registerUser(registerForm);
     }
 
 

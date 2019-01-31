@@ -6,6 +6,7 @@ import com.weweibuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.user.common.model.po.WebuyUser;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
  * @Date 2019/1/20 12:49
  **/
 @Slf4j
+@Lazy
 @Component
 public class UserClientFallBack implements FallbackFactory<UserClient> {
 

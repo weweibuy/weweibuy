@@ -1,12 +1,15 @@
 package com.weweibuy.user.common.eum;
 
+import com.weweibuy.common.WebCodeAndMsg;
+
 /**
  * @ClassName UserWebMsgEum
  * @Description
  * @Author durenhao
  * @Date 2018/12/1 9:19
  **/
-public enum UserWebMsgEum {
+public enum UserWebMsgEum implements WebCodeAndMsg {
+
 
     UNKNOWN_WRONG(10000, "未知错误"),
     PHONE_NUM_PATTERN_WRONG(10001, "手机号码格式错误"),
@@ -16,7 +19,9 @@ public enum UserWebMsgEum {
     VERIFICATION_CODE_WRONG(10005, "手机验证码错误"),
     DO_NOT_RESUBMIT(10006, "请勿重提交"),
     PARAM_BLANK(10007, "输入参数为空"),
-    USER_INFO_NOT_EXIST(10008, "用户信息不存在")
+    USER_INFO_NOT_EXIST(10008, "用户信息不存在"),
+    USER_EXIST(10009, "用户已经存在"),
+
     ;
 
     private Integer code;
@@ -28,12 +33,12 @@ public enum UserWebMsgEum {
     }
 
     public Integer getCode() {
-        return code;
+        return this.code;
     }
 
 
     public String getMsg() {
-        return msg;
+        return this.msg;
     }
 
 

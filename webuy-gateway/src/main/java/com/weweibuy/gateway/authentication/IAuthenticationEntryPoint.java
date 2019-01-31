@@ -1,5 +1,8 @@
 package com.weweibuy.gateway.authentication;
 
+import com.alibaba.fastjson.JSONObject;
+import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.gateway.eum.ResourcesWebMsg;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -37,20 +40,20 @@ public class IAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        String accept = request.getHeader("Accept");
         log.error(authException.getMessage());
-        if(accept.contains("text/html")){
-            response.sendRedirect("/auth/login?redirect_url=" + request.getRequestURL());
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setContentType("application/json;charset=utf-8");
+        Throwable cause = authException.getCause();
+        if(cause instanceof InvalidTokenException){
+            CommonJsonResponse fail = CommonJsonResponse.fail(ResourcesWebMsg.NEED_LOGIN);
+            String jsonString = JSONObject.toJSONString(fail);
+            response.getWriter().write(jsonString);
         }else {
-            response.setContentType("application/json;charset=utf-8");
-            Throwable cause = authException.getCause();
-            if(cause instanceof InvalidTokenException){
-                response.getWriter().write("token 过期");
-            }else {
-                response.getWriter().write("认证失败");
-            }
-
+            CommonJsonResponse fail = CommonJsonResponse.fail(ResourcesWebMsg.TOKEN_INVALID);
+            String jsonString = JSONObject.toJSONString(fail);
+            response.getWriter().write(jsonString);
         }
+
 
     }
 }

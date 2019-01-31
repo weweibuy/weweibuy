@@ -20,7 +20,7 @@
 │  │  ├─webuy-support-client  
 │  │  ├─webuy-support-common  
 │  │  └─webuy-support-service  
-│  ├─webuy-task   -----------------Springboot集成xxl-job ---- 100%
+│  ├─webuy-task   -----------------Springboot集成xxl-job ---- 100%  
 │  └─webuy-user  
 │      ├─webuy-user-client  
 │      ├─webuy-user-common  
