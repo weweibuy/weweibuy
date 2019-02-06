@@ -34,10 +34,10 @@ security:
     client:
       client-id: webuy
       client-secret: webuy123
-      user-authorization-uri: http://localhost:8080/auth/oauth/authorize
-      access-token-uri: http://localhost:8080/auth/oauth/token
+      user-authorization-uri: http://localhost/auth/oauth/authorize
+      access-token-uri: http://localhost/auth/oauth/token
     resource:
-      user-info-uri: http://localhost:8080/auth/oauth/user
+      user-info-uri: http://localhost/auth/oauth/user
       jwt:
         key-value: -----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9utDRxl0vykGVncIrPSrqJICtKfTRHMjyEtKfUWrr3215N69c0nMx2xQL2lVk0q2u3xSE04PIEaTNW4UWj4q3MdWEk++j0ztdM39GVTGu78TjjeIsjVwWKTO/uiBvCgEpFV3ztlNoIcxVR7Y24JT1f7aVu8aFww8pnxQzKmNnmwIDAQAB-----END PUBLIC KEY-----
 
@@ -156,7 +156,7 @@ webuy-backstage: #是serviceId
 webuy-auth: #是serviceId
   ribbon:
     ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
-    listOfServers: http://localhost:80
+    listOfServers: http://localhost:8070
     ConnectTimeout: 2000   #建立连接超时时间
     ReadTimeout: 5000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试

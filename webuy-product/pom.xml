@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>webuy-product</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>webuy-product-common</module>
+        <module>webuy-product-client</module>
+        <module>webuy-product-service</module>
+    </modules>
 
 
 </project>

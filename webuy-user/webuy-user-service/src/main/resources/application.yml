@@ -116,6 +116,19 @@ eureka:
     status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
     home-page-url: http://${eureka.instance.ip-address}:${server.port}/
 
+hystrix: #hystrix配置
+  command:
+    default:
+      execution:
+        timeout:
+        enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+            ribbon:
+              ReadTimeout: 5000
+              ConnectTimeout: 15000
+
 ---
   #test environment
 spring:
@@ -148,14 +161,24 @@ mybatis:
 
 
 feign:
+  client:
+    config:
+      remote-service:           #服务名，填写default为所有服务
+        connectTimeout: 5000   #请求处理的超时时间
+        readTimeout: 12000  #请求连接的超时时间
   hystrix:
-    enabled: true
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 20000
+    enabled: true  #是否启用feign的 hystrix;不启用使用ribbon的超时控制
+  compression: #Spring Cloud Feign支持对请求和响应进行GZIP压缩，以提高通信效率
+      request:
+        enabled:  true   # 开启对 request 请求压缩
+        mime-types:
+          - text/xml
+          - application/xml
+          - application/json    # 指定压缩格式
+        min-request-size: 2048  # 压缩的最小阀值，默认 2048，超过2048 （字节） 进行压缩。
+
+      response:
+        enabled:  true  # 开启对 response 的压缩
 
 management:
   endpoints:

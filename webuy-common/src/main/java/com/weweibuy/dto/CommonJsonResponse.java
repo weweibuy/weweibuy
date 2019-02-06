@@ -40,7 +40,11 @@ public class CommonJsonResponse<T> implements Serializable {
         return new CommonJsonResponse(CommonStatus.SUCCESS.toString(), webMsg.getCode(), webMsg.getMsg());
     }
 
-    public static<T> CommonJsonResponse success(WebCodeAndMsg webMsg, T data){
+    public static CommonJsonResponse success(){
+        return new CommonJsonResponse(CommonStatus.SUCCESS.toString(), null, null, null);
+    }
+
+    public static<T> CommonJsonResponse success(T data){
         return new CommonJsonResponse<T>(CommonStatus.SUCCESS.toString(), null, null, data);
     }
 

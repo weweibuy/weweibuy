@@ -34,4 +34,9 @@ public enum  ResourcesWebMsg implements WebCodeAndMsg{
     public String getMsg() {
         return this.msg;
     }
+
+    public WebCodeAndMsg appendMsg(String msg){
+        this.msg = this.msg + ";" + msg;
+        return this;
+    }
 }

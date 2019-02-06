@@ -36,10 +36,13 @@ public enum UserWebMsgEum implements WebCodeAndMsg {
         return this.code;
     }
 
-
     public String getMsg() {
         return this.msg;
     }
 
+    public WebCodeAndMsg appendMsg(String msg){
+        this.msg = this.msg + ";" + msg;
+        return this;
+    }
 
 }

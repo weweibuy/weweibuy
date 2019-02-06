@@ -11,4 +11,7 @@ public interface WebCodeAndMsg {
     Integer getCode();
 
     String getMsg();
+
+    WebCodeAndMsg appendMsg(String msg);
+
 }

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weweibuy.product.mapper.ItemSkuMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.product.common.model.po.ItemSku">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="item_id" jdbcType="BIGINT" property="itemId" />
+    <result column="item_price" jdbcType="DECIMAL" property="itemPrice" />
+    <result column="item_num" jdbcType="INTEGER" property="itemNum" />
+    <result column="item_sale_count" jdbcType="INTEGER" property="itemSaleCount" />
+    <result column="item_sort" jdbcType="INTEGER" property="itemSort" />
+    <result column="item_img" jdbcType="VARCHAR" property="itemImg" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, item_id, item_price, item_num, item_sale_count, item_sort, item_img, create_time, 
+    modify_time
+  </sql>
+  <select id="selectByExample" parameterType="com.weweibuy.product.common.model.po.ItemSkuExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item_sku
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_sku
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from item_sku
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.weweibuy.product.common.model.po.ItemSkuExample">
+    delete from item_sku
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.weweibuy.product.common.model.po.ItemSku">
+    insert into item_sku (id, item_id, item_price, 
+      item_num, item_sale_count, item_sort, 
+      item_img, create_time, modify_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{itemPrice,jdbcType=DECIMAL}, 
+      #{itemNum,jdbcType=INTEGER}, #{itemSaleCount,jdbcType=INTEGER}, #{itemSort,jdbcType=INTEGER}, 
+      #{itemImg,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.weweibuy.product.common.model.po.ItemSku">
+    insert into item_sku
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="itemPrice != null">
+        item_price,
+      </if>
+      <if test="itemNum != null">
+        item_num,
+      </if>
+      <if test="itemSaleCount != null">
+        item_sale_count,
+      </if>
+      <if test="itemSort != null">
+        item_sort,
+      </if>
+      <if test="itemImg != null">
+        item_img,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="itemPrice != null">
+        #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemNum != null">
+        #{itemNum,jdbcType=INTEGER},
+      </if>
+      <if test="itemSaleCount != null">
+        #{itemSaleCount,jdbcType=INTEGER},
+      </if>
+      <if test="itemSort != null">
+        #{itemSort,jdbcType=INTEGER},
+      </if>
+      <if test="itemImg != null">
+        #{itemImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.weweibuy.product.common.model.po.ItemSkuExample" resultType="java.lang.Long">
+    select count(*) from item_sku
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update item_sku
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemId != null">
+        item_id = #{record.itemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemPrice != null">
+        item_price = #{record.itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemNum != null">
+        item_num = #{record.itemNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemSaleCount != null">
+        item_sale_count = #{record.itemSaleCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemSort != null">
+        item_sort = #{record.itemSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemImg != null">
+        item_img = #{record.itemImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null">
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update item_sku
+    set id = #{record.id,jdbcType=BIGINT},
+      item_id = #{record.itemId,jdbcType=BIGINT},
+      item_price = #{record.itemPrice,jdbcType=DECIMAL},
+      item_num = #{record.itemNum,jdbcType=INTEGER},
+      item_sale_count = #{record.itemSaleCount,jdbcType=INTEGER},
+      item_sort = #{record.itemSort,jdbcType=INTEGER},
+      item_img = #{record.itemImg,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.product.common.model.po.ItemSku">
+    update item_sku
+    <set>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="itemPrice != null">
+        item_price = #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemNum != null">
+        item_num = #{itemNum,jdbcType=INTEGER},
+      </if>
+      <if test="itemSaleCount != null">
+        item_sale_count = #{itemSaleCount,jdbcType=INTEGER},
+      </if>
+      <if test="itemSort != null">
+        item_sort = #{itemSort,jdbcType=INTEGER},
+      </if>
+      <if test="itemImg != null">
+        item_img = #{itemImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.product.common.model.po.ItemSku">
+    update item_sku
+    set item_id = #{itemId,jdbcType=BIGINT},
+      item_price = #{itemPrice,jdbcType=DECIMAL},
+      item_num = #{itemNum,jdbcType=INTEGER},
+      item_sale_count = #{itemSaleCount,jdbcType=INTEGER},
+      item_sort = #{itemSort,jdbcType=INTEGER},
+      item_img = #{itemImg,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

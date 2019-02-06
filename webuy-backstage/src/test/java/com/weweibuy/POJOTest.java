@@ -1,5 +1,7 @@
 package com.weweibuy;
 
+import org.junit.Test;
+
 /**
  * @ClassName POJOTest
  * @Author durenhao  ak514250@126.com
@@ -7,6 +9,10 @@ package com.weweibuy;
  */
 public class POJOTest {
 
+    @Test
+    public void test02(){
+        System.err.println( 1 + 2);
+    }
 
 
 }
