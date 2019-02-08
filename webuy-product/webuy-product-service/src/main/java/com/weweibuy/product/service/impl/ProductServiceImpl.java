@@ -31,7 +31,7 @@ public class ProductServiceImpl extends BaseCrudServiceImpl<WebuyItem, WebuyItem
     public WebuyItem getItemById(Long id) {
         WebuyItemExample example = new WebuyItemExample();
         byte b = 0;
-        example.createCriteria().andItemIdEqualTo(id).andIsDeleteNotEqualTo(b);
+        example.createCriteria().andItemIdEqualTo(id).andIsDeleteEqualTo(b);
         List<WebuyItem> webuyItems = itemMapper.selectByExample(example);
         if(webuyItems.size() > 0){
             return webuyItems.get(0);

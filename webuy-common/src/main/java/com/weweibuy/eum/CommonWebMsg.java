@@ -12,6 +12,7 @@ public enum CommonWebMsg implements WebCodeAndMsg {
 
     SUCCESS(1,"成功"),
     FAIL(0,"失败,未知错误"),
+    FALL_BACK(2, "失败,fallback"),
     ;
 
     private Integer code;

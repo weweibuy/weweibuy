@@ -3,20 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>weweibuy</artifactId>
+        <artifactId>webuy-inventory</artifactId>
         <groupId>com.weweibuy</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
-    
-    <artifactId>webuy-backstage</artifactId>
+
+    <artifactId>webuy-inventory-service</artifactId>
 
     <dependencies>
         <!--通用工程依赖-->
         <dependency>
             <groupId>com.weweibuy</groupId>
-            <artifactId>webuy-common</artifactId>
+            <artifactId>webuy-inventory-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -24,12 +23,14 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
+            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <!--feign-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
+            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <!--SpringMVC-->
@@ -55,43 +56,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>2.0.6.RELEASE</version>
         </dependency>
 
         <!--admin-client-->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-
-        <!--mysql驱动-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <!--hystrix-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>
-
-        <!--oauth2-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-oauth2</artifactId>-->
-            <!--<version>1.2.1.RELEASE</version>-->
-        <!--</dependency>-->
-
-        <!--mybatis-->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
-
-        <!--mybatis分页插件-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>2.0.1</version>
         </dependency>
 
         <!--jdcb及事物-->
@@ -106,16 +78,35 @@
             <artifactId>druid</artifactId>
         </dependency>
 
+        <!--mysql驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!--hystrix-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+
+
+        <!--mybatis-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!--mybatis分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+
         <!--redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-redis</artifactId>
-        </dependency>
-
-        <!--spring-retry-->
-        <dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
         </dependency>
 
         <!--swagger2-->
@@ -128,18 +119,17 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
+        <!--logstash日志收集-->
         <dependency>
-            <groupId>com.weweibuy</groupId>
-            <artifactId>webuy-product-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.weweibuy</groupId>
-                    <artifactId>webuy-common</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
 
+        <!--amqp-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
