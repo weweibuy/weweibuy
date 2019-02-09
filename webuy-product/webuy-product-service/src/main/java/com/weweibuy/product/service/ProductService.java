@@ -1,6 +1,6 @@
 package com.weweibuy.product.service;
 
-import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.common.dto.CommonJsonResponse;
 import com.weweibuy.product.common.model.form.WebuyItemForm;
 import com.weweibuy.product.common.model.po.WebuyItem;
 

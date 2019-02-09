@@ -50,20 +50,16 @@
 			   enableDeleteByExample="true" enableSelectByExample="true" >
 		</table>
 
-		<table tableName="order_item"
-			   enableCountByExample="true" enableUpdateByExample="true"
-			   enableDeleteByExample="true" enableSelectByExample="true" >
-		</table>
 
-		<table tableName="order_shipping"
-			   enableCountByExample="true" enableUpdateByExample="true"
-			   enableDeleteByExample="true" enableSelectByExample="true" >
-		</table>
+		<!--<table tableName="order_shipping"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true" >-->
+		<!--</table>-->
 
-		<table tableName="shipping_method"
-			   enableCountByExample="true" enableUpdateByExample="true"
-			   enableDeleteByExample="true" enableSelectByExample="true" >
-		</table>
+		<!--<table tableName="shipping_method"-->
+			   <!--enableCountByExample="true" enableUpdateByExample="true"-->
+			   <!--enableDeleteByExample="true" enableSelectByExample="true" >-->
+		<!--</table>-->
 
 
 

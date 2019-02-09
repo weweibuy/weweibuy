@@ -20,7 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "com.weweibuy.support.client")
-@ComponentScan(basePackages = {"com.weweibuy.user","com.weweibuy.support.fallback"}) // 防止映入外包扫描不到bean
+@ComponentScan(basePackages = {"com.weweibuy.user", "com.weweibuy.support.client.fallback"}) // 防止映入外包扫描不到bean
 public class Application_User {
 
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 package com.weweibuy.order.base;
 
 
-import com.weweibuy.dto.CommonPageResult;
+import com.weweibuy.common.dto.CommonPageResult;
 
 import java.io.Serializable;
 import java.util.List;

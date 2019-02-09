@@ -1,6 +1,6 @@
 package com.weweibuy.message.exception.handler;
 
-import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.common.dto.CommonJsonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

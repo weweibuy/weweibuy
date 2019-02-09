@@ -356,6 +356,186 @@ public class WebuyOrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andItemIdIsNull() {
+            addCriterion("item_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdIsNotNull() {
+            addCriterion("item_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdEqualTo(Long value) {
+            addCriterion("item_id =", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdNotEqualTo(Long value) {
+            addCriterion("item_id <>", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdGreaterThan(Long value) {
+            addCriterion("item_id >", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("item_id >=", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdLessThan(Long value) {
+            addCriterion("item_id <", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdLessThanOrEqualTo(Long value) {
+            addCriterion("item_id <=", value, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdIn(List<Long> values) {
+            addCriterion("item_id in", values, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdNotIn(List<Long> values) {
+            addCriterion("item_id not in", values, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdBetween(Long value1, Long value2) {
+            addCriterion("item_id between", value1, value2, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemIdNotBetween(Long value1, Long value2) {
+            addCriterion("item_id not between", value1, value2, "itemId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdIsNull() {
+            addCriterion("sku_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdIsNotNull() {
+            addCriterion("sku_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdEqualTo(Long value) {
+            addCriterion("sku_id =", value, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdNotEqualTo(Long value) {
+            addCriterion("sku_id <>", value, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdGreaterThan(Long value) {
+            addCriterion("sku_id >", value, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("sku_id >=", value, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdLessThan(Long value) {
+            addCriterion("sku_id <", value, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdLessThanOrEqualTo(Long value) {
+            addCriterion("sku_id <=", value, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdIn(List<Long> values) {
+            addCriterion("sku_id in", values, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdNotIn(List<Long> values) {
+            addCriterion("sku_id not in", values, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdBetween(Long value1, Long value2) {
+            addCriterion("sku_id between", value1, value2, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkuIdNotBetween(Long value1, Long value2) {
+            addCriterion("sku_id not between", value1, value2, "skuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountIsNull() {
+            addCriterion("item_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountIsNotNull() {
+            addCriterion("item_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountEqualTo(Integer value) {
+            addCriterion("item_count =", value, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountNotEqualTo(Integer value) {
+            addCriterion("item_count <>", value, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountGreaterThan(Integer value) {
+            addCriterion("item_count >", value, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("item_count >=", value, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountLessThan(Integer value) {
+            addCriterion("item_count <", value, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountLessThanOrEqualTo(Integer value) {
+            addCriterion("item_count <=", value, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountIn(List<Integer> values) {
+            addCriterion("item_count in", values, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountNotIn(List<Integer> values) {
+            addCriterion("item_count not in", values, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountBetween(Integer value1, Integer value2) {
+            addCriterion("item_count between", value1, value2, "itemCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("item_count not between", value1, value2, "itemCount");
+            return (Criteria) this;
+        }
+
         public Criteria andShippingIdIsNull() {
             addCriterion("shipping_id is null");
             return (Criteria) this;

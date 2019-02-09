@@ -3,7 +3,7 @@ package com.weweibuy.order.base.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.weweibuy.dto.CommonPageResult;
+import com.weweibuy.common.dto.CommonPageResult;
 import com.weweibuy.order.base.BaseService;
 import com.weweibuy.order.mapper.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.weweibuy.auth.security;
 
-import com.weweibuy.eum.CommonStatus;
+import com.weweibuy.common.eum.CommonStatus;
 import com.weweibuy.user.client.UserClient;
 import com.weweibuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.user.common.model.po.WebuyUser;

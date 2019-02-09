@@ -1,6 +1,6 @@
 package com.weweibuy.user.controller;
 
-import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.common.dto.CommonJsonResponse;
 import com.weweibuy.support.client.SmsCodeClient;
 import com.weweibuy.user.common.eum.UserWebMsgEum;
 import com.weweibuy.user.common.model.dto.UserWebResult;

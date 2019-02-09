@@ -1,6 +1,6 @@
 package com.weweibuy.user.common.eum;
 
-import com.weweibuy.common.WebCodeAndMsg;
+import com.weweibuy.common.response.WebCodeAndMsg;
 
 /**
  * @ClassName UserWebMsgEum
@@ -38,11 +38,6 @@ public enum UserWebMsgEum implements WebCodeAndMsg {
 
     public String getMsg() {
         return this.msg;
-    }
-
-    public WebCodeAndMsg appendMsg(String msg){
-        this.msg = this.msg + ";" + msg;
-        return this;
     }
 
 }

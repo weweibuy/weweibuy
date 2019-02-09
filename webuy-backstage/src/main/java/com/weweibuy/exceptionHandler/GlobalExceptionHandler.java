@@ -1,6 +1,6 @@
 package com.weweibuy.exceptionHandler;
 
-import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.common.dto.CommonJsonResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

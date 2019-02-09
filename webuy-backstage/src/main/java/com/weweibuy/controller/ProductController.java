@@ -1,6 +1,6 @@
 package com.weweibuy.controller;
 
-import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.common.dto.CommonJsonResponse;
 import com.weweibuy.product.client.ProductClient;
 import com.weweibuy.product.common.eum.ProductWebMsgAndCode;
 import com.weweibuy.product.common.model.form.WebuyItemForm;
@@ -36,7 +36,7 @@ public class ProductController {
     public CommonJsonResponse addItem(@RequestBody @Valid WebuyItemForm webuyItem, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             String message = bindingResult.getAllErrors().get(0).getDefaultMessage();
-            return CommonJsonResponse.fail(ProductWebMsgAndCode.PARAM_WRONG.appendMsg(message));
+            return CommonJsonResponse.fail(ProductWebMsgAndCode.PARAM_WRONG).appendMsg(message);
         }
         return productClient.addItem(webuyItem);
     }

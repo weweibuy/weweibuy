@@ -1,7 +1,7 @@
 package com.weweibuy.support.client;
 
-import com.weweibuy.dto.CommonJsonResponse;
-import com.weweibuy.support.fallback.SmsCodeFallBack;
+import com.weweibuy.common.dto.CommonJsonResponse;
+import com.weweibuy.support.client.fallback.SmsCodeFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

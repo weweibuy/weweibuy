@@ -1,6 +1,6 @@
 package com.weweibuy.gateway.eum;
 
-import com.weweibuy.common.WebCodeAndMsg;
+import com.weweibuy.common.response.WebCodeAndMsg;
 
 /**
  * 资源服务器 web返回 code 和msg
@@ -35,8 +35,4 @@ public enum  ResourcesWebMsg implements WebCodeAndMsg{
         return this.msg;
     }
 
-    public WebCodeAndMsg appendMsg(String msg){
-        this.msg = this.msg + ";" + msg;
-        return this;
-    }
 }

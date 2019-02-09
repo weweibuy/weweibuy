@@ -1,9 +1,9 @@
 package com.weweibuy.message.controller;
 
-import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.common.dto.CommonJsonResponse;
 import com.weweibuy.message.model.po.WeweibuyMessage;
 import com.weweibuy.message.service.MessageService;
-import com.weweibuy.utils.IDUtil;
+import com.weweibuy.common.utils.IDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;

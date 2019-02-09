@@ -2,7 +2,7 @@ package com.weweibuy.user.client;
 
 import com.weweibuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.user.common.model.po.WebuyUser;
-import com.weweibuy.user.fallback.UserClientFallBack;
+import com.weweibuy.user.client.fallback.UserClientFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

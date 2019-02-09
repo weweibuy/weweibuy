@@ -1,7 +1,7 @@
 package com.weweibuy.gateway.authentication;
 
 import com.alibaba.fastjson.JSONObject;
-import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.common.dto.CommonJsonResponse;
 import com.weweibuy.gateway.eum.ResourcesWebMsg;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

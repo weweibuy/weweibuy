@@ -2,8 +2,9 @@ package com.weweibuy.order.mapper;
 
 import com.weweibuy.order.common.model.po.WebuyOrder;
 import com.weweibuy.order.common.model.po.WebuyOrderExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface WebuyOrderMapper {
     long countByExample(WebuyOrderExample example);
@@ -15,6 +16,8 @@ public interface WebuyOrderMapper {
     int insert(WebuyOrder record);
 
     int insertSelective(WebuyOrder record);
+
+    int insertSelectiveGetId(WebuyOrder record);
 
     List<WebuyOrder> selectByExample(WebuyOrderExample example);
 

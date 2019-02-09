@@ -1,6 +1,6 @@
 package com.weweibuy.product.service.base;
 
-import com.weweibuy.dto.CommonPageResult;
+import com.weweibuy.common.dto.CommonPageResult;
 
 import java.util.List;
 

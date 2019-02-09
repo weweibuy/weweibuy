@@ -1,7 +1,7 @@
 package com.weweibuy.user.common.model.dto;
 
-import com.weweibuy.dto.CommonJsonResponse;
-import com.weweibuy.eum.CommonStatus;
+import com.weweibuy.common.dto.CommonJsonResponse;
+import com.weweibuy.common.eum.CommonStatus;
 import com.weweibuy.user.common.eum.UserWebMsgEum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class UserWebResult<T> extends CommonJsonResponse<T> {
 
 
-    public UserWebResult( CommonStatus status, Integer code, String msg, T data){
+    public UserWebResult(CommonStatus status, Integer code, String msg, T data){
         super(status.toString(), code, msg, data);
     }
 

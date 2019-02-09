@@ -12,6 +12,12 @@ public class WebuyOrder {
 
     private Long sellerId;
 
+    private Long itemId;
+
+    private Long skuId;
+
+    private Integer itemCount;
+
     private Long shippingId;
 
     private Date shippingTime;
@@ -114,6 +120,30 @@ public class WebuyOrder {
 
     public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
+
+    public Long getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(Long skuId) {
+        this.skuId = skuId;
+    }
+
+    public Integer getItemCount() {
+        return itemCount;
+    }
+
+    public void setItemCount(Integer itemCount) {
+        this.itemCount = itemCount;
     }
 
     public Long getShippingId() {

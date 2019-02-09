@@ -6,6 +6,9 @@
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="item_id" jdbcType="BIGINT" property="itemId" />
+    <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+    <result column="item_count" jdbcType="INTEGER" property="itemCount" />
     <result column="shipping_id" jdbcType="BIGINT" property="shippingId" />
     <result column="shipping_time" jdbcType="TIMESTAMP" property="shippingTime" />
     <result column="order_score" jdbcType="INTEGER" property="orderScore" />
@@ -102,13 +105,13 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_no, user_id, seller_id, shipping_id, shipping_time, order_score, postscript, 
-    pay_no, payment_type, oreder_status, pay_status, insure_fee, order_amount, money_paid, 
-    surplus, integral, integral_money, bonus, shipping_status, is_cancel, cancel_reason, 
-    reject_reason, receiver_phone, receiver_name, receiver_adress, express_no, express_name, 
-    shipping_fee, payment_time, consign_time, order_confirm_time, order_pay_time, shipping_start_time, 
-    shipping_end_time, order_confirm_receipt_time, order_close_time, is_reviews, create_time, 
-    modify_time
+    id, order_no, user_id, seller_id, item_id, sku_id, item_count, shipping_id, shipping_time, 
+    order_score, postscript, pay_no, payment_type, oreder_status, pay_status, insure_fee, 
+    order_amount, money_paid, surplus, integral, integral_money, bonus, shipping_status, 
+    is_cancel, cancel_reason, reject_reason, receiver_phone, receiver_name, receiver_adress, 
+    express_no, express_name, shipping_fee, payment_time, consign_time, order_confirm_time, 
+    order_pay_time, shipping_start_time, shipping_end_time, order_confirm_receipt_time, 
+    order_close_time, is_reviews, create_time, modify_time
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.order.common.model.po.WebuyOrderExample" resultMap="BaseResultMap">
     select
@@ -142,7 +145,8 @@
   </delete>
   <insert id="insert" parameterType="com.weweibuy.order.common.model.po.WebuyOrder">
     insert into webuy_order (id, order_no, user_id, 
-      seller_id, shipping_id, shipping_time, 
+      seller_id, item_id, sku_id, 
+      item_count, shipping_id, shipping_time, 
       order_score, postscript, pay_no, 
       payment_type, oreder_status, pay_status, 
       insure_fee, order_amount, money_paid, 
@@ -157,7 +161,8 @@
       is_reviews, create_time, modify_time
       )
     values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
-      #{sellerId,jdbcType=BIGINT}, #{shippingId,jdbcType=BIGINT}, #{shippingTime,jdbcType=TIMESTAMP}, 
+      #{sellerId,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, 
+      #{itemCount,jdbcType=INTEGER}, #{shippingId,jdbcType=BIGINT}, #{shippingTime,jdbcType=TIMESTAMP}, 
       #{orderScore,jdbcType=INTEGER}, #{postscript,jdbcType=VARCHAR}, #{payNo,jdbcType=VARCHAR}, 
       #{paymentType,jdbcType=TINYINT}, #{orederStatus,jdbcType=TINYINT}, #{payStatus,jdbcType=TINYINT}, 
       #{insureFee,jdbcType=DECIMAL}, #{orderAmount,jdbcType=DECIMAL}, #{moneyPaid,jdbcType=DECIMAL}, 
@@ -186,6 +191,15 @@
       </if>
       <if test="sellerId != null">
         seller_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="itemCount != null">
+        item_count,
       </if>
       <if test="shippingId != null">
         shipping_id,
@@ -309,6 +323,15 @@
       <if test="sellerId != null">
         #{sellerId,jdbcType=BIGINT},
       </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="itemCount != null">
+        #{itemCount,jdbcType=INTEGER},
+      </if>
       <if test="shippingId != null">
         #{shippingId,jdbcType=BIGINT},
       </if>
@@ -419,6 +442,276 @@
       </if>
     </trim>
   </insert>
+
+
+  <insert id="insertSelectiveGetId" parameterType="com.weweibuy.order.common.model.po.WebuyOrder" useGeneratedKeys="true" keyProperty="id">
+    insert into webuy_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="sellerId != null">
+        seller_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="itemCount != null">
+        item_count,
+      </if>
+      <if test="shippingId != null">
+        shipping_id,
+      </if>
+      <if test="shippingTime != null">
+        shipping_time,
+      </if>
+      <if test="orderScore != null">
+        order_score,
+      </if>
+      <if test="postscript != null">
+        postscript,
+      </if>
+      <if test="payNo != null">
+        pay_no,
+      </if>
+      <if test="paymentType != null">
+        payment_type,
+      </if>
+      <if test="orederStatus != null">
+        oreder_status,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="insureFee != null">
+        insure_fee,
+      </if>
+      <if test="orderAmount != null">
+        order_amount,
+      </if>
+      <if test="moneyPaid != null">
+        money_paid,
+      </if>
+      <if test="surplus != null">
+        surplus,
+      </if>
+      <if test="integral != null">
+        integral,
+      </if>
+      <if test="integralMoney != null">
+        integral_money,
+      </if>
+      <if test="bonus != null">
+        bonus,
+      </if>
+      <if test="shippingStatus != null">
+        shipping_status,
+      </if>
+      <if test="isCancel != null">
+        is_cancel,
+      </if>
+      <if test="cancelReason != null">
+        cancel_reason,
+      </if>
+      <if test="rejectReason != null">
+        reject_reason,
+      </if>
+      <if test="receiverPhone != null">
+        receiver_phone,
+      </if>
+      <if test="receiverName != null">
+        receiver_name,
+      </if>
+      <if test="receiverAdress != null">
+        receiver_adress,
+      </if>
+      <if test="expressNo != null">
+        express_no,
+      </if>
+      <if test="expressName != null">
+        express_name,
+      </if>
+      <if test="shippingFee != null">
+        shipping_fee,
+      </if>
+      <if test="paymentTime != null">
+        payment_time,
+      </if>
+      <if test="consignTime != null">
+        consign_time,
+      </if>
+      <if test="orderConfirmTime != null">
+        order_confirm_time,
+      </if>
+      <if test="orderPayTime != null">
+        order_pay_time,
+      </if>
+      <if test="shippingStartTime != null">
+        shipping_start_time,
+      </if>
+      <if test="shippingEndTime != null">
+        shipping_end_time,
+      </if>
+      <if test="orderConfirmReceiptTime != null">
+        order_confirm_receipt_time,
+      </if>
+      <if test="orderCloseTime != null">
+        order_close_time,
+      </if>
+      <if test="isReviews != null">
+        is_reviews,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerId != null">
+        #{sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="itemCount != null">
+        #{itemCount,jdbcType=INTEGER},
+      </if>
+      <if test="shippingId != null">
+        #{shippingId,jdbcType=BIGINT},
+      </if>
+      <if test="shippingTime != null">
+        #{shippingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderScore != null">
+        #{orderScore,jdbcType=INTEGER},
+      </if>
+      <if test="postscript != null">
+        #{postscript,jdbcType=VARCHAR},
+      </if>
+      <if test="payNo != null">
+        #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentType != null">
+        #{paymentType,jdbcType=TINYINT},
+      </if>
+      <if test="orederStatus != null">
+        #{orederStatus,jdbcType=TINYINT},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="insureFee != null">
+        #{insureFee,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmount != null">
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="moneyPaid != null">
+        #{moneyPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="surplus != null">
+        #{surplus,jdbcType=DECIMAL},
+      </if>
+      <if test="integral != null">
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="integralMoney != null">
+        #{integralMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="bonus != null">
+        #{bonus,jdbcType=DECIMAL},
+      </if>
+      <if test="shippingStatus != null">
+        #{shippingStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isCancel != null">
+        #{isCancel,jdbcType=TINYINT},
+      </if>
+      <if test="cancelReason != null">
+        #{cancelReason,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null">
+        #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null">
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAdress != null">
+        #{receiverAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null">
+        #{expressNo,jdbcType=BIGINT},
+      </if>
+      <if test="expressName != null">
+        #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingFee != null">
+        #{shippingFee,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentTime != null">
+        #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consignTime != null">
+        #{consignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderConfirmTime != null">
+        #{orderConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderPayTime != null">
+        #{orderPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shippingStartTime != null">
+        #{shippingStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shippingEndTime != null">
+        #{shippingEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderConfirmReceiptTime != null">
+        #{orderConfirmReceiptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCloseTime != null">
+        #{orderCloseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isReviews != null">
+        #{isReviews,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+
+
   <select id="countByExample" parameterType="com.weweibuy.order.common.model.po.WebuyOrderExample" resultType="java.lang.Long">
     select count(*) from webuy_order
     <if test="_parameter != null">
@@ -439,6 +732,15 @@
       </if>
       <if test="record.sellerId != null">
         seller_id = #{record.sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemId != null">
+        item_id = #{record.itemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.skuId != null">
+        sku_id = #{record.skuId,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemCount != null">
+        item_count = #{record.itemCount,jdbcType=INTEGER},
       </if>
       <if test="record.shippingId != null">
         shipping_id = #{record.shippingId,jdbcType=BIGINT},
@@ -559,6 +861,9 @@
       order_no = #{record.orderNo,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=BIGINT},
       seller_id = #{record.sellerId,jdbcType=BIGINT},
+      item_id = #{record.itemId,jdbcType=BIGINT},
+      sku_id = #{record.skuId,jdbcType=BIGINT},
+      item_count = #{record.itemCount,jdbcType=INTEGER},
       shipping_id = #{record.shippingId,jdbcType=BIGINT},
       shipping_time = #{record.shippingTime,jdbcType=TIMESTAMP},
       order_score = #{record.orderScore,jdbcType=INTEGER},
@@ -610,6 +915,15 @@
       </if>
       <if test="sellerId != null">
         seller_id = #{sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="itemCount != null">
+        item_count = #{itemCount,jdbcType=INTEGER},
       </if>
       <if test="shippingId != null">
         shipping_id = #{shippingId,jdbcType=BIGINT},
@@ -727,6 +1041,9 @@
     set order_no = #{orderNo,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=BIGINT},
       seller_id = #{sellerId,jdbcType=BIGINT},
+      item_id = #{itemId,jdbcType=BIGINT},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      item_count = #{itemCount,jdbcType=INTEGER},
       shipping_id = #{shippingId,jdbcType=BIGINT},
       shipping_time = #{shippingTime,jdbcType=TIMESTAMP},
       order_score = #{orderScore,jdbcType=INTEGER},

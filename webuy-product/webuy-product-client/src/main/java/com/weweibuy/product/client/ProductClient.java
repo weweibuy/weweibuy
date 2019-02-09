@@ -1,9 +1,9 @@
 package com.weweibuy.product.client;
 
-import com.weweibuy.dto.CommonJsonResponse;
+import com.weweibuy.common.dto.CommonJsonResponse;
 import com.weweibuy.product.common.model.form.WebuyItemForm;
 import com.weweibuy.product.common.model.po.WebuyItem;
-import com.weweibuy.product.fallback.ProductClientFallBack;
+import com.weweibuy.product.client.fallback.ProductClientFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,7 +1,7 @@
 package com.weweibuy.support.controller;
 
-import com.weweibuy.dto.CommonJsonResponse;
-import com.weweibuy.eum.CommonStatus;
+import com.weweibuy.common.dto.CommonJsonResponse;
+import com.weweibuy.common.eum.CommonStatus;
 import com.weweibuy.support.service.SmsCodeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
