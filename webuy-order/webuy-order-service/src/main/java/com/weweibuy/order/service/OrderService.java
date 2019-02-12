@@ -2,6 +2,7 @@ package com.weweibuy.order.service;
 
 import com.weweibuy.common.dto.CommonJsonResponse;
 import com.weweibuy.order.common.model.form.OrderAddForm;
+import com.weweibuy.order.common.model.form.OrderConfirmForm;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface OrderService {
 
     CommonJsonResponse addOrder(List<OrderAddForm> orderForm);
 
+    CommonJsonResponse confirmOrder(List<OrderConfirmForm> confirmForms);
 }

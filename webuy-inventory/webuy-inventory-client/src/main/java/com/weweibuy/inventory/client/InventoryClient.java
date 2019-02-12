@@ -2,10 +2,13 @@ package com.weweibuy.inventory.client;
 
 import com.weweibuy.common.dto.CommonJsonResponse;
 import com.weweibuy.inventory.client.fallback.InventoryFallback;
+import com.weweibuy.inventory.common.model.po.WebuyInventory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @ClassName InventoryClient
@@ -17,6 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface InventoryClient {
 
     @RequestMapping(value = "/getnum/skus", method = RequestMethod.GET)
-    CommonJsonResponse getInventoryNumBuySkuId(@RequestParam("skuIds") Long[] skuIds);
+    CommonJsonResponse<List<WebuyInventory>> getInventoryNumBuySkuId(@RequestParam("skuIds") Long[] skuIds);
 
 }

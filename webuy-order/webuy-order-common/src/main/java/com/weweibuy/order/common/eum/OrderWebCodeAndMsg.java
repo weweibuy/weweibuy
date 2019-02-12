@@ -11,6 +11,7 @@ import com.weweibuy.common.response.WebCodeAndMsg;
 public enum OrderWebCodeAndMsg implements WebCodeAndMsg{
 
     PARAM_WRONG(40001, "输入参数错误"),
+    NETWORK_EXCEPTION(40002, "网路拥堵,稍后再试"),
     ;
 
     private Integer code;

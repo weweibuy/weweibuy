@@ -40,12 +40,12 @@ public class OrderController {
 
     @PutMapping("/confirm")
     @ApiOperation("确认订单")
-    public CommonJsonResponse confirmOrder(@RequestBody @Valid OrderConfirmForm confirmForm, BindingResult result){
+    public CommonJsonResponse confirmOrder(@RequestBody @Valid List<OrderConfirmForm> confirmForms, BindingResult result){
         if(result.hasErrors()){
             String message = result.getAllErrors().get(0).getDefaultMessage();
             return CommonJsonResponse.fail(OrderWebCodeAndMsg.PARAM_WRONG).appendMsg(message);
         }
-        return null;
+        return orderService.confirmOrder(confirmForms);
     }
 
 
