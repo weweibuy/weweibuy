@@ -88,8 +88,9 @@ hystrix: #hystrix配置
         timeout:
         enabled: true
         isolation:
+          strategy: thread
           thread:
-            timeoutInMilliseconds: 15000
+            timeoutInMilliseconds: 1000
       circuitBreaker:
         sleepWindowInMilliseconds: 1000 #断路器恢复时间
         errorThresholdPercentage: 80  #触发短路,失败百分比

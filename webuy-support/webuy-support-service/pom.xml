@@ -86,6 +86,12 @@
             <artifactId>spring-boot-starter-redis</artifactId>
         </dependency>
 
+        <!-- hystrix -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+
         <!--swagger2-->
         <dependency>
             <groupId>io.springfox</groupId>

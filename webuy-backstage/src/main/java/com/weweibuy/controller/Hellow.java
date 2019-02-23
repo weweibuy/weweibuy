@@ -40,7 +40,8 @@ public class Hellow {
     @GetMapping("/hello")
     @ResponseBody
     public String hello(){
-        return "这个资源需要登录...";
+        throw new RuntimeException();
+//        return "这个资源需要登录...";
     }
 
     @GetMapping("/helloRedirect")

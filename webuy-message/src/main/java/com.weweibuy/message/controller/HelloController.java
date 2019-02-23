@@ -70,7 +70,6 @@ public class HelloController {
         rabbitTemplate.setConfirmCallback(confirmCallback);
 
         rabbitTemplate.setReturnCallback(returnCallback);
-
         rabbitTemplate.convertAndSend("fanoutExchange", "", "hello.queue1",
                 new CorrelationData("111111232"));
         return "1";
@@ -112,6 +111,7 @@ public class HelloController {
 
         rabbitTemplate.setReturnCallback(returnCallback);
 
+
         rabbitTemplate.convertAndSend("directExchange", "key.#", "hello.directExchange",
                 new CorrelationData("111111232"));
         return "1";
@@ -140,6 +140,7 @@ public class HelloController {
         Object id = message.getHeaders().getId();
         log.error("【queue4】data={ }", id);
         log.error("【queue4】消息体是：{}", payload.toString());
+        MessageHeaders headers = message.getHeaders();
         Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
         log.error("deliveryTag=={}", deliveryTag);
         channel.basicNack(deliveryTag, false, false);
