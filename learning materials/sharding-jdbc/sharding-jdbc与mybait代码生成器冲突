@@ -1,0 +1,2 @@
+1.sharding-jdbc 在分表时，sql执行的对象是sharding的逻辑表，而mybatis的代码生成器
+    生成的mapper.xml 执行的sql是面向物理表的，所以使用代码生成器是必须注意sql表的指向

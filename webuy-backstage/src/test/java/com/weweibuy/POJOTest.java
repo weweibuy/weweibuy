@@ -13,11 +13,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * ClassName POJOTest
@@ -463,6 +466,20 @@ public class POJOTest {
         int years = between.getYears();
         int months = between.getMonths();
         log.info("{} {} {}", days, years, months);
+    }
+
+    @Test
+    public void test21(){
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+        int limit = countStep(list.size());
+        List<List<Integer>> splitList = Stream.iterate(0, n -> n + 1).limit(limit).parallel().map(
+                a -> list.stream().skip(a * 3).limit(2).parallel().collect(Collectors.toList())).collect(Collectors.toList());
+
+        System.out.println(splitList);
+    }
+
+    private static Integer countStep(Integer size) {
+        return (size + 3 - 1) / 3;
     }
 
 }
