@@ -50,8 +50,8 @@ public class Hellow {
     }
 
     @GetMapping("/cache/users")
-    @Cacheable(key = "1")
-    public List users(){
+    @Cacheable(key = "#root.methodName+ '[' + #name + ']'")
+    public List users(String name){
         return userService.selectByExample(null);
     }
 

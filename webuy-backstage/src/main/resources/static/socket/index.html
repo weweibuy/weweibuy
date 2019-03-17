@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="swfobject.js"></script>
+    <script type="text/javascript" src="web_socket.js"></script>
+</head>
+<body>
+
+    <h3>webSocket</h3>
+
+</body>
+
+<script type="text/javascript">
+
+    // Let the library know where WebSocketMain.swf is:
+    WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf";
+
+    // Write your code in the same way as for native WebSocket:
+    var ws = new WebSocket("ws://localhost:8001/socketServer");
+    ws.onopen = function() {
+        ws.send("Hello");  // Sends a message.
+    };
+    ws.onmessage = function(e) {
+        // Receives a message.
+        alert(e.data);
+    };
+    ws.onclose = function() {
+        alert("closed");
+    };
+
+</script>
+
+</html>

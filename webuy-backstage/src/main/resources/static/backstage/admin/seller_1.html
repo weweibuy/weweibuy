@@ -37,6 +37,26 @@
                         <h3 class="box-title">商家审核</h3>
                     </div>
 
+
+
+					<div>
+						<button type="button" id="request" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal"><i class="fa fa-file-o"></i>发送请求</button>
+					</div>
+
+					<script>
+
+                        $("#request").click(function () {
+                            $.ajax({
+                                url: "/push/duty?id=12&name=1",
+                                method: "get",
+                                success: function (data) {
+                                    alert(data);
+                                }
+                            })
+                        })
+
+					</script>
+
                     <div class="box-body">
 
                         <!-- 数据表格 -->

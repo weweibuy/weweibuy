@@ -32,7 +32,9 @@
                 </ol>
             </section>
             <!-- 内容头部 /-->
-
+           <div>
+               <button type="button" id="request" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal"><i class="fa fa-file-o"></i>发送请求</button>
+           </div>
             <!-- 正文区域 -->
             <section class="content">
 
@@ -105,6 +107,21 @@
             <!-- 正文区域 /-->
 
         <!-- 内容区域 /-->
+
 </body>
+
+<script>
+
+    $("#request").click(function () {
+        $.ajax({
+            url: "/push/duty?id=12&name=1",
+            method: "get",
+            success: function (data) {
+                alert(data);
+            }
+        })
+    })
+
+</script>
 
 </html>

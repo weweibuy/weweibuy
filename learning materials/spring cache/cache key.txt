@@ -1,0 +1,87 @@
+CacheAspectSupport
+	-->   generateKey
+				EvaluationContext evaluationContext = createEvaluationContext(result);
+				
+				private EvaluationContext createEvaluationContext(@Nullable Object result) {
+					return evaluator.createEvaluationContext(this.caches, this.metadata.method, this.args,
+							this.target, this.metadata.targetClass, result, beanFactory);
+				}
+	    
+		-->  CacheOperationExpressionEvaluator
+				Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext evalContext)
+				
+				EvaluationContext evaluationContext = createEvaluationContext(result);
+				
+				CacheOperationExpressionEvaluator.
+				
+				private EvaluationContext createEvaluationContext(@Nullable Object result) {
+					return evaluator.createEvaluationContext(this.caches, this.metadata.method, this.args,
+							this.target, this.metadata.targetClass, result, beanFactory);
+				}
+
+				// 创建root对象
+				CacheExpressionRootObject rootObject = new CacheExpressionRootObject(
+							caches, method, args, target, targetClass);
+				Method targetMethod = getTargetMethod(targetClass, method);
+					
+				// 创建 EvaluationContext
+				CacheEvaluationContext evaluationContext = new CacheEvaluationContext(
+					rootObject, targetMethod, args, getParameterNameDiscoverer());
+				
+				// 设置BeanResolver
+				evaluationContext.setBeanResolver(new BeanFactoryResolver(beanFactory));
+				
+				getkey()------>
+					public Object key(String keyExpression, AnnotatedElementKey methodKey, EvaluationContext evalContext) {
+						return getExpression(this.keyCache, methodKey, keyExpression).getValue(evalContext);
+					}
+
+				
+				
+		-->  CachedExpressionEvaluator
+				private final SpelExpressionParser parser;
+				
+				--->  TemplateAwareExpressionParser
+							public Expression parseExpression(String expressionString) throws ParseException {
+								return this.parseExpression(expressionString, (ParserContext)null);
+							}
+							
+					--->  SpelExpression
+								 public Object getValue(EvaluationContext context){}
+					
+							---->  SpelNodeImpl.getValue(expressionState)
+							ExpressionState 实现类： 
+							
+							new ExpressionState(new CacheEvaluationContext());
+							
+							
+							
+				protected Expression getExpression(Map<ExpressionKey, Expression> cache,
+					AnnotatedElementKey elementKey, String expression) {
+
+					ExpressionKey expressionKey = createKey(elementKey, expression);
+					Expression expr = cache.get(expressionKey);
+					if (expr == null) {
+						expr = getParser().parseExpression(expression);
+						cache.put(expressionKey, expr);
+					}
+					return expr;
+				}
+
+				private ExpressionKey createKey(AnnotatedElementKey elementKey, String expression) {
+					return new ExpressionKey(elementKey, expression);
+				}
+				
+			---->TemplateAwareExpressionParser.
+					public Expression parseExpression(String expressionString) throws ParseException {
+						return this.parseExpression(expressionString, (ParserContext)null);
+					}
+					
+				----->SpelExpression   最终解析  ---返回 表达式的值   其中context 持有  root 对象  root持有  method args  target等
+				 ExpressionState expressionState = new ExpressionState(context, this.configuration);
+				Object result = this.ast.getValue(expressionState);
+				this.checkCompile(expressionState);
+				return result;
+				
+				
+				

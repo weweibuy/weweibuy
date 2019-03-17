@@ -36,7 +36,9 @@
 	<script type="text/javascript" src="../js/base.js"></script>
     <script type="text/javascript" src="../js/controller/indexController.js"></script>
     <script type="text/javascript" src="../js/service/loginService.js"></script>
- 
+    <script type="text/javascript" src="../socket/swfobject.js"></script>
+    <script type="text/javascript" src="../socket/web_socket.js"></script>
+
 </head>
 
 <body class="hold-transition skin-green sidebar-mini" ng-app="pinyougou" ng-controller="indexController" ng-init="showName()">
@@ -60,7 +62,6 @@
                 </a>
 
 
-                <div><img width="70%" src="//img13.360buyimg.com/da/jfs/t25993/215/2662346662/156328/d266aa80/5bece97bN5e7361ba.jpg.webp"></div>
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
@@ -425,9 +426,28 @@
             <strong>Copyright &copy; 2014-2017 <a href="http://www.itcast.cn">研究院研发部</a>.</strong> All rights reserved.
         </footer>
         <!-- 底部导航 /-->
-
     </div>
 
 </body>
+
+<script type="text/javascript">
+
+    // Let the library know where WebSocketMain.swf is:
+    WEB_SOCKET_SWF_LOCATION = "WebSocketMain.swf";
+
+    // Write your code in the same way as for native WebSocket:
+    var ws = new WebSocket("ws://localhost:8001/socketServer");
+    ws.onopen = function() {
+        ws.send("Hello");  // Sends a message.
+    };
+    ws.onmessage = function(e) {
+        // Receives a message.
+        console.log(e.data)
+    };
+    ws.onclose = function() {
+        alert("closed");
+    };
+
+</script>
 
 </html>

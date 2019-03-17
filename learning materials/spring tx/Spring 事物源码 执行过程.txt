@@ -1,0 +1,98 @@
+
+1.容器初始化
+	1.1 执行配置类  ProxyTransactionManagementConfiguration
+	1.2 初始化： TransactionInterceptor 
+		对  TransactionInterceptor  设置 transactionAttributeSource --> 其实例为：AbstractFallbackTransactionAttributeSource
+	1.3 AbstractFallbackTransactionAttributeSource 保持着切点的数据
+
+2.AbstractFallbackTransactionAttributeSource
+	内部维护着 Map<Object, TransactionAttribute> 的ConcurrentHashMap
+	其中map的key为 new MethodClassKey(method, targetClass)
+	2.1 MethodClassKey 实现  Comparable 重写 hashcode()  与 equals()
+	2.2 TransactionAttribute 是事物执行的属性(元数据)
+	2.3 获取 TransactionAttribute
+		2.3.1 map.get(key)
+			如果没有value存在  判断 value是否 为 NULL_TRANSACTION_ATTRIBUTE  最后返回
+			如果 value不存在：生成 value
+			2.3.1.1 生成value的逻辑:
+				获取原始方法：  Method specificMethod   --  // The method may be on an interface, but we need attributes from the target class.
+															// If the target class is null, the method will be unchanged.
+				根据specificMethod调用 findTransactionAttribute(Method method)  --> 这是一个抽象方法  由子类 AnnotationTransactionAttributeSource 实现
+				逻辑：
+					1.由 TransactionAnnotationParser(多个) 循环解析 AnnotatedElement(也就是传入的pecificMethod) AnnotatedElement 是Method 的一个顶层接口
+					2. SpringTransactionAnnotationParser 解析 AnnotatedElement
+						调用 AnnotatedElementUtils.findMergedAnnotationAttributes(annnotatedElement, Transactional.class, false, false);
+						获取 AnnotationAttributes   AnnotationAttributes 是LinkedHashMap<String, Object> 的子类  其key为注解属性名，value为值
+						之后对其  将 AnnotationAttributes  转为 RuleBasedTransactionAttribute()  --> 继承 DefaultTransactionAttribute  实现  TransactionAttribute
+							并对其中没有指定的属性赋默认值	
+					3.若无法获取注解属性  将进行另外两次相同的尝试去获取  -->  否则返回null
+			2.3.1.2 获取到 	AnnotationAttributes
+				若为空 map.put(cacheKey, NULL_TRANSACTION_ATTRIBUTE) 
+				若不为空 map(cacheKey, AnnotationAttributes)
+	2.4 判断 TransactionAttribute 是否为 DefaultTransactionAttribute  并 setDescriptor为 类名.方法名
+		
+		
+3.核心逻辑处理类： TransactionAspectSupport
+	3.1 首先获取 AnnotationAttributes
+	3.2 根据 AnnotationAttributes 获取 PlatformTransactionManager 事物管理器
+		3.2.1 获取事物管理器
+			逻辑： 
+				1.如果 AnnotationAttributes 为空或者 TransactionAspectSupport 持有的 beanFactory 为空 获取 TransactionAspectSupport 持有的 transactionManager
+				2.如果 AnnotationAttributes 的getQualifier() 
+					不为空 先从 TransactionAspectSupport 持有的transactionManagerCache 获取  如果未获取到 从beanFactory 中获取
+				3.如果 TransactionAspectSupport 持有的 transactionManagerBeanName 不为空
+					逻辑与2 相同    getQualifier()   可能为  transactionManager 的名字
+				4.上述不成功  则会 从beanFactory  使用 PlatformTransactionManager.class  类型获取  并放入TransactionAspectSupport的缓存  key为： DEFAULT_TRANSACTION_MANAGER_KEY
+	3.3 执行方法鉴别 methodIdentification() 方法
+		返回 TransactionAttribute.getDescriptor()  也就是之前的  类名.方法名
+	3.4 判断 AnnotationAttributes 是否为  或者 事物管理器不属于 CallbackPreferringPlatformTransactionManager -->  一般的事物管理器为 DataSourceTransactionManager	
+			3.4.1 创建事物信息 对象 TransactionInfo  -->  是TransactionAspectSupport 的一个内部类
+				3.4.1.1 如果 AnnotationAttributes 不为空 并且  AnnotationAttributes.getName() 为空
+					则创建一个 AnnotationAttributes 的一个包装类  DelegatingTransactionAttribute 并重新赋值给AnnotationAttributes  写getName()返回：joinpointIdentification(类名.方法名)
+					
+				3.4.1.2 获取事物 通过transactionManager.getTransaction(AnnotationAttributes attributes)
+					最终调用 DataSourceTransactionManager.doGetTransaction()  方法
+					首先创建 DataSourceTransactionObject --> DataSourceTransactionManager的静态子类
+					为 DataSourceTransactionObject  设置属性： SavepointAllowed  ---> false --> 由TransactionManager 决定
+					3.4.1.2.1 DataSourceTransactionObject 设置属性 ConnectionHolder
+						通过 TransactionSynchronizationManager.getResource(DataSource dataSource)  获取
+						TransactionSynchronizationManager 定义个几个ThreadLocal  
+						其中包括： 
+							Transactional resources
+							Current transaction name
+							等。。。
+						
+						核心逻辑： 
+							1. TransactionSynchronizationUtils 对DataSource 去除包装
+							2.获取数据源：
+								Map<Object, Object> map = resources.get();  获取线程绑定的数据源 ----> 第一次获取 map为空直接返回空
+								DataSourceTransactionObject的ConnectionHolder 为空
+				3.4.1.3 判断是否存在事物：
+					根据 DataSourceTransactionObject的txObject.getConnectionHolder().isTransactionActive() 判断事物是否开启
+						未开启：
+							判断 AnnotationAttributes 中的事物传播特性
+							创建 DefaultTransactionStatus
+							调用 doBegin(transaction, AnnotationAttributes) 方法
+								1.判断 transaction 中是否有 ConnectionHolder 没有则 创建一个新的 ConnectionHolder 并为其设置 connection 与SynchronizedWithTransaction(true)
+								2.调用  DataSourceUtils.prepareConnectionForTransaction(con, annotationAttributes);
+									更具 annotationAttributes 为connect 设置 对应的属性并返回 IsolationLevel 最终设置给 DataSourceTransactionObject
+									
+								3.判断是否为新的 ConnectionHolder 
+									是：调用 bindResource(dataSource, connectionHolder)
+										为 resources 的 ThreadLocal    设置一个新的map key为dataSource value为connectionHolder
+										
+				3.4.1.4 设置事物状态
+					prepareSynchronization(status, definition);
+					返回 status
+				3.4.1.5 封装TransactionInfo
+					根据transactionManager 	 TransactionAttribute  类名+方法名  TransactionStatus  封装TransactionInfo
+					并加入线程绑定
+			3.4.2  invoke 目标方法
+			3.4.3 成功提交   异常回滚
+			
+			
+			
+	
+	
+4.TransactionAspectSupport 切入事物切点
+	invokeWithinTransaction() 方法

@@ -21,6 +21,7 @@
         <logger name="o.s.b.f.s" level="INFO"/>
         <logger name="r.ipc.netty.http.client" level="INFO"/>
         <logger name="o.s.security.web" level="INFO"/>
+        <logger name="org.apache.zookeeper" level="INFO"/>
     </springProfile>
     <springProfile name="test">
         <property name="log.path" value="/logs/${app_name}/pmp" />
