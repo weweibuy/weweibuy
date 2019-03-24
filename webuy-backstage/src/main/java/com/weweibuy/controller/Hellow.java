@@ -1,6 +1,7 @@
 package com.weweibuy.controller;
 
 import com.weweibuy.service.UserService;
+import com.weweibuy.test.async.AsyncService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -27,6 +28,9 @@ import java.util.List;
 @CacheConfig(cacheNames = "users")
 @Slf4j
 public class Hellow {
+
+    @Autowired
+    private AsyncService asyncService;
 
     @Autowired
     private UserService userService;
@@ -88,6 +92,12 @@ public class Hellow {
         return v1+"||||||"+v2;
     }
 
-
+    @GetMapping("/async")
+    public String async1() throws InterruptedException {
+        asyncService.async1();
+        asyncService.async2();
+        System.err.println("controller run ...");
+        return "success";
+    }
 
 }

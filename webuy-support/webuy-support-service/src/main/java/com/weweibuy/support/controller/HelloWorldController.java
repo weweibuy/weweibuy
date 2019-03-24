@@ -3,6 +3,7 @@ package com.weweibuy.support.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloWorldController {
 
     @RequestMapping("/hello/{id}")
-    @HystrixCommand(groupKey = "report" ,fallbackMethod = "noHello")
+    @HystrixCommand(fallbackMethod = "noHello")
     public String hello(@PathVariable String id) throws InterruptedException {
         log.info(".............");
         Thread.sleep(5000);
+        System.err.println(" biz  action ....");
         log.info("xxxx");
         return "hello....";
+    }
+
+
+    @RequestMapping("/hello/normal")
+    public String normalHello() throws InterruptedException {
+        log.info(".............");
+        Thread.sleep(3000);
+        throw new RuntimeException();
     }
 
     @RequestMapping("/hello2/{id}")
@@ -60,6 +70,7 @@ public class HelloWorldController {
         return "hello3....";
     }
 
+    @Async
     public String noHello(String id){
         log.error("fall back");
         return "no.. hello.. " + id;

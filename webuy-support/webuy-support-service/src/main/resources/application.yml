@@ -86,7 +86,7 @@ hystrix: #hystrix配置
     default:
       execution:
         timeout:
-        enabled: true
+          enabled: true
         isolation:
           strategy: thread
           thread:

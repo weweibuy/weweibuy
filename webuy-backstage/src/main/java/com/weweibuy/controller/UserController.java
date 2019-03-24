@@ -37,4 +37,12 @@ public class UserController {
         return "success";
     }
 
+    @GetMapping("/user/add2")
+    public String userAdd2(){
+        transactionTest.addUser("str");
+        return "success";
+    }
+
+
+
 }

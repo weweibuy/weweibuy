@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,7 +28,7 @@ import javax.validation.Valid;
 @PropertySource("classpath:config/key/key.properties")
 @RestController
 @RequestMapping(produces="application/json;charset=UTF-8")
-@Validated  // 如果对单个参数验证这个注解要加载类上
+//@Validated  // 如果对单个参数验证这个注解要加载类上
 @Api(value = "用户接口")
 public class UserController {
 
