@@ -21,6 +21,7 @@ public class RxMapSubscribe {
     }
 
     public void asyncSubscribe(){
+
         Observable.create(new RxMapObservable())
                 .subscribeOn(Schedulers.from(ThreadPoolHolder.getCachedPoll()))
                 .observeOn(Schedulers.from(ThreadPoolHolder.getFixPoll()))

@@ -9,6 +9,13 @@ spring:
      active: ${profileActive}
    application:
      name: webuy-gateway
+   zipkin:
+     base-url: http://106.12.95.245:9411
+     enabled: true
+   sleuth:
+     sampler:
+        percentage: 1
+
    security:
      basic:
        enabled: false

@@ -21,10 +21,9 @@ public class HelloWorldController {
     @RequestMapping("/hello/{id}")
     @HystrixCommand(fallbackMethod = "noHello")
     public String hello(@PathVariable String id) throws InterruptedException {
-        log.info(".............");
+        log.error("业务正在执行");
         Thread.sleep(5000);
-        System.err.println(" biz  action ....");
-        log.info("xxxx");
+        log.error("业务执行完了");
         return "hello....";
     }
 
@@ -64,15 +63,15 @@ public class HelloWorldController {
             @HystrixProperty(name = "execution.timeout.enabled", value = "false")},
             fallbackMethod = "noHello")
     public String hello3(@PathVariable String id) throws InterruptedException {
-        log.info(".............");
+        log.error("业务正常执行");
         Thread.sleep(5000);
-        log.info("xxxx");
+        log.error("xxxx");
         return "hello3....";
     }
 
     @Async
     public String noHello(String id){
-        log.error("fall back");
+        log.error("业务fall back");
         return "no.. hello.. " + id;
     }
 

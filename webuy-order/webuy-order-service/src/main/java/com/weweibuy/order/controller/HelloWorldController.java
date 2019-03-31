@@ -96,7 +96,7 @@ public class HelloWorldController {
         Object id = message.getHeaders().getId();
         log.error("【queue22】data={}  ", id);
         log.error("【queue22】消息体是：{}", payload.toString());
-        Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
+        Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.CORRELATION_ID);
         log.error("deliveryTag=={}", deliveryTag);
         channel.basicNack(deliveryTag, false, false);
     }

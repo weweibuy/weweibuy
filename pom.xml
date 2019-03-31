@@ -27,6 +27,7 @@
         <module>webuy-auth</module>
         <module>webuy-user</module>
         <module>webuy-support</module>
+        <module>webuy-sleuth</module>
     </modules>
 
 

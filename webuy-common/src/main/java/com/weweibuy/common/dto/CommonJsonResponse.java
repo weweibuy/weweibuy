@@ -1,7 +1,9 @@
 package com.weweibuy.common.dto;
 
-import com.weweibuy.common.response.WebCodeAndMsg;
 import com.weweibuy.common.eum.CommonStatus;
+import com.weweibuy.common.response.WebCodeAndMsg;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +13,19 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "json响应信息载体")
 public class CommonJsonResponse<T> implements Serializable {
 
+    @ApiModelProperty(value = "状态 SUCCESS 成功 FAIL 失败")
     private String status; //状态 SUCCESS
 
+    @ApiModelProperty(value = "code码")
     private Integer code; //状态码
 
+    @ApiModelProperty(value = "信息")
     private String msg; //信息
 
+    @ApiModelProperty(value = "数据")
     private T data; //数据
 
     public CommonJsonResponse<T> appendMsg(String msg){

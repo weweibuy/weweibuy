@@ -13,7 +13,9 @@ import io.reactivex.schedulers.Schedulers;
 public class RxSubscribe {
 
     public void subscribe(){
-        Observable.create(new RxObservable()).subscribe(new RxObserver());
+        Observable<String> observable = Observable.create(new RxObservable());
+        observable.subscribe(new RxObserver());
+
     }
 
     /**
