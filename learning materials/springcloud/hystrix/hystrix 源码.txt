@@ -1,0 +1,123 @@
+
+1.HystrixCommandAspect  切入 @HystrixCommand 或  @HystrixCollapser 注解
+
+2.根据注解类型获取  MetaHolderFactory  -->  @HystrixCommand 获取   MetaHolderFactory 的子类 CommandMetaHolderFactory
+
+3.CommandMetaHolderFactory 根据 注解和切点参数生成 MetaHolder
+	3.1 首先判断方法返回值类型
+			是否为 Future 类型   ---> ASYNCHRONOUS
+			判断 Observable.class, Single.class, Completable.class   --->OBSERVABLE
+			都不满足  --->  SYNCHRONOUS
+	3.2 构建 MetaHolder.Builder
+		3.2.1 为Builder 设置 method，args, DefaultProperties 等参数
+		3.2.2 设置 fallback mehtod
+			3.2.2.1 首先获取 MethodProvider 实例
+				调用 MethodProvider的getFallbackMethod(targetClass, method)
+				调用 MethodProvider的静态内部类 FallbackMethodFinder 的find()方法
+					逻辑：
+						1. 判读@HystrixCommand是否有 fallbackMethod 属性
+							有： 获取属性的值; 获取方法的 parameterTypes 参数列表
+								将 parameterTypes 拷贝到一个新的数组中 并将其 lenght+1 ----> extendedFallbackParameterTypes
+								将 extendedFallbackParameterTypes数组的最后一个值赋为  Throwable.class
+								
+						2. 获取 tagert的所有方法并迭代 判断是否有有一个方法名字与 注解的fallbackMethod 名字相同  不成功则到  3
+							且参数列表与extendedFallbackParameterTypes 相同  注意：这里明细会不同：因为extendedFallbackParameterTypes 加入了Throwable.class
+						
+						3. 如果2不成功 获取 target的父类类型  判读父类不为 object 否则从父类中重复 2
+						4. 都不满足返回  new Absent<Object>() --->单例 --->  Optional<Method>  guava提供  
+						
+						5.根据原始方法的 parameterTypes 获取fallbackMethod 逻辑与 2相同   --->  这里会返回 原始对象中的方法(如果定义的话)  --->  Optional<Method>  guava提供  
+						
+						6. 比对4和5 返回 5 这里调用的是  Optional<Method> 的api   exFallbackMethod.or(fMethod).orNull()
+						
+						7. 构建一个新的 FallbackMethod ---> hystrix 提供的类  封装 实际method与executionType处理类型 ---> 也就是3.1中的类型
+							返回 FallbackMethod
+			3.2.2.2 验证 FallbackMethod 的返回类型 与 3.2.2.1.7 中设置类型
+			
+			3.2.2.3 验证通过后 为Builder设置 fallbackMethod --> 这里的method是实际的method 
+				设置ExecutionType  --->  这里的 ExecutionType 经过了3层验证最终设置 不知道是什么原因？？？？？？？？？
+									--->  主要这里的 原始方法的 ExecutionType 和 fallbackMethod 的ExecutionType 是分别设置的
+					
+		3.2.3 为Builder 设置Properties
+			逻辑：
+				1. 获取 方法上 DefaultProperties 注解  -->  如果没有 找父类重复进行 --> 都没有返回Absent  单例
+				2. 设置默认的 GroupKey 为方法所在类的类全名
+					返回 builder
+			返回 builder
+			
+	3.3 通过 Builder 构建 MetaHolder
+
+4.获取HystrixCommandFactory实例 根据 MetaHolder 创建 HystrixInvokable --->标记接口
+	4.1 先判断metaHolder 
+		逻辑：
+			1.是否为 hystrixCollapser(注解) --> 否
+			2.是否为 Observable --> 否
+			3.否则创建 新的  new GenericCommand
+		4.1.4 创建 GenericCommand
+			4.1.4.1.首先获取 HystrixCommandBuilderFactory 实例  
+			4.1.4.2 实例根据 metaHolder 创建
+				1. 验证 metaHolder
+				2. 构建 HystrixCommandBuilder
+					1.构建 GenericSetterBuilder  <--- metaHolder 为GenericSetterBuilder 设置属性  metaHolder 根据的hystrixCommand 是否为空判断设置
+						1) groupKey 默认类全名
+						2) 设置 threadPoolKey 默认null
+						3) 设置commandKey 默认 方法名
+						4) 设置collapserKey 默认 ""
+						5) 设置commandProperties  根据 hystrixCommand.commandProperties()  不设置 使用默认的defaultProperties commandProperties 为emptyList
+						6）设置threadPoolProperties  根据 hystrixCommand.threadPoolProperties()  不设置 使用默认的defaultProperties threadPoolProperties 为emptyList
+						7) 设置collapserProperties  默认为emptyList
+					2.根据刚才设置属性构建 GenericSetterBuilder
+					3. 设置CommandActions
+						根据 metaHolder.getObj(), metaHolder.getMethod(), metaHolder.getArgs(), metaHolder 来 new MethodExecutionAction
+					4.fallbackActions
+						1) 获取fallbackMethod
+						2) 根据原始方式的参数 构建 fallbackMethod 的参数
+						3) 判断fallbackMethod 是否被 @HystrixCommand 标注  --> 否 --> 4)
+						4) 根据 原始方法的 metaHolder  创建一个 fallback的 fmMetaHolder  
+						5) 根据 fmMetaHolder ---> new MethodExecutionAction()
+					5.将CommandActions 与 fallbackActions  封装为一个 CommandActions	--->  返回
+				3.设置 CommandIgnoreExceptions   根据  hystrixCommand.ignoreExceptions() 和  defaultProperties.ignoreExceptions() 来的
+					先用hystrixCommand的 没有到defaultProperties里找
+				4.返回 HystrixCommandBuilder
+			4.1.4.2 根据 HystrixCommandBuilder 构建 GenericCommand --->  返回
+				注意：这里的GenericCommand 对象非常关键  内部有持有短路器和 计数器等
+
+5.调用 CommandExecutor.execute(GenericCommand, executionType, metaHolder) 执行   -------------->  关键方法！！！！！
+	5.1首先验证GenericCommand metaHolder 不null
+	
+	5.2判断executionType处理类型 --->  SYNCHRONOUS
+		
+		5.2.1 将 GenericCommand 强转为 HystrixExecutable 接口对象
+		5.2.1 调用该接口 (实例为 HystrixCommand )   的execute() 方法
+			
+			5.2.1.1 调用 HystrixCommand的 queue() 方法返回 Observable的 Future     关键！！！！！！
+				逻辑： 
+					调用 toObservable()  创建 Observable  对象 toFuture() 返回 HystrixCommand 的 Future --> delegate；在此其中触发了一系列的链式监听
+					再将 delegate 包装成另一个Future 通过 Future.get()  获取 HystrixCommand的执行结果
+				核心：  HystrixCommand 的 Future 与 链式监听 --->  toObservable() 方法
+					1.定义了一个被观察者  --->  toObservable() 返回的被观察者
+						被观察者 记录当前时间
+						然后又定义了 被观察者 applyHystrixSemantics 
+							首先判断 断路器是否开启 在判断信号量是否拒绝  根据当前时间封装 executionResult 对象
+								然后又定义了 被观察者：execution
+								首先判断是否使用线程池隔离策略
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
