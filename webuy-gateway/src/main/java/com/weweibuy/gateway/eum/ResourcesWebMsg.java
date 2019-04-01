@@ -15,6 +15,7 @@ public enum  ResourcesWebMsg implements WebCodeAndMsg{
     ACCESS_IS_DENIED(20001, "权限不足"),
     NEED_LOGIN(20002, "需要登录"),
     TOKEN_INVALID(20003, "token过期"),
+    NET_WORK_BUSY(20004, "网络繁忙"),
     ;
 
     private Integer code;
