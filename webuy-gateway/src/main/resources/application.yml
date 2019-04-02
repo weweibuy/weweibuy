@@ -12,9 +12,11 @@ spring:
    zipkin:
      base-url: http://106.12.95.245:9411
      enabled: true
+     messageTimeout: 10
+     discoveryClientEnabled: true
    sleuth:
      sampler:
-        percentage: 1
+       probability: 1
 
    security:
      basic:

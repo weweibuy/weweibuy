@@ -2,6 +2,7 @@ package com.weweibuy.gateway.config;
 
 import com.weweibuy.gateway.authentication.cookie.CookieAuthenticationFilter;
 import com.weweibuy.gateway.filter.CookieFilter;
+import com.weweibuy.gateway.filter.RateLimiterFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
 import org.springframework.security.web.header.HeaderWriterFilter;
 import org.springframework.security.web.savedrequest.RequestCacheAwareFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -49,6 +51,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private CookieAuthenticationFilter cookieAuthenticationFilter;
 
+    @Autowired
+    private RateLimiterFilter rateLimiterFilter;
+
     /**
      * TODO 这里的http  不能使用WebSecurityConfigurerAdapter的http配置; 必须这在配
      * @param http
@@ -61,11 +66,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         cookieAuthenticationFilter.setAuthenticationManager(oauthAuthenticationManager(http));
         ResourceServerSecurityConfigurer configurer = http.getConfigurer(ResourceServerSecurityConfigurer.class);
         configurer.authenticationManager(oauthAuthenticationManager(http));
+        http.addFilterBefore(rateLimiterFilter, WebAsyncManagerIntegrationFilter.class);
         http.addFilterBefore(cookieAuthenticationFilter, RequestCacheAwareFilter.class);
         http.addFilterBefore(cookieFilter, HeaderWriterFilter.class);
         http
             .authorizeRequests() /* .antMatchers().hasAnyRole("ADMIN") */
-            .antMatchers("/auth/**","/*/hello", "/*/js/**", "/*/css/**", "/*/fonts/**", "**/favicon.ico","/actuator/**",
+            .antMatchers("/auth/**","/*/hello", "/hello/**", "/*/js/**", "/*/css/**", "/*/fonts/**", "**/favicon.ico","/actuator/**",
                              "/user/register/**")
             .permitAll()
             .anyRequest()

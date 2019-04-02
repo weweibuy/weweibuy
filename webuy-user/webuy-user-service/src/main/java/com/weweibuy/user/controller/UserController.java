@@ -9,11 +9,10 @@ import com.weweibuy.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +24,7 @@ import javax.validation.Valid;
  * @Author durenhao
  * @Date 2018/11/25 11:15
  **/
-@PropertySource("classpath:config/key/key.properties")
+@Slf4j
 @RestController
 @RequestMapping(produces="application/json;charset=UTF-8")
 //@Validated  // 如果对单个参数验证这个注解要加载类上
@@ -39,11 +38,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Value("${key.public_key}")
-    private  String PUBLIC_KEY;
-
-    @Value("${key.private_key}")
-    private String PRIVATE_KEY;
 
     /**
      * 根据手机号获取验证码
@@ -95,10 +89,11 @@ public class UserController {
         if(StringUtils.isBlank(username)){
             return UserWebResult.fail("用户名密码不能为空");
         }
+        log.info("loadUserByUsername: {}", username);
         UserWebResult webResult = userService.loadUserByUsername(username);
         return webResult;
-
     }
+
 
 
 }
