@@ -84,7 +84,7 @@ hystrix: #hystrix配置
     default:
       execution:
         timeout:
-        enabled: true
+         enabled: true
         isolation:
           thread:
             timeoutInMilliseconds: 15000
@@ -156,7 +156,7 @@ webuy-backstage: #是serviceId
   ribbon:
     ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:8001
-    ConnectTimeout: 2000   #建立连接超时时间
+    ConnectTimeout: 3000   #建立连接超时时间
     ReadTimeout: 5000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试
     MaxAutoRetries: 0  #单个节点重试最大值
@@ -166,7 +166,7 @@ webuy-auth: #是serviceId
   ribbon:
     ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:8070
-    ConnectTimeout: 2000   #建立连接超时时间
+    ConnectTimeout: 3000   #建立连接超时时间
     ReadTimeout: 5000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试
     MaxAutoRetries: 0  #单个节点重试最大值
@@ -176,7 +176,7 @@ webuy-user: #是serviceId
   ribbon:
     ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
     listOfServers: http://localhost:8201
-    ConnectTimeout: 2000   #建立连接超时时间
+    ConnectTimeout: 3000   #建立连接超时时间
     ReadTimeout: 5000  #连接超时时间
     OkToRetryOnAllOperations: true  #所有操作都重试
     MaxAutoRetries: 0  #单个节点重试最大值

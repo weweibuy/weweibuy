@@ -133,7 +133,7 @@ hystrix: #hystrix配置
     default:
       execution:
         timeout:
-        enabled: true
+          enabled: true
         isolation:
           thread:
             timeoutInMilliseconds: 30000
