@@ -7,13 +7,15 @@ spring:
    application:
      name: webuy-support
    zipkin:
-      base-url: http://106.12.95.245:9411
-      enabled: true
+     base-url: http://106.12.95.245:9411
+     enabled: true
+     messageTimeout: 100
+     discoveryClientEnabled: true
+#     sender:
+                 #       type: web
    sleuth:
-      sampler:
-      percentage: 1
-#     web:
-#       skipPattern: (^cleanup.*|.+favicon.*)
+     sampler:
+       probability: 1
    redis:
      database: 4 # Redis数据库索引（默认为0）
      host: 47.99.129.104  #Redis服务器地址

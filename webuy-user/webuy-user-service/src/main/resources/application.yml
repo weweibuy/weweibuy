@@ -9,6 +9,18 @@ spring:
      active: ${profileActive}
    application:
      name: webuy-user
+
+   zipkin:
+     base-url: http://106.12.95.245:9411
+     enabled: true
+     messageTimeout: 100
+     discoveryClientEnabled: true
+#     sender:
+                 #       type: web
+   sleuth:
+     sampler:
+       probability: 1
+
    datasource:
      type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
      driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
@@ -43,15 +55,6 @@ spring:
      user:
        name: admin
        password: ak402507979
-
-   zipkin:
-     base-url: http://106.12.95.245:9411
-     enabled: true
-     messageTimeout: 10
-     discoveryClientEnabled: true
-   sleuth:
-     sampler:
-       probability: 1
 
    redis:
      database: 1 # Redis数据库索引（默认为0）
