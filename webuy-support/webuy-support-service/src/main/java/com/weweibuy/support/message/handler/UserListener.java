@@ -30,7 +30,8 @@ public class UserListener {
         try {
             Object payload = message.getPayload();
             String mobile = payload.toString();
-            log.info("【smscode 收到消息:{}】", mobile);
+            Object id = message.getHeaders().get(AmqpHeaders.CORRELATION_ID);
+            log.info("【smscode 收到消息:{}; CORRELATION_ID: {}】", mobile, id);
             smsCodeService.sendSmsCode(mobile);
         }finally {
             // 不确认(Ack)消息将会假死进入 unacked 状态

@@ -65,7 +65,7 @@ public class UserController {
 
     @PostMapping("/register/signUp")
     @ApiOperation(value = "注册用户")
-    public UserWebResult registerUser(@Valid RegisterForm registerForm, BindingResult result) throws Exception {
+    public UserWebResult registerUser(@Valid @RequestBody RegisterForm registerForm, BindingResult result) throws Exception {
         if(result.hasErrors()){
             return UserWebResult.fail(UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL);
         }

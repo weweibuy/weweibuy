@@ -8,7 +8,9 @@ import com.weweibuy.user.mapper.WebuyUserMapper;
 import com.weweibuy.user.model.form.RegisterForm;
 import com.weweibuy.user.service.UserService;
 import com.weweibuy.user.service.impl.base.BaseCrudServiceImpl;
-import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ import java.util.List;
 public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExample> implements UserService {
 
     @Autowired
-    private AsyncRabbitTemplate rabbitTemplate;
+    private RabbitTemplate rabbitTemplate;
 
     @Autowired
     private WebuyUserMapper userMapper;
@@ -35,7 +37,13 @@ public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExa
     private BCryptPasswordEncoder passwordEncoder;
 
     public UserWebResult sendVerificationCode(String phoneNum) {
-        rabbitTemplate.convertSendAndReceive("user_sms_code", "", phoneNum);
+        Message message = MessageBuilder.withBody(phoneNum.getBytes())
+                .setCorrelationId("12134")
+                .build();
+        // 这里使用 convertAndSend CorrelationId 才有效
+        // convertSendAndReceive CorrelationId 是Spring AMQP 自动弄的自增
+        // TODO  convertAndSend 与 convertSendAndReceive 区别！！！
+        rabbitTemplate.convertAndSend("user_sms_code", "", message);
         return UserWebResult.success();
     }
 
