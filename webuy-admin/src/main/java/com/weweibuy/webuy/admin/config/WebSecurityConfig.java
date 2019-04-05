@@ -1,4 +1,4 @@
-package com.weweibuy.admin.config;
+package com.weweibuy.webuy.admin.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

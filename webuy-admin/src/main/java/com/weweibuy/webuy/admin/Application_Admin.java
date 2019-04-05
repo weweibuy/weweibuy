@@ -1,4 +1,4 @@
-package com.weweibuy.admin;
+package com.weweibuy.webuy.admin;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
