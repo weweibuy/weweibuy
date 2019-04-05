@@ -13,16 +13,16 @@ spring:
     user:
       name: admin
       password: ak402507979
-  boot:
-    admin:
-      auto-registration: true  #客户端是否自动注 册
-      client:
-        url: http://localhost:7501
-        username: admin
-        password: ak402507979
-        instance:
-          prefer-ip: true  #客户端是否提供本机真实ip
-          service-url: http://${eureka.instance.ip-address}:${server.port}
+#  boot:      # 在erueka 没有想注册中心注册自己的时候使用
+#    admin:
+#      auto-registration: true  #客户端是否自动注 册
+#      client:
+#        url: http://localhost:7501
+#        username: admin
+#        password: ak402507979
+#        instance:
+#          prefer-ip: true  #客户端是否提供本机真实ip
+#          service-url: http://${eureka.instance.ip-address}:${server.port}
 
 
 #配置日志
@@ -46,7 +46,7 @@ eureka:
                                              #默认30s
     eviction-interval-timer-in-ms: 60000  #启用主动失效，并且每次主动失效检测间隔为10s
   client:
-    register-with-eureka: false     #false表示不向注册中心注册自己。
+    register-with-eureka: true     #false表示不向注册中心注册自己。
     fetch-registry: true     #  是否从eureka上获取注册信息   false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

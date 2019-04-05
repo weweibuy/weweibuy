@@ -8,7 +8,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.retry.annotation.EnableRetry;
 
 /**
@@ -20,16 +19,15 @@ import org.springframework.retry.annotation.EnableRetry;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.weweibuy.product.client")
+@EnableFeignClients(basePackages = "com.weweibuy.webuy.product.client")
 @EnableHystrix
 @EnableRetry
 @MapperScan(basePackages = {"com.weweibuy.mapper"})
 @EnableCaching
-@ComponentScan
 public class Application_Backstage {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application_Backstage.class);
+        SpringApplication.run(Application_Backstage.class, args);
     }
 
 }
