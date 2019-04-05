@@ -115,20 +115,20 @@ zuul:
     behind-proxy: true
     policy-list:
       backstage:
-        limit: 10 #request number limit per refresh interval window
-        quota: 10 #request time limit per refresh interval window (in seconds)
-        refresh-interval: 60 #default value (in seconds)
-        type: ORIGIN
+        - limit: 10 #request number limit per refresh interval window
+          quota: 10 #request time limit per refresh interval window (in seconds)
+          refresh-interval: 60 #default value (in seconds)
+          type: ORIGIN
       auth:
-        limit: 10
-        quota: 10
-        refresh-interval: 60
-        type: ORIGIN
+        - limit: 10 # - 代表list 的一个元素
+          quota: 10
+          refresh-interval: 60
+          type: ORIGIN
       user:
-        limit: 10
-        quota: 10
-        refresh-interval: 60
-        type: ORIGIN
+        - limit: 10
+          quota: 10
+          refresh-interval: 60
+          type: ORIGIN
 
     # 路由
   ignored-services: "*"  #忽略所有未配置的service
