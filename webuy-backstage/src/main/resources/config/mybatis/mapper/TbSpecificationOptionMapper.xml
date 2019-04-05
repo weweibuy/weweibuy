@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.weweibuy.mapper.TbSpecificationOptionMapper" >
-  <resultMap id="BaseResultMap" type="com.weweibuy.po.TbSpecificationOption" >
+<mapper namespace="com.weweibuy.webuy.backstage.mapper.TbSpecificationOptionMapper" >
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.backstage.po.TbSpecificationOption" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="option_name" property="optionName" jdbcType="VARCHAR" />
     <result column="spec_id" property="specId" jdbcType="BIGINT" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List" >
     id, option_name, spec_id, orders
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weweibuy.po.TbSpecificationOptionExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weweibuy.webuy.backstage.po.TbSpecificationOptionExample" >
     select
     <if test="distinct" >
       distinct
@@ -92,19 +92,19 @@
     delete from tb_specification_option
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.po.TbSpecificationOptionExample" >
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.backstage.po.TbSpecificationOptionExample" >
     delete from tb_specification_option
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.po.TbSpecificationOption" >
+  <insert id="insert" parameterType="com.weweibuy.webuy.backstage.po.TbSpecificationOption" >
     insert into tb_specification_option (id, option_name, spec_id, 
       orders)
     values (#{id,jdbcType=BIGINT}, #{optionName,jdbcType=VARCHAR}, #{specId,jdbcType=BIGINT}, 
       #{orders,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.po.TbSpecificationOption" >
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.backstage.po.TbSpecificationOption" >
     insert into tb_specification_option
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.po.TbSpecificationOptionExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.weweibuy.webuy.backstage.po.TbSpecificationOptionExample" resultType="java.lang.Integer" >
     select count(*) from tb_specification_option
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -171,7 +171,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.po.TbSpecificationOption" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.backstage.po.TbSpecificationOption" >
     update tb_specification_option
     <set >
       <if test="optionName != null" >
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.po.TbSpecificationOption" >
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.backstage.po.TbSpecificationOption" >
     update tb_specification_option
     set option_name = #{optionName,jdbcType=VARCHAR},
       spec_id = #{specId,jdbcType=BIGINT},

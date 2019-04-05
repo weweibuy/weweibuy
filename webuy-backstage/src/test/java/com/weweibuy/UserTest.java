@@ -1,6 +1,6 @@
 package com.weweibuy;
 
-import com.weweibuy.test.queue.Duty;
+import com.weweibuy.webuy.backstage.test.queue.Duty;
 import org.junit.Test;
 
 public class UserTest {

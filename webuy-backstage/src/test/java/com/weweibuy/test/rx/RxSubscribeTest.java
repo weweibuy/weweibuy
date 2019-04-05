@@ -1,5 +1,6 @@
 package com.weweibuy.test.rx;
 
+import com.weweibuy.webuy.backstage.test.rx.RxSubscribe;
 import org.junit.Test;
 
 public class RxSubscribeTest {

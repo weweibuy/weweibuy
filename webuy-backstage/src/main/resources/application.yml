@@ -48,18 +48,6 @@ spring:
           user-info-uri: http://localhost:8080/auth/hello
           prefer-token-info: false
 
-security:
-  oauth2:
-    client:
-      client-id: webuy
-      client-secret: webuy123
-      user-authorization-uri: http://localhost/oauth/authorize
-      access-token-uri: http://localhost/oauth/token
-    resource:
-      user-info-uri: http://localhost/oauth/user
-      jwt:
-        key-value: -----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9utDRxl0vykGVncIrPSrqJICtKfTRHMjyEtKfUWrr3215N69c0nMx2xQL2lVk0q2u3xSE04PIEaTNW4UWj4q3MdWEk++j0ztdM39GVTGu78TjjeIsjVwWKTO/uiBvCgEpFV3ztlNoIcxVR7Y24JT1f7aVu8aFww8pnxQzKmNnmwIDAQAB-----END PUBLIC KEY-----
-
 logging:
   config: classpath:config/logback/logback-spring.xml
 
@@ -136,7 +124,7 @@ eureka:
 
 mybatis:
   config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
-  type-aliases-package: com.weweibuy.po    # 所有Entity别名类所在包
+  type-aliases-package: com.weweibuy.webuy.backstage.po    # 所有Entity别名类所在包
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
 
 ribbon:

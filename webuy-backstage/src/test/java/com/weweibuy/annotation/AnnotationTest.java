@@ -1,6 +1,6 @@
 package com.weweibuy.annotation;
 
-import com.weweibuy.controller.Hellow;
+import com.weweibuy.webuy.backstage.controller.Hellow;
 import org.junit.Test;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.AnnotatedElementUtils;

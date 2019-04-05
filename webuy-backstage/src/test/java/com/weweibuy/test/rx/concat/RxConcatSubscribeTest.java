@@ -1,5 +1,6 @@
 package com.weweibuy.test.rx.concat;
 
+import com.weweibuy.webuy.backstage.test.rx.concat.RxConcatSubscribe;
 import org.junit.Test;
 
 public class RxConcatSubscribeTest {

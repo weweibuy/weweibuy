@@ -1,5 +1,6 @@
 package com.weweibuy.test.rx.map;
 
+import com.weweibuy.webuy.backstage.test.rx.map.RxMapSubscribe;
 import org.junit.Test;
 
 public class RxMapSubscribeTest {
