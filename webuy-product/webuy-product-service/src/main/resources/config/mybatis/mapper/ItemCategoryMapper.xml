@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.product.mapper.ItemCategoryMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.product.common.model.po.ItemCategory">
+<mapper namespace="com.weweibuy.webuy.product.mapper.ItemCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.product.common.model.po.ItemCategory">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="is_parent" jdbcType="TINYINT" property="isParent" />
@@ -74,7 +74,7 @@
     id, parent_id, is_parent, category_name, category_desc, sort_no, path, create_time, 
     modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.product.common.model.po.ItemCategoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemCategoryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -98,13 +98,13 @@
     delete from item_category
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.product.common.model.po.ItemCategoryExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemCategoryExample">
     delete from item_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.product.common.model.po.ItemCategory">
+  <insert id="insert" parameterType="com.weweibuy.webuy.product.common.model.po.ItemCategory">
     insert into item_category (id, parent_id, is_parent, 
       category_name, category_desc, sort_no, 
       path, create_time, modify_time
@@ -114,7 +114,7 @@
       #{path,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.product.common.model.po.ItemCategory">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemCategory">
     insert into item_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -175,7 +175,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.product.common.model.po.ItemCategoryExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemCategoryExample" resultType="java.lang.Long">
     select count(*) from item_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -231,7 +231,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.product.common.model.po.ItemCategory">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemCategory">
     update item_category
     <set>
       <if test="parentId != null">
@@ -261,7 +261,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.product.common.model.po.ItemCategory">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.product.common.model.po.ItemCategory">
     update item_category
     set parent_id = #{parentId,jdbcType=BIGINT},
       is_parent = #{isParent,jdbcType=TINYINT},

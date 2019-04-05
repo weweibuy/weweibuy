@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.inventory.mapper.WebuyInventoryMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.inventory.common.model.po.WebuyInventory">
+<mapper namespace="com.weweibuy.webuy.inventory.mapper.WebuyInventoryMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.inventory.common.model.po.WebuyInventory">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="item_id" jdbcType="BIGINT" property="itemId" />
     <result column="sku_id" jdbcType="BIGINT" property="skuId" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List">
     id, item_id, sku_id, inventory_num, create_time, modiy_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.inventory.common.model.po.WebuyInventoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.inventory.common.model.po.WebuyInventoryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -94,13 +94,13 @@
     delete from webuy_inventory
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.inventory.common.model.po.WebuyInventoryExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.inventory.common.model.po.WebuyInventoryExample">
     delete from webuy_inventory
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.inventory.common.model.po.WebuyInventory">
+  <insert id="insert" parameterType="com.weweibuy.webuy.inventory.common.model.po.WebuyInventory">
     insert into webuy_inventory (id, item_id, sku_id, 
       inventory_num, create_time, modiy_time
       )
@@ -108,7 +108,7 @@
       #{inventoryNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modiyTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.inventory.common.model.po.WebuyInventory">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.inventory.common.model.po.WebuyInventory">
     insert into webuy_inventory
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.inventory.common.model.po.WebuyInventoryExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.inventory.common.model.po.WebuyInventoryExample" resultType="java.lang.Long">
     select count(*) from webuy_inventory
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -195,7 +195,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.inventory.common.model.po.WebuyInventory">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.inventory.common.model.po.WebuyInventory">
     update webuy_inventory
     <set>
       <if test="itemId != null">
@@ -216,7 +216,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.inventory.common.model.po.WebuyInventory">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.inventory.common.model.po.WebuyInventory">
     update webuy_inventory
     set item_id = #{itemId,jdbcType=BIGINT},
       sku_id = #{skuId,jdbcType=BIGINT},

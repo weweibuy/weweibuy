@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.task.dao.XxlJobInfoDao">
+<mapper namespace="com.weweibuy.webuy.task.dao.XxlJobInfoDao">
 	
-	<resultMap id="XxlJobInfo" type="com.weweibuy.task.core.model.XxlJobInfo" >
+	<resultMap id="XxlJobInfo" type="com.weweibuy.webuy.task.core.model.XxlJobInfo" >
 		<result column="id" property="id" />
 	
 		<result column="job_group" property="jobGroup" />
@@ -85,7 +85,7 @@
 		</trim>
 	</select>
 
-	<insert id="save" parameterType="com.weweibuy.task.core.model.XxlJobInfo" useGeneratedKeys="true" keyProperty="id" >
+	<insert id="save" parameterType="com.weweibuy.webuy.task.core.model.XxlJobInfo" useGeneratedKeys="true" keyProperty="id" >
 		INSERT INTO XXL_JOB_QRTZ_TRIGGER_INFO (
 			job_group,
 			job_cron,
@@ -135,7 +135,7 @@
 		WHERE t.id = #{id}
 	</select>
 	
-	<update id="update" parameterType="com.weweibuy.task.core.model.XxlJobInfo" >
+	<update id="update" parameterType="com.weweibuy.webuy.task.core.model.XxlJobInfo" >
 		UPDATE XXL_JOB_QRTZ_TRIGGER_INFO
 		SET 
 			job_cron = #{jobCron},

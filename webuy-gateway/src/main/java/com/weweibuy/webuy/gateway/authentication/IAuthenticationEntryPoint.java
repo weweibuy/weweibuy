@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.gateway.authentication;
 
 import com.alibaba.fastjson.JSONObject;
-import com.weweibuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.dto.CommonJsonResponse;
 import com.weweibuy.webuy.gateway.eum.ResourcesWebMsg;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

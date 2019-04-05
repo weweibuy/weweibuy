@@ -1,10 +1,10 @@
 package com.weweibuy.controller;
 
-import com.weweibuy.common.dto.CommonJsonResponse;
-import com.weweibuy.product.client.ProductClient;
-import com.weweibuy.product.common.eum.ProductWebMsgAndCode;
-import com.weweibuy.product.common.model.form.WebuyItemForm;
-import com.weweibuy.product.common.model.po.WebuyItem;
+import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.product.client.ProductClient;
+import com.weweibuy.webuy.product.common.eum.ProductWebMsgAndCode;
+import com.weweibuy.webuy.product.common.model.form.WebuyItemForm;
+import com.weweibuy.webuy.product.common.model.po.WebuyItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;

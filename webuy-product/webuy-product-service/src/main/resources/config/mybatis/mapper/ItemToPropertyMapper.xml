@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.product.mapper.ItemToPropertyMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.product.common.model.po.ItemToProperty">
+<mapper namespace="com.weweibuy.webuy.product.mapper.ItemToPropertyMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.product.common.model.po.ItemToProperty">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="item_id" jdbcType="BIGINT" property="itemId" />
     <result column="property_id" jdbcType="BIGINT" property="propertyId" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List">
     id, item_id, property_id, create_time, modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.product.common.model.po.ItemToPropertyExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemToPropertyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -93,19 +93,19 @@
     delete from item_to_property
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.product.common.model.po.ItemToPropertyExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemToPropertyExample">
     delete from item_to_property
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.product.common.model.po.ItemToProperty">
+  <insert id="insert" parameterType="com.weweibuy.webuy.product.common.model.po.ItemToProperty">
     insert into item_to_property (id, item_id, property_id, 
       create_time, modify_time)
     values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{propertyId,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.product.common.model.po.ItemToProperty">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemToProperty">
     insert into item_to_property
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -142,7 +142,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.product.common.model.po.ItemToPropertyExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemToPropertyExample" resultType="java.lang.Long">
     select count(*) from item_to_property
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -182,7 +182,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.product.common.model.po.ItemToProperty">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemToProperty">
     update item_to_property
     <set>
       <if test="itemId != null">
@@ -200,7 +200,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.product.common.model.po.ItemToProperty">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.product.common.model.po.ItemToProperty">
     update item_to_property
     set item_id = #{itemId,jdbcType=BIGINT},
       property_id = #{propertyId,jdbcType=BIGINT},

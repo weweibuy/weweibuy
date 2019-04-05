@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.product.mapper.WebuyItemMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.product.common.model.po.WebuyItem">
+<mapper namespace="com.weweibuy.webuy.product.mapper.WebuyItemMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.product.common.model.po.WebuyItem">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="item_id" jdbcType="BIGINT" property="itemId" />
     <result column="item_name" jdbcType="VARCHAR" property="itemName" />
@@ -30,7 +30,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.weweibuy.product.common.model.po.WebuyItem">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.weweibuy.webuy.product.common.model.po.WebuyItem">
     <result column="goods_desc" jdbcType="LONGVARCHAR" property="goodsDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -100,7 +100,7 @@
   <sql id="Blob_Column_List">
     goods_desc
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.weweibuy.product.common.model.po.WebuyItemExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItemExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -116,7 +116,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.weweibuy.product.common.model.po.WebuyItemExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItemExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -142,13 +142,13 @@
     delete from webuy_item
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.product.common.model.po.WebuyItemExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItemExample">
     delete from webuy_item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.product.common.model.po.WebuyItem">
+  <insert id="insert" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItem">
     insert into webuy_item (id, item_id, item_name, 
       item_title, sale_point, max_price, 
       mix_price, on_sale_time, off_sale_time, 
@@ -170,7 +170,7 @@
       #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
       #{goodsDesc,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.product.common.model.po.WebuyItem">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItem">
     insert into webuy_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -345,7 +345,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.product.common.model.po.WebuyItemExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItemExample" resultType="java.lang.Long">
     select count(*) from webuy_item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -510,7 +510,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.product.common.model.po.WebuyItem">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItem">
     update webuy_item
     <set>
       <if test="itemId != null">
@@ -597,7 +597,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.weweibuy.product.common.model.po.WebuyItem">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItem">
     update webuy_item
     set item_id = #{itemId,jdbcType=BIGINT},
       item_name = #{itemName,jdbcType=VARCHAR},
@@ -628,7 +628,7 @@
       goods_desc = #{goodsDesc,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.product.common.model.po.WebuyItem">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.product.common.model.po.WebuyItem">
     update webuy_item
     set item_id = #{itemId,jdbcType=BIGINT},
       item_name = #{itemName,jdbcType=VARCHAR},

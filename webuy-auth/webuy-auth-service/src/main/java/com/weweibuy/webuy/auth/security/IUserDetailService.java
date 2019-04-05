@@ -1,9 +1,9 @@
 package com.weweibuy.webuy.auth.security;
 
-import com.weweibuy.common.eum.CommonStatus;
-import com.weweibuy.user.client.UserClient;
-import com.weweibuy.user.common.model.dto.UserWebResult;
-import com.weweibuy.user.common.model.po.WebuyUser;
+import com.weweibuy.webuy.common.eum.CommonStatus;
+import com.weweibuy.webuy.user.client.UserClient;
+import com.weweibuy.webuy.user.common.model.dto.UserWebResult;
+import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

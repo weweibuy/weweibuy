@@ -168,7 +168,7 @@ eureka:
 
 mybatis:
   config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
-  type-aliases-package: com.weweibuy.user.common.model.po    # 所有Entity别名类所在包
+  type-aliases-package: com.weweibuy.webuy.user.common.model.po    # 所有Entity别名类所在包
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
 
 

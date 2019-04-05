@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.order.mapper.OrderShippingMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.order.common.model.po.OrderShipping">
+<mapper namespace="com.weweibuy.webuy.order.mapper.OrderShippingMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.order.common.model.po.OrderShipping">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_id" jdbcType="BIGINT" property="orderId" />
     <result column="tracking_number" jdbcType="BIGINT" property="trackingNumber" />
@@ -80,7 +80,7 @@
     shipping_fee, is_insurance, insurance_fee, shipping_status, shiping_start_time, shiping_end_time, 
     create_time, modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.order.common.model.po.OrderShippingExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.order.common.model.po.OrderShippingExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -104,13 +104,13 @@
     delete from order_shipping
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.order.common.model.po.OrderShippingExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.order.common.model.po.OrderShippingExample">
     delete from order_shipping
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.order.common.model.po.OrderShipping">
+  <insert id="insert" parameterType="com.weweibuy.webuy.order.common.model.po.OrderShipping">
     insert into order_shipping (id, order_id, tracking_number, 
       shipping_method_id, shipping_addres_id, shipping_method_name, 
       shipping_fee, is_insurance, insurance_fee, 
@@ -122,7 +122,7 @@
       #{shippingStatus,jdbcType=TINYINT}, #{shipingStartTime,jdbcType=TIMESTAMP}, #{shipingEndTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.order.common.model.po.OrderShipping">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.order.common.model.po.OrderShipping">
     insert into order_shipping
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -213,7 +213,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.order.common.model.po.OrderShippingExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.order.common.model.po.OrderShippingExample" resultType="java.lang.Long">
     select count(*) from order_shipping
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -289,7 +289,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.order.common.model.po.OrderShipping">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.order.common.model.po.OrderShipping">
     update order_shipping
     <set>
       <if test="orderId != null">
@@ -334,7 +334,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.order.common.model.po.OrderShipping">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.order.common.model.po.OrderShipping">
     update order_shipping
     set order_id = #{orderId,jdbcType=BIGINT},
       tracking_number = #{trackingNumber,jdbcType=BIGINT},

@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.gateway.eum;
 
-import com.weweibuy.common.response.WebCodeAndMsg;
+import com.weweibuy.webuy.common.response.WebCodeAndMsg;
 
 /**
  * 资源服务器 web返回 code 和msg

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.product.mapper.ItemPropertyMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.product.common.model.po.ItemProperty">
+<mapper namespace="com.weweibuy.webuy.product.mapper.ItemPropertyMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.product.common.model.po.ItemProperty">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="property_name" jdbcType="VARCHAR" property="propertyName" />
     <result column="property_type" jdbcType="VARCHAR" property="propertyType" />
@@ -74,7 +74,7 @@
     id, property_name, property_type, category_id, remark, input_mode, input_type, create_time, 
     modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.product.common.model.po.ItemPropertyExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemPropertyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -98,13 +98,13 @@
     delete from item_property
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.product.common.model.po.ItemPropertyExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemPropertyExample">
     delete from item_property
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.product.common.model.po.ItemProperty">
+  <insert id="insert" parameterType="com.weweibuy.webuy.product.common.model.po.ItemProperty">
     insert into item_property (id, property_name, property_type, 
       category_id, remark, input_mode, 
       input_type, create_time, modify_time
@@ -114,7 +114,7 @@
       #{inputType,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.product.common.model.po.ItemProperty">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemProperty">
     insert into item_property
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -175,7 +175,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.product.common.model.po.ItemPropertyExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemPropertyExample" resultType="java.lang.Long">
     select count(*) from item_property
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -231,7 +231,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.product.common.model.po.ItemProperty">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemProperty">
     update item_property
     <set>
       <if test="propertyName != null">
@@ -261,7 +261,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.product.common.model.po.ItemProperty">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.product.common.model.po.ItemProperty">
     update item_property
     set property_name = #{propertyName,jdbcType=VARCHAR},
       property_type = #{propertyType,jdbcType=VARCHAR},

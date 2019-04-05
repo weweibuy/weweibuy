@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.product.mapper.ItemSpecificationMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.product.common.model.po.ItemSpecification">
+<mapper namespace="com.weweibuy.webuy.product.mapper.ItemSpecificationMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.product.common.model.po.ItemSpecification">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="item_id" jdbcType="BIGINT" property="itemId" />
     <result column="specification_name" jdbcType="VARCHAR" property="specificationName" />
@@ -72,7 +72,7 @@
   <sql id="Base_Column_List">
     id, item_id, specification_name, sort_no, create_time, modify_time, input_mode, input_type
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.product.common.model.po.ItemSpecificationExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemSpecificationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -96,13 +96,13 @@
     delete from item_specification
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.product.common.model.po.ItemSpecificationExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemSpecificationExample">
     delete from item_specification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.product.common.model.po.ItemSpecification">
+  <insert id="insert" parameterType="com.weweibuy.webuy.product.common.model.po.ItemSpecification">
     insert into item_specification (id, item_id, specification_name, 
       sort_no, create_time, modify_time, 
       input_mode, input_type)
@@ -110,7 +110,7 @@
       #{sortNo,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
       #{inputMode,jdbcType=TINYINT}, #{inputType,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.product.common.model.po.ItemSpecification">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemSpecification">
     insert into item_specification
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -165,7 +165,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.product.common.model.po.ItemSpecificationExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemSpecificationExample" resultType="java.lang.Long">
     select count(*) from item_specification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -217,7 +217,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.product.common.model.po.ItemSpecification">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemSpecification">
     update item_specification
     <set>
       <if test="itemId != null">
@@ -244,7 +244,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.product.common.model.po.ItemSpecification">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.product.common.model.po.ItemSpecification">
     update item_specification
     set item_id = #{itemId,jdbcType=BIGINT},
       specification_name = #{specificationName,jdbcType=VARCHAR},

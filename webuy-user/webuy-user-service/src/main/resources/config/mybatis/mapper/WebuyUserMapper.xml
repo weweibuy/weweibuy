@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.user.mapper.WebuyUserMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.user.common.model.po.WebuyUser">
+<mapper namespace="com.weweibuy.webuy.user.mapper.WebuyUserMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.user.common.model.po.WebuyUser">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -84,7 +84,7 @@
     is_mobile_activated, is_email_activated, is_certification, acount_status, last_login_time, 
     last_login_address, create_time, modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.user.common.model.po.WebuyUserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.user.common.model.po.WebuyUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -108,13 +108,13 @@
     delete from webuy_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.user.common.model.po.WebuyUserExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.user.common.model.po.WebuyUserExample">
     delete from webuy_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.user.common.model.po.WebuyUser">
+  <insert id="insert" parameterType="com.weweibuy.webuy.user.common.model.po.WebuyUser">
     insert into webuy_user (id, username, password, 
       name, gender, birthday, 
       phone, email, id_card, 
@@ -130,7 +130,7 @@
       #{lastLoginAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.user.common.model.po.WebuyUser">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.user.common.model.po.WebuyUser">
     insert into webuy_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -245,7 +245,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.user.common.model.po.WebuyUserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.user.common.model.po.WebuyUserExample" resultType="java.lang.Long">
     select count(*) from webuy_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -337,7 +337,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.user.common.model.po.WebuyUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.user.common.model.po.WebuyUser">
     update webuy_user
     <set>
       <if test="username != null">
@@ -394,7 +394,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.user.common.model.po.WebuyUser">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.user.common.model.po.WebuyUser">
     update webuy_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.order.mapper.WebuyOrderMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.order.common.model.po.WebuyOrder">
+<mapper namespace="com.weweibuy.webuy.order.mapper.WebuyOrderMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.order.common.model.po.WebuyOrder">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
@@ -113,7 +113,7 @@
     order_pay_time, shipping_start_time, shipping_end_time, order_confirm_receipt_time, 
     order_close_time, is_reviews, create_time, modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.order.common.model.po.WebuyOrderExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.order.common.model.po.WebuyOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -137,13 +137,13 @@
     delete from webuy_order
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.order.common.model.po.WebuyOrderExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.order.common.model.po.WebuyOrderExample">
     delete from webuy_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.order.common.model.po.WebuyOrder">
+  <insert id="insert" parameterType="com.weweibuy.webuy.order.common.model.po.WebuyOrder">
     insert into webuy_order (id, order_no, user_id, 
       seller_id, item_id, sku_id, 
       item_count, shipping_id, shipping_time, 
@@ -177,7 +177,7 @@
       #{isReviews,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.order.common.model.po.WebuyOrder">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.order.common.model.po.WebuyOrder">
     insert into webuy_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -444,7 +444,7 @@
   </insert>
 
 
-  <insert id="insertSelectiveGetId" parameterType="com.weweibuy.order.common.model.po.WebuyOrder" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelectiveGetId" parameterType="com.weweibuy.webuy.order.common.model.po.WebuyOrder" useGeneratedKeys="true" keyProperty="id">
     insert into webuy_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -712,7 +712,7 @@
 
 
 
-  <select id="countByExample" parameterType="com.weweibuy.order.common.model.po.WebuyOrderExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.order.common.model.po.WebuyOrderExample" resultType="java.lang.Long">
     select count(*) from webuy_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -904,7 +904,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.order.common.model.po.WebuyOrder">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.order.common.model.po.WebuyOrder">
     update webuy_order
     <set>
       <if test="orderNo != null">
@@ -1036,7 +1036,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.order.common.model.po.WebuyOrder">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.order.common.model.po.WebuyOrder">
     update webuy_order
     set order_no = #{orderNo,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=BIGINT},

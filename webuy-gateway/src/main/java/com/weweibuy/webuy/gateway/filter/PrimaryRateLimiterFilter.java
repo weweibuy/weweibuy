@@ -2,7 +2,7 @@ package com.weweibuy.webuy.gateway.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.util.concurrent.RateLimiter;
-import com.weweibuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.dto.CommonJsonResponse;
 import com.weweibuy.webuy.gateway.eum.ResourcesWebMsg;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.message.mapper.WebuyMessageMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.message.common.model.po.WebuyMessage">
+<mapper namespace="com.weweibuy.webuy.message.mapper.WebuyMessageMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="message_correlation_id" jdbcType="VARCHAR" property="messageCorrelationId" />
     <result column="message_boby" jdbcType="VARCHAR" property="messageBoby" />
@@ -80,7 +80,7 @@
     message_send_time, is_dead, message_status, field1, field2, field3, create_time, 
     update_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.message.common.model.po.WebuyMessageExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessageExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -104,13 +104,13 @@
     delete from webuy_message
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.message.common.model.po.WebuyMessageExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessageExample">
     delete from webuy_message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.message.common.model.po.WebuyMessage">
+  <insert id="insert" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     insert into webuy_message (id, message_correlation_id, message_boby, 
       message_queue, message_exchange, message_routing_key, 
       message_send_time, is_dead, message_status, 
@@ -122,7 +122,7 @@
       #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.message.common.model.po.WebuyMessage">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     insert into webuy_message
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -213,7 +213,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.message.common.model.po.WebuyMessageExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessageExample" resultType="java.lang.Long">
     select count(*) from webuy_message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -289,7 +289,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.message.common.model.po.WebuyMessage">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     update webuy_message
     <set>
       <if test="messageCorrelationId != null">
@@ -334,7 +334,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.message.common.model.po.WebuyMessage">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     update webuy_message
     set message_correlation_id = #{messageCorrelationId,jdbcType=VARCHAR},
       message_boby = #{messageBoby,jdbcType=VARCHAR},

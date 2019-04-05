@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.product.mapper.ItemBrandMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.product.common.model.po.ItemBrand">
+<mapper namespace="com.weweibuy.webuy.product.mapper.ItemBrandMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.product.common.model.po.ItemBrand">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="item_category_id" jdbcType="BIGINT" property="itemCategoryId" />
     <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
@@ -75,7 +75,7 @@
     id, item_category_id, brand_name, brand_english_name, first_case, brand_slogan, brand_logo, 
     brand_desc, create_time, modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.product.common.model.po.ItemBrandExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemBrandExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -99,13 +99,13 @@
     delete from item_brand
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.product.common.model.po.ItemBrandExample">
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemBrandExample">
     delete from item_brand
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.product.common.model.po.ItemBrand">
+  <insert id="insert" parameterType="com.weweibuy.webuy.product.common.model.po.ItemBrand">
     insert into item_brand (id, item_category_id, brand_name, 
       brand_english_name, first_case, brand_slogan, 
       brand_logo, brand_desc, create_time, 
@@ -115,7 +115,7 @@
       #{brandLogo,jdbcType=VARCHAR}, #{brandDesc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.product.common.model.po.ItemBrand">
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemBrand">
     insert into item_brand
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -182,7 +182,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.product.common.model.po.ItemBrandExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.weweibuy.webuy.product.common.model.po.ItemBrandExample" resultType="java.lang.Long">
     select count(*) from item_brand
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -242,7 +242,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.product.common.model.po.ItemBrand">
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.product.common.model.po.ItemBrand">
     update item_brand
     <set>
       <if test="itemCategoryId != null">
@@ -275,7 +275,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.product.common.model.po.ItemBrand">
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.product.common.model.po.ItemBrand">
     update item_brand
     set item_category_id = #{itemCategoryId,jdbcType=BIGINT},
       brand_name = #{brandName,jdbcType=VARCHAR},

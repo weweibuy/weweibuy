@@ -9,7 +9,7 @@ spring:
    datasource:
      type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
      driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-     url: jdbc:mysql://47.99.129.104:3306/small01?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
+     url: jdbc:mysql://47.99.129.104:3306/webuy_order?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
      username: user01
      password: ak402507979
      initialSize: 5
@@ -127,7 +127,7 @@ eureka:
 
 mybatis:
   config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
-  type-aliases-package: com.weweibuy.order.common.model.po    # 所有Entity别名类所在包
+  type-aliases-package: com.weweibuy.webuy.order.common.model.po    # 所有Entity别名类所在包
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
 
 ribbon:
