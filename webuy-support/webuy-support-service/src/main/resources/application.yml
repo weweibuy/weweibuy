@@ -15,7 +15,7 @@ spring:
                  #       type: web
    sleuth:
      sampler:
-       probability: 1
+       probability: 10
    redis:
      database: 4 # Redis数据库索引（默认为0）
      host: 47.99.129.104  #Redis服务器地址

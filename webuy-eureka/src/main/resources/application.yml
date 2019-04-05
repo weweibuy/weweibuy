@@ -17,8 +17,7 @@ spring:
     admin:
       auto-registration: true  #客户端是否自动注 册
       client:
-        url: 119.3.11.116:7501
-        enabled: true
+        url: http://localhost:7501
         username: admin
         password: ak402507979
         instance:
@@ -48,7 +47,7 @@ eureka:
     eviction-interval-timer-in-ms: 60000  #启用主动失效，并且每次主动失效检测间隔为10s
   client:
     register-with-eureka: false     #false表示不向注册中心注册自己。
-    fetch-registry: false     #  是否从eureka上获取注册信息   false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    fetch-registry: true     #  是否从eureka上获取注册信息   false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 

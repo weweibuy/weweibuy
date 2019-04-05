@@ -16,7 +16,7 @@ spring:
      discoveryClientEnabled: true
    sleuth:
      sampler:
-       probability: 1
+       probability: 1 #收集比例
 
    security:
      basic:
@@ -24,21 +24,8 @@ spring:
      user:
        name: admin
        password: ak402507979
-#     oauth2:
-#       client:
-#         access-token-uri: http://localhost:8080/webuy-auth/oauth/token  #网关的地址
-#         user-authorization-uri: http://localhost:8080/webuy-auth/oauth/authorize
-#       resource:
-#         user-info-uri:  http://localhost:8080/backstage/hello
-#         prefer-token-info: false
-#       sso:
-#         loginPath: /login
-#   cloud:
-#     refresh:
-#       extra-refreshable: none
 
 security:
-  basic:
   oauth2:
     client:
       client-id: webuy
@@ -121,7 +108,29 @@ eureka:
     home-page-url: http://${eureka.instance.ip-address}:${server.port}/
 ---
 
+
 zuul:
+  ratelimit:  # 限流
+    enabled: true
+    behind-proxy: true
+    policy-list:
+      backstage:
+        limit: 10 #request number limit per refresh interval window
+        quota: 10 #request time limit per refresh interval window (in seconds)
+        refresh-interval: 60 #default value (in seconds)
+        type: ORIGIN
+      auth:
+        limit: 10
+        quota: 10
+        refresh-interval: 60
+        type: ORIGIN
+      user:
+        limit: 10
+        quota: 10
+        refresh-interval: 60
+        type: ORIGIN
+
+    # 路由
   ignored-services: "*"  #忽略所有未配置的service
   host:
       connect-timeout-millis: 100000
@@ -152,6 +161,7 @@ zuul:
       add-host-header: true
 
 
+#负载均衡
 webuy-backstage: #是serviceId
   ribbon:
     ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source

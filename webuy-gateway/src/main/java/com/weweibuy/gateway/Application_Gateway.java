@@ -23,6 +23,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 public class Application_Gateway {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application_Gateway.class);
+        SpringApplication.run(Application_Gateway.class, args);
     }
 }

@@ -9,19 +9,12 @@ spring:
      active: ${profileActive}
    application:
      name: webuy-admin
-   security:
-     user:
-       name: admin
-       password: ak402507979
-
-
    boot:
      admin:
        monitor:
          period: 10000 #监控刷新时间
        discovery:
          enabled: true  #是否开启自动发现服务
-
 
 logging:
   config: classpath:config/logback/logback-spring.xml
@@ -38,49 +31,3 @@ management:
     health:
       show-details: ALWAYS   #health endpoint是否必须显示全部细节。默认情况下, /actuator/health 是公开的，并且不显示细节。
 
-
-
----
-spring:
-  profiles: dev
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
-  instance:
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
-    prefer-ip-address: true     #访问路径可以显示IP地址
-    ip-address: 127.0.0.01   #server和client不在同一网段使用ip-address:配置
-    health-check-url-path: /actuator/health
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
-    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
-    metadata-map:
-      context-path: /actuator
-      startup: ${random.int}    #needed to trigger info and endpoint update after restart
-      "user.name": ${spring.security.user.name}         #These two are needed so that the server
-      "user.password": ${spring.security.user.password}  #can access the protected client endpoints
-
----
-spring:
-  profiles: test
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
-  instance:
-    lease-renewal-interval-in-seconds: 30 #续约更新时间间隔（默认是30秒）
-    lease-expiration-duration-in-seconds: 90  #续约到期时间（默认90秒）
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
-    prefer-ip-address: true     #访问路径可以显示IP地址
-    ip-address: 106.12.95.245   #server和client不在同一网段使用ip-address:配置
-    health-check-url-path: /actuator/health
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
-    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
-    metadata-map:
-      context-path: /actuator
-      startup: ${random.int}    #needed to trigger info and endpoint update after restart
-      "user.name": ${spring.security.user.name}         #These two are needed so that the server
-      "user.password": ${spring.security.user.password}  #can access the protected client endpoints
----

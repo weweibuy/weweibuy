@@ -85,6 +85,12 @@
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.marcosbarbero.cloud</groupId>
+            <artifactId>spring-cloud-zuul-ratelimit</artifactId>
+            <version>1.5.0.RELEASE</version>
+        </dependency>
+
         <!--基于redis的session共享-->
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->

@@ -20,6 +20,7 @@
         <logger name="o.s.b.f.s" level="INFO"/>
         <logger name="o.s.d.redis.core" level="INFO"/>
         <logger name="o.s.s.quartz" level="INFO"/>
+        <logger name="r.ipc.netty.http.client.HttpClient" level="INFO"/>
     </springProfile>
     <springProfile name="test">
         <property name="log.path" value="/logs/${app_name}/pmp" />

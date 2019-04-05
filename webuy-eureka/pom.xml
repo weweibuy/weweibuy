@@ -41,6 +41,11 @@
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-core</artifactId>
+            <version>1.3.0</version>
+        </dependency>
 
     </dependencies>
 

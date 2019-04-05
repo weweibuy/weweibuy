@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 限流过滤器
+ * 主限流过滤器
  * @ClassName RateLimiterFilter
  * @Description
  * @Author durenhao
@@ -23,7 +23,7 @@ import java.io.IOException;
  **/
 @Slf4j
 @Component
-public class RateLimiterFilter extends OncePerRequestFilter {
+public class PrimaryRateLimiterFilter extends OncePerRequestFilter {
 
     private static final RateLimiter RATE_LIMITER = RateLimiter.create(10);
 

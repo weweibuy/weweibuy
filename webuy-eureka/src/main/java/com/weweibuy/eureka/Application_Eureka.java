@@ -1,4 +1,4 @@
-package com.weweibuy;
+package com.weweibuy.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,13 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
  * @Author durenhao
  * @Date 2018/9/22 10:56
  **/
-
 @SpringBootApplication
 @EnableEurekaServer
 @EnableWebSecurity
 @EnableDiscoveryClient
 public class Application_Eureka {
+
     public static void main(String[] args) {
-        SpringApplication.run(Application_Eureka.class);
+        SpringApplication.run(Application_Eureka.class, args);
     }
 }

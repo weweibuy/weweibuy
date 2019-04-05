@@ -1,8 +1,7 @@
 package com.weweibuy.gateway.config;
 
 import com.weweibuy.gateway.authentication.cookie.CookieAuthenticationFilter;
-import com.weweibuy.gateway.filter.CookieFilter;
-import com.weweibuy.gateway.filter.RateLimiterFilter;
+import com.weweibuy.gateway.filter.PrimaryRateLimiterFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,6 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
-import org.springframework.security.web.header.HeaderWriterFilter;
 import org.springframework.security.web.savedrequest.RequestCacheAwareFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -41,9 +39,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private AccessDeniedHandler accessDeniedHandler;
 
     @Autowired
-    private CookieFilter cookieFilter;
-
-    @Autowired
     private ResourceServerTokenServices tokenServices;
 
     private AuthenticationManager authenticationManager;
@@ -52,7 +47,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private CookieAuthenticationFilter cookieAuthenticationFilter;
 
     @Autowired
-    private RateLimiterFilter rateLimiterFilter;
+    private PrimaryRateLimiterFilter rateLimiterFilter;
 
     /**
      * TODO 这里的http  不能使用WebSecurityConfigurerAdapter的http配置; 必须这在配
@@ -68,7 +63,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         configurer.authenticationManager(oauthAuthenticationManager(http));
         http.addFilterBefore(rateLimiterFilter, WebAsyncManagerIntegrationFilter.class);
         http.addFilterBefore(cookieAuthenticationFilter, RequestCacheAwareFilter.class);
-        http.addFilterBefore(cookieFilter, HeaderWriterFilter.class);
         http
             .authorizeRequests() /* .antMatchers().hasAnyRole("ADMIN") */
             .antMatchers("/auth/**","/*/hello", "/hello/**", "/*/js/**", "/*/css/**", "/*/fonts/**", "**/favicon.ico","/actuator/**",
