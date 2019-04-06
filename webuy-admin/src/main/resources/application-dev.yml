@@ -1,8 +1,8 @@
-server:
-  port: 7501
-  tomcat:
-    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
-    min-spare-threads: 5    #初始化线程数
+#server:
+#  port: 7501
+#  tomcat:
+#    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
+#    min-spare-threads: 5    #初始化线程数
 
 app:
   id: ${spring.application.name}
@@ -19,14 +19,14 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://admin:ak402507979@localhost:7001/eureka
+      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
   instance:
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:7501
     prefer-ip-address: true     #访问路径可以显示IP地址
     ip-address: 127.0.0.01   #server和client不在同一网段使用ip-address:配置
     health-check-url-path: /actuator/health
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
-    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
+    status-page-url: http://${eureka.instance.ip-address}:7501/actuator/info
+    home-page-url: http://${eureka.instance.ip-address}:7501/
     metadata-map:
       context-path: /actuator
       startup: ${random.int}    #needed to trigger info and endpoint update after restart

@@ -3,6 +3,8 @@ package com.weweibuy;
 import com.weweibuy.webuy.backstage.test.queue.Duty;
 import org.junit.Test;
 
+import java.util.Random;
+
 public class UserTest {
 
     @Test
@@ -17,7 +19,14 @@ public class UserTest {
         System.err.println(duty.equals(duty2));
         System.err.println(duty.hashCode() == duty2.hashCode());
 
+    }
 
+
+    @Test
+    public void test02(){
+        Random random = new Random();
+        int i = random.nextInt(1);
+        System.err.println(i);
     }
 
 }

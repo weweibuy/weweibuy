@@ -4,7 +4,7 @@ VOLUME /logs
 RUN mkdir -p /tmp  \
 mkdir -p /logs \
 mkdir -p /logs/webuy-eureka \
-touch -p /logs/webuy-eureka/gc.log
+touch -p /logs/webuy-eureka/webuy-eureka-gc.log
 ADD webuy-eureka.jar app.jar
 #RUN sh -c 'touch /app.jar'
 
@@ -27,4 +27,4 @@ ENV JAVA_OPTS=" \
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
 
 #启动容器:
-    #docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 7001:7001 --name eureka webuy-eureka:1.0
+    #docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 7001:7001 --name eureka webuy-eureka:3.0
