@@ -1,39 +1,47 @@
-server:
-  port: 7501
-  tomcat:
-    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
-    min-spare-threads: 5    #初始化线程数
+# 使用apollo 配置
 
-spring:
-  security:
-    user:
-      name: admin
-      password: ak402507979
-  zipkin:
-    base-url: http://106.12.95.245:9411
-    enabled: true
-    messageTimeout: 100
-    discoveryClientEnabled: true
-  sleuth:
-    sampler:
-      probability: 0.1
+app:
+  id: ${spring.application.name}
+apollo:
+  meta: http://106.12.15.87:9080
 
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
-  instance:
-    lease-renewal-interval-in-seconds: 30 #续约更新时间间隔（默认是30秒）
-    lease-expiration-duration-in-seconds: 90  #续约到期时间（默认90秒）
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
-    prefer-ip-address: true     #访问路径可以显示IP地址
-    ip-address: 106.12.95.245   #server和client不在同一网段使用ip-address:配置
-    health-check-url-path: /actuator/health
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
-    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
-    metadata-map:
-      context-path: /actuator
-      startup: ${random.int}    #needed to trigger info and endpoint update after restart
-      "user.name": ${spring.security.user.name}         #These two are needed so that the server
-      "user.password": ${spring.security.user.password}  #can access the protected client endpoints
+
+#server:
+#  port: 7501
+#  tomcat:
+#    max-threads: 10
+#    min-spare-threads: 5    #初始化线程数
+#
+#spring:
+#  security:
+#    user:
+#      name: admin
+#      password: ak402507979
+#  zipkin:
+#    base-url: http://106.12.95.245:9411
+#    enabled: true
+#    messageTimeout: 100
+#    discoveryClientEnabled: true
+#  sleuth:
+#    sampler:
+#      probability: 0.1
+#
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
+#  instance:
+#    lease-renewal-interval-in-seconds: 30 #续约更新时间间隔（默认是30秒）
+#    lease-expiration-duration-in-seconds: 90  #续约到期时间（默认90秒）
+#    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+#    prefer-ip-address: true     #访问路径可以显示IP地址
+#    ip-address: 106.12.95.245   #server和client不在同一网段使用ip-address:配置
+#    health-check-url-path: /actuator/health
+#    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
+#    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
+#    metadata-map:
+#      context-path: /actuator
+#      startup: ${random.int}    #needed to trigger info and endpoint update after restart
+#      "user.name": ${spring.security.user.name}         #These two are needed so that the server
+#      "user.password": ${spring.security.user.password}  #can access the protected client endpoints

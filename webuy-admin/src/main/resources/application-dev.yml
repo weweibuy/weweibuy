@@ -10,10 +10,10 @@ apollo:
   meta: http://106.12.15.87:9080
 
 spring:
-   security:
-     user:
-       name: admin
-       password: ak402507979
+  security:
+    user:
+      name: admin
+      password: ak402507979
   zipkin:
     base-url: http://106.12.95.245:9411
     enabled: true
