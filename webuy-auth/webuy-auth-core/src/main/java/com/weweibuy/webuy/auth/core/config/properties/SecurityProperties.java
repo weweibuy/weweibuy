@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @Author durenhao
  * @Date 2018/12/15 20:25
  **/
-@ConfigurationProperties(prefix = "webuy.security")
+@ConfigurationProperties(prefix = "webuy.auth.security")
 @Data
 public class SecurityProperties {
 

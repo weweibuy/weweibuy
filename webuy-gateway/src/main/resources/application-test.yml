@@ -1,0 +1,148 @@
+server:
+  port: 80
+  tomcat:
+    max-threads: 10
+    min-spare-threads: 5
+
+spring:
+  zipkin:
+    base-url: http://106.12.95.245:9411
+    enabled: true
+    messageTimeout: 10
+    discoveryClientEnabled: true
+  sleuth:
+    sampler:
+      probability: 0.3 #收集比例
+  security:
+    user:
+      name: admin
+      password: ak402507979
+
+security:
+  oauth2:
+    client:
+      client-id: webuy
+      client-secret: webuy123
+      user-authorization-uri: http://localhost/auth/oauth/authorize
+      access-token-uri: http://localhost/auth/oauth/token
+    resource:
+      user-info-uri: http://localhost/auth/oauth/user
+      jwt:
+        key-value: -----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9utDRxl0vykGVncIrPSrqJICtKfTRHMjyEtKfUWrr3215N69c0nMx2xQL2lVk0q2u3xSE04PIEaTNW4UWj4q3MdWEk++j0ztdM39GVTGu78TjjeIsjVwWKTO/uiBvCgEpFV3ztlNoIcxVR7Y24JT1f7aVu8aFww8pnxQzKmNnmwIDAQAB-----END PUBLIC KEY-----
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
+    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
+    ip-address: 119.3.11.116
+    metadata-map:
+       context-path: /actuator
+       startup: ${random.int}    #needed to trigger info and endpoint update after restart
+       "user.name": admin         #These two are needed so that the server
+       "user.password": ak402507979  #can access the protected client endpoints
+    health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
+    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
+
+hystrix: #hystrix配置
+  command:
+    default:
+      execution:
+        timeout:
+         enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+      circuitBreaker:
+        sleepWindowInMilliseconds: 20000 #断路器恢复时间
+        errorThresholdPercentage: 50  #触发短路,失败百分比
+  threadpool:
+    default:
+      coreSize: 10  #线程池大小
+      maxQueueSize: 10  #最大等待队列数
+      queueSizeRejectionThreshold: 5 #触发拒绝请求的的最大等待队列数
+
+zuul:
+  ratelimit:  # 限流
+    enabled: true
+    behind-proxy: true
+    policy-list:
+      backstage:
+        - limit: 10 #request number limit per refresh interval window
+          quota: 10 #request time limit per refresh interval window (in seconds)
+          refresh-interval: 60 #default value (in seconds)
+          type: ORIGIN
+      auth:
+        - limit: 10 # - 代表list 的一个元素
+          quota: 10
+          refresh-interval: 60
+          type: ORIGIN
+      user:
+        - limit: 10
+          quota: 10
+          refresh-interval: 60
+          type: ORIGIN
+  ignored-services: "*"  #忽略所有未配置的service
+  host:
+    connect-timeout-millis: 2000
+    socket-timeout-millis: 5000
+  routes:
+    backstage:
+      path: /backstage/**
+      strip-prefix: true  #忽略前缀
+      sensitiveHeaders: #Cookie,Set-Cookie,Authorization
+      serviceId: webuy-backstage
+      add-host-header: true
+    auth:
+      path: /auth/**
+      strip-prefix: true
+      #  下面这个配置的作用一定要弄清楚; 如果不加在请求后面的auth服务时 basic登录无法成功;
+      #  即使使用正确的参数访问 http://localhost:8080/auth/oauth/token; 也是返回401
+      # 这里是因为zuul 使用  RibbonRoutingFilter(ProxyRequestHelper) 重新创建请求头  在创建时调用isIncludedHeader(name)方法
+      # 将原请求的请求头复制到 RibbonRoutingFilter 创建的请求中, 下面的配置是创建时选择忽略的请求头默认是:Cookie,Set-Cookie,Authorization
+      # 在调取/oauth/token 时经过  BasicAuthenticationFilter 验证 Authorization(client_id 和 client_secret) 由于无法验证client信息返回401
+      sensitiveHeaders: #  加上后面这些也是返回401,什么都不加可RibbonRoutingFilter以正确返回 #Cookie,Set-Cookie,Authorization
+      serviceId: webuy-auth  #转发到对应的 serviceID上
+      add-host-header: true    # 此处解决后端服务重定向导致用户浏览的 host 变成 后端服务的 host 问题
+    user:
+      path: /user/**
+      strip-prefix: true
+      sensitiveHeaders:
+      serviceId: webuy-user
+      add-host-header: true
+
+
+#负载均衡
+webuy-backstage: #是serviceId
+  ribbon:
+    ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
+    listOfServers: http://localhost:8001
+    ConnectTimeout: 3000   #建立连接超时时间
+    ReadTimeout: 5000  #连接超时时间
+    OkToRetryOnAllOperations: true  #所有操作都重试
+    MaxAutoRetries: 0  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 1   #重试发生，更换节点数最大值
+
+webuy-auth: #是serviceId
+  ribbon:
+    ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
+    listOfServers: http://localhost:8070
+    ConnectTimeout: 3000   #建立连接超时时间
+    ReadTimeout: 5000  #连接超时时间
+    OkToRetryOnAllOperations: true  #所有操作都重试
+    MaxAutoRetries: 0  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 1   #重试发生，更换节点数最大值
+
+webuy-user: #是serviceId
+  ribbon:
+    ServerListRefreshInterval: 10000  # Interval to refresh the server list from the source
+    listOfServers: http://localhost:8201
+    ConnectTimeout: 3000   #建立连接超时时间
+    ReadTimeout: 5000  #连接超时时间
+    OkToRetryOnAllOperations: true  #所有操作都重试
+    MaxAutoRetries: 0  #单个节点重试最大值
+    MaxAutoRetriesNextServer: 1   #重试发生，更换节点数最大值

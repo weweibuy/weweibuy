@@ -1,140 +1,20 @@
-server:
-  port: 80
-  tomcat:
-    max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
-    min-spare-threads: 5    #初始化线程数
+
 
 spring:
    profiles:
      active: ${profileActive}
    application:
      name: webuy-gateway
-   zipkin:
-     base-url: http://106.12.95.245:9411
-     enabled: true
-     messageTimeout: 10
-     discoveryClientEnabled: true
-   sleuth:
-     sampler:
-       probability: 1 #收集比例
-
-   security:
-     basic:
-       enabled: false
-     user:
-       name: admin
-       password: ak402507979
-
-security:
-  oauth2:
-    client:
-      client-id: webuy
-      client-secret: webuy123
-      user-authorization-uri: http://localhost/auth/oauth/authorize
-      access-token-uri: http://localhost/auth/oauth/token
-    resource:
-      user-info-uri: http://localhost/auth/oauth/user
-      jwt:
-        key-value: -----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC9utDRxl0vykGVncIrPSrqJICtKfTRHMjyEtKfUWrr3215N69c0nMx2xQL2lVk0q2u3xSE04PIEaTNW4UWj4q3MdWEk++j0ztdM39GVTGu78TjjeIsjVwWKTO/uiBvCgEpFV3ztlNoIcxVR7Y24JT1f7aVu8aFww8pnxQzKmNnmwIDAQAB-----END PUBLIC KEY-----
-
-
-
 
 logging:
   config: classpath:config/logback/logback-spring.xml
 
 
----
-  #dev environment
-spring:
-  profiles: dev
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
-  instance:
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
-    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
-    ip-address: 127.0.0.1
-    metadata-map:
-       context-path: /actuator
-       startup: ${random.int}    #needed to trigger info and endpoint update after restart
-       "user.name": admin         #These two are needed so that the server
-       "user.password": ak402507979  #can access the protected client endpoints
-    health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
-    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
-
-hystrix: #hystrix配置
-  command:
-    default:
-      execution:
-        timeout:
-         enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 15000
-      circuitBreaker:
-        sleepWindowInMilliseconds: 1000 #断路器恢复时间
-        errorThresholdPercentage: 80  #触发短路,失败百分比
-  threadpool:
-    default:
-      coreSize: 10  #线程池大小
-      maxQueueSize: 10  #最大等待队列数
-      queueSizeRejectionThreshold: 5 #触发拒绝请求的的最大等待队列数
-
----
-  #test environment
-spring:
-  profiles: test
-
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
-  instance:
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
-    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
-    ip-address: 119.3.11.116
-    metadata-map:
-       context-path: /actuator
-       startup: ${random.int}    #needed to trigger info and endpoint update after restart
-       "user.name": admin         #These two are needed so that the server
-       "user.password": ak402507979  #can access the protected client endpoints
-    health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
-    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
----
-
-
 zuul:
-  ratelimit:  # 限流
-    enabled: true
-    behind-proxy: true
-    policy-list:
-      backstage:
-        - limit: 10 #request number limit per refresh interval window
-          quota: 10 #request time limit per refresh interval window (in seconds)
-          refresh-interval: 60 #default value (in seconds)
-          type: ORIGIN
-      auth:
-        - limit: 10 # - 代表list 的一个元素
-          quota: 10
-          refresh-interval: 60
-          type: ORIGIN
-      user:
-        - limit: 10
-          quota: 10
-          refresh-interval: 60
-          type: ORIGIN
-
-    # 路由
   ignored-services: "*"  #忽略所有未配置的service
   host:
-      connect-timeout-millis: 100000
-      socket-timeout-millis: 100000
+    connect-timeout-millis: 100000
+    socket-timeout-millis: 100000
   routes:
     backstage:
       path: /backstage/**

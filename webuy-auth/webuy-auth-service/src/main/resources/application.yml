@@ -1,13 +1,3 @@
-server:
-  port: 8070
-  tomcat:
-    max-threads: 10
-    min-spare-threads: 5    #初始化线程数
-  session:
-    store-type: REDIS
-  servlet:
-    session:
-      timeout: 600
 
 
 spring:
@@ -15,127 +5,14 @@ spring:
      active: ${profileActive}
    application:
      name: webuy-auth
-   datasource:
-     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
-     driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-     url: jdbc:mysql://47.99.129.104:3306/webuy_auth?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
-     username: user01
-     password: ak402507979
-     initialSize: 5
-     minIdle: 5
-     maxActive: 20
-     maxWait: 60000
-     poolPreparedStatements: true           # 打开PSCache，并且指定每个连接上PSCache的大小
-     maxPoolPreparedStatementPerConnectionSize: 20
-     filters: stat,wall,logback    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
-
-
-   security:
-     user:
-       name: admin
-       password: ak402507979
-
-   zipkin:
-      base-url: http://106.12.95.245:9411
-      enabled: true
-      messageTimeout: 10
-      discoveryClientEnabled: true
-   sleuth:
-     sampler:
-        probability: 1
-
-   redis:
-     database: 3 # Redis数据库索引（默认为0）
-     host: 47.99.129.104  #Redis服务器地址
-     port: 6379 # Redis服务器连接端口
-     password: ak402507979 # Redis服务器连接密码（默认为空）
-     jedis:
-       max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
-       max-idle: 3 # 连接池中的最大空闲连接
-       max-wait: 5000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
-       min-idle: 2 # 连接池中的最小空闲连接
-       timeout: 5000 # 连接超时时间（毫秒）
-
-
-#   aop:
-#     proxy-target-class: false
-
-
-security:
-   oauth2:
-     client:
-       client-id: webuy
-       client-secret: webuy123
 
 logging:
   config: classpath:config/logback/logback-spring.xml
 
 
----
-  #dev environment
-spring:
-  profiles: dev
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
-  instance:
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
-    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
-    ip-address: 127.0.0.1
-    metadata-map:
-       context-path: /actuator
-       startup: ${random.int}    #needed to trigger info and endpoint update after restart
-       "user.name": admin         #These two are needed so that the server
-       "user.password": ak402507979  #can access the protected client endpoints
-    health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
-    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
-
-
-hystrix: #hystrix配置
-  command:
-    default:
-      execution:
-        timeout:
-        enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 30000
-            ribbon:
-              ReadTimeout: 5000
-              ConnectTimeout: 15000
-
----
-  #test environment
-spring:
-  profiles: test
-
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
-  instance:
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
-    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
-    ip-address: 119.3.11.116
-    metadata-map:
-       context-path: /actuator
-       startup: ${random.int}    #needed to trigger info and endpoint update after restart
-       "user.name": admin         #These two are needed so that the server
-       "user.password": ak402507979  #can access the protected client endpoints
-    health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
-    status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
-    home-page-url: http://${eureka.instance.ip-address}:${server.port}/
----
-
-
 mybatis:
   config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
-  type-aliases-package: com.weweibuy.user.po    # 所有Entity别名类所在包
+  type-aliases-package: com.weweibuy.webuy.auth.model.po    # 所有Entity别名类所在包
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
 
 
@@ -148,23 +25,18 @@ management:
     health:
       show-details: ALWAYS
 
-
-feign:
-  client:
-    config:
-      remote-service:           #服务名，填写default为所有服务
-        connectTimeout: 5000   #请求处理的超时时间
-        readTimeout: 12000  #请求连接的超时时间
-  hystrix:
-    enabled: true  #是否启用feign的 hystrix;不启用使用ribbon的超时控制
-  compression: #Spring Cloud Feign支持对请求和响应进行GZIP压缩，以提高通信效率
-      request:
-        enabled:  true   # 开启对 request 请求压缩
-        mime-types:
-          - text/xml
-          - application/xml
-          - application/json    # 指定压缩格式
-        min-request-size: 2048  # 压缩的最小阀值，默认 2048，超过2048 （字节） 进行压缩。
-
-      response:
-        enabled:  true  # 开启对 response 的压缩
+webuy:
+  auth:
+    security:
+      loginResponseType: JSON   #REDIRECT #JSON
+      social:
+        qq:
+        #processesUrl: /qqLogin
+        #providerId: callback.do
+          app-id: 101386962
+          app-security: 2a0f820407df400b84a854d054be8b6a
+        weixin:
+        #processesUrl: /qqLogin
+        #providerId: weixin
+          app-id: wxd99431bbff8305a0
+          app-security: 60f78681d063590a469f1b297feff3c4
