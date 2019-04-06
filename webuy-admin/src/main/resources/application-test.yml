@@ -5,10 +5,18 @@ server:
     min-spare-threads: 5    #初始化线程数
 
 spring:
-   security:
-     user:
-       name: admin
-       password: ak402507979
+  security:
+    user:
+      name: admin
+      password: ak402507979
+  zipkin:
+    base-url: http://106.12.95.245:9411
+    enabled: true
+    messageTimeout: 100
+    discoveryClientEnabled: true
+  sleuth:
+    sampler:
+      probability: 0.1
 
 eureka:
   client:

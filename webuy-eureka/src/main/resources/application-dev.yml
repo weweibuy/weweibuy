@@ -1,0 +1,36 @@
+
+spring:
+  security:
+    user:
+      name: admin
+      password: ak402507979
+
+  zipkin:
+    base-url: http://106.12.95.245:9411
+    enabled: true
+    messageTimeout: 100
+    discoveryClientEnabled: true
+  sleuth:
+    sampler:
+      probability: 0.3
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+    prefer-ip-address: true
+   # hostname: localhost  #eureka服务端的实例名称
+    ip-address: 127.0.0.1
+  server:
+    enable-self-preservation: false  #关闭自我保护
+    response-cache-auto-expiration-in-seconds: 120
+    response-cache-update-interval-ms: 60000  #eureka server刷新readCacheMap的时间，注意，client读取的是readCacheMap，这个时间决定了多久会把readWriteCacheMap的缓存更新到readCacheMap上
+                                             #默认30s
+    eviction-interval-timer-in-ms: 60000  #启用主动失效，并且每次主动失效检测间隔为10s
+  client:
+    register-with-eureka: false     #false表示不向注册中心注册自己。
+    fetch-registry: false     #  是否从eureka上获取注册信息   false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    service-url:
+      defaultZone: http://${eureka.instance.ip-address}:${server.port}/eureka/
+
+       #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
+      #defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
