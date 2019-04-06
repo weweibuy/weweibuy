@@ -3,6 +3,7 @@
 2.授权：
     grant select,insert,update,delete,create on spring_boot_demo.* to szh;
 3.跟改密码
+    set password for root@localhost = password('123');
     set password for root = password('123');
 4.立即启用：
     flush  privileges ;

@@ -5,7 +5,7 @@ docker run -d --privileged=true -p 6379:6379 -v /docker/redis/conf/redis.conf:/e
 
 
     docker下载 mysql镜像： docker pull mysql:5.6.22
-    docker run -d -p 3306:3306  -v /docker/mysql/logs/mysql:/var/log/mysql -v /docker/mysql/conf://etc/mysql -v /docker/mysql/data:/var/lib/mysql   -e MYSQL_ROOT_PASSWORD=root -e TZ=Asia/Shanghai  --name mysql mysql:5.6.22
+    docker run -d -p 3306:3306  -v /docker/mysql/logs/mysql:/var/log/mysql -v /docker/mysql/conf:/etc/mysql -v /docker/mysql/data:/var/lib/mysql   -e MYSQL_ROOT_PASSWORD=root -e TZ=Asia/Shanghai  --name mysql mysql:5.6.22
 docker 挂载安装mysql：
 (注意PWD为当前路径)
 
