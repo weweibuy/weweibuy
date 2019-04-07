@@ -118,6 +118,12 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.weweibuy</groupId>
+            <artifactId>uid-generator</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

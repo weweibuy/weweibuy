@@ -30,7 +30,7 @@ public class Swagger2Config {
                 //为当前包路径
 //                .apis(RequestHandlerSelectors.basePackage("com.sinosoft.lis.claim.controller"))
                 //扫描多个包，包与包之间用逗号分开
-                .apis(RequestHandlerSelectors.basePackage("com.weweibuy.message.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.weweibuy.webuy.message.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

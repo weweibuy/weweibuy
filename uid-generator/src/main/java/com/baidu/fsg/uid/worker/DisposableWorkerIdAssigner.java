@@ -32,7 +32,7 @@ import javax.annotation.Resource;
  * 
  * @author yutianbao
  */
-public class DisposableWorkerIdAssigner implements com.baidu.fsg.uid.worker.WorkerIdAssigner {
+public class DisposableWorkerIdAssigner implements WorkerIdAssigner {
     private static final Logger LOGGER = LoggerFactory.getLogger(DisposableWorkerIdAssigner.class);
 
     @Resource
@@ -63,12 +63,12 @@ public class DisposableWorkerIdAssigner implements com.baidu.fsg.uid.worker.Work
     private WorkerNodeEntity buildWorkerNode() {
         WorkerNodeEntity workerNodeEntity = new WorkerNodeEntity();
         if (DockerUtils.isDocker()) {
-            workerNodeEntity.setType(com.baidu.fsg.uid.worker.WorkerNodeType.CONTAINER.value());
+            workerNodeEntity.setType(WorkerNodeType.CONTAINER.value());
             workerNodeEntity.setHostName(DockerUtils.getDockerHost());
             workerNodeEntity.setPort(DockerUtils.getDockerPort());
 
         } else {
-            workerNodeEntity.setType(com.baidu.fsg.uid.worker.WorkerNodeType.ACTUAL.value());
+            workerNodeEntity.setType(WorkerNodeType.ACTUAL.value());
             workerNodeEntity.setHostName(NetUtils.getLocalAddress());
             workerNodeEntity.setPort(System.currentTimeMillis() + "-" + RandomUtils.nextInt(100000));
         }

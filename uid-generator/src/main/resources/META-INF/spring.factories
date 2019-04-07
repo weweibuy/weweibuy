@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.baidu.fsg.uid.config.DefaultUidConfig,\
+com.baidu.fsg.uid.config.CacheUidConfig

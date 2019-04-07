@@ -181,7 +181,7 @@
     '    [property "nick"]: { [meta "@container"]: [meta "@index"] }',
     '  },',
     '  [meta "@graph"]: [[ {',
-    '    [meta "@id"]: [string "http://dbpedia.org/resource/John_Lennon"],',
+    '    [meta "@id"]: [string "http://dbpedia.org/resources/John_Lennon"],',
     '    [property "name"]: [string "John Lennon"],',
     '    [property "modified"]: {',
     '      [meta "@value"]: [string "2010-05-29T14:17:39+02:00"],',

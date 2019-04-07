@@ -106,7 +106,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private AuthenticationManager oauthAuthenticationManager(HttpSecurity http) {
         if(this.authenticationManager == null){
             OAuth2AuthenticationManager oauthAuthenticationManager = new OAuth2AuthenticationManager();
-            oauthAuthenticationManager.setResourceId("oauth2-resource");
+            oauthAuthenticationManager.setResourceId("oauth2-resources");
             oauthAuthenticationManager.setTokenServices(tokenServices);
             oauthAuthenticationManager.setClientDetailsService(http.getSharedObject(ClientDetailsService.class));
             this.authenticationManager = oauthAuthenticationManager;

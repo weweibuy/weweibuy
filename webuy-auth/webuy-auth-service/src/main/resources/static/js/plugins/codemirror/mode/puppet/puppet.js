@@ -70,7 +70,7 @@ CodeMirror.defineMode("puppet", function () {
     var word = stream.match(/[\w]+/, false);
     // Matches attributes (i.e. ensure => present ; 'ensure' would be matched)
     var attribute = stream.match(/(\s+)?\w+\s+=>.*/, false);
-    // Matches non-builtin resource declarations
+    // Matches non-builtin resources declarations
     // (i.e. "apache::vhost {" or "mycustomclasss {" would be matched)
     var resource = stream.match(/(\s+)?[\w:_]+(\s+)?{/, false);
     // Matches virtual and exported resources (i.e. @@user { ; and the like)
@@ -147,7 +147,7 @@ CodeMirror.defineMode("puppet", function () {
       stream.match(/(^|\s+)[A-Z][\w:_]+/);
       return 'def';
     }
-    // Have we matched the prior resource regex?
+    // Have we matched the prior resources regex?
     if (resource) {
       stream.match(/(\s+)?[\w:_]+/);
       return 'def';

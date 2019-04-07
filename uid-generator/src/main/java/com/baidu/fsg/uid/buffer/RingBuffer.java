@@ -61,7 +61,7 @@ public class RingBuffer {
     
     /** Reject put/take buffer handle policy */
     private RejectedPutBufferHandler rejectedPutHandler = this::discardPutBuffer;
-    private RejectedTakeBufferHandler rejectedTakeHandler = this::exceptionRejectedTakeBuffer; 
+    private RejectedTakeBufferHandler rejectedTakeHandler = this::exceptionRejectedTakeBuffer;
     
     /** Executor of padding buffer */
     private BufferPaddingExecutor bufferPaddingExecutor;
@@ -197,7 +197,7 @@ public class RingBuffer {
     }
     
     /**
-     * Policy for {@link RejectedTakeBufferHandler}, throws {@link RuntimeException} after logging 
+     * Policy for {@link RejectedTakeBufferHandler}, throws {@link RuntimeException} after logging
      */
     protected void exceptionRejectedTakeBuffer(RingBuffer ringBuffer) {
         LOGGER.warn("Rejected take buffer. {}", ringBuffer);

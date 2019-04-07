@@ -44,7 +44,7 @@ spring:
          password: ak402507979
        oauth2:
           resource:
-          id: resource
+          id: resources
           user-info-uri: http://localhost:8080/auth/hello
           prefer-token-info: false
 

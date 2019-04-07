@@ -1,5 +1,6 @@
 package com.weweibuy.webuy.message.controller;
 
+import com.baidu.fsg.uid.UidGenerator;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessageProperties;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class HelloController {
 
+    @Autowired
+    private UidGenerator uidGenerator;
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -55,6 +58,11 @@ public class HelloController {
 
         }
     };
+
+    @RequestMapping("/uid")
+    public Long getUid(){
+        return uidGenerator.getUID();
+    }
 
 
     @RequestMapping("/hello")
