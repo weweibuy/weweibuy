@@ -40,6 +40,7 @@ public class MessageController {
     @PostMapping("/pre-save")
     @ApiOperation(value = "预存储消息", notes = "预存储消息，保存消息，消息状态为待确认")
     public CommonJsonResponse<MessageDto> saveMessage(@RequestBody @Validated MessageVo message, BindingResult result){
+
             return null;
     }
 

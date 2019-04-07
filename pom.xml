@@ -29,6 +29,7 @@
         <module>webuy-support</module>
         <module>webuy-sleuth</module>
         <module>webuy-learning</module>
+        <module>uid-generator</module>
     </modules>
 
 

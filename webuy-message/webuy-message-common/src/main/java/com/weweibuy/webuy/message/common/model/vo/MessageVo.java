@@ -25,7 +25,7 @@ public class MessageVo {
     private String messageCorrelationId;
 
     @NotBlank(message = "消息体不能为空")
-    @ApiModelProperty(value = "消息体", example = "{username:tom, age:12}", required = true)
+    @ApiModelProperty(value = "消息体json", example = "{username:tom, age:12}", required = true)
     private String messageBoby;
 
     @NotBlank(message = "消息队列不能为空")
