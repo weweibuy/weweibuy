@@ -175,62 +175,52 @@ public class WebuyMessageExample {
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdEqualTo(String value) {
+        public Criteria andMessageCorrelationIdEqualTo(Long value) {
             addCriterion("message_correlation_id =", value, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdNotEqualTo(String value) {
+        public Criteria andMessageCorrelationIdNotEqualTo(Long value) {
             addCriterion("message_correlation_id <>", value, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdGreaterThan(String value) {
+        public Criteria andMessageCorrelationIdGreaterThan(Long value) {
             addCriterion("message_correlation_id >", value, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdGreaterThanOrEqualTo(String value) {
+        public Criteria andMessageCorrelationIdGreaterThanOrEqualTo(Long value) {
             addCriterion("message_correlation_id >=", value, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdLessThan(String value) {
+        public Criteria andMessageCorrelationIdLessThan(Long value) {
             addCriterion("message_correlation_id <", value, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdLessThanOrEqualTo(String value) {
+        public Criteria andMessageCorrelationIdLessThanOrEqualTo(Long value) {
             addCriterion("message_correlation_id <=", value, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdLike(String value) {
-            addCriterion("message_correlation_id like", value, "messageCorrelationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMessageCorrelationIdNotLike(String value) {
-            addCriterion("message_correlation_id not like", value, "messageCorrelationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMessageCorrelationIdIn(List<String> values) {
+        public Criteria andMessageCorrelationIdIn(List<Long> values) {
             addCriterion("message_correlation_id in", values, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdNotIn(List<String> values) {
+        public Criteria andMessageCorrelationIdNotIn(List<Long> values) {
             addCriterion("message_correlation_id not in", values, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdBetween(String value1, String value2) {
+        public Criteria andMessageCorrelationIdBetween(Long value1, Long value2) {
             addCriterion("message_correlation_id between", value1, value2, "messageCorrelationId");
             return (Criteria) this;
         }
 
-        public Criteria andMessageCorrelationIdNotBetween(String value1, String value2) {
+        public Criteria andMessageCorrelationIdNotBetween(Long value1, Long value2) {
             addCriterion("message_correlation_id not between", value1, value2, "messageCorrelationId");
             return (Criteria) this;
         }

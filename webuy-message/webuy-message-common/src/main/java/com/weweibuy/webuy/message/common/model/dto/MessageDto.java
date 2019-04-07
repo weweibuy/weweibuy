@@ -3,6 +3,7 @@ package com.weweibuy.webuy.message.common.model.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,10 +17,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("消息输出信息载体")
+@Builder
 public class MessageDto {
 
+    @ApiModelProperty(value = "id")
+    private Long id;
+
     @ApiModelProperty(value = "消息id")
-    private String messageCorrelationId;
+    private Long messageCorrelationId;
 
     @ApiModelProperty(value = "消息发送次数")
     private Byte messageSendTime;
@@ -29,5 +34,6 @@ public class MessageDto {
 
     @ApiModelProperty(value = "消息是状态")
     private Byte messageStatus;
+
 
 }

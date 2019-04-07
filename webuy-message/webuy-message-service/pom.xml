@@ -124,6 +124,11 @@
             <artifactId>uid-generator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -118,3 +118,25 @@ xxl:
     accessToken:
 
 
+sharding:
+  jdbc:
+    datasource:
+      names: ds0
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: org.gjt.mm.mysql.Driver
+        url: jdbc:mysql://47.99.129.104:3306/webuy_message?useUnicode=true&characterEncoding=UTF-8
+        username: user01
+        password: ak402507979
+    config:
+      sharding:
+        tables:
+          webuy_message:
+            actual-data-nodes: ds0.webuy_message_$->{0..2}
+            table-strategy:
+              inline:
+                sharding-column: message_correlation_id
+                algorithm-expression: webuy_message_$->{message_correlation_id % 3}
+            key-generator:
+              column: message_correlation_id
+              type: SNOWFLAKE

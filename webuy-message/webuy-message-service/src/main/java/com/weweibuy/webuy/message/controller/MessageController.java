@@ -1,6 +1,7 @@
 package com.weweibuy.webuy.message.controller;
 
 import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.eum.CommonWebMsg;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 import com.weweibuy.webuy.message.common.model.vo.MessageVo;
@@ -40,8 +41,10 @@ public class MessageController {
     @PostMapping("/pre-save")
     @ApiOperation(value = "预存储消息", notes = "预存储消息，保存消息，消息状态为待确认")
     public CommonJsonResponse<MessageDto> saveMessage(@RequestBody @Validated MessageVo message, BindingResult result){
-
-            return null;
+        if (result.hasErrors()){
+            CommonJsonResponse.fail(CommonWebMsg.PARAM_WRONG).appendMsg(result);
+        }
+        return CommonJsonResponse.success(messageService.preSaveMessage(message));
     }
 
 

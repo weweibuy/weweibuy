@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.BindingResult;
 
 import java.io.Serializable;
 
@@ -30,6 +31,12 @@ public class CommonJsonResponse<T> implements Serializable {
 
     public CommonJsonResponse<T> appendMsg(String msg){
         this.msg = this.msg + ";" + msg;
+        return this;
+    }
+
+    public CommonJsonResponse<T> appendMsg(BindingResult result){
+        String defaultMessage = result.getFieldErrors().get(0).getDefaultMessage();
+        appendMsg(defaultMessage);
         return this;
     }
 

@@ -3,7 +3,7 @@
 <mapper namespace="com.weweibuy.webuy.message.mapper.WebuyMessageMapper">
   <resultMap id="BaseResultMap" type="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="message_correlation_id" jdbcType="VARCHAR" property="messageCorrelationId" />
+    <result column="message_correlation_id" jdbcType="BIGINT" property="messageCorrelationId" />
     <result column="message_boby" jdbcType="VARCHAR" property="messageBoby" />
     <result column="message_queue" jdbcType="VARCHAR" property="messageQueue" />
     <result column="message_exchange" jdbcType="VARCHAR" property="messageExchange" />
@@ -116,7 +116,7 @@
       message_send_time, is_dead, message_status, 
       field1, field2, field3, 
       create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{messageCorrelationId,jdbcType=VARCHAR}, #{messageBoby,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{messageCorrelationId,jdbcType=BIGINT}, #{messageBoby,jdbcType=VARCHAR}, 
       #{messageQueue,jdbcType=VARCHAR}, #{messageExchange,jdbcType=VARCHAR}, #{messageRoutingKey,jdbcType=VARCHAR}, 
       #{messageSendTime,jdbcType=TINYINT}, #{isDead,jdbcType=TINYINT}, #{messageStatus,jdbcType=TINYINT}, 
       #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
@@ -173,7 +173,7 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="messageCorrelationId != null">
-        #{messageCorrelationId,jdbcType=VARCHAR},
+        #{messageCorrelationId,jdbcType=BIGINT},
       </if>
       <if test="messageBoby != null">
         #{messageBoby,jdbcType=VARCHAR},
@@ -226,7 +226,7 @@
         id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.messageCorrelationId != null">
-        message_correlation_id = #{record.messageCorrelationId,jdbcType=VARCHAR},
+        message_correlation_id = #{record.messageCorrelationId,jdbcType=BIGINT},
       </if>
       <if test="record.messageBoby != null">
         message_boby = #{record.messageBoby,jdbcType=VARCHAR},
@@ -272,7 +272,7 @@
   <update id="updateByExample" parameterType="map">
     update webuy_message
     set id = #{record.id,jdbcType=BIGINT},
-      message_correlation_id = #{record.messageCorrelationId,jdbcType=VARCHAR},
+      message_correlation_id = #{record.messageCorrelationId,jdbcType=BIGINT},
       message_boby = #{record.messageBoby,jdbcType=VARCHAR},
       message_queue = #{record.messageQueue,jdbcType=VARCHAR},
       message_exchange = #{record.messageExchange,jdbcType=VARCHAR},
@@ -293,7 +293,7 @@
     update webuy_message
     <set>
       <if test="messageCorrelationId != null">
-        message_correlation_id = #{messageCorrelationId,jdbcType=VARCHAR},
+        message_correlation_id = #{messageCorrelationId,jdbcType=BIGINT},
       </if>
       <if test="messageBoby != null">
         message_boby = #{messageBoby,jdbcType=VARCHAR},
@@ -336,7 +336,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     update webuy_message
-    set message_correlation_id = #{messageCorrelationId,jdbcType=VARCHAR},
+    set message_correlation_id = #{messageCorrelationId,jdbcType=BIGINT},
       message_boby = #{messageBoby,jdbcType=VARCHAR},
       message_queue = #{messageQueue,jdbcType=VARCHAR},
       message_exchange = #{messageExchange,jdbcType=VARCHAR},
