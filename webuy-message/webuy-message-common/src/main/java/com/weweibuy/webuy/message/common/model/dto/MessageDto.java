@@ -24,7 +24,7 @@ public class MessageDto {
     private Long id;
 
     @ApiModelProperty(value = "消息id")
-    private Long messageCorrelationId;
+    private String messageCorrelationId;
 
     @ApiModelProperty(value = "消息发送次数")
     private Byte messageSendTime;

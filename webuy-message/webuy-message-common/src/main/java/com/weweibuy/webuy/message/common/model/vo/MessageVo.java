@@ -4,10 +4,10 @@ import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * @ClassName MessageVo
@@ -22,9 +22,10 @@ public class MessageVo {
     /**
      * 消息id
      */
-    @NotNull(message = "消息id长度错误")
+    @NotBlank(message = "消息id不能为空")
+    @Length(min = 0, max = 63, message = "消息id长度错误")
     @ApiModelProperty(value = "消息id;不能为空最大长度63", example = "21743da6-e913-4495-8b8c-60c2c3af084b", required = true)
-    private Long messageCorrelationId;
+    private String messageCorrelationId;
 
     @NotBlank(message = "消息体不能为空")
     @ApiModelProperty(value = "消息体json", example = "\"{username:tom, age:12}\"", required = true)

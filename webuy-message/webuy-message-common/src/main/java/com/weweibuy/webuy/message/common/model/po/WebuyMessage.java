@@ -5,7 +5,7 @@ import java.util.Date;
 public class WebuyMessage {
     private Long id;
 
-    private Long messageCorrelationId;
+    private String messageCorrelationId;
 
     private String messageBoby;
 
@@ -39,12 +39,12 @@ public class WebuyMessage {
         this.id = id;
     }
 
-    public Long getMessageCorrelationId() {
+    public String getMessageCorrelationId() {
         return messageCorrelationId;
     }
 
-    public void setMessageCorrelationId(Long messageCorrelationId) {
-        this.messageCorrelationId = messageCorrelationId;
+    public void setMessageCorrelationId(String messageCorrelationId) {
+        this.messageCorrelationId = messageCorrelationId == null ? null : messageCorrelationId.trim();
     }
 
     public String getMessageBoby() {

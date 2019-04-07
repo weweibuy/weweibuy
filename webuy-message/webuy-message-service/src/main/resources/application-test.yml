@@ -136,7 +136,7 @@ sharding:
             table-strategy:
               inline:
                 sharding-column: message_correlation_id
-                algorithm-expression: webuy_message_$->{message_correlation_id % 3}
+                algorithm-expression: webuy_message_$->{message_correlation_id.hashCode() % 3}
             key-generator:
               column: message_correlation_id
               type: SNOWFLAKE
