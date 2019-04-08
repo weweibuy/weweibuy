@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.message.service.base;
 
 
-import com.weweibuy.webuy.common.dto.CommonPageResult;
+import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,7 +30,7 @@ public interface BaseService<T, V> {
 
     int updateByPrimaryKey(T t);
 
-    CommonPageResult selectPageList(Integer page, Integer rows);
+    List<WebuyMessage> selectPageList(Integer page, Integer rows);
 
 
 }

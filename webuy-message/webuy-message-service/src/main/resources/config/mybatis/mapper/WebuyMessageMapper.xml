@@ -16,6 +16,7 @@
     <result column="field3" jdbcType="VARCHAR" property="field3" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +79,7 @@
   <sql id="Base_Column_List">
     id, message_correlation_id, message_boby, message_queue, message_exchange, message_routing_key, 
     message_send_time, is_dead, message_status, field1, field2, field3, create_time, 
-    update_time
+    update_time, version
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessageExample" resultMap="BaseResultMap">
     select
@@ -115,12 +116,14 @@
       message_queue, message_exchange, message_routing_key, 
       message_send_time, is_dead, message_status, 
       field1, field2, field3, 
-      create_time, update_time)
+      create_time, update_time, version
+      )
     values (#{id,jdbcType=BIGINT}, #{messageCorrelationId,jdbcType=VARCHAR}, #{messageBoby,jdbcType=VARCHAR}, 
       #{messageQueue,jdbcType=VARCHAR}, #{messageExchange,jdbcType=VARCHAR}, #{messageRoutingKey,jdbcType=VARCHAR}, 
       #{messageSendTime,jdbcType=TINYINT}, #{isDead,jdbcType=TINYINT}, #{messageStatus,jdbcType=TINYINT}, 
       #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     insert into webuy_message
@@ -167,6 +170,9 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="version != null">
+        version,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -210,6 +216,9 @@
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -264,6 +273,9 @@
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -284,7 +296,8 @@
       field2 = #{record.field2,jdbcType=VARCHAR},
       field3 = #{record.field3,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -331,6 +344,9 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -348,7 +364,8 @@
       field2 = #{field2,jdbcType=VARCHAR},
       field3 = #{field3,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

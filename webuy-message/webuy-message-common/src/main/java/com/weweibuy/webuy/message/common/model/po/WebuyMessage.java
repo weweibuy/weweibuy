@@ -31,6 +31,8 @@ public class WebuyMessage {
 
     private Date updateTime;
 
+    private Integer version;
+
     public Long getId() {
         return id;
     }
@@ -141,5 +143,13 @@ public class WebuyMessage {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

@@ -75,7 +75,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         builder
                 .withClient("webuy")

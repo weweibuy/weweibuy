@@ -14,6 +14,7 @@ public enum CommonWebMsg implements WebCodeAndMsg {
     FAIL(0,"失败,未知错误"),
     FALL_BACK(2, "失败,fallback"),
     PARAM_WRONG(3, "输入参数错误"),
+    NO_RECORD(10001, "没有对应记录"),
     ;
 
     private Integer code;

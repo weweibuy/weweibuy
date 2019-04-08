@@ -3,7 +3,6 @@ package com.weweibuy.webuy.message.controller;
 import com.baidu.fsg.uid.UidGenerator;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.AsyncRabbitTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -36,28 +35,6 @@ public class HelloController {
     private AsyncRabbitTemplate asyncRabbitTemplate;
 
 
-    final RabbitTemplate.ConfirmCallback confirmCallback = new RabbitTemplate.ConfirmCallback() {
-        @Override
-        public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-            if(ack){
-                log.error("消息已确认, case={}", cause);
-                log.error("confirmCallback:{}", correlationData.toString());
-            }else {
-                log.error("消息未确认, case={}", cause);
-                log.error("confirmCallback:{}", correlationData.toString());
-            }
-        }
-    };
-
-    final RabbitTemplate.ReturnCallback returnCallback = new RabbitTemplate.ReturnCallback() {
-        @Override
-        public void returnedMessage(org.springframework.amqp.core.Message message, int replyCode, String replyText, String exchange, String routingKey) {
-            MessageProperties properties = message.getMessageProperties();
-            String id = properties.getCorrelationId();
-            log.error("消息无法送达指定队列，message={}", message.toString());
-
-        }
-    };
 
     @RequestMapping("/uid")
     public Long getUid(){
@@ -75,9 +52,6 @@ public class HelloController {
     @RequestMapping("/queue")
     public String helloQueue(){
 
-        rabbitTemplate.setConfirmCallback(confirmCallback);
-
-        rabbitTemplate.setReturnCallback(returnCallback);
         rabbitTemplate.convertAndSend("fanoutExchange", "", "hello.queue1",
                 new CorrelationData("111111232"));
         return "1";
@@ -103,10 +77,6 @@ public class HelloController {
     @RequestMapping("/queue2")
     public String helloQueue2(){
 
-        rabbitTemplate.setConfirmCallback(confirmCallback);
-
-        rabbitTemplate.setReturnCallback(returnCallback);
-
         rabbitTemplate.convertAndSend("topicExchange", "key.123", "hello.top",
                 new CorrelationData("111111232"));
         return "1";
@@ -114,11 +84,6 @@ public class HelloController {
 
     @RequestMapping("/queue3")
     public String helloQueue3(){
-
-        rabbitTemplate.setConfirmCallback(confirmCallback);
-
-        rabbitTemplate.setReturnCallback(returnCallback);
-
 
         rabbitTemplate.convertAndSend("directExchange", "key.#", "hello.directExchange",
                 new CorrelationData("111111232"));

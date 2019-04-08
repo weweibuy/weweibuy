@@ -1,11 +1,17 @@
 package com.weweibuy.webuy.message.common.model.dto;
 
+import com.weweibuy.webuy.common.response.WebCodeAndMsg;
+import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName MessageDto
@@ -35,5 +41,17 @@ public class MessageDto {
     @ApiModelProperty(value = "消息是状态")
     private Byte messageStatus;
 
+
+    public static MessageDto conventPoToDto(WebuyMessage webuyMessage){
+        MessageDto messageDto = new MessageDto();
+        BeanUtils.copyProperties(webuyMessage, messageDto);
+        return messageDto;
+    }
+
+    public static List<MessageDto> conventListPoToDto(List<WebuyMessage> list){
+        return list.stream()
+                .map(webuyMessage -> MessageDto.conventPoToDto(webuyMessage))
+                .collect(Collectors.toList());
+    }
 
 }
