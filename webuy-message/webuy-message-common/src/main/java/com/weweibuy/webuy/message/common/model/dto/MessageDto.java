@@ -1,6 +1,5 @@
 package com.weweibuy.webuy.message.common.model.dto;
 
-import com.weweibuy.webuy.common.response.WebCodeAndMsg;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
  * @ClassName MessageDto
  * @Description
  * @Author durenhao
- * @Date 2019/3/31 23:14
+ * @Date 2019/2/31 23:14
  **/
 @Data
 @NoArgsConstructor
@@ -38,7 +37,7 @@ public class MessageDto {
     @ApiModelProperty(value = "消息是否死亡")
     private Byte isDead;
 
-    @ApiModelProperty(value = "消息是状态")
+    @ApiModelProperty(value = "消息状态")
     private Byte messageStatus;
 
 

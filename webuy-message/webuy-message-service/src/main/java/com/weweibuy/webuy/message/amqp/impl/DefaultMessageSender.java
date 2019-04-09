@@ -2,7 +2,9 @@ package com.weweibuy.webuy.message.amqp.impl;
 
 import com.weweibuy.webuy.message.amqp.MessageSender;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
+import com.weweibuy.webuy.message.service.MessageManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author durenhao
- * @date 2019/4/8 23:22
+ * @date 2019/2/8 23:22
  **/
 @Slf4j
 @Component
@@ -20,6 +22,9 @@ public class DefaultMessageSender implements MessageSender, InitializingBean {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private MessageManager messageManager;
 
 
     /**
@@ -33,11 +38,9 @@ public class DefaultMessageSender implements MessageSender, InitializingBean {
         @Override
         public void confirm(CorrelationData correlationData, boolean ack, String cause) {
             if(ack){
-                log.error("消息已确认, case={}", cause);
                 log.error("confirmCallback:{}", correlationData.getId());
             }else {
-                log.error("消息未确认, case={}", cause);
-                log.error("confirmCallback:{}", correlationData.getId());
+                messageManager.execMessageNack(correlationData.getId());
             }
         }
     };
@@ -50,11 +53,10 @@ public class DefaultMessageSender implements MessageSender, InitializingBean {
      */
     final RabbitTemplate.ReturnCallback returnCallback = new RabbitTemplate.ReturnCallback() {
         @Override
-        public void returnedMessage(org.springframework.amqp.core.Message message, int replyCode, String replyText, String exchange, String routingKey) {
+        public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
             MessageProperties properties = message.getMessageProperties();
             String id = properties.getCorrelationId();
-            log.error("消息无法送达指定队列，message={}", message.toString());
-
+            messageManager.execMessageNack(id);
         }
     };
 
@@ -63,6 +65,7 @@ public class DefaultMessageSender implements MessageSender, InitializingBean {
         rabbitTemplate.convertAndSend(message.getMessageExchange(), message.getMessageRoutingKey(),
                 message.getMessageBoby(), new CorrelationData(message.getMessageCorrelationId()));
     }
+
 
     @Override
     public void afterPropertiesSet() throws Exception {

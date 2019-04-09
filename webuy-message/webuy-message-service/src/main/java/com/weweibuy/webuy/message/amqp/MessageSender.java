@@ -4,10 +4,11 @@ import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 
 /**
  * @author durenhao
- * @date 2019/4/8 23:21
+ * @date 2019/2/8 23:21
  **/
 public interface MessageSender {
 
-    public void send(WebuyMessage message);
+    void send(WebuyMessage message);
+
 
 }

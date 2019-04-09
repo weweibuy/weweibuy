@@ -3,10 +3,10 @@ package com.weweibuy.webuy.message.service;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessageExample;
-import com.weweibuy.webuy.message.common.model.vo.MessageVo;
+import com.weweibuy.webuy.message.common.model.vo.ConfirmMessageVo;
+import com.weweibuy.webuy.message.common.model.vo.PreSaveMessageVo;
 import com.weweibuy.webuy.message.service.base.BaseService;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -17,11 +17,11 @@ import java.util.List;
  **/
 public interface MessageService extends BaseService<WebuyMessage, WebuyMessageExample> {
 
-    void sendMessage(Long id, String correlationId);
+    WebuyMessage sendMessage(ConfirmMessageVo confirmMessageVo);
 
-    MessageDto preSaveMessage(MessageVo message);
+    MessageDto preSaveMessage(PreSaveMessageVo message);
 
-    void confirmMessage(@NotBlank String correlationId);
+    void confirmMessage(ConfirmMessageVo confirmMessageVo);
 
     WebuyMessage selectByDeliverCorrelationId(Long id, String correlationId);
 
@@ -29,6 +29,16 @@ public interface MessageService extends BaseService<WebuyMessage, WebuyMessageEx
 
     List<WebuyMessage> selectPageListWhereIsDead(Integer page, Integer row);
 
-    void reSendDeadMessage(Long id, String correlationId);
+    void reSendDeadMessage(ConfirmMessageVo confirmMessageVo);
+
+    void deleteBizFailMessage(ConfirmMessageVo confirmMessageVo);
+
+    WebuyMessage reSendMessage(ConfirmMessageVo confirmMessageVo);
+
+    /**
+     * 将消息变为死亡
+     * @param messageCorrelationId
+     */
+    void deadMessages(String messageCorrelationId);
 
 }

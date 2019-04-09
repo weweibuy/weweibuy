@@ -10,14 +10,14 @@ import org.springframework.beans.BeanUtils;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @ClassName MessageVo
+ * @ClassName PreSaveMessageVo
  * @Description
  * @Author durenhao
- * @Date 2019/3/31 22:20
+ * @Date 2019/2/31 22:20
  **/
 @Data
 @ApiModel("消息信息载体")
-public class MessageVo {
+public class PreSaveMessageVo {
 
     /**
      * 消息id

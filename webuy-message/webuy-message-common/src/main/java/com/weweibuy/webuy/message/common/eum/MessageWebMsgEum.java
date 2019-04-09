@@ -4,7 +4,7 @@ import com.weweibuy.webuy.common.response.WebCodeAndMsg;
 
 /**
  * @author durenhao
- * @date 2019/4/8 22:16
+ * @date 2019/2/8 22:16
  **/
 public enum MessageWebMsgEum implements WebCodeAndMsg {
     ;

@@ -7,7 +7,8 @@ import com.weweibuy.webuy.message.amqp.MessageSender;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessageExample;
-import com.weweibuy.webuy.message.common.model.vo.MessageVo;
+import com.weweibuy.webuy.message.common.model.vo.ConfirmMessageVo;
+import com.weweibuy.webuy.message.common.model.vo.PreSaveMessageVo;
 import com.weweibuy.webuy.message.exception.BizException;
 import com.weweibuy.webuy.message.service.MessageService;
 import com.weweibuy.webuy.message.service.base.impl.BaseServiceImpl;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -36,15 +36,15 @@ public class MessageServiceImpl extends BaseServiceImpl<WebuyMessage, WebuyMessa
 
     /**
      * 发送消息到 broker, 跟改消息为已发送
-     * @param id
+     * @param confirmMessageVo
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void sendMessage(Long id, String correlationId) {
+    public WebuyMessage sendMessage(ConfirmMessageVo confirmMessageVo) {
         WebuyMessageExample example = new WebuyMessageExample();
         WebuyMessageExample.Criteria criteria = example.createCriteria()
-                .andIdEqualTo(id)
-                .andMessageCorrelationIdEqualTo(correlationId);
+                .andIdEqualTo(confirmMessageVo.getId())
+                .andMessageCorrelationIdEqualTo(confirmMessageVo.getMessageCorrelationId());
         List<WebuyMessage> messageList = selectByExample(example);
         if(messageList.size() == 1) {
             WebuyMessage message = messageList.get(0);
@@ -52,11 +52,14 @@ public class MessageServiceImpl extends BaseServiceImpl<WebuyMessage, WebuyMessa
             message1.setMessageSendTime((byte)(message.getMessageSendTime() + 1));
             example.clear();
             example.createCriteria()
-                    .andIdEqualTo(id)
-                    .andMessageCorrelationIdEqualTo(correlationId);
+                    .andIdEqualTo(confirmMessageVo.getId())
+                    .andMessageCorrelationIdEqualTo(confirmMessageVo.getMessageCorrelationId());
             updateByExampleSelective(message, example);
+
             // 发送消息
             messageSender.send(message);
+            message.setMessageSendTime((byte)1);
+            return message;
         }
         throw new BizException("无法获取到消息");
     }
@@ -67,7 +70,7 @@ public class MessageServiceImpl extends BaseServiceImpl<WebuyMessage, WebuyMessa
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public MessageDto preSaveMessage(MessageVo message) {
+    public MessageDto preSaveMessage(PreSaveMessageVo message) {
         WebuyMessage webuyMessage = message.conventToPo();
         webuyMessage.setId(uidGenerator.getUID());
         insertSelective(webuyMessage);
@@ -81,9 +84,9 @@ public class MessageServiceImpl extends BaseServiceImpl<WebuyMessage, WebuyMessa
     }
 
     @Override
-    public void confirmMessage(@NotBlank String correlationId) {
+    public void confirmMessage(ConfirmMessageVo confirmMessageVo) {
         WebuyMessageExample example = new WebuyMessageExample();
-        example.createCriteria().andMessageCorrelationIdEqualTo(correlationId);
+        example.createCriteria().andMessageCorrelationIdEqualTo(confirmMessageVo.getMessageCorrelationId());
         deleteByExample(example);
     }
 
@@ -114,17 +117,58 @@ public class MessageServiceImpl extends BaseServiceImpl<WebuyMessage, WebuyMessa
     }
 
     @Override
-    public void reSendDeadMessage(Long id, String correlationId) {
+    @Transactional(rollbackFor = Exception.class)
+    public void reSendDeadMessage(ConfirmMessageVo confirmMessageVo) {
         WebuyMessageExample example = new WebuyMessageExample();
         example.createCriteria()
-                .andMessageCorrelationIdEqualTo(correlationId)
-                .andIdEqualTo(id);
+                .andMessageCorrelationIdEqualTo(confirmMessageVo.getMessageCorrelationId())
+                .andIdEqualTo(confirmMessageVo.getId());
         List<WebuyMessage> messageList = selectByExample(example);
         if(messageList.size() == 1){
             WebuyMessage message = messageList.get(0);
             // 重新发送
-
+            messageSender.send(message);
         }
     }
 
+    @Override
+    public void deleteBizFailMessage(ConfirmMessageVo confirmMessageVo) {
+        WebuyMessageExample example = new WebuyMessageExample();
+        example.createCriteria()
+                .andMessageCorrelationIdEqualTo(confirmMessageVo.getMessageCorrelationId());
+        deleteByExample(example);
+    }
+
+    @Override
+    public WebuyMessage reSendMessage(ConfirmMessageVo confirmMessageVo) {
+        WebuyMessageExample example = new WebuyMessageExample();
+        WebuyMessageExample.Criteria criteria = example.createCriteria()
+                .andIdEqualTo(confirmMessageVo.getId())
+                .andMessageCorrelationIdEqualTo(confirmMessageVo.getMessageCorrelationId());
+        List<WebuyMessage> messageList = selectByExample(example);
+        if(messageList.size() == 1) {
+            WebuyMessage message = messageList.get(0);
+            if(message.getMessageSendTime() == 3){
+                deadMessages(confirmMessageVo.getMessageCorrelationId());
+                message.setIsDead((byte) 1);
+                return message;
+            }else {
+                // 重发
+                messageSender.send(message);
+                message.setMessageSendTime((byte)(message.getMessageSendTime() + 1));
+                return message;
+            }
+        }
+        throw new BizException("无法获取到消息");
+    }
+
+
+    public void deadMessages(String messageCorrelationId){
+        WebuyMessageExample example = new WebuyMessageExample();
+        WebuyMessage message = new WebuyMessage();
+        message.setIsDead((byte)1);
+        example.createCriteria()
+                .andMessageCorrelationIdEqualTo(messageCorrelationId);
+        updateByExampleSelective(message, example);
+    }
 }

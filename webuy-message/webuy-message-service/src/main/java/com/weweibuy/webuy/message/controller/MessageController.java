@@ -4,7 +4,8 @@ import com.weweibuy.webuy.common.dto.CommonJsonResponse;
 import com.weweibuy.webuy.common.eum.CommonWebMsg;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
-import com.weweibuy.webuy.message.common.model.vo.MessageVo;
+import com.weweibuy.webuy.message.common.model.vo.ConfirmMessageVo;
+import com.weweibuy.webuy.message.common.model.vo.PreSaveMessageVo;
 import com.weweibuy.webuy.message.service.MessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,8 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -45,7 +44,7 @@ public class MessageController {
      */
     @PostMapping("/pre-save")
     @ApiOperation(value = "预存储消息", notes = "预存储消息，保存消息，消息状态为待确认")
-    public CommonJsonResponse<MessageDto> saveMessage(@RequestBody @Validated MessageVo message, BindingResult result) {
+    public CommonJsonResponse<MessageDto> saveMessage(@RequestBody @Validated PreSaveMessageVo message, BindingResult result) {
         if (result.hasErrors()) {
             return CommonJsonResponse.fail(CommonWebMsg.PARAM_WRONG).appendMsg(result);
         }
@@ -56,31 +55,71 @@ public class MessageController {
     /**
      * 上游业务处理成功，发送消息到broker接口
      *
+     * @param confirmMessageVo
+     * @param result
      * @return
      */
-    @PutMapping("/sendMessage")
+    @PutMapping("/send-message")
     @ApiOperation(value = "发送消息", notes = "游业务处理成功，发送消息到broker接口")
-    public CommonJsonResponse sendMessage(@ApiParam(name = "消息id", required = true) @Validated @NotNull Long id,
-                                          @ApiParam(name = "消息correlationId", required = true) @Validated @NotBlank String correlationId,
-                                          BindingResult result) {
+    public CommonJsonResponse<MessageDto> sendMessage(@RequestBody @Validated ConfirmMessageVo confirmMessageVo, BindingResult result) {
         if (result.hasErrors()) {
-            return CommonJsonResponse.fail(CommonWebMsg.PARAM_WRONG);
+            return CommonJsonResponse.fail(CommonWebMsg.PARAM_WRONG).appendMsg(result);
         }
-        messageService.sendMessage(id, correlationId);
-        return CommonJsonResponse.success();
+        WebuyMessage message = messageService.sendMessage(confirmMessageVo);
+        return CommonJsonResponse.success(MessageDto.conventPoToDto(message));
+    }
+
+    /**
+     * 重新发送消息
+     *
+     * @param confirmMessageVo
+     * @param result
+     * @return
+     */
+    @PutMapping("/re-send-message")
+    @ApiOperation(value = "重新发送消息", notes = "收到调度指令,重发消息")
+    public CommonJsonResponse<MessageDto> reSendMessage(@RequestBody @Validated ConfirmMessageVo confirmMessageVo, BindingResult result) {
+        if (result.hasErrors()) {
+            return CommonJsonResponse.fail(CommonWebMsg.PARAM_WRONG).appendMsg(result);
+        }
+        WebuyMessage message = messageService.reSendMessage(confirmMessageVo);
+        return CommonJsonResponse.success(MessageDto.conventPoToDto(message));
+    }
+
+
+    /**
+     * 上游业务失败,业务预存储的消息
+     *
+     * @param confirmMessageVo
+     * @param result
+     * @return
+     */
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "上游业务删除消息", notes = "上游业务失败,业务预存储的消息")
+    public CommonJsonResponse deleteBizFailMessage(@RequestBody @Validated ConfirmMessageVo confirmMessageVo,
+                                                   BindingResult result) {
+        if (result.hasErrors()) {
+            return CommonJsonResponse.fail(CommonWebMsg.PARAM_WRONG).appendMsg(result);
+        }
+        messageService.deleteBizFailMessage(confirmMessageVo);
+        return CommonJsonResponse.success(confirmMessageVo);
     }
 
     /**
      * 下游业务手动确认消息已经消费
      *
-     * @param correlationId
+     * @param confirmMessageVo
      * @return
      */
-    @DeleteMapping("/confirmMessage")
+    @DeleteMapping("/confirm-message")
     @ApiOperation(value = "确认并删除消息", notes = "下游业务手动确认消息已经消费")
-    public CommonJsonResponse<String> confirmMessage(@ApiParam(name = "消息correlationId", required = true) @Validated @NotBlank String correlationId) {
-        messageService.confirmMessage(correlationId);
-        return CommonJsonResponse.success(correlationId);
+    public CommonJsonResponse<MessageDto> confirmMessage(@RequestBody @Validated ConfirmMessageVo confirmMessageVo,
+                                                               BindingResult result) {
+        if (result.hasErrors()) {
+            return CommonJsonResponse.fail(CommonWebMsg.PARAM_WRONG).appendMsg(result);
+        }
+        messageService.confirmMessage(confirmMessageVo);
+        return CommonJsonResponse.success(confirmMessageVo);
     }
 
 
@@ -91,9 +130,9 @@ public class MessageController {
      * @param correlationId
      * @return
      */
-    @GetMapping("/correlationId/{id}/{correlationId}")
+    @GetMapping("/{id}/{correlationId}")
     @ApiOperation(value = "根据消息correlationId获取消息", notes = "根据消息correlationId获取消息")
-    public CommonJsonResponse<MessageDto> getMessageByDeliverTag(@ApiParam(name = "消息correlationId") @PathVariable Long id,
+    public CommonJsonResponse<MessageDto> getMessageByDeliverTag(@ApiParam(name = "消息id") @PathVariable Long id,
                                                                  @ApiParam(name = "消息correlationId") @PathVariable String correlationId) {
         WebuyMessage message = messageService.selectByDeliverCorrelationId(id, correlationId);
         return message != null ? CommonJsonResponse.success(MessageDto.conventPoToDto(message)) :
@@ -108,7 +147,7 @@ public class MessageController {
      * @param row
      * @return
      */
-    @GetMapping("/messages/page/{page}/row/{row}")
+    @GetMapping("/page/{page}/row/{row}")
     @ApiOperation(value = "分页获取未确认消息", notes = "分页获取未确认消息")
     public CommonJsonResponse<List<MessageDto>> getMessages(@ApiParam(name = "起始页数") @PathVariable Integer page,
                                                             @ApiParam(name = "每页条数") @PathVariable Integer row) {
@@ -132,11 +171,14 @@ public class MessageController {
      *
      * @return
      */
-    @PostMapping("/dead/send/{id}/{correlationId}")
+    @PostMapping("/dead/send")
     @ApiOperation(value = "重发死亡的消息", notes = "重发死亡的消息")
-    public CommonJsonResponse reSendDeadMessage(@ApiParam(name = "消息Id") @PathVariable Long id,
-                                                @ApiParam(name = "消息correlationId") @PathVariable String correlationId) {
-        messageService.reSendDeadMessage(id, correlationId);
+    public CommonJsonResponse reSendDeadMessage(@RequestBody @Validated ConfirmMessageVo confirmMessageVo,
+                                                BindingResult result) {
+        if (result.hasErrors()) {
+            return CommonJsonResponse.fail(CommonWebMsg.PARAM_WRONG).appendMsg(result);
+        }
+        messageService.reSendDeadMessage(confirmMessageVo);
         return CommonJsonResponse.success();
     }
 
