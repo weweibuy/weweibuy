@@ -1,15 +1,12 @@
 package com.weweibuy.webuy.message.client;
 
 import com.weweibuy.webuy.common.dto.CommonJsonResponse;
-import com.weweibuy.webuy.common.eum.CommonWebMsg;
 import com.weweibuy.webuy.message.client.fallback.MessageClientFallBack;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
-import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 import com.weweibuy.webuy.message.common.model.vo.ConfirmMessageVo;
 import com.weweibuy.webuy.message.common.model.vo.PreSaveMessageVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,7 +49,6 @@ public interface MessageClient {
      * 上游业务失败,业务预存储的消息
      *
      * @param confirmMessageVo
-     * @param result
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
@@ -87,7 +83,6 @@ public interface MessageClient {
      * @param row
      * @return
      */
-    @GetMapping("/page/{page}/row/{row}")
     @RequestMapping(value = "/page/{page}/row/{row}", method = RequestMethod.GET)
     public CommonJsonResponse<List<MessageDto>> getMessages(@PathVariable Integer page, @PathVariable Integer row);
 
@@ -104,8 +99,7 @@ public interface MessageClient {
      *
      * @return
      */
-    @PostMapping("/dead/send")
-    @RequestMapping(value = "/dead/send", method = RequestMethod.POST)
+    @RequestMapping(value = "/dead/send", method = RequestMethod.PUT)
     public CommonJsonResponse reSendDeadMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 }

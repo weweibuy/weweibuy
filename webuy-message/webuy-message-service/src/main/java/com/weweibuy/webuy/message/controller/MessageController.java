@@ -171,7 +171,7 @@ public class MessageController {
      *
      * @return
      */
-    @PostMapping("/dead/send")
+    @PutMapping("/dead/send")
     @ApiOperation(value = "重发死亡的消息", notes = "重发死亡的消息")
     public CommonJsonResponse reSendDeadMessage(@RequestBody @Validated ConfirmMessageVo confirmMessageVo,
                                                 BindingResult result) {
