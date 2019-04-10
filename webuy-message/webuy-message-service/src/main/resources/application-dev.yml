@@ -115,7 +115,7 @@ hystrix: #hystrix配置
 xxl:
   job:
     admin:
-      addresses: http://106.12.95.245:9301 #http://127.0.0.1:9301
+      addresses: http://localhost:9301 #http://127.0.0.1:9301
     executor:
       app-name: ${spring.application.name}
       ip: ${eureka.instance.ip-address}

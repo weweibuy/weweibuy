@@ -8,6 +8,8 @@
     <result column="message_queue" jdbcType="VARCHAR" property="messageQueue" />
     <result column="message_exchange" jdbcType="VARCHAR" property="messageExchange" />
     <result column="message_routing_key" jdbcType="VARCHAR" property="messageRoutingKey" />
+    <result column="upstream_confirm_addr" jdbcType="VARCHAR" property="upstreamConfirmAddr" />
+    <result column="downstream_comfirm_addr" jdbcType="VARCHAR" property="downstreamComfirmAddr" />
     <result column="message_send_time" jdbcType="TINYINT" property="messageSendTime" />
     <result column="is_dead" jdbcType="TINYINT" property="isDead" />
     <result column="message_status" jdbcType="TINYINT" property="messageStatus" />
@@ -78,8 +80,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, message_correlation_id, message_boby, message_queue, message_exchange, message_routing_key, 
-    message_send_time, is_dead, message_status, field1, field2, field3, create_time, 
-    update_time, version
+    upstream_confirm_addr, downstream_comfirm_addr, message_send_time, is_dead, message_status, 
+    field1, field2, field3, create_time, update_time, version
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessageExample" resultMap="BaseResultMap">
     select
@@ -114,12 +116,14 @@
   <insert id="insert" parameterType="com.weweibuy.webuy.message.common.model.po.WebuyMessage">
     insert into webuy_message (id, message_correlation_id, message_boby, 
       message_queue, message_exchange, message_routing_key, 
+      upstream_confirm_addr, downstream_comfirm_addr, 
       message_send_time, is_dead, message_status, 
       field1, field2, field3, 
       create_time, update_time, version
       )
     values (#{id,jdbcType=BIGINT}, #{messageCorrelationId,jdbcType=VARCHAR}, #{messageBoby,jdbcType=VARCHAR}, 
       #{messageQueue,jdbcType=VARCHAR}, #{messageExchange,jdbcType=VARCHAR}, #{messageRoutingKey,jdbcType=VARCHAR}, 
+      #{upstreamConfirmAddr,jdbcType=VARCHAR}, #{downstreamComfirmAddr,jdbcType=VARCHAR}, 
       #{messageSendTime,jdbcType=TINYINT}, #{isDead,jdbcType=TINYINT}, #{messageStatus,jdbcType=TINYINT}, 
       #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}
@@ -145,6 +149,12 @@
       </if>
       <if test="messageRoutingKey != null">
         message_routing_key,
+      </if>
+      <if test="upstreamConfirmAddr != null">
+        upstream_confirm_addr,
+      </if>
+      <if test="downstreamComfirmAddr != null">
+        downstream_comfirm_addr,
       </if>
       <if test="messageSendTime != null">
         message_send_time,
@@ -192,6 +202,12 @@
       </if>
       <if test="messageRoutingKey != null">
         #{messageRoutingKey,jdbcType=VARCHAR},
+      </if>
+      <if test="upstreamConfirmAddr != null">
+        #{upstreamConfirmAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="downstreamComfirmAddr != null">
+        #{downstreamComfirmAddr,jdbcType=VARCHAR},
       </if>
       <if test="messageSendTime != null">
         #{messageSendTime,jdbcType=TINYINT},
@@ -249,6 +265,12 @@
       <if test="record.messageRoutingKey != null">
         message_routing_key = #{record.messageRoutingKey,jdbcType=VARCHAR},
       </if>
+      <if test="record.upstreamConfirmAddr != null">
+        upstream_confirm_addr = #{record.upstreamConfirmAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downstreamComfirmAddr != null">
+        downstream_comfirm_addr = #{record.downstreamComfirmAddr,jdbcType=VARCHAR},
+      </if>
       <if test="record.messageSendTime != null">
         message_send_time = #{record.messageSendTime,jdbcType=TINYINT},
       </if>
@@ -289,6 +311,8 @@
       message_queue = #{record.messageQueue,jdbcType=VARCHAR},
       message_exchange = #{record.messageExchange,jdbcType=VARCHAR},
       message_routing_key = #{record.messageRoutingKey,jdbcType=VARCHAR},
+      upstream_confirm_addr = #{record.upstreamConfirmAddr,jdbcType=VARCHAR},
+      downstream_comfirm_addr = #{record.downstreamComfirmAddr,jdbcType=VARCHAR},
       message_send_time = #{record.messageSendTime,jdbcType=TINYINT},
       is_dead = #{record.isDead,jdbcType=TINYINT},
       message_status = #{record.messageStatus,jdbcType=TINYINT},
@@ -319,6 +343,12 @@
       </if>
       <if test="messageRoutingKey != null">
         message_routing_key = #{messageRoutingKey,jdbcType=VARCHAR},
+      </if>
+      <if test="upstreamConfirmAddr != null">
+        upstream_confirm_addr = #{upstreamConfirmAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="downstreamComfirmAddr != null">
+        downstream_comfirm_addr = #{downstreamComfirmAddr,jdbcType=VARCHAR},
       </if>
       <if test="messageSendTime != null">
         message_send_time = #{messageSendTime,jdbcType=TINYINT},
@@ -357,6 +387,8 @@
       message_queue = #{messageQueue,jdbcType=VARCHAR},
       message_exchange = #{messageExchange,jdbcType=VARCHAR},
       message_routing_key = #{messageRoutingKey,jdbcType=VARCHAR},
+      upstream_confirm_addr = #{upstreamConfirmAddr,jdbcType=VARCHAR},
+      downstream_comfirm_addr = #{downstreamComfirmAddr,jdbcType=VARCHAR},
       message_send_time = #{messageSendTime,jdbcType=TINYINT},
       is_dead = #{isDead,jdbcType=TINYINT},
       message_status = #{messageStatus,jdbcType=TINYINT},

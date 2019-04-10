@@ -2,7 +2,7 @@ package com.weweibuy.webuy.message.amqp.impl;
 
 import com.weweibuy.webuy.message.amqp.MessageSender;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
-import com.weweibuy.webuy.message.service.MessageManager;
+import com.weweibuy.webuy.message.service.MessageAckManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -24,7 +24,7 @@ public class DefaultMessageSender implements MessageSender, InitializingBean {
     private RabbitTemplate rabbitTemplate;
 
     @Autowired
-    private MessageManager messageManager;
+    private MessageAckManager messageAckManager;
 
 
     /**
@@ -40,7 +40,7 @@ public class DefaultMessageSender implements MessageSender, InitializingBean {
             if(ack){
                 log.error("confirmCallback:{}", correlationData.getId());
             }else {
-                messageManager.execMessageNack(correlationData.getId());
+                messageAckManager.execMessageNack(correlationData.getId());
             }
         }
     };
@@ -56,7 +56,7 @@ public class DefaultMessageSender implements MessageSender, InitializingBean {
         public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
             MessageProperties properties = message.getMessageProperties();
             String id = properties.getCorrelationId();
-            messageManager.execMessageNack(id);
+            messageAckManager.execMessageNack(id);
         }
     };
 

@@ -3,7 +3,7 @@ package com.weweibuy.webuy.message.service.impl;
 import com.netflix.discovery.converters.Auto;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
 import com.weweibuy.webuy.message.common.model.po.WebuyMessageExample;
-import com.weweibuy.webuy.message.service.MessageManager;
+import com.weweibuy.webuy.message.service.MessageAckManager;
 import com.weweibuy.webuy.message.service.MessageService;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2019/4/9 22:43
  **/
 @Component
-public class MessageManagerImpl implements MessageManager {
+public class MessageAckManagerImpl implements MessageAckManager {
 
     @Auto
     private MessageService messageService;

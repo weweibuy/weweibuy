@@ -5,6 +5,7 @@ import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.JobHandler;
 import com.xxl.job.core.log.XxlJobLogger;
 import com.xxl.job.core.util.ShardingUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
  *
  * @author xuxueli 2017-07-25 20:56:50
  */
+@Slf4j
 @JobHandler(value="shardingJobHandler")
 @Service
 public class ShardingJobHandler extends IJobHandler {
@@ -23,13 +25,18 @@ public class ShardingJobHandler extends IJobHandler {
 		// 分片参数
 		ShardingUtil.ShardingVO shardingVO = ShardingUtil.getShardingVo();
 		XxlJobLogger.log("分片参数：当前分片序号 = {0}, 总分片数 = {1}", shardingVO.getIndex(), shardingVO.getTotal());
+		log.error("分片参数：当前分片序号 = {0}, 总分片数 = {1}", shardingVO.getIndex(), shardingVO.getTotal());
 
 		// 业务逻辑
 		for (int i = 0; i < shardingVO.getTotal(); i++) {
 			if (i == shardingVO.getIndex()) {
-				XxlJobLogger.log("第 {0} 片, 命中分片开始处理", i);
+				log.error("第 {0} 片, 命中分片开始处理", i);
+//				XxlJobLogger.log("第 {0} 片, 命中分片开始处理", i);
 			} else {
-				XxlJobLogger.log("第 {0} 片, 忽略", i);
+				log.error("第 {0} 片, 命中分片开始处理", i);
+
+//				XxlJobLogger.log("第 {0} 片, 忽略", i);
+
 			}
 		}
 

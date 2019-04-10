@@ -515,6 +515,146 @@ public class WebuyMessageExample {
             return (Criteria) this;
         }
 
+        public Criteria andUpstreamConfirmAddrIsNull() {
+            addCriterion("upstream_confirm_addr is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrIsNotNull() {
+            addCriterion("upstream_confirm_addr is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrEqualTo(String value) {
+            addCriterion("upstream_confirm_addr =", value, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrNotEqualTo(String value) {
+            addCriterion("upstream_confirm_addr <>", value, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrGreaterThan(String value) {
+            addCriterion("upstream_confirm_addr >", value, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrGreaterThanOrEqualTo(String value) {
+            addCriterion("upstream_confirm_addr >=", value, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrLessThan(String value) {
+            addCriterion("upstream_confirm_addr <", value, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrLessThanOrEqualTo(String value) {
+            addCriterion("upstream_confirm_addr <=", value, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrLike(String value) {
+            addCriterion("upstream_confirm_addr like", value, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrNotLike(String value) {
+            addCriterion("upstream_confirm_addr not like", value, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrIn(List<String> values) {
+            addCriterion("upstream_confirm_addr in", values, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrNotIn(List<String> values) {
+            addCriterion("upstream_confirm_addr not in", values, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrBetween(String value1, String value2) {
+            addCriterion("upstream_confirm_addr between", value1, value2, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpstreamConfirmAddrNotBetween(String value1, String value2) {
+            addCriterion("upstream_confirm_addr not between", value1, value2, "upstreamConfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrIsNull() {
+            addCriterion("downstream_comfirm_addr is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrIsNotNull() {
+            addCriterion("downstream_comfirm_addr is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrEqualTo(String value) {
+            addCriterion("downstream_comfirm_addr =", value, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrNotEqualTo(String value) {
+            addCriterion("downstream_comfirm_addr <>", value, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrGreaterThan(String value) {
+            addCriterion("downstream_comfirm_addr >", value, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrGreaterThanOrEqualTo(String value) {
+            addCriterion("downstream_comfirm_addr >=", value, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrLessThan(String value) {
+            addCriterion("downstream_comfirm_addr <", value, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrLessThanOrEqualTo(String value) {
+            addCriterion("downstream_comfirm_addr <=", value, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrLike(String value) {
+            addCriterion("downstream_comfirm_addr like", value, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrNotLike(String value) {
+            addCriterion("downstream_comfirm_addr not like", value, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrIn(List<String> values) {
+            addCriterion("downstream_comfirm_addr in", values, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrNotIn(List<String> values) {
+            addCriterion("downstream_comfirm_addr not in", values, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrBetween(String value1, String value2) {
+            addCriterion("downstream_comfirm_addr between", value1, value2, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownstreamComfirmAddrNotBetween(String value1, String value2) {
+            addCriterion("downstream_comfirm_addr not between", value1, value2, "downstreamComfirmAddr");
+            return (Criteria) this;
+        }
+
         public Criteria andMessageSendTimeIsNull() {
             addCriterion("message_send_time is null");
             return (Criteria) this;

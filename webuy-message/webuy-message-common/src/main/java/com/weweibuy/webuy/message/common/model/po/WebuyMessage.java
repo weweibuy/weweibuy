@@ -15,6 +15,10 @@ public class WebuyMessage {
 
     private String messageRoutingKey;
 
+    private String upstreamConfirmAddr;
+
+    private String downstreamComfirmAddr;
+
     private Byte messageSendTime;
 
     private Byte isDead;
@@ -79,6 +83,22 @@ public class WebuyMessage {
 
     public void setMessageRoutingKey(String messageRoutingKey) {
         this.messageRoutingKey = messageRoutingKey == null ? null : messageRoutingKey.trim();
+    }
+
+    public String getUpstreamConfirmAddr() {
+        return upstreamConfirmAddr;
+    }
+
+    public void setUpstreamConfirmAddr(String upstreamConfirmAddr) {
+        this.upstreamConfirmAddr = upstreamConfirmAddr == null ? null : upstreamConfirmAddr.trim();
+    }
+
+    public String getDownstreamComfirmAddr() {
+        return downstreamComfirmAddr;
+    }
+
+    public void setDownstreamComfirmAddr(String downstreamComfirmAddr) {
+        this.downstreamComfirmAddr = downstreamComfirmAddr == null ? null : downstreamComfirmAddr.trim();
     }
 
     public Byte getMessageSendTime() {

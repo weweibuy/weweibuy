@@ -42,6 +42,17 @@ public class PreSaveMessageVo {
     @ApiModelProperty(value = "消息路由键", example = "key.#")
     private String messageRoutingKey;
 
+    @NotBlank(message = "上游确认地址")
+    @Length(min = 0, max = 63, message = "上游确认地址长度错误")
+    @ApiModelProperty(value = "上游确认地址;不能为空最大长度63", example = "localhost:8080/confirm", required = true)
+    private String upstreamConfirmAddr;
+
+    @NotBlank(message = "下游确认地址")
+    @Length(min = 0, max = 63, message = "下游确认地址长度错误")
+    @ApiModelProperty(value = "下游确认地址;不能为空最大长度63", example = "localhost:8080/confirm", required = true)
+    private String downstreamComfirmAddr;
+
+
     public WebuyMessage conventToPo(){
         WebuyMessage webuyMessage = new WebuyMessage();
         BeanUtils.copyProperties(this, webuyMessage);
