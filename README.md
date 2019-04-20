@@ -1,5 +1,5 @@
 # weweibuy
-基于Springboot和SpringCloud模拟电商网站(开发中);使用SpringbootAdmin管理微服务,集成xxl-job分布式任务调度中心;Oauth2+zuul做服务的鉴权与转发
+Springboot和SpringCloud的样例工程;使用SpringbootAdmin管理微服务,集成xxl-job分布式任务调度中心;Oauth2+zuul做服务的鉴权与转发
 目录结构:  
 ├─weweibuy  
 │  ├─webuy-admin  -------------------Spring-Boot-Admin微服务管理中心----100%  
