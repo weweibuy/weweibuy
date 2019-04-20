@@ -3,6 +3,8 @@ package com.weweibuy.webuy.support.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,6 +72,7 @@ public class HelloWorldController {
     }
 
     @Async
+    @Retryable(backoff = @Backoff())
     public String noHello(String id){
         log.error("业务fall back");
         return "no.. hello.. " + id;

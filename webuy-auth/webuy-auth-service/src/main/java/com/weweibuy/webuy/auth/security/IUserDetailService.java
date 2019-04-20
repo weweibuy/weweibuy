@@ -1,6 +1,8 @@
 package com.weweibuy.webuy.auth.security;
 
 import com.weweibuy.webuy.common.eum.CommonStatus;
+import com.weweibuy.webuy.common.eum.CommonWebMsg;
+import com.weweibuy.webuy.common.exception.NetWorkFallBackException;
 import com.weweibuy.webuy.user.client.UserClient;
 import com.weweibuy.webuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.webuy.user.common.model.po.WebuyUser;
@@ -48,10 +50,17 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("【安全服务】：登录用户名{}", username);
         UserWebResult userWebResult = userClient.loadUserByUsername(username);
-        if(userWebResult.getStatus().equals(CommonStatus.SUCCESS.toString())){
-            return new User(username, ((WebuyUser)userWebResult.getData()).getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
+        CommonStatus commonStatus = CommonStatus.valueOf(userWebResult.getStatus());
+        switch (commonStatus){
+            case SUCCESS:
+                return new User(username, ((WebuyUser)userWebResult.getData()).getPassword(),
+                        AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
+            default:
+                if(userWebResult.getCode().equals(CommonWebMsg.FALL_BACK.getCode())){
+                    throw new NetWorkFallBackException(CommonWebMsg.FALL_BACK.getMsg());
+                }
+                return null;
         }
-        return null;
     }
 
     /**

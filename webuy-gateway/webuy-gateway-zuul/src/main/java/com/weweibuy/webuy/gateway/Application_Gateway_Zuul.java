@@ -20,9 +20,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableDiscoveryClient
 //@EnableOAuth2Sso // 代理客户端进行权限认证
 @EnableResourceServer //  zuul代理所有资源服务
-public class Application_Gateway {
+public class Application_Gateway_Zuul {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application_Gateway.class, args);
+        SpringApplication.run(Application_Gateway_Zuul.class, args);
     }
 }

@@ -1,8 +1,17 @@
 package com.weweibuy.webuy.message.service.impl;
 
+import com.weweibuy.webuy.message.common.model.po.WebuyMessage;
+import com.weweibuy.webuy.message.common.model.po.WebuyMessageExample;
+import com.weweibuy.webuy.message.mapper.WebuyMessageMapper;
 import com.weweibuy.webuy.message.service.MessageConfirmService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author durenhao
@@ -11,6 +20,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class MessageConfirmServiceImpl implements MessageConfirmService {
+
+    @Autowired
+    private WebuyMessageMapper messageMapper;
 
     /**
      * 时间间隔
@@ -25,6 +37,14 @@ public class MessageConfirmServiceImpl implements MessageConfirmService {
          * 3.上游不存在则删除; 存在则发送
          *
          */
+        WebuyMessageExample example = new WebuyMessageExample();
+        LocalDateTime dateTime = LocalDateTime.now()
+                .minus(CONFIRM_TIME, ChronoUnit.SECONDS);
+        example.createCriteria()
+                .andCreateTimeLessThan(new Date())
+                .andMessageStatusEqualTo((byte)0);
+        List<WebuyMessage> messageList = messageMapper.selectByExample(example);
+
 
     }
 
@@ -37,6 +57,5 @@ public class MessageConfirmServiceImpl implements MessageConfirmService {
          *    成功则删除,不成功判断发送次数,进行重发
          *
          */
-
     }
 }

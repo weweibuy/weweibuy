@@ -8,6 +8,7 @@ import com.xxl.job.core.util.ShardingUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 未确认消息job
@@ -29,7 +30,7 @@ public class MessageNotConfirmJob extends IJobHandler{
     @Override
     public ReturnT<String> execute(String param) throws Exception {
         ShardingUtil.ShardingVO shardingVO = ShardingUtil.getShardingVo();
-
+        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         return null;
     }
 }

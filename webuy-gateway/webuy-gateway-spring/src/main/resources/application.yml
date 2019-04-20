@@ -1,0 +1,11 @@
+
+
+spring:
+   profiles:
+     active: ${profileActive}
+   application:
+     name: webuy-gateway-spring
+
+logging:
+  config: classpath:config/logback/logback-spring.xml
+
