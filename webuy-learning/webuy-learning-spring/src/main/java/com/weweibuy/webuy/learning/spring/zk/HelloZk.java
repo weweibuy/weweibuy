@@ -1,11 +1,14 @@
 package com.weweibuy.webuy.learning.spring.zk;
 
+import com.weweibuy.webuy.learning.spring.zk.session.ZkSessionHolder;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.zookeeper.*;
+import org.I0Itec.zkclient.IZkDataListener;
+import org.I0Itec.zkclient.ZkClient;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.data.Stat;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.CountDownLatch;
 
 /**
  * @ClassName HelloZk
@@ -15,60 +18,78 @@ import java.util.concurrent.CountDownLatch;
  **/
 @Slf4j
 @RestController
+@RequestMapping("/zk")
 public class HelloZk {
 
-    private static ZooKeeper zookeeper;
+    @RequestMapping("/lock-p")
+    public String helloZk(String node) {
+        ZkClient zkClient = ZkSessionHolder.getZooKeeper();
+        zkClient.createPersistent("/test/lock-" + node, true);
+        return "zk..";
+    }
 
-    private static CountDownLatch countDownLatch = new CountDownLatch(1);
-
-     static {
-         try {
-             zookeeper = new ZooKeeper("106.12.95.245:2181", 5000,
-                     new ZooKeeperWatcher());
-             log.info(zookeeper.getState().toString());
-             String s = "";
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-     }
-
-     @RequestMapping("/zk/lock")
-    public String helloZk(){
+    @RequestMapping("/lock")
+    public String helloZk2(String node) {
+        ZkClient zkClient = ZkSessionHolder.getZooKeeper();
         try {
-            zookeeper.create("/test-lock", "".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-            log.info("成功创建节点.....");
-        } catch (KeeperException e) { //  没有获取到锁
-            e.printStackTrace();
-            return "未获取到锁 KeeperException";
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return "未获取到锁 InterruptedException";
-        }
-        log.info("删除锁.....");
-        try {
-            zookeeper.delete("/test-lock", -1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return "删除锁失败";
-        } catch (KeeperException e) {
-            e.printStackTrace();
-            return "删除锁失败";
+            zkClient.create("/test/lock-" + node, System.currentTimeMillis(), CreateMode.EPHEMERAL);
+        } catch (Exception e) {
+            if (e instanceof KeeperException.NodeExistsException) {
+                return "fail get lock";
+            }
         }
         return "zk..";
     }
 
-    private static class ZooKeeperWatcher implements Watcher{
+    @RequestMapping("/get-data")
+    public String helloZk3(String node) {
+        ZkClient zkClient = ZkSessionHolder.getZooKeeper();
+        Object o = zkClient.readData("/test/lock-" + node);
+        Stat stat = new Stat();
+        zkClient.readData("/test/lock-" + node, stat);
 
-        @Override
-        public void process(WatchedEvent watchedEvent) {
-            log.info(watchedEvent.getState().toString());
-            if(Event.KeeperState.SyncConnected == watchedEvent.getState()){
-                log.info("connected.....");
-            }else {
-                log.info("unconnected!!!!");
+        int version = stat.getVersion();
+
+        log.error("节点数据: {}, 版本: {}", o, version);
+        return o.toString();
+    }
+
+    @RequestMapping("/write-data-version")
+    public String helloZk4(String node) {
+        ZkClient zkClient = ZkSessionHolder.getZooKeeper();
+
+
+        Object readData = zkClient.readData("/test/lock-" + node);
+        zkClient.writeData("/test/lock-" + node, System.currentTimeMillis(), 7);
+        return "success";
+    }
+
+    @RequestMapping("/write-data")
+    public String helloZk5(String node) {
+        ZkClient zkClient = ZkSessionHolder.getZooKeeper();
+        Object readData = zkClient.readData("/test/lock-" + node);
+        zkClient.writeData("/test/lock-" + node, System.currentTimeMillis());
+        return "success";
+    }
+
+
+    @RequestMapping("/add-observer")
+    public String helloZk6(String node) {
+        ZkClient zkClient = ZkSessionHolder.getZooKeeper();
+        Object readData = zkClient.readData("/test/lock-" + node);
+        zkClient.subscribeDataChanges("/test/lock-" + node, new IZkDataListener() {
+            @Override
+            public void handleDataChange(String dataPath, Object data) throws Exception {
+                log.info("dataPath: {}; 数据变为: {}", dataPath, data);
             }
 
-        }
+            @Override
+            public void handleDataDeleted(String dataPath) throws Exception {
+
+            }
+        });
+
+        return "success";
     }
 
 }
