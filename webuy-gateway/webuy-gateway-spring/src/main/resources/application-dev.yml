@@ -13,18 +13,47 @@ spring:
   sleuth:
     sampler:
       probability: 0.5 #收集比例
+  redis:
+    timeout: 5000 # 连接超时时间（毫秒）
+    database: 4 # Redis数据库索引（默认为0）
+    host: 47.99.129.104  #Redis服务器地址
+    port: 6379 # Redis服务器连接端口
+    password: ak402507979 # Redis服务器连接密码（默认为空）
+    jedis:
+      pool:
+        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 3 # 连接池中的最大空闲连接
+        max-wait: 5000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        min-idle: 2 # 连接池中的最小空闲连接
+
   cloud:
     gateway:
       routes:
-        - id: auth_0
-          uri: lb://auth
-          predicates:
-            - path=/auth/**
-        - id: cnblogs
-          uri: https://www.cnblogs.com
-          predicates:
-            - path=/cnblogs/**
-
+#      - id: auth_0
+#        uri: lb://webuy-auth  # lb 开头为 eureka 注册的实例
+#        predicates:
+#        - Path=/auth/** # Path 要大写
+#        filters:
+#        - StripPrefix=1 #忽略前缀 个数
+#        - name: RequestRateLimiter
+#          args:
+#            redis-rate-limiter.replenishRate: 2
+#            redis-rate-limiter.burstCapacity: 4
+#            key-resolver: "#{@apiKeyResolver}"
+      - id: cnblogs
+        uri: https://www.cnblogs.com
+        predicates:
+        - Path=/csdn/cnblogs/**
+        filters:
+        - StripPrefix=2
+#      - id: learm-spring
+#        uri: lb://learning-spring
+#        predicates:
+#        - Path=/learn-spring/**
+#        filters:
+#        - StripPrefix=1
+#        - PrefixPath=/api/v1
+#        - RewritePath=/learn-spring, /api/v1
 
 
 eureka:
@@ -53,7 +82,17 @@ hystrix: #hystrix配置
          enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 15000
+            timeoutInMilliseconds: 5000
+      circuitBreaker:
+        sleepWindowInMilliseconds: 1000 #断路器恢复时间
+        errorThresholdPercentage: 80  #触发短路,失败百分比
+    learn-spring:
+      execution:
+        timeout:
+         enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
       circuitBreaker:
         sleepWindowInMilliseconds: 1000 #断路器恢复时间
         errorThresholdPercentage: 80  #触发短路,失败百分比

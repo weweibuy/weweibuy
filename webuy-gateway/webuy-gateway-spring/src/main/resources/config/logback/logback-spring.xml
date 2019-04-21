@@ -21,6 +21,10 @@
         <logger name="o.s.b.f.s" level="INFO"/>
         <logger name="o.s.d.redis.core" level="INFO"/>
         <logger name="c.netflix.loadbalancer" level="INFO"/>
+        <logger name="o.s.b.f.s.DefaultListableBeanFactory" level="INFO"/>
+        <logger name="r.ipc.netty.http.server.HttpServer" level="INFO"/>
+        <logger name="o.s.c.s.z.s.ZipkinRestTemplateWrapper " level="INFO"/>
+        <logger name="o.s.b.f.s.DefaultListableBeanFactory" level="INFO"/>
     </springProfile>
     <springProfile name="test">
         <property name="log.path" value="/logs/${app_name}/pmp" />
@@ -193,7 +197,7 @@
     <!--4. 最终的策略-->
     <!--4.1 开发环境:打印控制台-->
     <springProfile name="dev">
-        <root level="debug">
+        <root level="info">
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="DEBUG_FILE" />
             <appender-ref ref="INFO_FILE" />

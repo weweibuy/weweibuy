@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.weweibuy.webuy.common.dto.CommonJsonResponse;
 import com.weweibuy.webuy.gateway.eum.ResourcesWebMsg;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -27,14 +25,11 @@ import java.io.IOException;
  **/
 @Slf4j
 @Component
-@PropertySource("classpath:application.yml")
 @ConfigurationProperties(prefix = "security.oauth2.client")
 public class IAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    @Value("${user-authorization-uri}")
     private String userAuthorizationUri;
 
-    @Value("${client-id}")
     private String clientId;
 
 
