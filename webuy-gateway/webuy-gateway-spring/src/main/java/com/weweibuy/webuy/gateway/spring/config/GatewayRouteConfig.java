@@ -5,7 +5,8 @@ import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 import com.netflix.hystrix.HystrixObservableCommand;
 import com.weweibuy.webuy.gateway.spring.routes.dynamic.RedisStoreDynamicRoutes;
-import com.weweibuy.webuy.gateway.spring.security.AuthenticationFilter;
+import com.weweibuy.webuy.gateway.spring.security.AuthenticationGatewayFilterFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -21,6 +22,9 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class GatewayRouteConfig {
 
+    @Autowired
+    private AuthenticationGatewayFilterFactory authenticationGatewayFilterFactory;
+
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         // GatewayFilterSpec 的顺序都是0
@@ -35,7 +39,7 @@ public class GatewayRouteConfig {
                                 .requestRateLimiter(limit -> limit
                                         .setRateLimiter(redisRateLimiter())
                                         .setKeyResolver(apiKeyResolver()))
-                                .filter(new AuthenticationFilter()))
+                                .filter(authenticationGatewayFilterFactory))
                         .uri("lb://learning-spring")).build();
         return routeLocator;
     }

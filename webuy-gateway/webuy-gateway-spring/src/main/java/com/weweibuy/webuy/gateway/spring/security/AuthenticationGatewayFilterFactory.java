@@ -6,24 +6,39 @@ import com.weweibuy.webuy.common.eum.CommonWebMsg;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
  * @author durenhao
- * @date 2019/4/21 19:17
+ * @date 2019/4/23 22:17
  **/
 @Slf4j
-public class AuthenticationFilter implements GatewayFilter, Ordered {
+@Component
+public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFactory implements GatewayFilter, Ordered {
+
+
+    @Override
+    public GatewayFilter apply(Object config) {
+        return (exchange, chain) -> {
+           return action(exchange, chain);
+        };
+    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        return action(exchange, chain);
+    }
+
+    public Mono<Void> action(ServerWebExchange exchange, GatewayFilterChain chain){
         ServerHttpRequest request = exchange.getRequest();
         HttpHeaders headers = request.getHeaders();
         log.error("进入 AuthenticationFilter, path:{}", request.getPath());

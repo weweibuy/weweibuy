@@ -50,7 +50,11 @@ public class DynamicRoutesController {
         filterParams.put("_genkey_0", "1");
         filter.setArgs(filterParams);
 
-        definition.setFilters(Arrays.asList(filter));
+        FilterDefinition filter1 = new FilterDefinition();
+        filter1.setName("Authentication");
+
+
+        definition.setFilters(Arrays.asList(filter, filter1));
 
         redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_0", JSON.toJSONString(definition));
 
