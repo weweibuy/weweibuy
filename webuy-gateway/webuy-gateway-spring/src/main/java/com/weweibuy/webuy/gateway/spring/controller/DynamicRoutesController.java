@@ -44,17 +44,33 @@ public class DynamicRoutesController {
 
         definition.setPredicates(Arrays.asList(predicate));
 
+        // 路由
         FilterDefinition filter = new FilterDefinition();
         filter.setName("StripPrefix");
         Map<String, String> filterParams = new HashMap<>(4);
         filterParams.put("_genkey_0", "1");
         filter.setArgs(filterParams);
 
+        // 权限
         FilterDefinition filter1 = new FilterDefinition();
+        Map<String, String> filterParams1 = new HashMap<>(4);
         filter1.setName("Authentication");
+        filterParams1.put("app_key", "123");
+        filter1.setArgs(filterParams1);
+
+        // 限流
+        FilterDefinition filter2 = new FilterDefinition();
+        filter2.setName("RequestRateLimiter");
+        Map<String, String> filterParams2 = new HashMap<>(8);
+        filterParams2.put("redis-rate-limiter.replenishRate", "1");
+        filterParams2.put("redis-rate-limiter.burstCapacity", "10");
+        filterParams2.put("key-resolver", "#{@apiKeyResolver}");
+        filterParams2.put("order", "0");
+        filter2.setArgs(filterParams2);
 
 
-        definition.setFilters(Arrays.asList(filter, filter1));
+        // 这个顺序会影响过滤器的执行顺序 实现order 接口没用 !!!!!!!!!!!
+        definition.setFilters(Arrays.asList(filter, filter2, filter1));
 
         redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_0", JSON.toJSONString(definition));
 
