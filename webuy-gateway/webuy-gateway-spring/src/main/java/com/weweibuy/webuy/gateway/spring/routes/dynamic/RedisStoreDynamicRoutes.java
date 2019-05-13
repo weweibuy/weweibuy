@@ -26,8 +26,11 @@ public class RedisStoreDynamicRoutes implements RouteDefinitionRepository {
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
         List<RouteDefinition> routeDefinitions = new ArrayList<>();
+
+
         redisTemplate.opsForHash().values(GatewayRouteConstant.GATEWAY_ROUTES).stream()
                 .forEach(routeDefinition -> routeDefinitions.add(JSON.parseObject(routeDefinition.toString(), RouteDefinition.class)));
+
         return Flux.fromIterable(routeDefinitions);
     }
 

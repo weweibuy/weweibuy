@@ -50,6 +50,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure (HttpSecurity http) throws Exception{
+
+        HttpSecurity and = http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).
+                formLogin()
+                .loginPage("http://localhost:8080/auth/login")
+                .and();
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).
             formLogin()  // 登录方式
                 // 在使用zuul代理之后,这里的登录地址使用uri将直接暴露ip

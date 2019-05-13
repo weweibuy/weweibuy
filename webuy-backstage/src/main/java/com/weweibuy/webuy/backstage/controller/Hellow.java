@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +50,7 @@ public class Hellow {
     }
 
     @GetMapping("/cache/users")
-    @Cacheable(key = "#root.methodName+ '[' + #name + ']'")
+//    @Cacheable(key = "#root.methodName+ '[' + #name + ']'")
     public List users(String name){
         return userService.selectByExample(null);
     }

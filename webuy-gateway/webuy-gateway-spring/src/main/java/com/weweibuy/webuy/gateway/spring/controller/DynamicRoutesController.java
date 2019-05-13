@@ -35,6 +35,20 @@ public class DynamicRoutesController {
         RouteDefinition definition = new RouteDefinition();
         definition.setId("auth_0");
         definition.setUri(UriComponentsBuilder.fromUriString("lb://webuy-auth").build().toUri());
+        definition.setOrder(1);
+
+        RouteDefinition definition1 = new RouteDefinition();
+        definition1.setId("auth_1");
+        definition1.setUri(UriComponentsBuilder.fromUriString("lb://webuy-auth").build().toUri());
+        definition1.setOrder(2);
+
+        RouteDefinition definition2 = new RouteDefinition();
+        definition2.setId("auth_2");
+        definition2.setUri(UriComponentsBuilder.fromUriString("lb://webuy-auth").build().toUri());
+        definition2.setOrder(0);
+
+
+
 
         PredicateDefinition predicate = new PredicateDefinition();
         predicate.setName("Path");
@@ -42,7 +56,27 @@ public class DynamicRoutesController {
         predicateParams.put("pattern", "/auth/**");
         predicate.setArgs(predicateParams);
 
-        definition.setPredicates(Arrays.asList(predicate));
+        PredicateDefinition predicate1 = new PredicateDefinition();
+        predicate1.setName("Method");
+        Map<String, String> predicateParams1 = new HashMap<>(8);
+        predicateParams1.put("method", "POST");
+        predicate1.setArgs(predicateParams1);
+
+        PredicateDefinition predicate2 = new PredicateDefinition();
+        predicate2.setName("Method");
+        Map<String, String> predicateParams2 = new HashMap<>(8);
+        predicateParams2.put("method", "GET");
+        predicate2.setArgs(predicateParams2);
+
+        PredicateDefinition predicate3 = new PredicateDefinition();
+        predicate3.setName("Host");
+        Map<String, String> predicateParams3 = new HashMap<>(8);
+        predicateParams3.put("pattern", "auth.weweibuy.com");
+        predicate3.setArgs(predicateParams3);
+
+        definition.setPredicates(Arrays.asList(predicate, predicate1));
+        definition1.setPredicates(Arrays.asList(predicate, predicate2));
+        definition2.setPredicates(Arrays.asList(predicate3));
 
         // 路由
         FilterDefinition filter = new FilterDefinition();
@@ -71,8 +105,11 @@ public class DynamicRoutesController {
 
         // 这个顺序会影响过滤器的执行顺序 实现order 接口没用 !!!!!!!!!!!
         definition.setFilters(Arrays.asList(filter, filter2, filter1));
-
+        definition1.setFilters(Arrays.asList(filter, filter2));
+        definition2.setFilters(Arrays.asList(filter, filter2));
         redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_0", JSON.toJSONString(definition));
+        redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_1", JSON.toJSONString(definition1));
+        redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_2", JSON.toJSONString(definition2));
 
         return "success";
 
