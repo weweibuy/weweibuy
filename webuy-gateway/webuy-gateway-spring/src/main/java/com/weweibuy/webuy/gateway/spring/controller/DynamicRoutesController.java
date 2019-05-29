@@ -62,6 +62,7 @@ public class DynamicRoutesController {
         predicateParams1.put("method", "POST");
         predicate1.setArgs(predicateParams1);
 
+
         PredicateDefinition predicate2 = new PredicateDefinition();
         predicate2.setName("Method");
         Map<String, String> predicateParams2 = new HashMap<>(8);
@@ -70,13 +71,14 @@ public class DynamicRoutesController {
 
         PredicateDefinition predicate3 = new PredicateDefinition();
         predicate3.setName("Host");
+
         Map<String, String> predicateParams3 = new HashMap<>(8);
         predicateParams3.put("pattern", "auth.weweibuy.com");
         predicate3.setArgs(predicateParams3);
 
         definition.setPredicates(Arrays.asList(predicate, predicate1));
         definition1.setPredicates(Arrays.asList(predicate, predicate2));
-        definition2.setPredicates(Arrays.asList(predicate3));
+        definition2.setPredicates(Arrays.asList(predicate3, predicate1));
 
         // 路由
         FilterDefinition filter = new FilterDefinition();
@@ -84,7 +86,6 @@ public class DynamicRoutesController {
         Map<String, String> filterParams = new HashMap<>(4);
         filterParams.put("_genkey_0", "1");
         filter.setArgs(filterParams);
-
         // 权限
         FilterDefinition filter1 = new FilterDefinition();
         Map<String, String> filterParams1 = new HashMap<>(4);
