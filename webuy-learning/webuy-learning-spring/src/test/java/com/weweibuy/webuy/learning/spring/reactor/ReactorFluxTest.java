@@ -2,9 +2,7 @@ package com.weweibuy.webuy.learning.spring.reactor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.FluxSink;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.*;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.Arrays;
@@ -220,14 +218,81 @@ public class ReactorFluxTest {
 
 
     @Test
-    public void test11(){
-        Flux.just("1", "2")
+    public void test11() {
+        Mono.just("1")
                 .compose(item -> {
-                    item.subscribe(log::error);
-                    return Mono.just(item);
-                }).subscribe(i -> {
-                    i.subscribe(log::error);
+                    item.doOnSuccess(i -> {
+                        log.info("成功了" + i);
+                    });
+                    Mono<String> stringMono = item.
+                            doOnSuccess(i -> {
+                                log.info("成功了" + i);
+                            });
+                    stringMono.subscribe(it -> {
+                        log.info("订阅..");
+                    });
+                    return stringMono;
+
+                })
+                .doOnSuccess(i -> {
+                    log.info("又成功了" + i);
+                })
+                .doOnSuccess(i -> {
+                    log.info("又又成功了" + i);
+                })
+                .subscribe(log::info);
+    }
+
+    @Test
+    public void test12() throws InterruptedException {
+
+        UnicastProcessor<Integer> processor = UnicastProcessor.create();
+        FluxSink<Integer> sink = processor.sink(FluxSink.OverflowStrategy.BUFFER);
+
+        processor.doOnError(e -> {
+            log.error(e.getMessage());
         });
+        processor.subscribeOn(Schedulers.parallel());
+        processor.subscribe(i -> {
+            log.info(i + "");
+        });
+
+        for (int i = 0; i < 100; i++) {
+            if(i == 88){
+                sink.error(new RuntimeException("chu cuo le"));
+            }
+            sink.next(i);
+        }
+        Thread.sleep(200);
+    }
+
+
+    @Test
+    public void test14() throws InterruptedException {
+        Flux<Integer> source = Flux.range(1, 3)
+                .doOnSubscribe(s -> System.out.println("subscribed to source"));
+
+        ConnectableFlux<Integer> co = source.publish();
+
+        co.subscribe(System.out::println, e -> {}, () -> {});
+        co.subscribe(System.out::println, e -> {}, () -> {});
+
+        System.out.println("done subscribing");
+        Thread.sleep(500);
+        System.out.println("will now connect");
+
+        co.connect();
+    }
+
+    @Test
+    public void test15(){
+        String key = "message";
+        Mono.just("Hello")
+                .flatMap( s -> Mono.subscriberContext()
+                        .map( ctx -> s + " " + ctx.get(key)))
+                .subscriberContext(ctx -> ctx.put(key, "World"))
+                .subscribe(log::error);
+
     }
 
 }
