@@ -18,6 +18,10 @@ public class MyEventProcessor extends BaseSubscriber<String> {
         this.listener = listener;
     }
 
+    public void push(String s){
+        listener.onDataChunk(s);
+    }
+
     public void register2(SingleThreadEventListener listener) {
         this.singleThreadEventListener = listener;
     }

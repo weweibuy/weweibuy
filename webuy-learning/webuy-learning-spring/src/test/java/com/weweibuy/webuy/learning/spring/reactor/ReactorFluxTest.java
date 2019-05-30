@@ -5,6 +5,7 @@ import org.junit.Test;
 import reactor.core.publisher.*;
 import reactor.core.scheduler.Schedulers;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,11 +50,8 @@ public class ReactorFluxTest {
             myEventProcessor.register(
                     new MyEventListener<String>() {
 
-                        public void onDataChunk(List<String> chunk) {
-                            for (String s : chunk) {
-                                log.error(s);
-                                sink.next(s);
-                            }
+                        public void onDataChunk(String chunk) {
+                            sink.next(chunk);
                         }
 
                         public void processComplete() {
@@ -258,7 +256,7 @@ public class ReactorFluxTest {
         });
 
         for (int i = 0; i < 100; i++) {
-            if(i == 88){
+            if (i == 88) {
                 sink.error(new RuntimeException("chu cuo le"));
             }
             sink.next(i);
@@ -274,8 +272,12 @@ public class ReactorFluxTest {
 
         ConnectableFlux<Integer> co = source.publish();
 
-        co.subscribe(System.out::println, e -> {}, () -> {});
-        co.subscribe(System.out::println, e -> {}, () -> {});
+        co.subscribe(System.out::println, e -> {
+        }, () -> {
+        });
+        co.subscribe(System.out::println, e -> {
+        }, () -> {
+        });
 
         System.out.println("done subscribing");
         Thread.sleep(500);
@@ -285,14 +287,96 @@ public class ReactorFluxTest {
     }
 
     @Test
-    public void test15(){
+    public void test15() {
         String key = "message";
         Mono.just("Hello")
-                .flatMap( s -> Mono.subscriberContext()
-                        .map( ctx -> s + " " + ctx.get(key)))
+                .flatMap(s -> Mono.subscriberContext()
+                        .map(ctx -> s + " " + ctx.get(key)))
                 .subscriberContext(ctx -> ctx.put(key, "World"))
                 .subscribe(log::error);
 
+    }
+
+    @Test
+    public void test16() {
+
+        Flux.just("1", "2", "3", "4", "5")
+                .window(1, 3)
+                .concatMap(g -> g.defaultIfEmpty("-1"))
+                .subscribe(log::error);
+    }
+
+    @Test
+    public void test17() throws InterruptedException {
+        MyEventProcessor myEventProcessor = new MyEventProcessor();
+
+        Flux.<String>create(sink -> {
+            myEventProcessor.register(
+                    new MyEventListener<String>() {
+                        public void onDataChunk(String chunk) {
+                            sink.next(chunk);
+                        }
+
+                        public void processComplete() {
+                            sink.complete();
+                        }
+                    });
+        }, FluxSink.OverflowStrategy.DROP)
+//                .concatMap(g -> g.singleOrEmpty())
+                .windowTimeout(99, Duration.ofMillis(1000))
+
+                .flatMap(g -> {
+                    return g.count();
+                })
+//                                .window(1, 20)
+////                .windowWhen()
+//
+//                .flatMap(g -> {
+////                    g.subscribe(i -> {
+//                    log.info("窗口2: {}");
+////                    });
+//                    return g.singleOrEmpty();
+//                })
+//                .startWith("999999")
+                .subscribe(i -> {
+                    log.info(i + "");
+                });
+
+        for (int i = 0; i < 100; i++) {
+            myEventProcessor.push(i + "");
+            Thread.sleep(10);
+        }
+        Thread.sleep(200);
+    }
+
+
+    @Test
+    public void test18() {
+        Flux.just(1, 3, 5, 2, 4, 6, 11, 12, 13)
+                .windowWhile(i -> i % 2 == 0)
+                .concatMap(g -> g.defaultIfEmpty(-99999))
+                .subscribe(i -> {
+                    log.info(i + "");
+                });
+    }
+
+
+    @Test
+    public void test19() {
+        MyEventProcessor myEventProcessor = new MyEventProcessor();
+
+        Flux.<String>create(sink -> {
+            myEventProcessor.register(
+                    new MyEventListener<String>() {
+                        public void onDataChunk(String chunk) {
+                            sink.next(chunk);
+                        }
+
+                        public void processComplete() {
+                            sink.complete();
+                        }
+                    });
+        }, FluxSink.OverflowStrategy.DROP);
     }
 
 }
