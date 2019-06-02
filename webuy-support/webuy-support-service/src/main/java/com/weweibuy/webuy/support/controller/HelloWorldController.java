@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
+
 /**
  * @ClassName HelloWorldController
  * @Description
@@ -24,7 +26,12 @@ public class HelloWorldController {
     @HystrixCommand(fallbackMethod = "noHello")
     public String hello(@PathVariable String id) throws InterruptedException {
         log.error("业务正在执行");
-        Thread.sleep(5000);
+        Random random = new Random();
+        int i = random.nextInt(10);
+        if(i % 3 == 1){
+            log.error("休息一下");
+            Thread.sleep(1020);
+        }
         log.error("业务执行完了");
         return "hello....";
     }

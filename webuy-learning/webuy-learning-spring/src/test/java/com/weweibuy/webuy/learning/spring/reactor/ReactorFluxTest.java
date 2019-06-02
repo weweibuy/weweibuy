@@ -1,16 +1,23 @@
 package com.weweibuy.webuy.learning.spring.reactor;
 
+import com.weweibuy.webuy.learning.spring.hystirx.HealthCounts;
+import com.weweibuy.webuy.learning.spring.hystirx.HystrixEvent1;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import reactor.core.publisher.*;
 import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.function.BiFunction;
 
 @Slf4j
 public class ReactorFluxTest {
+
+    private CountDownLatch countDownLatch = new CountDownLatch(1);
 
     @Test
     public void test01() throws InterruptedException {
@@ -323,11 +330,13 @@ public class ReactorFluxTest {
                     });
         }, FluxSink.OverflowStrategy.DROP)
 //                .concatMap(g -> g.singleOrEmpty())
-                .windowTimeout(99, Duration.ofMillis(1000))
+                .windowTimeout(99, Duration.ofMillis(200))
 
                 .flatMap(g -> {
                     return g.count();
-                })
+                }).doOnNext(i -> {
+            log.info(i + "000");
+        })
 //                                .window(1, 20)
 ////                .windowWhen()
 //
@@ -378,5 +387,196 @@ public class ReactorFluxTest {
                     });
         }, FluxSink.OverflowStrategy.DROP);
     }
+
+    @Test
+    public void test20() {
+        Flux.just(1, 2, 3, 4, 5, 6, 7, 8, 9)
+                .window(100, 100)
+
+                .flatMap(i -> {
+                    // 聚合  初始化为100;
+                    return i.scan(100, new BiFunction<Integer, Integer, Integer>() {
+                        @Override
+                        public Integer apply(Integer integer, Integer integer2) {
+                            log.error("元素 1: {} ; 元素 2: {} ;", integer, integer2);
+                            // 上一个流元素加上当前元素
+                            return integer + integer2;
+                        }
+                    });
+                })
+                .subscribe(i -> {
+                    log.info(i + "");
+                });
+    }
+
+
+    @Test
+    public void test21() {
+        Flux.just(1, 2, 3, 4, 5, 6, 7, 8, 9)
+                .window(100, 100)
+                .flatMap(i -> {
+                    // 聚合  初始化为100;
+                    return i.reduce(new BiFunction<Integer, Integer, Integer>() {
+                        @Override
+                        public Integer apply(Integer integer, Integer integer2) {
+                            log.error("元素 1: {} ; 元素 2: {} ;", integer, integer2);
+                            // 上一个流元素加上当前元素
+                            return integer + integer2;
+                        }
+                    });
+                })
+                .subscribe(i -> {
+                    log.info(i + "");
+                });
+    }
+
+
+    @Test
+    public void test22() throws InterruptedException {
+
+
+        // 线程安全的
+        EmitterProcessor<Integer> processor = EmitterProcessor.<Integer>create();
+        FluxSink<Integer> sink = processor.sink(FluxSink.OverflowStrategy.BUFFER);
+
+
+        Flux<Integer> share = processor.share();
+
+
+        share
+                // 一100ms为一个维度将数据全部累加; 然后发射
+                .window(Duration.ofMillis(100))
+                .flatMap(i -> {
+                    return i.reduce(new BiFunction<Integer, Integer, Integer>() {
+                        @Override
+                        public Integer apply(Integer integer, Integer integer2) {
+                            return integer + integer2;
+                        }
+                    });
+                })
+
+                // 以10个数据为一个维度, 然后跳过10个数据(也就是前面的10个)
+                .window(10, 1)
+                .flatMap(i -> {
+                    // 将数据累加; 然后立即发送
+                    return i.scan(new BiFunction<Integer, Integer, Integer>() {
+                        @Override
+                        public Integer apply(Integer integer, Integer integer2) {
+                            log.error(integer + "" + integer2 + "");
+                            return integer + integer2;
+                        }
+                    }).skip(10);
+                })
+                .doOnSubscribe(i -> {
+                    log.info("产生订阅");
+                })
+                .subscribe(i -> {
+                    log.info(i + "");
+                });
+        try {
+            for (int i = 0; i < 100; i++) {
+                if (i == 10) {
+                    throw new RuntimeException("");
+                }
+                sink.next(i);
+            }
+        } catch (Exception e) {
+
+        }
+
+        for (int i = 110; i < 200; i++) {
+            sink.next(i);
+            Thread.sleep(50);
+        }
+
+        Thread.sleep(3000);
+
+    }
+
+
+    @Test
+    public void test23() {
+        // 热订阅
+        UnicastProcessor<String> hotSource = UnicastProcessor.create();
+
+        Flux<String> hotFlux = hotSource.publish()
+
+                .autoConnect()
+                .map(String::toUpperCase);
+
+        hotFlux.subscribe(d -> System.out.println("Subscriber 1 to Hot Source: " + d));
+
+        hotSource.onNext("blue");
+        hotSource.onNext("green");
+
+        hotFlux.subscribe(d -> System.out.println("Subscriber 2 to Hot Source: " + d));
+
+        hotSource.onNext("orange");
+        hotSource.onNext("purple");
+        hotSource.onComplete();
+    }
+
+
+    @Test
+    public void test24() throws InterruptedException {
+        EmitterProcessor<HystrixEvent1> processor = EmitterProcessor.<HystrixEvent1>create();
+
+        FluxSink<HystrixEvent1> sink = processor.sink(FluxSink.OverflowStrategy.DROP);
+
+
+        Flux<HystrixEvent1> share = processor.share();
+
+        processor
+                .window(Duration.ofMillis(2000))
+                .flatMap(i -> {
+                    return i.reduce(new HealthCounts(), new BiFunction<HealthCounts, HystrixEvent1, HealthCounts>() {
+
+                        @Override
+                        public HealthCounts apply(HealthCounts healthCounts, HystrixEvent1 hystrixEvent1) {
+                            log.info("HealthCounts: {};  hystrixEvent1: {}", healthCounts.getTotalCount(), hystrixEvent1.getStartTimestamp());
+                            healthCounts.setTotalCount(hystrixEvent1.getStartTimestamp());
+                            return healthCounts;
+                        }
+                    });
+                })
+                .startWith(new ArrayList<>())
+                .window(10, 1)
+                .flatMap(i -> {
+                    return i.scan(new HealthCounts(), new BiFunction<HealthCounts, HealthCounts, HealthCounts>() {
+
+                        @Override
+                        public HealthCounts apply(HealthCounts healthCounts, HealthCounts healthCounts2) {
+                            log.error("HealthCounts: {};  healthCounts2: {}", healthCounts.getTotalCount(), healthCounts2.getTotalCount());
+                            healthCounts.setTotalCount(healthCounts2.getTotalCount() + 100);
+                            return healthCounts;
+                        }
+                    })
+                            .skip(10); // 忽略不不完整的窗口
+                })
+                .share()
+                .subscribe(i -> {
+                    long totalCount = i.getTotalCount();
+                    log.warn(totalCount + "");
+                });
+        new Thread(() -> {
+            for (int i = 0; i < 50; i++) {
+                sink.next(HystrixEvent1
+                        .builder()
+                        .startTimestamp(10 + i)
+                        .build());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            countDownLatch.countDown();
+        }).start();
+        countDownLatch.await();
+        Thread.sleep(1000);
+
+
+    }
+
 
 }

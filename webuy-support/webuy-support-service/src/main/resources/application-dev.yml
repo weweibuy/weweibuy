@@ -84,14 +84,19 @@ hystrix: #hystrix配置
         isolation:
           strategy: thread
           thread:
-            timeoutInMilliseconds: 5000
-      circuitBreaker:
-        sleepWindowInMilliseconds: 1000 #断路器恢复时间
-        errorThresholdPercentage: 80  #触发短路,失败百分比
-  threadpool:
-    default:
-      coreSize: 10  #线程池大小
-      maxQueueSize: 10  #最大等待队列数
+            timeoutInMilliseconds: 100
+#      circuitBreaker:
+#        sleepWindowInMilliseconds: 1000 #断路器恢复时间
+#        errorThresholdPercentage: 80  #触发短路,失败百分比
+#      metrics:
+#        rollingStats:
+#          timeInMilliseconds: 10000
+#        rollingPercentile:
+#          timeInMilliseconds: 50000
+#  threadpool:
+#    default:
+#      coreSize: 10  #线程池大小
+#      maxQueueSize: 10  #最大等待队列数
 
 
 feign:

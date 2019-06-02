@@ -1,0 +1,63 @@
+1. AbstractCommand
+    AbstractCommand 将每一个 请求封装成 AbstractCommand; AbstractCommand 在初始化的时候除了获取一些配置信息外
+    还 初始化了 metrics 统计计数器
+
+2.通过配置信息中的 groupKey commandKey 调用 HystrixCommandMetrics.getInstance 获取 metrics
+
+3.HystrixCommandMetrics 以每一个 HystrixCommandKey对象 缓存 metrics;
+    如果没有 HystrixCommandMetrics 通过 groupKey commandKey 等信息 创建HystrixCommandMetrics 并缓存
+
+4.HystrixCommandMetrics 创建过程
+    1). 初始化 groupKey commandKey 和配置信息
+    2). healthCountsStream   HealthCountsStream.getInstance
+        通过 HystrixCommandKey 对象 和配置信息中的  numHealthCountBuckets(桶数量) 与 healthCountBucketSizeInMs(桶时长)
+        并对 healthCountsStream 通过 HystrixCommandKey 缓存
+        获取时先查缓存  没有时通过构造创建
+            参数1: numHealthCountBuckets
+            参数2: healthCountBucketSizeInMs
+            参数3: HystrixCommandMetrics.appendEventToBucket(RX 事件发布者/处理 )
+        HealthCountsStream <--  BucketedRollingCounterStream <-- BucketedCounterStream
+    3) BucketedRollingCounterStream (HealthCountsStream父类)
+        参数1: HystrixCommandCompletionStream
+            HystrixCommandCompletionStream 创建过程
+                1. 根据 HystrixCommandKey 查缓存
+                2. 没有则创建
+                3. 创建关键的 writeOnlySubject (SerializedSubject 顺序订阅) 和 readOnlyStream(通过writeOnlySubject share 出来)
+        参数2: numHealthCountBuckets
+        参数3: healthCountBucketSizeInMs
+        参数4: HystrixCommandMetrics.appendEventToBucket(RX 事件发布者/处理 )
+        参数5: healthCheckAccumulator
+            HystrixCommandMetrics.HealthCounts  健康数据计算器  (RX func 数据流计算处理)
+
+
+        创建过程
+            1. 构造父类  BucketedCounterStream  numHealthCountBuckets healthCountBucketSizeInMs HystrixCommandMetrics.appendEventToBucket
+            2. 创建 reduceWindowToSummary 流出处理器 (RX func)
+            3. 处理父类创建的 (BucketedCounterStream) bucketedStream
+                1) 为 bucketedStream window(bucketNum, 1);  根据桶的数量进行窗口统计,当桶数量用完后忽略第一个桶
+                2) 为每一个窗口 flatMap
+                3) 每一窗口  scan(new HealthCounts(0, 0), HystrixCommandMetrics.HealthCounts)  进行统计工作
+
+
+    4)  BucketedCounterStream
+        1. bucketedStream  创建
+            获取构造参数: HystrixCommandCompletionStream observe() 方法获取 readOnlyStream
+        2. 为 bucketedStream 时间划分 bucketSizeInMs(构造参数输入)  窗口时间
+        3. bucketedStream  每个窗口 flatMap  -->  reduceBucketToSummary (RX func)
+        4. reduceBucketToSummary  将每一个窗口  reduce 进行总和计算后输出 (对象转数组模型)
+            reduce 调用方法为 创建 HystrixCommandMetrics.appendEventToBucket
+            其逻辑为 将每个窗口时间所发射的 HystrixCommandCompletion (command 执行完成的结果)
+            进行统计 根据HystrixEventType 与 reduce 初始化传入的数组表示执行结果
+                (将HystrixCommandCompletion 转化为 数组结果; 数组的下表对应HystrixEventType的类型 如: [0] 对应EMIT [1]: 对应 SUCCESS )
+                其中数组下表值 0 代表没有发生; 1 代表发生;
+        5. 将每个窗口统计的数据交给 下一步 BucketedRollingCounterStream 继续分窗口处理
+
+
+
+5. 最终订阅
+    HystrixCircuitBreaker 对其计算结果产生订阅
+
+
+
+
+
