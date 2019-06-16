@@ -3,6 +3,7 @@ package com.weweibuy.webuy.learning.spring.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.weweibuy.webuy.learning.spring.config.properties.CodeMappingProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,7 +24,7 @@ import java.sql.SQLException;
  **/
 @Slf4j
 @Configuration
-@EnableConfigurationProperties(DataSourceProperties.class)
+@EnableConfigurationProperties({DataSourceProperties.class, CodeMappingProperties.class})
 public class DruidConfig {
 
     @Autowired
@@ -31,7 +32,7 @@ public class DruidConfig {
 
     @Bean     //声明其为Bean实例
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(dataSourceProperties.getUrl());
         datasource.setUsername(dataSourceProperties.getUsername());
@@ -48,7 +49,7 @@ public class DruidConfig {
         try {
             datasource.setFilters(dataSourceProperties.getFilters());
         } catch (SQLException e) {
-            log.error("druid configuration initialization filter: "+ e);
+            log.error("druid configuration initialization filter: " + e);
         }
         datasource.setConnectionProperties(dataSourceProperties.getConnectionProperties());
         return datasource;
@@ -56,7 +57,7 @@ public class DruidConfig {
 
 
     @Bean
-    public FilterRegistrationBean getFilterRegistrationBean(){
+    public FilterRegistrationBean getFilterRegistrationBean() {
         FilterRegistrationBean filter = new FilterRegistrationBean();
         filter.setFilter(new WebStatFilter());
         filter.setName("druidWebStatFilter");
@@ -66,16 +67,14 @@ public class DruidConfig {
     }
 
     @Bean
-    public ServletRegistrationBean getServletRegistrationBean(){
-        ServletRegistrationBean servlet = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
+    public ServletRegistrationBean getServletRegistrationBean() {
+        ServletRegistrationBean servlet = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         servlet.setName("druidStatViewServlet");
 //        servlet.addInitParameter("resetEnable", "false");
         servlet.addInitParameter("loginUsername", dataSourceProperties.getUiUsername());
         servlet.addInitParameter("loginPassword", dataSourceProperties.getUipassword());
         return servlet;
     }
-
-
 
 
 }

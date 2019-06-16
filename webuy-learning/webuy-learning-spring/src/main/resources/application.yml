@@ -13,3 +13,6 @@ app:
 apollo:
   meta: http://106.12.15.87:9080
 
+mybatis:
+  type-aliases-package: com.weweibuy.webuy.learning.spring.model.po    # 所有Entity别名类所在包
+  mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
