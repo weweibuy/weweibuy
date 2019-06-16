@@ -20,14 +20,30 @@ public class TimeOrderController {
     private TimeOrderService timeOrderService;
 
     @RequestMapping("/sharing/insert")
-    public String insert() {
-        timeOrderService.insertOrder();
+    public String insert(Boolean batch) {
+        if(batch){
+            timeOrderService.sharingBatchInsert();
+        }else {
+            timeOrderService.sharingInsert();
+        }
         return "success";
     }
+
+    @RequestMapping("/sharing/no-sharing-batch-insert")
+    public String noSharingBatchInsert() {
+        timeOrderService.noSharingBatchInsert();
+        return "success";
+    }
+
 
     @GetMapping("/sharing/page-get")
     public CommonJsonResponse getHeader(@RequestBody PageQueryVo vo){
         return CommonJsonResponse.success(timeOrderService.getHeaders(vo));
+    }
+
+    @GetMapping("/sharing/no-sharing-page-get")
+    public CommonJsonResponse getNoSharingHeader(@RequestBody PageQueryVo vo){
+        return CommonJsonResponse.success(timeOrderService.noSharingPageQuery(vo));
     }
 
     @GetMapping("/sharing/details")

@@ -4,16 +4,18 @@ import com.baidu.fsg.uid.UidGenerator;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.weweibuy.webuy.learning.sharing.mapper.JitTimeOrderDetailMapper;
+import com.weweibuy.webuy.learning.sharing.mapper.JitTimeOrderHeaderLimitMapper;
 import com.weweibuy.webuy.learning.sharing.mapper.JitTimeOrderHeaderMapper;
 import com.weweibuy.webuy.learning.sharing.model.dto.PageQueryDto;
-import com.weweibuy.webuy.learning.sharing.model.po.JitTimeOrderDetail;
-import com.weweibuy.webuy.learning.sharing.model.po.JitTimeOrderDetailExample;
-import com.weweibuy.webuy.learning.sharing.model.po.JitTimeOrderHeader;
-import com.weweibuy.webuy.learning.sharing.model.po.JitTimeOrderHeaderExample;
+import com.weweibuy.webuy.learning.sharing.model.po.*;
 import com.weweibuy.webuy.learning.sharing.model.vo.PageQueryVo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,6 +33,12 @@ public class TimeOrderService {
     @Autowired
     private JitTimeOrderHeaderMapper headerMapper;
 
+    @Autowired
+    private JitTimeOrderHeaderLimitMapper limitMapper;
+
+    @Autowired
+    private SqlSessionFactory sqlSessionFactory;
+
     private static final String WAREHOUSE_NAME = "myWareHouse";
     private static final String WAREHOUSE_CODE = "myWareCode";
     private static final String VENDOR_CODE = "myVendorCode";
@@ -39,6 +47,19 @@ public class TimeOrderService {
 
     @Autowired
     private UidGenerator uidGenerator;
+
+
+    public PageQueryDto noSharingPageQuery(PageQueryVo vo) {
+        Page<Object> objects = PageHelper.startPage(vo.getPage(), vo.getSize());
+        JitTimeOrderHeaderLimitExample example = new JitTimeOrderHeaderLimitExample();
+        example.createCriteria()
+                .andCreateTimeBetween(vo.getStartTime(), vo.getEndTime());
+        List<JitTimeOrderHeaderLimit> limitList = limitMapper.selectByExample(example);
+
+        log.error("总记录数: {}, 查询的数量: {}", objects.getTotal(), limitList.size());
+        PageQueryDto<JitTimeOrderHeaderLimit> queryDto = new PageQueryDto<>(objects.getTotal(), limitList);
+        return queryDto;
+    }
 
 
     public PageQueryDto getHeaders(PageQueryVo vo) {
@@ -55,7 +76,59 @@ public class TimeOrderService {
     }
 
 
-    public void insertOrder() {
+    public void sharingInsert() {
+        log.error("非批量插入");
+        long l = System.currentTimeMillis();
+        insertOrder(false);
+        log.error("非批量插入用时: {}", System.currentTimeMillis() - l);
+    }
+
+    public void sharingBatchInsert() {
+        log.error("批量插入");
+        long l = System.currentTimeMillis();
+        insertOrder(true);
+        log.error("批量插入用时: {}", System.currentTimeMillis() - l);
+    }
+
+
+    public void noSharingBatchInsert() {
+        long l = System.currentTimeMillis();
+        SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+
+        JitTimeOrderHeaderMapper mapper = sqlSession.getMapper(JitTimeOrderHeaderMapper.class);
+        JitTimeOrderHeader header = null;
+        for (int i = 0; i < 500; i++) {
+            String s = uidGenerator.getUID() + "";
+            header = new JitTimeOrderHeader();
+            header.setTimeOrderNo(s);
+            header.setWarehouseName("batch_" + WAREHOUSE_NAME);
+            header.setWarehouseCode("batch_" + WAREHOUSE_CODE);
+            header.setVendorCode("batch_" + VENDOR_CODE);
+            header.setVendorName("batch_" + VENDOR_NAME);
+            header.setChannelCode("batch_" + CHANNEL_CODE);
+            log.error("orderNo: {}; 库: {}; 表: {}", s, Math.abs(s.hashCode() % 3), Math.abs((s.hashCode() + "").hashCode() % 3));
+            mapper.insertSelective(header);
+        }
+        sqlSession.commit();
+        sqlSession.close();
+        long l1 = System.currentTimeMillis();
+        log.error("批量插入用时: {}", l1 - l);
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public void insertOrder(boolean isBatch) {
+        JitTimeOrderDetailMapper timeOrderDetailMapper;
+        JitTimeOrderHeaderMapper timeOrderHeaderMapper;
+        SqlSession sqlSession = null;
+        if (isBatch) {
+            sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+            timeOrderDetailMapper = sqlSession.getMapper(JitTimeOrderDetailMapper.class);
+            timeOrderHeaderMapper = sqlSession.getMapper(JitTimeOrderHeaderMapper.class);
+        } else {
+            timeOrderDetailMapper = detailMapper;
+            timeOrderHeaderMapper = headerMapper;
+        }
         JitTimeOrderHeader header = null;
         for (int i = 0; i < 50; i++) {
             String s = uidGenerator.getUID() + "";
@@ -66,6 +139,7 @@ public class TimeOrderService {
             header.setVendorCode(VENDOR_CODE);
             header.setVendorName(VENDOR_NAME);
             header.setChannelCode(CHANNEL_CODE);
+            //  TODO 批量操作不适合于 多表; 将造成事务问题
             for (int j = 0; j < 10; j++) {
                 JitTimeOrderDetail detail = new JitTimeOrderDetail();
                 detail.setTimeOrderNo(s);
@@ -73,10 +147,16 @@ public class TimeOrderService {
                 detail.setTotalQty(i);
                 detail.setWarehouseCode(WAREHOUSE_CODE);
                 detail.setVendorCode(VENDOR_CODE);
-                detailMapper.insertSelective(detail);
+                timeOrderDetailMapper.insertSelective(detail);
             }
-            headerMapper.insertSelective(header);
+            timeOrderHeaderMapper.insertSelective(header);
         }
+
+        if (sqlSession != null) {
+            sqlSession.commit();
+            sqlSession.close();
+        }
+
     }
 
 

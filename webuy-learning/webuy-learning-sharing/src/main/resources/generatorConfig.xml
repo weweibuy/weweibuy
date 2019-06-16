@@ -46,12 +46,12 @@
         </javaClientGenerator>
 
         <!--数据库中表生成类的信息-->
-        <table tableName="jit_time_order_detail"
+        <table tableName="jit_time_order_detail_limit"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true">
         </table>
 
-        <table tableName="jit_time_order_header"
+        <table tableName="jit_time_order_header_limit"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true">
         </table>
