@@ -67,7 +67,7 @@ sharding:
             table-strategy:
               inline:
                 sharding-column: time_order_no
-                algorithm-expression: jit_time_order_header_$->{Math.abs((time_order_no.hashCode() + "").hashCode()) % 3}
+                algorithm-expression: jit_time_order_header_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
 
           jit_time_order_detail:
             actual-data-nodes: ds$->{0..2}.jit_time_order_detail_$->{0..2}
@@ -78,5 +78,5 @@ sharding:
             table-strategy:
               inline:
                 sharding-column: time_order_no
-                algorithm-expression: jit_time_order_detail_$->{Math.abs((time_order_no.hashCode() + "").hashCode()) % 3}
+                algorithm-expression: jit_time_order_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
 

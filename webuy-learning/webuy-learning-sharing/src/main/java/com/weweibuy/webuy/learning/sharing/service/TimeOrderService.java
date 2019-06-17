@@ -9,6 +9,7 @@ import com.weweibuy.webuy.learning.sharing.mapper.JitTimeOrderHeaderMapper;
 import com.weweibuy.webuy.learning.sharing.model.dto.PageQueryDto;
 import com.weweibuy.webuy.learning.sharing.model.po.*;
 import com.weweibuy.webuy.learning.sharing.model.vo.PageQueryVo;
+import com.weweibuy.webuy.learning.sharing.utils.HashUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -94,25 +95,30 @@ public class TimeOrderService {
     public void noSharingBatchInsert() {
         long l = System.currentTimeMillis();
         SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
-
-        JitTimeOrderHeaderMapper mapper = sqlSession.getMapper(JitTimeOrderHeaderMapper.class);
-        JitTimeOrderHeader header = null;
-        for (int i = 0; i < 500; i++) {
-            String s = uidGenerator.getUID() + "";
-            header = new JitTimeOrderHeader();
-            header.setTimeOrderNo(s);
-            header.setWarehouseName("batch_" + WAREHOUSE_NAME);
-            header.setWarehouseCode("batch_" + WAREHOUSE_CODE);
-            header.setVendorCode("batch_" + VENDOR_CODE);
-            header.setVendorName("batch_" + VENDOR_NAME);
-            header.setChannelCode("batch_" + CHANNEL_CODE);
-            log.error("orderNo: {}; 库: {}; 表: {}", s, Math.abs(s.hashCode() % 3), Math.abs((s.hashCode() + "").hashCode() % 3));
-            mapper.insertSelective(header);
+        try {
+            JitTimeOrderHeaderLimitMapper mapper = sqlSession.getMapper(JitTimeOrderHeaderLimitMapper.class);
+            JitTimeOrderHeaderLimit header = null;
+            for (int i = 0; i < 10; i++) {
+                String s = uidGenerator.getUID() + "";
+                header = new JitTimeOrderHeaderLimit();
+                header.setTimeOrderNo(s);
+                header.setWarehouseName("batch_" + WAREHOUSE_NAME);
+                header.setWarehouseCode("batch_" + WAREHOUSE_CODE);
+                header.setVendorCode("batch_" + VENDOR_CODE);
+                header.setVendorName("batch_" + VENDOR_NAME);
+                header.setChannelCode("batch_" + CHANNEL_CODE);
+                log.error("orderNo: {}; 库: {}; 表: {}", s, Math.abs(s.hashCode() % 3), Math.abs((s.hashCode() + "").hashCode() % 3));
+                mapper.insertSelective(header);
+            }
+            sqlSession.commit();
+        }catch (Exception e){
+            sqlSession.rollback();
         }
-        sqlSession.commit();
-        sqlSession.close();
-        long l1 = System.currentTimeMillis();
-        log.error("批量插入用时: {}", l1 - l);
+        finally {
+            sqlSession.close();
+            log.error("批量插入用时: {}", System.currentTimeMillis() - l);
+        }
+
     }
 
 
@@ -130,7 +136,7 @@ public class TimeOrderService {
             timeOrderHeaderMapper = headerMapper;
         }
         JitTimeOrderHeader header = null;
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10000; i++) {
             String s = uidGenerator.getUID() + "";
             header = new JitTimeOrderHeader();
             header.setTimeOrderNo(s);
@@ -140,17 +146,19 @@ public class TimeOrderService {
             header.setVendorName(VENDOR_NAME);
             header.setChannelCode(CHANNEL_CODE);
             //  TODO 批量操作不适合于 多表; 将造成事务问题
-            for (int j = 0; j < 10; j++) {
-                JitTimeOrderDetail detail = new JitTimeOrderDetail();
-                detail.setTimeOrderNo(s);
-                detail.setBarcode(uidGenerator.getUID() + "");
-                detail.setTotalQty(i);
-                detail.setWarehouseCode(WAREHOUSE_CODE);
-                detail.setVendorCode(VENDOR_CODE);
-                timeOrderDetailMapper.insertSelective(detail);
-            }
+//            for (int j = 0; j < 5; j++) {
+//                JitTimeOrderDetail detail = new JitTimeOrderDetail();
+//                detail.setTimeOrderNo(s);
+//                detail.setBarcode(uidGenerator.getUID() + "");
+//                detail.setTotalQty(i);
+//                detail.setWarehouseCode(WAREHOUSE_CODE);
+//                detail.setVendorCode(VENDOR_CODE);
+//                timeOrderDetailMapper.insertSelective(detail);
+//            }
             timeOrderHeaderMapper.insertSelective(header);
+            log.error("DB: {}, table: {}", Math.abs(s.hashCode()) % 3, Math.abs(HashUtil.FNVHash1(s)) % 3);
         }
+
 
         if (sqlSession != null) {
             sqlSession.commit();
