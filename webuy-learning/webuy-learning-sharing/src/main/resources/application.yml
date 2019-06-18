@@ -2,14 +2,6 @@
 server:
   port: 8080
 
-spring:
-  profiles:
-    active: ${profileActive}
-  application:
-    name: learning-sharing
-  jackson:
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
 
 logging:
   config: classpath:config/logback/logback-spring.xml
@@ -26,8 +18,71 @@ mybatis:
 
 
 
-sharding:
-  jdbc:
+#sharding:
+#  jdbc:
+#    datasource:
+#      names: ds,ds0,ds1,ds2
+#      ds:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: org.gjt.mm.mysql.Driver
+#        url: jdbc:mysql://47.99.129.104:3306/webuy_learning?useUnicode=true&characterEncoding=UTF-8
+#        username: user01
+#        password: ak402507979
+#      ds0:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: org.gjt.mm.mysql.Driver
+#        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_0?useUnicode=true&characterEncoding=UTF-8
+#        username: user01
+#        password: ak402507979
+#      ds1:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: org.gjt.mm.mysql.Driver
+#        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_1?useUnicode=true&characterEncoding=UTF-8
+#        username: user01
+#        password: ak402507979
+#      ds2:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: org.gjt.mm.mysql.Driver
+#        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_2?useUnicode=true&characterEncoding=UTF-8
+#        username: user01
+#        password: ak402507979
+#    config:
+#      sharding:
+#        default-data-source-name: ds
+#        tables:
+#          jit_time_order_header:
+#            actual-data-nodes: ds$->{0..2}.jit_time_order_header_$->{0..2}
+#            database-strategy:
+#              inline:
+#                shardingColumn: time_order_no
+#                algorithm-expression: ds$->{Math.abs(time_order_no.hashCode()) % 3}
+#            table-strategy:
+#              inline:
+#                sharding-column: time_order_no
+#                algorithm-expression: jit_time_order_header_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
+#
+#          jit_time_order_detail:
+#            actual-data-nodes: ds$->{0..2}.jit_time_order_detail_$->{0..2}
+#            database-strategy:
+#              inline:
+#                shardingColumn: time_order_no
+#                algorithmExpression: ds$->{Math.abs(time_order_no.hashCode()) % 3}
+#            table-strategy:
+#              inline:
+#                sharding-column: time_order_no
+#                algorithm-expression: jit_time_order_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
+
+# 4.0
+
+spring:
+  profiles:
+    active: ${profileActive}
+  application:
+    name: learning-sharing
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  shardingsphere:
     datasource:
       names: ds,ds0,ds1,ds2
       ds:
@@ -54,29 +109,28 @@ sharding:
         url: jdbc:mysql://47.99.129.104:3306/webuy_learning_2?useUnicode=true&characterEncoding=UTF-8
         username: user01
         password: ak402507979
-    config:
-      sharding:
-        default-data-source-name: ds
-        tables:
-          jit_time_order_header:
-            actual-data-nodes: ds$->{0..2}.jit_time_order_header_$->{0..2}
-            database-strategy:
-              inline:
-                shardingColumn: time_order_no
-                algorithm-expression: ds$->{Math.abs(time_order_no.hashCode()) % 3}
-            table-strategy:
-              inline:
-                sharding-column: time_order_no
-                algorithm-expression: jit_time_order_header_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
+    sharding:
+      default-data-source-name: ds
+      tables:
+        jit_time_order_header:
+          actual-data-nodes: ds$->{0..2}.jit_time_order_header_$->{0..2}
+          database-strategy:
+            inline:
+              shardingColumn: time_order_no
+              algorithm-expression: ds$->{Math.abs(time_order_no.hashCode()) % 3}
+          table-strategy:
+            inline:
+              sharding-column: time_order_no
+              algorithm-expression: jit_time_order_header_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
 
-          jit_time_order_detail:
-            actual-data-nodes: ds$->{0..2}.jit_time_order_detail_$->{0..2}
-            database-strategy:
-              inline:
-                shardingColumn: time_order_no
-                algorithmExpression: ds$->{Math.abs(time_order_no.hashCode()) % 3}
-            table-strategy:
-              inline:
-                sharding-column: time_order_no
-                algorithm-expression: jit_time_order_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
+        jit_time_order_detail:
+          actual-data-nodes: ds$->{0..2}.jit_time_order_detail_$->{0..2}
+          database-strategy:
+            inline:
+              shardingColumn: time_order_no
+              algorithmExpression: ds$->{Math.abs(time_order_no.hashCode()) % 3}
+          table-strategy:
+            inline:
+              sharding-column: time_order_no
+              algorithm-expression: jit_time_order_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
 
