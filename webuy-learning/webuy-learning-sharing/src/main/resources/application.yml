@@ -83,30 +83,31 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   shardingsphere:
+    enabled: true
     datasource:
       names: ds,ds0,ds1,ds2
       ds:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.gjt.mm.mysql.Driver
-        url: jdbc:mysql://47.99.129.104:3306/webuy_learning?useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://47.99.129.104:3306/webuy_learning?useUnicode=true&characterEncoding=UTF-8&tinyInt1isBit=false
         username: user01
         password: ak402507979
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.gjt.mm.mysql.Driver
-        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_0?useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_0?useUnicode=true&characterEncoding=UTF-8&tinyInt1isBit=false
         username: user01
         password: ak402507979
       ds1:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.gjt.mm.mysql.Driver
-        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_1?useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_1?useUnicode=true&characterEncoding=UTF-8&tinyInt1isBit=false
         username: user01
         password: ak402507979
       ds2:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.gjt.mm.mysql.Driver
-        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_2?useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://47.99.129.104:3306/webuy_learning_2?useUnicode=true&characterEncoding=UTF-8&tinyInt1isBit=false
         username: user01
         password: ak402507979
     sharding:
@@ -133,4 +134,3 @@ spring:
             inline:
               sharding-column: time_order_no
               algorithm-expression: jit_time_order_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(time_order_no)) % 3}
-

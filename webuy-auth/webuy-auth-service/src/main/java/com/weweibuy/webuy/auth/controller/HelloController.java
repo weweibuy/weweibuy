@@ -22,7 +22,8 @@ public class HelloController {
 
     @GetMapping("/hello")
     @ResponseBody
-    public String hello(){
+    public String hello() throws InterruptedException {
+        Thread.sleep(1050);
         return "authHello... get";
     }
 

@@ -6,6 +6,7 @@ import com.weweibuy.webuy.user.common.eum.UserWebMsgEum;
 import com.weweibuy.webuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.webuy.user.model.form.RegisterForm;
 import com.weweibuy.webuy.user.service.UserService;
+import feign.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,9 +72,15 @@ public class UserController {
         if(result.hasErrors()){
             return UserWebResult.fail(UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL);
         }
+        Response smsCode2 = smsCodeClient.getSmsCode2(registerForm.getPhone());
+        int status = smsCode2.status();
+        Response.Body body = smsCode2.body();
+        smsCode2.close();
 
-        CommonJsonResponse<String> smsCode = smsCodeClient.getSmsCode(registerForm.getPhone());
-        String code = smsCode.getData();
+        ResponseEntity<CommonJsonResponse> smsCode = smsCodeClient.getSmsCode(registerForm.getPhone(), "qwerty");
+        HttpStatus statusCode = smsCode.getStatusCode();
+
+        String code = "121";
         if(StringUtils.isBlank(code) || !code.equals(registerForm.getCode())){
             return UserWebResult.fail(UserWebMsgEum.VERIFICATION_CODE_WRONG);
         }

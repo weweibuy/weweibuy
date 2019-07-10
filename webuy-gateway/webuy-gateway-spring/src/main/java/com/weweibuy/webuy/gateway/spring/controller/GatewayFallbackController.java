@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 /**
  * @author durenhao
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class GatewayFallbackController {
 
     @RequestMapping("/default-fallback")
-    public ResponseEntity fallback(){
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(CommonJsonResponse.fail(CommonWebMsg.FALL_BACK));
+    public Mono<ResponseEntity<CommonJsonResponse>> fallback() {
+        return Mono.just(ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(CommonJsonResponse.fail(CommonWebMsg.FALL_BACK)));
     }
 
 }

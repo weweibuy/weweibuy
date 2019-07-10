@@ -23,7 +23,7 @@ public class StreamTest {
         students = new ArrayList<Student>() {
             {
                 for (int i = 0; i < 100; i++) {
-                    if(i < 50){
+                    if (i < 50) {
                         add(new Student("1", "student" + i, random.nextInt(50) + 50));
                     }
                     add(new Student("2", "student" + i, random.nextInt(50) + 50));
@@ -33,7 +33,7 @@ public class StreamTest {
     }
 
     @Test
-    public void test(){
+    public void test() {
         List<Student> collect = students.stream().filter(student -> student.getScore() > 85)
 //                .sorted((s0, s1) -> s0.getScore() - s1.getScore())
                 .sorted(Comparator.comparing(Student::getScore).reversed())
@@ -42,19 +42,19 @@ public class StreamTest {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         String[] arr = new String[]{"yes", "YES", "no", "NO"};
         Arrays.stream(arr).map(str -> str.toLowerCase()).forEach(System.err::println);
     }
 
     @Test
-    public void test3(){
-        Integer[] arr = new Integer[]{1,2,3,4,5,6,7,8,9,10};
+    public void test3() {
+        Integer[] arr = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         Arrays.stream(arr).filter(x -> x > 3 && x < 7).forEach(System.err::println);
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         String[] arr1 = {"a", "b", "c", "d"};
         String[] arr2 = {"e", "f", "c", "d"};
         String[] arr3 = {"h", "j", "c", "d"};
@@ -64,7 +64,7 @@ public class StreamTest {
     }
 
     @Test
-    public void test5(){
+    public void test5() {
         String[] arr1 = {"a", "b", "c", "d"};
         String[] arr2 = {"e", "c", "c", "d"};
         Stream<String> stream = Arrays.stream(arr1);
@@ -77,8 +77,8 @@ public class StreamTest {
     }
 
     @Test
-    public void test6(){
-        String[] arr = new String[]{"b","ab","abc","abcd","abcde"};
+    public void test6() {
+        String[] arr = new String[]{"b", "ab", "abc", "abcd", "abcde"};
         Arrays.stream(arr).max((str1, str2) -> str1.length() - str2.length())
                 .ifPresent(System.out::println);
         Arrays.stream(arr).max(Comparator.comparing(String::length).reversed())
@@ -86,13 +86,14 @@ public class StreamTest {
     }
 
     @Test
-    public void test7(){
-        long count = students.stream().count();
+    public void test7() {
+
+        long count = this.students.stream().count();
         System.err.println(count);
     }
 
     @Test
-    public void test8(){
+    public void test8() {
         students.stream().filter(student -> student.getScore() > 110)
                 .findFirst().ifPresent(System.out::println);
         Student student1 = students.stream().filter(student -> student.getScore() > 90)
@@ -101,32 +102,32 @@ public class StreamTest {
     }
 
     @Test
-    public void test9(){
+    public void test9() {
         students.stream().filter(student -> student.getScore() > 90)
                 .findAny().ifPresent(System.out::println);
     }
 
     @Test
-    public void test10(){
+    public void test10() {
         boolean b = students.stream().filter(student -> student.getScore() > 90)
                 .anyMatch(student -> student.getScore() == 100);
         System.err.println(b);
     }
 
     @Test
-    public void test11(){
-        Optional<Integer> optional = Stream.of(1,2,3).filter(x -> x>1).reduce( (x,y) -> x+y);
+    public void test11() {
+        Optional<Integer> optional = Stream.of(1, 2, 3).filter(x -> x > 1).reduce((x, y) -> x + y);
         System.out.println(optional.get());
     }
 
     @Test
-    public void test12(){
+    public void test12() {
         students.stream().collect(Collectors.toMap(Student::getName, Student::getScore))
                 .forEach((key, value) -> System.err.println(key + "+" + value));
     }
 
     @Test
-    public void test13(){
+    public void test13() {
         students.stream().sorted(Comparator.comparing(Student::getName).reversed())
                 .collect(Collectors.toCollection(HashSet::new))
                 .forEach(System.err::println);
@@ -134,14 +135,14 @@ public class StreamTest {
 
 
     @Test
-    public void test14(){
+    public void test14() {
         double average = students.stream().collect(Collectors.summarizingInt(Student::getScore))
                 .getAverage();
         System.err.println(average);
     }
 
     @Test
-    public void test15(){
+    public void test15() {
         Map<String, List<Student>> collect = students.stream().collect(Collectors.groupingBy(Student::getType));
         collect.forEach((key, value) -> {
             System.err.println(key);
@@ -158,7 +159,7 @@ public class StreamTest {
     }
 
     @Test
-    public void test16(){
+    public void test16() {
         System.err.println("four".length());
         List<String> collect = Stream.of("one", "two", "three", "four")
                 .filter(e -> e.length() > 3)
@@ -167,6 +168,37 @@ public class StreamTest {
                 .peek(e -> System.out.println("Mapped value: " + e))
                 .collect(Collectors.toList());
         collect.forEach(System.err::println);
+    }
+
+
+    @Test
+    public void test17() {
+        // 迭代器
+        Stream.iterate(0, n -> n + 2)
+                .limit(100)
+                .forEach(i -> {
+                    System.err.println(i);
+                });
+
+    }
+
+
+    @Test
+    public void learnStream() {
+        List<Integer> lists = new ArrayList<>();
+        lists.add(1);
+        lists.add(2);
+        lists.add(3);
+        lists.add(4);
+        lists.add(5);
+        lists.add(6);
+        Optional<Integer> sum = lists.parallelStream().reduce((a, b) -> a + b);//这里把stream()换成了parallelStream（）
+        if (sum.isPresent()) System.out.println("list的总和为:" + sum.get());//21
+        //<====> lists.stream().reduce((a, b) -> a + b).ifPresent(System.out::println);
+
+        Integer sum2 = lists.stream().reduce(0, (a, b) -> a + b);//21
+        System.out.println("list的总和为:" + sum2);
+
     }
 
 }

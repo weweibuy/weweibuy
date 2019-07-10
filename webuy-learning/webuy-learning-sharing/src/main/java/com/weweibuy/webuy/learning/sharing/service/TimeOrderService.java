@@ -107,6 +107,7 @@ public class TimeOrderService {
                 header.setVendorCode("batch_" + VENDOR_CODE);
                 header.setVendorName("batch_" + VENDOR_NAME);
                 header.setChannelCode("batch_" + CHANNEL_CODE);
+                header.setIsDelete(false);
                 log.error("orderNo: {}; 库: {}; 表: {}", s, Math.abs(s.hashCode() % 3), Math.abs((s.hashCode() + "").hashCode() % 3));
                 mapper.insertSelective(header);
             }

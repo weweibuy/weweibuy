@@ -142,12 +142,6 @@
             <groupId>com.weweibuy</groupId>
             <artifactId>webuy-support-client</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.weweibuy</groupId>
-                    <artifactId>webuy-support-common</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!--oauth2-->

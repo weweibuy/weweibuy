@@ -17,6 +17,9 @@ spring:
        enabled: true
        processor:
          enabled: true
+  jackson:
+    propertyNamingStrategy: SNAKE_CASE
+
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型

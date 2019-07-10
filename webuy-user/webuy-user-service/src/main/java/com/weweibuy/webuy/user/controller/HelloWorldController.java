@@ -1,5 +1,7 @@
 package com.weweibuy.webuy.user.controller;
 
+import com.weweibuy.webuy.support.client.TestUserClient;
+import com.weweibuy.webuy.support.common.model.TestUser;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWorldController {
 
+    private TestUserClient testUserClient;
+
+
     @RequestMapping("/hello")
     public String sayHello(){
         return "hello..user...";
@@ -21,6 +26,13 @@ public class HelloWorldController {
     @RequestMapping("/helloSso")
     public String sayHelloSSO(){
         return "hello..SSO...";
+    }
+
+    @RequestMapping("/hello-user")
+    public String testUser(){
+        TestUser testUser = new TestUser();
+        testUserClient.hello5(testUser);
+        return "success";
     }
 
 
