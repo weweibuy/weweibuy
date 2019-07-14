@@ -23,6 +23,7 @@
     </springProfile>
     <springProfile name="test">
         <property name="log.path" value="/logs/${app_name}/pmp" />
+        <logger name="com.weweibuy.webuy.learning.spring.mapper" level="DEBUG"/>
     </springProfile>
     <property name="appName" value="${app_name}" />
     <!--0. 日志格式和颜色渲染 -->

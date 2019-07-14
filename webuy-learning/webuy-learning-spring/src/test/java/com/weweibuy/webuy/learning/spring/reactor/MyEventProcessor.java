@@ -26,6 +26,7 @@ public class MyEventProcessor extends BaseSubscriber<String> {
         this.singleThreadEventListener = listener;
     }
 
-
-
+    public MyEventListener getListener() {
+        return listener;
+    }
 }

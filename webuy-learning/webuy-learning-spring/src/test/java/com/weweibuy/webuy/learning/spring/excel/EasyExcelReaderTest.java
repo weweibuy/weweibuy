@@ -20,7 +20,7 @@ public class EasyExcelReaderTest {
 
     @Test
     public void test01() throws Exception {
-        InputStream inputStream = new FileInputStream("C:\\Users\\z\\Desktop\\新建 Microsoft Excel 工作表.xlsx");
+        InputStream inputStream = new FileInputStream("C:/Users/z/Desktop/excel/新建 Microsoft Excel 工作表.xlsx");
         try {
             // 解析每行结果在listener中处理
             ExcelListener listener = new ExcelListener();
@@ -44,7 +44,7 @@ public class EasyExcelReaderTest {
     @Test
     public void saxReadListStringV2007() throws IOException {
 
-        InputStream inputStream = new FileInputStream("C:\\Users\\z\\Desktop\\新建 Microsoft Excel 工作表.xlsx");
+        InputStream inputStream = new FileInputStream("C:\\Users\\z\\Desktop\\excel\\新建 Microsoft Excel 工作表.xlsx");
         // 解析每行结果在listener中处理
         ExcelListener listener = new ExcelListener();
         ExcelReader excelReader = new ExcelReader(inputStream, ExcelTypeEnum.XLSX, null, listener);

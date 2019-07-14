@@ -1,0 +1,4 @@
+1. subscribeOn 或者 publishOn 用于订阅使用那一种线程池的线程进行发布或消费;
+    过程依然的单线程发布/消费
+
+2. parallel

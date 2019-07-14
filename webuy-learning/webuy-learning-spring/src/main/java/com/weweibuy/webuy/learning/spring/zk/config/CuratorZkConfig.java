@@ -51,9 +51,7 @@ public class CuratorZkConfig {
                 String path = pathChildrenCacheEvent.getData()
                         .getPath();
                 List<ChildData> initialData = pathChildrenCacheEvent.getInitialData();
-                byte[] data = pathChildrenCacheEvent.getData()
-                        .getData();
-                log.error("子节点: {} 数据有变化, 数据: {}", path, new String(data));
+                log.error("子节点: {} 数据有变化, 数据: {}", path);
             }
         });
         return curatorZkClient;

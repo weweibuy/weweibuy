@@ -1,6 +1,8 @@
 package com.weweibuy.webuy.learning.spring.csv.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -9,6 +11,8 @@ import java.util.Date;
  * @date 2019/7/11 23:05
  **/
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CsvUser {
 
     private String customerNo;

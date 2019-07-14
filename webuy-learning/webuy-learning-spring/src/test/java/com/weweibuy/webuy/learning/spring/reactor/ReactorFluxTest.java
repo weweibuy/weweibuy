@@ -4,6 +4,7 @@ import com.weweibuy.webuy.learning.spring.hystirx.HealthCounts;
 import com.weweibuy.webuy.learning.spring.hystirx.HystrixEvent1;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import reactor.core.publisher.*;
 import reactor.core.scheduler.Schedulers;
 
@@ -12,12 +13,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 
 @Slf4j
 public class ReactorFluxTest {
 
     private CountDownLatch countDownLatch = new CountDownLatch(1);
+
+    private ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+
+    {
+        executor.setMaxPoolSize(3);
+        executor.setThreadNamePrefix("reactor-flux-test-");
+        executor.initialize();
+    }
 
     @Test
     public void test01() throws InterruptedException {
@@ -67,12 +77,15 @@ public class ReactorFluxTest {
                     });
         }, FluxSink.OverflowStrategy.ERROR);
 
-        bridge.subscribe(log::error);
+        bridge
+                .subscribe(log::error);
         MyEventListener listener = myEventProcessor.getListener();
 
         String[] arr = {"1", "a", "2", "b"};
 
-        listener.onDataChunk(Arrays.asList(arr));
+        for (String s : arr) {
+            listener.onDataChunk(s);
+        }
 
     }
 
@@ -308,7 +321,7 @@ public class ReactorFluxTest {
     public void test16() {
 
         Flux.just("1", "2", "3", "4", "5")
-                .window(1, 3)
+                .window(2, 2)
                 .concatMap(g -> g.defaultIfEmpty("-1"))
                 .subscribe(log::error);
     }
@@ -554,9 +567,10 @@ public class ReactorFluxTest {
                             .skip(10); // 忽略不不完整的窗口
                 })
                 .share()
+                .subscribeOn(Schedulers.fromExecutor(executor))
                 .subscribe(i -> {
                     long totalCount = i.getTotalCount();
-                    log.warn(totalCount + "");
+                    log.warn("总计数量: {} ", totalCount);
                 });
         new Thread(() -> {
             for (int i = 0; i < 50; i++) {
@@ -575,8 +589,68 @@ public class ReactorFluxTest {
         countDownLatch.await();
         Thread.sleep(1000);
 
-
     }
 
+
+    @Test
+    public void test25() throws Exception {
+        Flux.just("1", "2", "3", "4", "5", "6")
+                .publishOn(Schedulers.fromExecutor(executor))
+                .subscribe(log::info);
+    }
+
+
+    @Test
+    public void test26() throws Exception {
+        Flux.just("tom", "tom1", "tom2")
+                .map(s -> {
+                    log.info("[map] 数据");
+                    return s.concat("@mail.com");
+                })
+                .publishOn(Schedulers.newElastic("thread-publishOn"))
+                .filter(s -> {
+                    log.info("[filter] 数据");
+                    return s.startsWith("t");
+                })
+                .subscribeOn(Schedulers.newElastic("thread-subscribeOn"))
+                .subscribe(s -> {
+                    log.info("[subscribe] 数据: {}", s);
+                });
+        Thread.sleep(200);
+    }
+
+
+    /*8
+    并行
+     */
+    @Test
+    public void test27() {
+        Flux.range(1, 10)
+                .parallel(2)
+                .runOn(Schedulers.fromExecutor(executor))
+                .subscribe(i -> System.out.println(Thread.currentThread().getName() + " -> " + i));
+    }
+
+
+    @Test
+    public void test28() {
+        AtomicInteger integer = new AtomicInteger();
+        Flux.range(1, 10000)
+                .window(100, 100)
+                .flatMap(i -> {
+                    return i.reduce(integer, (a, f) -> {
+                        a.addAndGet(f);
+                        return a;
+                    });
+                })
+                .reduce((a, b) -> {
+                    return b;
+                })
+                .subscribe(i -> {
+                    int i1 = i.get();
+                    log.info("总数: {}", i1);
+                });
+
+    }
 
 }

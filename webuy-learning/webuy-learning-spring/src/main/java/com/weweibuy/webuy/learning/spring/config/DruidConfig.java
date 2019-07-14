@@ -1,20 +1,17 @@
 package com.weweibuy.webuy.learning.spring.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
+import com.alibaba.druid.wall.WallConfig;
+import com.alibaba.druid.wall.WallFilter;
 import com.weweibuy.webuy.learning.spring.config.properties.CodeMappingProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 /**
  * @ClassName DruidConfig
@@ -46,35 +43,26 @@ public class DruidConfig {
         datasource.setMaxWait(dataSourceProperties.getMaxWait());
         datasource.setPoolPreparedStatements(dataSourceProperties.getPoolPreparedStatements());
         datasource.setMaxPoolPreparedStatementPerConnectionSize(dataSourceProperties.getMaxPoolPreparedStatementPerConnectionSize());
-        try {
-            datasource.setFilters(dataSourceProperties.getFilters());
-        } catch (SQLException e) {
-            log.error("druid configuration initialization filter: " + e);
-        }
         datasource.setConnectionProperties(dataSourceProperties.getConnectionProperties());
         return datasource;
     }
 
 
+
     @Bean
-    public FilterRegistrationBean getFilterRegistrationBean() {
-        FilterRegistrationBean filter = new FilterRegistrationBean();
-        filter.setFilter(new WebStatFilter());
-        filter.setName("druidWebStatFilter");
-        filter.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*");
-        filter.addUrlPatterns("/*");
-        return filter;
+    public WallFilter wallFilter() {
+        WallFilter wallFilter = new WallFilter();
+        wallFilter.setConfig(wallConfig());
+        return wallFilter;
     }
 
     @Bean
-    public ServletRegistrationBean getServletRegistrationBean() {
-        ServletRegistrationBean servlet = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
-        servlet.setName("druidStatViewServlet");
-//        servlet.addInitParameter("resetEnable", "false");
-        servlet.addInitParameter("loginUsername", dataSourceProperties.getUiUsername());
-        servlet.addInitParameter("loginPassword", dataSourceProperties.getUipassword());
-        return servlet;
-    }
+    public WallConfig wallConfig() {
+        WallConfig config = new WallConfig();
+        config.setMultiStatementAllow(true);
+        config.setNoneBaseStatementAllow(true);
+        return config;
 
+    }
 
 }

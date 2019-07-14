@@ -55,6 +55,12 @@
 			   enableDeleteByExample="true" enableSelectByExample="true" >
 		</table>
 
+		<table tableName="cis_yunju_inv_temp"
+			   enableCountByExample="true" enableUpdateByExample="true"
+			   enableDeleteByExample="true" enableSelectByExample="true" >
+		</table>
+
+
 		<!-- 有些表的字段需要指定java类型
 		 <table schema="" tableName="">
 			<columnOverride column="" javaType="" />
