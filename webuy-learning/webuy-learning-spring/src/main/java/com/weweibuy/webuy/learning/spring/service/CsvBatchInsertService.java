@@ -36,12 +36,15 @@ public class CsvBatchInsertService {
     private CisYunjuInvTempMapper yunjuInvTempMapper;
 
     public void batchInsert() throws Exception {
-
-
         long l = System.currentTimeMillis();
         AtomicInteger atomicInteger = new AtomicInteger();
         List<CsvRow> csvRows = CsvUtil.loadCsvToList(FILENAME, FIELD_SEPARATOR);
         Flux.fromStream(csvRows.stream())
+                .doOnSubscribe(i -> {
+                    log.info("产生订阅");
+
+                    i.cancel();
+                })
                 .doOnNext(row -> {
                     String field = row.getField(6);
                     atomicInteger.addAndGet(Integer.valueOf(field));
