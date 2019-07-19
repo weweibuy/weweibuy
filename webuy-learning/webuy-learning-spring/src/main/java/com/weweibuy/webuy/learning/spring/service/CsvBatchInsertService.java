@@ -43,7 +43,6 @@ public class CsvBatchInsertService {
                 .doOnSubscribe(i -> {
                     log.info("产生订阅");
 
-                    i.cancel();
                 })
                 .doOnNext(row -> {
                     String field = row.getField(6);

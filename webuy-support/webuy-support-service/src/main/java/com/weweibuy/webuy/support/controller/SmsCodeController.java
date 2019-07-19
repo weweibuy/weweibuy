@@ -31,12 +31,7 @@ public class SmsCodeController {
     @ApiOperation("获取验证码")
     @GetMapping("/smsCode/{mobile}")
     public ResponseEntity getSmsCode(@PathVariable String mobile, @RequestHeader(value = "Token") String token) throws InterruptedException {
-        log.error(" token : {}", token);
-
-        if (true) {
-            Thread.sleep(50);
-            return ResponseEntity.badRequest().body(CommonJsonResponse.success());
-        }
+        log.info("查询验证码, 手机号码: {}", mobile);
 
         if (StringUtils.isBlank(mobile)) {
             return ResponseEntity.ok(new CommonJsonResponse<String>(CommonStatus.FAIL.toString(), null, null, null));
