@@ -1,0 +1,7 @@
+1.控制台规则动态配置
+    控制台远程Http控制规则配置
+2.apollo 远程数据源
+    引入 sentinel-datasource-apollo; 初始化规则配置时读取apollo上的配置的 json 数据
+3. 问题:
+    1,2都可以对规则进行修改; 控制台修改不同步apollo; apollo 修改可以同步控制台
+

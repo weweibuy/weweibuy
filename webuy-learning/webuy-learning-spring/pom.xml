@@ -43,6 +43,25 @@
             <version>1.0.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-core</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <!--sentinel 控制台client-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-transport-simple-http</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <!--apollo动态规则-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-apollo</artifactId>
+            <version>1.6.2</version>
+        </dependency>
 
     </dependencies>
 
