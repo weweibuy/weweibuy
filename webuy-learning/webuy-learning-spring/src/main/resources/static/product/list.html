@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript">
+    var _paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function () {
+        var u = "//106.12.95.245:8888/";
+        _paq.push(['setTrackerUrl', u + 'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        _paq.push(['setUserId', 'du']);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'matomo.js';
+        s.parentNode.insertBefore(g, s);
+    })();
+</script>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<script src="../js/jquery-2.2.3.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+</head>
+<body>
+    <button onclick="test()">测试</button>
+</body>
+<script>
+    function test() {
+        _paq.push([ 'API_method_name', 'test' ]);
+        var visitor_id;
+        _paq.push([ function() { visitor_id = "tom"; }]);
+        _paq.push(['setCustomVariable','1','VisitorType','Member']);
+        _paq.push([ function() { var customVariable = 'Member'; }]);
+
+        _paq.push(['setDocumentTitle', document.title]);
+        _paq.push(['trackPageView']);
+        _paq.push(['trackGoal', 1]);
+
+        _paq.push(['trackSiteSearch',
+            // Search keyword searched for
+            "Banana",
+            // Search category selected in your search engine. If you do not need this, set to false
+            "Organic Food",
+            // Number of results on the Search results page. Zero indicates a 'No Result Search Keyword'. Set to false if you don't know
+            0
+        ]);
+
+        _paq.push(['setCustomVariable',
+            // Index, the number from 1 to 5 where this custom variable name is stored
+            1,
+            // Name, the name of the variable, for example: Gender, VisitorType
+            "Gender",
+            // Value, for example: "Male", "Female" or "new", "engaged", "customer"
+            "Male",
+            // Scope of the custom variable, "visit" means the custom variable applies to the current visit
+            "visit"
+        ]);
+
+        _paq.push(['trackPageView']);
+
+        _paq.push(['setCustomDimension', customDimensionId = 1, customDimensionValue = 'Member']);
+
+        _paq.push(['trackPageView']);
+        _paq.push(['trackVisibleContentImpressions', true, 750]);
+
+
+        var div = $('<div>...<div data-track-content>...</div>...<div data-track-content>...</div></div>');
+        $('#id').append(div);
+
+        _paq.push(['trackContentImpressionsWithinNode', div[0]]);
+
+
+        _paq.push(['trackContentImpression', 'Content Name', 'Content Piece', 'http://www.example.com']);
+
+        div.addEventListener('click', function () {
+            _paq.push(['trackContentInteraction', 'tabActivated', 'Content Name', 'Content Piece', 'http://www.example.com']);
+        });
+    }
+</script>
+</html>

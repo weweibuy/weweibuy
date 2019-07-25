@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript">
+    var _paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function () {
+        var u = "//106.12.95.245:8888/";
+        _paq.push(['setTrackerUrl', u + 'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        _paq.push(['setUserId', 'du']);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'matomo.js';
+        s.parentNode.insertBefore(g, s);
+    })();
+</script>
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+<script src="./js/jquery-2.2.3.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<h1>欢迎进入首页</h1>
+<button onclick="test()">测试</button>
+<a href="#" onclick="_paq.push(['trackEvent', 'Menu', 'Freedom']);">Freedom page</a>
+<div id="optout-form">
+    <p>You may choose not to have a unique web analytics cookie identification number assigned to your computer to avoid
+        the aggregation and analysis of data collected on this website.</p>
+    <p>To make that choice, please click below to receive an opt-out cookie.</p>
+
+    <p>
+        <input type="checkbox" id="optout"/>
+        <label for="optout"><strong></strong></label>
+    </p>
+</div>
+
+</body>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        function setOptOutText(element) {
+            _paq.push([function () {
+                element.checked = !this.isUserOptedOut();
+                document.querySelector('label[for=optout] strong').innerText = this.isUserOptedOut()
+                    ? 'You are currently opted out. Click here to opt in.'
+                    : 'You are currently opted in. Click here to opt out.';
+            }]);
+        }
+
+        var optOut = document.getElementById("optout");
+        optOut.addEventListener("click", function () {
+            if (this.checked) {
+                _paq.push(['forgetUserOptOut']);
+            } else {
+                _paq.push(['optUserOut']);
+            }
+            setOptOutText(optOut);
+        });
+        setOptOutText(optOut);
+    });
+
+
+    function test() {
+        var visitor_id;
+        // 计算没个页面花费时间
+        _paq.push(['enableHeartBeatTimer']);
+
+        _paq.push([function () {
+            visitor_id = "tom";
+        }]);
+        // 设置变量访问类型
+        _paq.push(['setCustomVariable', '1', 'VisitorType', '管理员']);
+        _paq.push([function () {
+            var customVariable = 'Member';
+        }]);
+
+        _paq.push(['setDocumentTitle', document.title]);
+        _paq.push(['trackPageView']);
+        _paq.push(['trackGoal', 1]);
+
+        // 搜索埋点
+        _paq.push(['trackSiteSearch',
+            // Search keyword searched for
+            "苹果",
+            // Search category selected in your search engine. If you do not need this, set to false
+            "搜索水果",
+            // Number of results on the Search results page. Zero indicates a 'No Result Search Keyword'. Set to false if you don't know
+            1
+        ]);
+
+
+        var searchCount = 15; // set this value when rendering the search result page
+        _paq.push(['setCustomUrl', document.URL + '/search&search_count=' + searchCount]);
+        _paq.push(['trackPageView']);
+
+        // 设置变量,性别
+        _paq.push(['setCustomVariable',
+            // Index, the number from 1 to 5 where this custom variable name is stored
+            2,
+            // Name, the name of the variable, for example: Gender, VisitorType
+            "性别",
+            // Value, for example: "Male", "Female" or "new", "engaged", "customer"
+            "男",
+            // Scope of the custom variable, "visit" means the custom variable applies to the current visit
+            "visit"
+        ]);
+
+        _paq.push(['setCustomDimension', 3, 'Member-----']);
+        _paq.push(['trackPageView', '/custom-dimension', {dimension1: 'test-dimensionValue'}]);
+
+        _paq.push(['trackVisibleContentImpressions', true, 750]);
+
+
+        var div = $('<div>...<div data-track-content>...</div>...<div data-track-content>...</div></div>');
+        $('#id').append(div);
+
+
+        _paq.push(['trackContentInteractionNode', div, 'submittedForm']);
+
+        _paq.push(['trackContentImpressionsWithinNode', div[0]]);
+
+        // 访问内容
+        _paq.push(['trackContentImpression', '商品价格', '100', 'http://www.example.com']);
+
+
+        // 下载
+        _paq.push(['setDownloadClasses', "跟踪下载图片"]);
+        _paq.push(['trackPageView']);
+
+        _paq.push(['setDomains', ["*.hostname1.com", "hostname2.com"]]);
+        _paq.push(['trackPageView']);
+
+        _paq.push(['setLinkClasses', "通过CSS或JavaScript将点击跟踪为外链"]);
+        _paq.push(['trackPageView']);
+
+    }
+</script>
+</html>
