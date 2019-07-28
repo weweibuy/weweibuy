@@ -1,5 +1,6 @@
 package com.weweibuy.webuy.learning.spring.config;
 
+import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import com.alibaba.csp.sentinel.datasource.ReadableDataSource;
 import com.alibaba.csp.sentinel.datasource.apollo.ApolloDataSource;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
@@ -10,6 +11,7 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
@@ -29,19 +31,24 @@ public class SentinelConfig implements InitializingBean {
         initDegradeRule();
     }
 
+    @Bean
+    public SentinelResourceAspect sentinelResourceAspect() {
+        return new SentinelResourceAspect();
+    }
+
     /**
      * 限流
      */
     private void initFlowQpsRule() {
         loadRulesFromApollo();
-//        List<FlowRule> rules = new ArrayList<>();
-//        FlowRule rule = new FlowRule("HelloWorld");
-//        // set limit qps to 20
-//        rule.setCount(10);
-//        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
-//        rule.setLimitApp("default");
-//        rules.add(rule);
-//        FlowRuleManager.loadRules(rules);
+        List<FlowRule> rules = new ArrayList<>();
+        FlowRule rule = new FlowRule("HelloWorld");
+        // set limit qps to 20
+        rule.setCount(10);
+        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+        rule.setLimitApp("default");
+        rules.add(rule);
+        FlowRuleManager.loadRules(rules);
     }
 
     /**

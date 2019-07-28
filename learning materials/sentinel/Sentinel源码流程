@@ -1,0 +1,47 @@
+一.初始化流程
+    1  SphU.entry("resourceName");
+        根据资源名称resourceName 与 限流类型(默认out出口流量)创建 StringResourceWrapper
+    2. 创建 Context  调用上下文
+        2.1 调用ContextUtil.getContext 获取当前线程绑定的调用上下文Context()
+            当时第一个链路的entry时 Context 为空,将创建一个名字为 sentinel_default_context 的上下文对象;
+            Context 维护中着一个重要的对象: DefaultNode 包含整个调用链路节点的关系(树形)
+        2.2 创建 Context 与其DefaultNode过程 --- ContextUtil
+            ContextUtil在初始化的时候,创建了一个默认的线程可见的 Map<String, DefaultNode> contextNameNodeMap
+            齐总Key 为sentinel_default_context, value为 EntranceNode;
+            Context 创建的时候会将默认的 EntranceNode 指向自己的 EntranceNode,并与线程绑定
+
+    3. 创建执行链 LinkedProcessorSlot
+        3.1 CtSph 中维护着一个可见的Map以 ResourceWrapper 为key,链路为value
+        3.2 创建 ProcessorSlotChain 处理链路
+            ProcessorSlotChain 通过 SlotChainBuilder的实现类创建;默认使用实现是: DefaultSlotChainBuilder
+            注意:Sentinel 提供了自定义的构建方式通过 ServiceLoader 进行; 如果使用自定义的构建方式,Sentinel选择第一个非DefaultSlotChainBuilder的实现
+            3.2.1 ProcessorSlotChain 创建
+                第一个 ProcessorSlotChain 为链式结构默认提供了: 8 个链式插槽
+                其中每个插槽都是 AbstractLinkedProcessorSlot 的实现; 内部维护这与下一个插槽的关系
+
+二.链路执行中的插槽
+    1. NodeSelectorSlot  (维护节点关系)执行;
+        NodeSelectorSlot内部维护着一个可见的 key为ContextName, 值为 DefaultNode 的map缓存
+        DefaultNode 内部维护这个其子节点的Set 集合;
+        如果缓存中没有 对应的Node(NodeSelectorSlot 为每一个entry一个实例,缓存也是);将创建一个DefaultNode
+        通过 Context 获取父节点将其增加在父节点的 子节点中(类型与栈); entry.exit();上下文节点回拨,因此为树形
+        完成之后 Context 设置当前节点为 map 中获取(或创建的)的节点
+
+    2. ClusterBuilderSlot
+        从缓存中获取 ClusterNode 原理与上一个基本相同
+
+
+
+
+三. client 与 dashboard 通讯
+
+1. 通讯机制: client 通过 ServerSocket 与 dashboard(HttpClient) 进行Http 通讯
+2. client ServerSocket的创建
+    2.1 调用 SphU.entry 创建 entry时 Env.sph.entry 将进行一些初始化操作
+        通过 ServiceLoader 实例化 META-INF/service 目录下所有 InitFunc 的实现类
+        其中 HeartbeatSenderInitFunc 用于心跳检测,通过配置的 csp.sentinel.dashboard.server 向 dashboard 汇报client启动的端口
+        CommandCenterInitFunc 首先初始化 用于向 dashboard 提供数据的端点 CommandHandler;
+        然后,通过设置的(默认8719) 端口启动Http的 ServerSocket 服务
+3. dashboard 拉取 client 信息
+    dashboard 通过 HttpClient 发送Http请求调用 client的 ServerSocket 服务;
+    访问 预先设置好的 CommandHandler(端点),获取数据后,进行展示

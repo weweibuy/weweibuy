@@ -9,7 +9,7 @@
         var u = "//106.12.95.245:8888/";
         _paq.push(['setTrackerUrl', u + 'matomo.php']);
         _paq.push(['setSiteId', '1']);
-        _paq.push(['setUserId', 'du']);
+        _paq.push(['setUserId', 'zhang']);
         var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
         g.type = 'text/javascript';
         g.async = true;
@@ -29,41 +29,9 @@
 <h1>欢迎进入首页</h1>
 <button onclick="test()">测试</button>
 <a href="#" onclick="_paq.push(['trackEvent', 'Menu', 'Freedom']);">Freedom page</a>
-<div id="optout-form">
-    <p>You may choose not to have a unique web analytics cookie identification number assigned to your computer to avoid
-        the aggregation and analysis of data collected on this website.</p>
-    <p>To make that choice, please click below to receive an opt-out cookie.</p>
-
-    <p>
-        <input type="checkbox" id="optout"/>
-        <label for="optout"><strong></strong></label>
-    </p>
-</div>
 
 </body>
 <script>
-
-    document.addEventListener("DOMContentLoaded", function (event) {
-        function setOptOutText(element) {
-            _paq.push([function () {
-                element.checked = !this.isUserOptedOut();
-                document.querySelector('label[for=optout] strong').innerText = this.isUserOptedOut()
-                    ? 'You are currently opted out. Click here to opt in.'
-                    : 'You are currently opted in. Click here to opt out.';
-            }]);
-        }
-
-        var optOut = document.getElementById("optout");
-        optOut.addEventListener("click", function () {
-            if (this.checked) {
-                _paq.push(['forgetUserOptOut']);
-            } else {
-                _paq.push(['optUserOut']);
-            }
-            setOptOutText(optOut);
-        });
-        setOptOutText(optOut);
-    });
 
 
     function test() {
@@ -87,17 +55,17 @@
         // 搜索埋点
         _paq.push(['trackSiteSearch',
             // Search keyword searched for
-            "苹果",
+            "Banana",
             // Search category selected in your search engine. If you do not need this, set to false
-            "搜索水果",
+            "Organic Food",
             // Number of results on the Search results page. Zero indicates a 'No Result Search Keyword'. Set to false if you don't know
-            1
+            0
         ]);
 
 
-        var searchCount = 15; // set this value when rendering the search result page
-        _paq.push(['setCustomUrl', document.URL + '/search&search_count=' + searchCount]);
-        _paq.push(['trackPageView']);
+//        var searchCount = 15; // set this value when rendering the search result page
+//        _paq.push(['setCustomUrl', document.URL + '/search&search_count=' + searchCount]);
+//        _paq.push(['trackPageView']);
 
         // 设置变量,性别
         _paq.push(['setCustomVariable',
