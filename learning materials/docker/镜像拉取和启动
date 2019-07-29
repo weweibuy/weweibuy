@@ -31,3 +31,9 @@ docker 安装rabbitMQ：
 -XX:+UseConcMarkSweepGC （指定使用的垃圾收集器，这里使用CMS收集器）
 -XX:+PrintGCDetails （打印详细的GC日志）
 gu 关闭 JIT的CompilerThread
+
+grafana:
+docker run -u root  --privileged=true -p 3000:3000  -v /docker/grafana/data:/var/lib/grafana -v /docker/grafana/etc:/etc/grafana -v /docker/grafana/log:/var/log/grafana  --rm  -e "GF_SECURITY_ADMIN_PASSWORD=admin"   --name grafana grafana:6.2.5
+
+
+
