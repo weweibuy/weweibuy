@@ -20,6 +20,9 @@ ENV JAVA_OPTS=" \
 -XX:+HeapDumpOnOutOfMemoryError \
 -XX:HeapDumpPath=/log/webuy-eureka/webuy-eureka-heap.dump \
 -Xloggc:/logs/webuy-eureka/webuy-eureka-gc.log \
+-Dcsp.sentinel.dashboard.server=106.12.15.87:8080 \
+-Dcsp.sentinel.log.dir=/logs/webuy-eureka/sentinel
+-Dproject.name=webuy-eureka \
 -Djava.compiler=NONE \
 -Duser.timezone=GMT+08 \
 -Djava.security.egd=file:/dev/./urandom"

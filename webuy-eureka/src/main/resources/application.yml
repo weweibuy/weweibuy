@@ -10,17 +10,6 @@ spring:
   application:
     name: webuy-eureka
 
-#  boot:      # 在erueka 没有想注册中心注册自己的时候使用
-#    admin:
-#      auto-registration: true  #客户端是否自动注 册
-#      client:
-#        url: http://localhost:7501
-#        username: admin
-#        password: ak402507979
-#        instance:
-#          prefer-ip: true  #客户端是否提供本机真实ip
-#          service-url: http://${eureka.instance.ip-address}:${server.port}
-
 #配置日志
 logging:
   config: classpath:config/logback/logback-spring.xml

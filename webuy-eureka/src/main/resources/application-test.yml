@@ -3,16 +3,13 @@ spring:
     user:
       name: admin
       password: ak402507979
-  zipkin:
-    base-url: http://106.12.95.245:9411
-    messageTimeout: 100
-    discoveryClientEnabled: true
+
 
 eureka:
   instance:
     instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
     prefer-ip-address: true
-    ip-address: 47.99.129.104
+    ip-address: 106.12.95.245
   server:
     enable-self-preservation: false  #关闭自我保护,开启自我保护eureka不会注销任何微服务
     response-cache-auto-expiration-in-seconds: 120
