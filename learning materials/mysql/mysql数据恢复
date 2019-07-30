@@ -1,0 +1,9 @@
+1. 拷贝 mysql data数据文件
+2. 新建同版本mysql服务; 启动初始化 -->  停止
+3. 更改新服务mysql my.conf 加入配置
+    innodb_force_recovery=4
+4. 删除新服务的data 目录中的 ib_logfile 或 ib_logfile开头文件
+5. 将原服务data 文件中的 ib_logfile 拷贝到新服务中
+6. 将原服务的data中的 数据库文件拷贝到新的服务 data中
+7. 启动mysql
+8. 恢复my.conf 配置

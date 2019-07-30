@@ -67,14 +67,24 @@
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
 
-        <!--zipkin-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-core</artifactId>
+            <version>1.6.2</version>
         </dependency>
+
+        <!--连接控制台-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-transport-simple-http</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <!--apollo动态规则-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-apollo</artifactId>
+            <version>1.6.2</version>
         </dependency>
 
     </dependencies>

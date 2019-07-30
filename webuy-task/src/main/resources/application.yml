@@ -4,6 +4,12 @@ server:
     max-threads: 10   #Spring boot自带的tomcat线程数默认值为200个
     min-spare-threads: 5    #初始化线程数
 
+app:
+  id: ${spring.application.name}
+apollo:
+  meta: http://106.12.15.87:9080
+
+
 spring:
    profiles:
      active: ${profileActive}
@@ -41,11 +47,23 @@ spring:
        name: admin
        password: ak402507979
 
-
-
 logging:
   config: classpath:config/logback/logback-spring.xml
 
+mybatis:
+  config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.weweibuy.webuy.po    # 所有Entity别名类所在包
+  mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 ---
   #dev environment
@@ -93,28 +111,3 @@ eureka:
     home-page-url: http://${eureka.instance.ip-address}:${server.port}/
 ---
 
-
-mybatis:
-  config-location: classpath:config/mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
-  type-aliases-package: com.weweibuy.webuy.po    # 所有Entity别名类所在包
-  mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
-
-
-feign:
-  hystrix:
-    enabled: false
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 2000
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: ALWAYS

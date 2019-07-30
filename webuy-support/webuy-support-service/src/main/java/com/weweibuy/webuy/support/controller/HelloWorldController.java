@@ -2,7 +2,6 @@ package com.weweibuy.webuy.support.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.weweibuy.webuy.support.common.model.TestUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.retry.annotation.Backoff;
@@ -95,7 +94,7 @@ public class HelloWorldController {
     }
 
     @PostMapping("/hello/user")
-    public ResponseEntity hello5(TestUser user) {
+    public ResponseEntity hello5(String user) {
         log.error("User : {}", user);
         return ResponseEntity.ok(user);
     }

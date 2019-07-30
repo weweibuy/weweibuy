@@ -29,7 +29,6 @@ public class CsvReaderTest {
         ICsvBeanReader beanReader = null;
         try {
             beanReader = new CsvBeanReader(new FileReader("C:/Users/z/Desktop/excel/test.csv"), CsvPreference.STANDARD_PREFERENCE);
-
             // the header elements are used to map the values to the bean (names must match)
             final String[] header = beanReader.getHeader(true);
             final CellProcessor[] processors = getCellProcessor();

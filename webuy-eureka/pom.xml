@@ -49,7 +49,7 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-core</artifactId>
-            <version>1.6.3</version>
+            <version>1.6.2</version>
         </dependency>
 
         <!--连接控制台-->

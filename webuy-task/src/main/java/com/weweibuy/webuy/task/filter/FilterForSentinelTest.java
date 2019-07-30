@@ -1,4 +1,9 @@
-package com.weweibuy.webuy.eureka.filter;
+/*
+ * All rights Reserved, Designed By baowei
+ *
+ * 注意：本内容仅限于内部传阅，禁止外泄以及用于其他的商业目的
+ */
+package com.weweibuy.webuy.task.filter;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.SphU;
@@ -21,18 +26,18 @@ import java.io.IOException;
 
 /**
  * @author durenhao
- * @date 2019/7/29 23:45
+ * @date 2019/7/30 11:58
  **/
 @Slf4j
 @Order(Integer.MIN_VALUE)
 @Component
 public class FilterForSentinelTest extends OncePerRequestFilter {
 
-
-    private static final String RESOURCE_NAME = "eureka-sentinel-test-resource";
+    private static final String RESOURCE_NAME = "task-sentinel-test-resource";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         Entry entry = null;
         String ipAddress = getIPAddress(request);
         log.info("请求ip :{}", ipAddress);

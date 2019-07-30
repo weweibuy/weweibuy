@@ -4,6 +4,9 @@ spring:
     active: ${profileActive}
   application:
     name: learning-spring
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
 
 logging:
   config: classpath:config/logback/logback-spring.xml

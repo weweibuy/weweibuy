@@ -653,4 +653,28 @@ public class ReactorFluxTest {
 
     }
 
+    @Test
+    public void test29() throws InterruptedException {
+        List<String> strings = new ArrayList<>();
+        strings.add("tom");
+        strings.add("jack");
+
+        List<String> strings2 = new ArrayList<>();
+        strings2.add("lucy");
+        strings2.add("jim");
+
+        ArrayList<List<String>> lists = new ArrayList<>();
+        lists.add(strings);
+        lists.add(strings2);
+
+        Flux.fromStream(lists.stream())
+                .flatMap(list -> {
+                    return Flux.fromStream(list.stream());
+                })
+                .subscribe(log::info);
+    }
+
+
+
+
 }
