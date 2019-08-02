@@ -11,7 +11,7 @@
         </commentGenerator>
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.99.129.104:3306/webuy_learning?characterEncoding=UTF-8"
+                        connectionURL="jdbc:mysql://106.12.15.87:3306/webuy_learning?characterEncoding=UTF-8"
                         userId="user01"
                         password="ak402507979">
         </jdbcConnection>
@@ -46,15 +46,66 @@
         </javaClientGenerator>
 
         <!--数据库中表生成类的信息-->
-        <table tableName="jit_time_order_detail_limit"
+        <table tableName="dispatch_bill_detail"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true">
         </table>
 
-        <table tableName="jit_time_order_header_limit"
+        <table tableName="dispatch_bill_info"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true">
         </table>
+
+        <table tableName="dispatch_bill_settlement_info"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="dispatch_bill_warehouse_info"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="dispatch_receipt"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="dispatch_receipt_detail"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="receive_bill_detail"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="receive_bill_info"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="receive_bill_settlement_info"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="receive_bill_warehouse_info"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="receive_receipt"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
+        <table tableName="receive_receipt_detail"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true">
+        </table>
+
 
     </context>
 </generatorConfiguration>
