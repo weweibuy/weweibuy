@@ -24,6 +24,9 @@ ENV JAVA_OPTS=" \
 -Dcsp.sentinel.log.dir=/logs/webuy-eureka/sentinel
 -Dproject.name=webuy-eureka \
 -Djava.compiler=NONE \
+-Dcsp.sentinel.dashboard.server=106.12.15.87:8080 \
+-Dcsp.sentinel.log.dir=/logs/webuy-eureka/sentinel \
+-Dproject.name=webuy-eureka \
 -Duser.timezone=GMT+08 \
 -Djava.security.egd=file:/dev/./urandom"
 # ENTRYPOINT 帮助你配置一个容器使之可执行化

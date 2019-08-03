@@ -85,7 +85,13 @@ spring:
   shardingsphere:
     enabled: true
     datasource:
-      name: ds0,ds1
+      names: ds,ds0,ds1
+      ds:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: org.gjt.mm.mysql.Driver
+        url: jdbc:mysql://106.12.15.87:3306/webuy_learning?useUnicode=true&characterEncoding=UTF-8&tinyInt1isBit=false
+        username: user01
+        password: ak402507979
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.gjt.mm.mysql.Driver
@@ -99,138 +105,138 @@ spring:
         username: user01
         password: ak402507979
     sharding:
-      default-data-source-name: ds0
+      default-data-source-name: ds
       tables:
         dispatch_bill_detail:
-          actual-data-nodes: ds$->{0..2}.dispatch_bill_detail_->{0..7}
+          actual-data-nodes: ds$->{0..1}.dispatch_bill_detail_$->{0..7}
           database-strategy:
             inline:
               shardingColumn: order_no
               algorithm-expression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: dispatch_bill_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 8}
 
         dispatch_bill_info:
-          actual-data-nodes: ds$->{0..2}.dispatch_bill_info_$->{0..2}
+          actual-data-nodes: ds$->{0..1}.dispatch_bill_info_$->{0..1}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
-              algorithm-expression: dispatch_bill_info_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order)) % 2}
+              sharding-column: order_no
+              algorithm-expression: dispatch_bill_info_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 2}
 
         dispatch_bill_settlement_info:
-          actual-data-nodes: ds$->{0..2}.dispatch_bill_settlement_info_$->{0..2}
+          actual-data-nodes: ds$->{0..1}.dispatch_bill_settlement_info_$->{0..1}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: dispatch_bill_settlement_info_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 2}
 
         dispatch_bill_warehouse_info:
-          actual-data-nodes: ds$->{0..2}.dispatch_bill_warehouse_info_$->{0..2}
+          actual-data-nodes: ds$->{0..1}.dispatch_bill_warehouse_info_$->{0..1}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: dispatch_bill_warehouse_info_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 2}
 
         dispatch_receipt:
-          actual-data-nodes: ds$->{0..2}.dispatch_receipt_$->{0..2}
+          actual-data-nodes: ds$->{0..1}.dispatch_receipt_$->{0..1}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: dispatch_receipt_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 2}
 
         dispatch_receipt_detail:
-          actual-data-nodes: ds$->{0..2}.dispatch_receipt_detail_$->{0..7}
+          actual-data-nodes: ds$->{0..1}.dispatch_receipt_detail_$->{0..7}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: dispatch_receipt_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 8}
 
         receive_bill_detail:
-          actual-data-nodes: ds$->{0..2}.receive_bill_detail_$->{0..7}
+          actual-data-nodes: ds$->{0..1}.receive_bill_detail_$->{0..7}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: receive_bill_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 8}
 
         receive_bill_info:
-          actual-data-nodes: ds$->{0..2}.dispatch_receipt_$->{0..2}
+          actual-data-nodes: ds$->{0..1}.receive_bill_info_$->{0..1}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: receive_bill_info_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 2}
 
         receive_bill_settlement_info:
-          actual-data-nodes: ds$->{0..2}.dispatch_receipt_$->{0..2}
+          actual-data-nodes: ds$->{0..1}.receive_bill_settlement_info_$->{0..1}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: receive_bill_settlement_info_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 2}
 
         receive_bill_warehouse_info:
-          actual-data-nodes: ds$->{0..2}.dispatch_receipt_$->{0..2}
+          actual-data-nodes: ds$->{0..1}.receive_bill_warehouse_info_$->{0..1}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: receive_bill_warehouse_info_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 2}
 
         receive_receipt:
-          actual-data-nodes: ds$->{0..2}.dispatch_receipt_$->{0..2}
+          actual-data-nodes: ds$->{0..1}.receive_receipt_$->{0..1}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: receive_receipt_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 2}
 
         receive_receipt_detail:
-          actual-data-nodes: ds$->{0..2}.dispatch_receipt_$->{0..7}
+          actual-data-nodes: ds$->{0..1}.receive_receipt_detail_$->{0..7}
           database-strategy:
             inline:
-              shardingColumn: time_order_no
+              shardingColumn: order_no
               algorithmExpression: ds$->{Math.abs(order_no.hashCode()) % 2}
           table-strategy:
             inline:
-              sharding-column: time_order_no
+              sharding-column: order_no
               algorithm-expression: receive_receipt_detail_$->{Math.abs(com.weweibuy.webuy.learning.sharing.utils.HashUtil.FNVHash1(order_no)) % 8}
 
 

@@ -1,5 +1,6 @@
 package com.weweibuy.webuy.task;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @MapperScan(basePackages = {"com.weweibuy.webuy.task.dao"})
 @EnableEurekaClient
 @EnableDiscoveryClient
+@EnableApolloConfig
 public class Application_Task {
 
     public static void main(String[] args) {

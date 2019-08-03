@@ -4,7 +4,7 @@ VOLUME /logs
 RUN mkdir -p /tmp  \
 mkdir -p /logs \
 mkdir -p /logs/webuy-task \
-touch -p /logs/webuy-task/webuy-task-gc.log
+touch -p /logs/webuy-task/gc.log
 ADD webuy-task.jar app.jar
 #RUN sh -c 'touch /app.jar'
 
@@ -15,14 +15,18 @@ ENV JAVA_OPTS=" \
 -Xms180m \
 -XX:+PrintGCDetails \
 -XX:+PrintTenuringDistribution \
--XX:+PrintGCTimeStamps \
-#-XX:+PrintGCDateStamps \
+#-XX:+PrintGCTimeStamps \
+-XX:+PrintGCDateStamps \
 -XX:+HeapDumpOnOutOfMemoryError \
 -XX:HeapDumpPath=/logs/webuy-task/webuy-task-heap.dump \
--Xloggc:/logs/webuy-task/webuy-task-gc.log \
--Dcsp.sentinel.dashboard.server=106.12.15.87:8080 \
+-Xloggc:/logs/webuy-task/gc.log \
+# --------- 为 sentinel 配置 ------------
+-Dcsp.sentinel.dashboard.server=192.168.0.4:8080 \
+-Dcsp.sentinel.heartbeat.client.ip=192.168.0.5 \
+-Dcsp.sentinel.api.port=8721 \
 -Dcsp.sentinel.log.dir=/logs/webuy-task/sentinel \
--Dproject.name=webuy-eureka \
+-Dproject.name=webuy-task \
+# --------------------------------------
 -Djava.compiler=NONE \
 -Duser.timezone=GMT+08 \
 -Djava.security.egd=file:/dev/./urandom"
@@ -30,4 +34,4 @@ ENV JAVA_OPTS=" \
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
 
 #启动容器:
-#docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 9301:9301 --name webuy-task webuy-task:1.0
+#docker run -d -v /docker/app/logs:/logs -v /docker/app/tmp:/tmp -p 7501:7501 -p 8721:8721  --name webuy-task webuy-task:latest

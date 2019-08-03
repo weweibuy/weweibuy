@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weweibuy.webuy.learning.spring.mapper.DispatchBillInfoBatchInsertMapper">
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into dispatch_bill_info_2 (id, bill_no, order_no,
+    bill_type, biz_type, bill_source,
+    bill_status, process_status, channel_code,
+    source_billl_no, manual_bill_no, prefinish_bill_no,
+    vendcust_id, vendcust_code, vendcust_name,
+    batch_no, batch_mark, dispatch_reason,
+    expect_arrival_time, departure_time, shop_bill_no,
+    buyer_user_name, province, city,
+    area, address, contact,
+    phone, expect_amount )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.fields[5], jdbcType=VARCHAR},
+      #{item.fields[4], jdbcType=VARCHAR},
+      #{item.fields[3], jdbcType=VARCHAR},
+      #{item.fields[2], jdbcType=VARCHAR},
+      #{item.fields[6], jdbcType=INTEGER}
+      )
+
+    </foreach>
+  </insert>
+
+  <insert id="batchInsert2" parameterType="java.util.List">
+    insert into dispatch_bill_info_2 (product_no, material_code,
+    size_name, warehouse_code,
+    qty)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.fields[5], jdbcType=VARCHAR},
+      #{item.fields[4], jdbcType=VARCHAR},
+      #{item.fields[3], jdbcType=VARCHAR},
+      #{item.fields[2], jdbcType=VARCHAR},
+      #{item.fields[6], jdbcType=INTEGER}
+      )
+
+    </foreach>
+  </insert>
+</mapper>
