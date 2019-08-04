@@ -23,6 +23,11 @@
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.weweibuy</groupId>
+            <artifactId>uid-generator</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

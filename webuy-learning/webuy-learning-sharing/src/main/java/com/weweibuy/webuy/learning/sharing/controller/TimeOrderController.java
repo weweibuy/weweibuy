@@ -1,11 +1,11 @@
 package com.weweibuy.webuy.learning.sharing.controller;
 
 import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.learning.sharing.model.vo.IdOffsetQueryVo;
 import com.weweibuy.webuy.learning.sharing.model.vo.PageQueryVo;
 import com.weweibuy.webuy.learning.sharing.service.TimeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,12 +37,17 @@ public class TimeOrderController {
 
 
     @GetMapping("/sharing/page-get")
-    public CommonJsonResponse getHeader(@RequestBody PageQueryVo vo){
+    public CommonJsonResponse getHeader(PageQueryVo vo){
         return CommonJsonResponse.success(timeOrderService.getHeaders(vo));
     }
 
+    @GetMapping("/sharing/page-get/id-offset")
+    public CommonJsonResponse getHeaderIdOffset(IdOffsetQueryVo vo){
+        return CommonJsonResponse.success(timeOrderService.getHeadersWithId(vo));
+    }
+
     @GetMapping("/sharing/no-sharing-page-get")
-    public CommonJsonResponse getNoSharingHeader(@RequestBody PageQueryVo vo){
+    public CommonJsonResponse getNoSharingHeader(PageQueryVo vo){
         return CommonJsonResponse.success(timeOrderService.noSharingPageQuery(vo));
     }
 

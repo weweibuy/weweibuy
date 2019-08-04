@@ -4,14 +4,14 @@ import lombok.Data;
 
 /**
  * @author durenhao
- * @date 2019/6/16 18:28
+ * @date 2019/8/4 20:55
  **/
 @Data
-public class PageQueryVo {
-
-    private Integer page;
+public class IdOffsetQueryVo {
 
     private Integer size;
+
+    private Long id;
 
 
 }
