@@ -9,11 +9,6 @@ spring:
     elasticsearch:
       cluster-name: my-es
       cluster-nodes: 106.12.95.245:9300,106.12.95.245:19300,106.12.95.245:29300
-  datasource:
-    url: jdbc:mysql://106.12.15.87:3306/webuy_id?useUnicode=true&characterEncoding=UTF-8&tinyInt1isBit=false
-    type: com.alibaba.druid.pool.DruidDataSource
-    username: user01
-    password: ak402507979
 
 
 

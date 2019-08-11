@@ -1,10 +1,10 @@
 package com.weweibuy.learning.es.service;
 
-import com.baidu.fsg.uid.UidGenerator;
 import com.weweibuy.learning.es.model.es.EsJitTimeOrderHeader;
 import com.weweibuy.learning.es.model.es.MetricData;
 import com.weweibuy.learning.es.respository.EsJitTimeOrderHeaderRepository;
 import com.weweibuy.learning.es.respository.MetricDataEsRepository;
+import com.weweibuy.webuy.common.utils.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,6 @@ public class EsTestService implements InitializingBean {
     private FluxSink<EsJitTimeOrderHeader> sink;
 
     @Autowired
-    private UidGenerator uidGenerator;
-
-    @Autowired
     private Executor executor;
 
     private static final String WAREHOUSE_NAME = "myWareHouse";
@@ -65,10 +62,10 @@ public class EsTestService implements InitializingBean {
 
     private void generateAndSink() {
         EsJitTimeOrderHeader header = new EsJitTimeOrderHeader();
-        long uid = uidGenerator.getUID();
+        long uid = IdWorker.getNextId();
         header.setId(uid);
         log.info("id : {}", uid);
-        header.setTimeOrderNo(uidGenerator.getUID() + "");
+        header.setTimeOrderNo(IdWorker.getNextStrId());
         header.setWarehouseName(WAREHOUSE_NAME);
         header.setWarehouseCode(WAREHOUSE_CODE);
         header.setVendorCode(VENDOR_CODE);

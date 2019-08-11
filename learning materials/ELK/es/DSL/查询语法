@@ -1,0 +1,63 @@
+1. Constant score query，常量分值查询，目的就是返回指定的score，
+    一般都结合filter使用，因为filter context忽略score。
+       {
+         "query": {
+           "constant_score": {
+             "filter": {
+               "term": {
+                 "manufacturer.raw": "victory multimedia"
+               }
+             },
+             "boost": 1.2  // 分数为1.2
+           }
+         }
+       }
+
+
+2. bool query，布尔查询 (组合查询)
+  Bool查询对应Lucene中的BooleanQuery，它由一个或者多个子句组成，每个子句都有特定的类型。
+  must  返回的文档必须满足must子句的条件，并且参与计算分值
+  filter  返回的文档必须满足filter子句的条件。但是不会像must一样参与计算分值
+  should 返回的文档可能满足should子句的条件。bool查询在query context中，并且有一个must或filter子句，即使没有一个should查询匹配，
+  文档也会进行bool匹配。在这种情况下，这些should仅用于影响分数。如果在filter context中，或者没有must或filter子句，
+  那么should子句必须和文档匹配，才能匹配bool查询。这种行为由minimum_should_match 参与决定。
+  must_not 返回的文档必须不满足must_not定义的条件。
+
+
+3. 过滤 + 分页 + 排序 + 时间范围
+
+{
+  "query": {
+		"bool":{
+			"filter":[
+				{
+					"term":{
+						"bill_source":"jd"
+					}
+				},
+				{
+					"term":{
+						"biz_type":"biz_type_bbc"
+					}
+				},
+				{
+					"range": {
+						"create_time":{
+				            "from": "2019-08-02T09:39:12.000Z",
+							"to": "2019-08-11T00:00:00.000Z"
+						}
+					}
+				}
+				]
+		}
+  },
+  "sort":[
+  		{
+  			"create_time":{
+  				"order":"desc"
+  			}
+  		}
+  	],
+  	"from":300,
+  	"size":100
+}

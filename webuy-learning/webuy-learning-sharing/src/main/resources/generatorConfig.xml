@@ -46,10 +46,10 @@
         </javaClientGenerator>
 
         <!--数据库中表生成类的信息-->
-        <table tableName="dispatch_bill_detail"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="dispatch_bill_detail"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
         <table tableName="dispatch_bill_info"
                enableCountByExample="true" enableUpdateByExample="true"
@@ -66,45 +66,45 @@
                enableDeleteByExample="true" enableSelectByExample="true">
         </table>
 
-        <table tableName="dispatch_receipt"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="dispatch_receipt"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
-        <table tableName="dispatch_receipt_detail"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="dispatch_receipt_detail"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
-        <table tableName="receive_bill_detail"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="receive_bill_detail"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
-        <table tableName="receive_bill_info"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="receive_bill_info"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
-        <table tableName="receive_bill_settlement_info"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="receive_bill_settlement_info"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
-        <table tableName="receive_bill_warehouse_info"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="receive_bill_warehouse_info"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
-        <table tableName="receive_receipt"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="receive_receipt"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
-        <table tableName="receive_receipt_detail"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true">
-        </table>
+        <!--<table tableName="receive_receipt_detail"-->
+               <!--enableCountByExample="true" enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+        <!--</table>-->
 
 
     </context>

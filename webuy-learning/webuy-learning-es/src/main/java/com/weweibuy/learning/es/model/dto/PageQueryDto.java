@@ -1,4 +1,4 @@
-package com.weweibuy.webuy.learning.sharing.model.dto;
+package com.weweibuy.learning.es.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

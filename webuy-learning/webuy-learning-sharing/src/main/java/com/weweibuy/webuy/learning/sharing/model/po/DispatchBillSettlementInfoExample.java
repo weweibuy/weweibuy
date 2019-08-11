@@ -166,6 +166,66 @@ public class DispatchBillSettlementInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andDispatchBillInfoIdIsNull() {
+            addCriterion("dispatch_bill_info_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdIsNotNull() {
+            addCriterion("dispatch_bill_info_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdEqualTo(Long value) {
+            addCriterion("dispatch_bill_info_id =", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdNotEqualTo(Long value) {
+            addCriterion("dispatch_bill_info_id <>", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdGreaterThan(Long value) {
+            addCriterion("dispatch_bill_info_id >", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("dispatch_bill_info_id >=", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdLessThan(Long value) {
+            addCriterion("dispatch_bill_info_id <", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdLessThanOrEqualTo(Long value) {
+            addCriterion("dispatch_bill_info_id <=", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdIn(List<Long> values) {
+            addCriterion("dispatch_bill_info_id in", values, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdNotIn(List<Long> values) {
+            addCriterion("dispatch_bill_info_id not in", values, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdBetween(Long value1, Long value2) {
+            addCriterion("dispatch_bill_info_id between", value1, value2, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdNotBetween(Long value1, Long value2) {
+            addCriterion("dispatch_bill_info_id not between", value1, value2, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
         public Criteria andBillNoIsNull() {
             addCriterion("bill_no is null");
             return (Criteria) this;
@@ -376,52 +436,52 @@ public class DispatchBillSettlementInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeEqualTo(Integer value) {
+        public Criteria andPaymentTypeEqualTo(Short value) {
             addCriterion("payment_type =", value, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeNotEqualTo(Integer value) {
+        public Criteria andPaymentTypeNotEqualTo(Short value) {
             addCriterion("payment_type <>", value, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeGreaterThan(Integer value) {
+        public Criteria andPaymentTypeGreaterThan(Short value) {
             addCriterion("payment_type >", value, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andPaymentTypeGreaterThanOrEqualTo(Short value) {
             addCriterion("payment_type >=", value, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeLessThan(Integer value) {
+        public Criteria andPaymentTypeLessThan(Short value) {
             addCriterion("payment_type <", value, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeLessThanOrEqualTo(Integer value) {
+        public Criteria andPaymentTypeLessThanOrEqualTo(Short value) {
             addCriterion("payment_type <=", value, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeIn(List<Integer> values) {
+        public Criteria andPaymentTypeIn(List<Short> values) {
             addCriterion("payment_type in", values, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeNotIn(List<Integer> values) {
+        public Criteria andPaymentTypeNotIn(List<Short> values) {
             addCriterion("payment_type not in", values, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeBetween(Integer value1, Integer value2) {
+        public Criteria andPaymentTypeBetween(Short value1, Short value2) {
             addCriterion("payment_type between", value1, value2, "paymentType");
             return (Criteria) this;
         }
 
-        public Criteria andPaymentTypeNotBetween(Integer value1, Integer value2) {
+        public Criteria andPaymentTypeNotBetween(Short value1, Short value2) {
             addCriterion("payment_type not between", value1, value2, "paymentType");
             return (Criteria) this;
         }

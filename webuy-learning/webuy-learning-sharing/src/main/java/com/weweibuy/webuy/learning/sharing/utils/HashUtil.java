@@ -1,5 +1,7 @@
 package com.weweibuy.webuy.learning.sharing.utils;
 
+import java.util.zip.CRC32;
+
 /**
  * @author durenhao
  * @date 2019/6/16 23:18
@@ -369,6 +371,13 @@ public class HashUtil {
         hash <<= 32;
         hash |= FNVHash1(str);
         return hash;
+    }
+
+
+    public static long crc32(String str) {
+        CRC32 crc = new CRC32();
+        crc.update(str.getBytes());
+        return crc.getValue();
     }
 
 }

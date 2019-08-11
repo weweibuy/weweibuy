@@ -1,11 +1,15 @@
 package com.weweibuy.webuy.learning.sharing.controller;
 
 import com.baidu.fsg.uid.UidGenerator;
+import com.weweibuy.webuy.learning.sharing.mapper.DispatchBillInfoMapper;
+import com.weweibuy.webuy.learning.sharing.model.vo.DispatchPageQueryVo;
 import com.weweibuy.webuy.learning.sharing.service.DispatchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
+
+import java.util.concurrent.Executor;
 
 /**
  * @author durenhao
@@ -19,13 +23,46 @@ public class DispatchController {
     private DispatchService dispatchService;
 
     @Autowired
+    private DispatchBillInfoMapper billInfoMapper;
+
+    @Autowired
     private UidGenerator uidGenerator;
 
+    @Autowired
+    private Executor executor;
+
     @PostMapping("/add")
-    public String addDispatch(){
+    public String addDispatch() {
         dispatchService.addHeaderAndDetail();
         return "success";
     }
+
+    @PostMapping("/batch-add")
+    public String batchAddDispatch(Integer count) {
+        if (count == null) {
+            count = 1;
+        }
+        Flux.range(0, count)
+                .parallel(10)
+                .runOn(Schedulers.fromExecutor(executor))
+                .doOnNext(i -> dispatchService.addHeaderAndDetail())
+                .sequential()
+                .subscribe();
+        return "success";
+    }
+
+
+    @GetMapping("/total")
+    public Long getTotal(){
+        return billInfoMapper.countByExample(null);
+    }
+
+
+    @PostMapping("/page")
+    public Object pageQuery(@RequestBody DispatchPageQueryVo dispatchPageQueryVo){
+        return dispatchService.pageQuery(dispatchPageQueryVo);
+    }
+
 
 
 }

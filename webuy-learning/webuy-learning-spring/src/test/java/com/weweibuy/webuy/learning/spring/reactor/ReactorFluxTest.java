@@ -24,6 +24,7 @@ public class ReactorFluxTest {
     private ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 
     {
+        executor.setCorePoolSize(3);
         executor.setMaxPoolSize(3);
         executor.setThreadNamePrefix("reactor-flux-test-");
         executor.initialize();

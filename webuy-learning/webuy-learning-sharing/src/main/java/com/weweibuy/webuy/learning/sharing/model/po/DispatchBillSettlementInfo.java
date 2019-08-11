@@ -6,13 +6,15 @@ import java.util.Date;
 public class DispatchBillSettlementInfo {
     private Long id;
 
+    private Long dispatchBillInfoId;
+
     private String billNo;
 
     private String orderNo;
 
     private Date paymentTime;
 
-    private Integer paymentType;
+    private Short paymentType;
 
     private BigDecimal collectionAmount;
 
@@ -32,6 +34,14 @@ public class DispatchBillSettlementInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getDispatchBillInfoId() {
+        return dispatchBillInfoId;
+    }
+
+    public void setDispatchBillInfoId(Long dispatchBillInfoId) {
+        this.dispatchBillInfoId = dispatchBillInfoId;
     }
 
     public String getBillNo() {
@@ -58,11 +68,11 @@ public class DispatchBillSettlementInfo {
         this.paymentTime = paymentTime;
     }
 
-    public Integer getPaymentType() {
+    public Short getPaymentType() {
         return paymentType;
     }
 
-    public void setPaymentType(Integer paymentType) {
+    public void setPaymentType(Short paymentType) {
         this.paymentType = paymentType;
     }
 

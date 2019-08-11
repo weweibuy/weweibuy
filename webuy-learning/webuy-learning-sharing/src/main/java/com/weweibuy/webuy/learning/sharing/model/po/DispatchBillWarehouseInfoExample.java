@@ -165,6 +165,66 @@ public class DispatchBillWarehouseInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andDispatchBillInfoIdIsNull() {
+            addCriterion("dispatch_bill_info_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdIsNotNull() {
+            addCriterion("dispatch_bill_info_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdEqualTo(Long value) {
+            addCriterion("dispatch_bill_info_id =", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdNotEqualTo(Long value) {
+            addCriterion("dispatch_bill_info_id <>", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdGreaterThan(Long value) {
+            addCriterion("dispatch_bill_info_id >", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("dispatch_bill_info_id >=", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdLessThan(Long value) {
+            addCriterion("dispatch_bill_info_id <", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdLessThanOrEqualTo(Long value) {
+            addCriterion("dispatch_bill_info_id <=", value, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdIn(List<Long> values) {
+            addCriterion("dispatch_bill_info_id in", values, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdNotIn(List<Long> values) {
+            addCriterion("dispatch_bill_info_id not in", values, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdBetween(Long value1, Long value2) {
+            addCriterion("dispatch_bill_info_id between", value1, value2, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDispatchBillInfoIdNotBetween(Long value1, Long value2) {
+            addCriterion("dispatch_bill_info_id not between", value1, value2, "dispatchBillInfoId");
+            return (Criteria) this;
+        }
+
         public Criteria andBillNoIsNull() {
             addCriterion("bill_no is null");
             return (Criteria) this;
@@ -595,52 +655,52 @@ public class DispatchBillWarehouseInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeEqualTo(Integer value) {
+        public Criteria andWarehouseTypeEqualTo(Short value) {
             addCriterion("warehouse_type =", value, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeNotEqualTo(Integer value) {
+        public Criteria andWarehouseTypeNotEqualTo(Short value) {
             addCriterion("warehouse_type <>", value, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeGreaterThan(Integer value) {
+        public Criteria andWarehouseTypeGreaterThan(Short value) {
             addCriterion("warehouse_type >", value, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andWarehouseTypeGreaterThanOrEqualTo(Short value) {
             addCriterion("warehouse_type >=", value, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeLessThan(Integer value) {
+        public Criteria andWarehouseTypeLessThan(Short value) {
             addCriterion("warehouse_type <", value, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeLessThanOrEqualTo(Integer value) {
+        public Criteria andWarehouseTypeLessThanOrEqualTo(Short value) {
             addCriterion("warehouse_type <=", value, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeIn(List<Integer> values) {
+        public Criteria andWarehouseTypeIn(List<Short> values) {
             addCriterion("warehouse_type in", values, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeNotIn(List<Integer> values) {
+        public Criteria andWarehouseTypeNotIn(List<Short> values) {
             addCriterion("warehouse_type not in", values, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeBetween(Integer value1, Integer value2) {
+        public Criteria andWarehouseTypeBetween(Short value1, Short value2) {
             addCriterion("warehouse_type between", value1, value2, "warehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andWarehouseTypeNotBetween(Integer value1, Integer value2) {
+        public Criteria andWarehouseTypeNotBetween(Short value1, Short value2) {
             addCriterion("warehouse_type not between", value1, value2, "warehouseType");
             return (Criteria) this;
         }
@@ -865,52 +925,52 @@ public class DispatchBillWarehouseInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeEqualTo(Integer value) {
+        public Criteria andInterWarehouseTypeEqualTo(Short value) {
             addCriterion("inter_warehouse_type =", value, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeNotEqualTo(Integer value) {
+        public Criteria andInterWarehouseTypeNotEqualTo(Short value) {
             addCriterion("inter_warehouse_type <>", value, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeGreaterThan(Integer value) {
+        public Criteria andInterWarehouseTypeGreaterThan(Short value) {
             addCriterion("inter_warehouse_type >", value, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andInterWarehouseTypeGreaterThanOrEqualTo(Short value) {
             addCriterion("inter_warehouse_type >=", value, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeLessThan(Integer value) {
+        public Criteria andInterWarehouseTypeLessThan(Short value) {
             addCriterion("inter_warehouse_type <", value, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeLessThanOrEqualTo(Integer value) {
+        public Criteria andInterWarehouseTypeLessThanOrEqualTo(Short value) {
             addCriterion("inter_warehouse_type <=", value, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeIn(List<Integer> values) {
+        public Criteria andInterWarehouseTypeIn(List<Short> values) {
             addCriterion("inter_warehouse_type in", values, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeNotIn(List<Integer> values) {
+        public Criteria andInterWarehouseTypeNotIn(List<Short> values) {
             addCriterion("inter_warehouse_type not in", values, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeBetween(Integer value1, Integer value2) {
+        public Criteria andInterWarehouseTypeBetween(Short value1, Short value2) {
             addCriterion("inter_warehouse_type between", value1, value2, "interWarehouseType");
             return (Criteria) this;
         }
 
-        public Criteria andInterWarehouseTypeNotBetween(Integer value1, Integer value2) {
+        public Criteria andInterWarehouseTypeNotBetween(Short value1, Short value2) {
             addCriterion("inter_warehouse_type not between", value1, value2, "interWarehouseType");
             return (Criteria) this;
         }
@@ -1385,283 +1445,283 @@ public class DispatchBillWarehouseInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeIsNull() {
-            addCriterion("move_type is null");
+        public Criteria andAllocateTypeIsNull() {
+            addCriterion("allocate_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeIsNotNull() {
-            addCriterion("move_type is not null");
+        public Criteria andAllocateTypeIsNotNull() {
+            addCriterion("allocate_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeEqualTo(String value) {
-            addCriterion("move_type =", value, "moveType");
+        public Criteria andAllocateTypeEqualTo(String value) {
+            addCriterion("allocate_type =", value, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeNotEqualTo(String value) {
-            addCriterion("move_type <>", value, "moveType");
+        public Criteria andAllocateTypeNotEqualTo(String value) {
+            addCriterion("allocate_type <>", value, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeGreaterThan(String value) {
-            addCriterion("move_type >", value, "moveType");
+        public Criteria andAllocateTypeGreaterThan(String value) {
+            addCriterion("allocate_type >", value, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("move_type >=", value, "moveType");
+        public Criteria andAllocateTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("allocate_type >=", value, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeLessThan(String value) {
-            addCriterion("move_type <", value, "moveType");
+        public Criteria andAllocateTypeLessThan(String value) {
+            addCriterion("allocate_type <", value, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeLessThanOrEqualTo(String value) {
-            addCriterion("move_type <=", value, "moveType");
+        public Criteria andAllocateTypeLessThanOrEqualTo(String value) {
+            addCriterion("allocate_type <=", value, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeLike(String value) {
-            addCriterion("move_type like", value, "moveType");
+        public Criteria andAllocateTypeLike(String value) {
+            addCriterion("allocate_type like", value, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeNotLike(String value) {
-            addCriterion("move_type not like", value, "moveType");
+        public Criteria andAllocateTypeNotLike(String value) {
+            addCriterion("allocate_type not like", value, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeIn(List<String> values) {
-            addCriterion("move_type in", values, "moveType");
+        public Criteria andAllocateTypeIn(List<String> values) {
+            addCriterion("allocate_type in", values, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeNotIn(List<String> values) {
-            addCriterion("move_type not in", values, "moveType");
+        public Criteria andAllocateTypeNotIn(List<String> values) {
+            addCriterion("allocate_type not in", values, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeBetween(String value1, String value2) {
-            addCriterion("move_type between", value1, value2, "moveType");
+        public Criteria andAllocateTypeBetween(String value1, String value2) {
+            addCriterion("allocate_type between", value1, value2, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveTypeNotBetween(String value1, String value2) {
-            addCriterion("move_type not between", value1, value2, "moveType");
+        public Criteria andAllocateTypeNotBetween(String value1, String value2) {
+            addCriterion("allocate_type not between", value1, value2, "allocateType");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoIsNull() {
-            addCriterion("move_mode_level_no is null");
+        public Criteria andAllocatePriorityIsNull() {
+            addCriterion("allocate_priority is null");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoIsNotNull() {
-            addCriterion("move_mode_level_no is not null");
+        public Criteria andAllocatePriorityIsNotNull() {
+            addCriterion("allocate_priority is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoEqualTo(String value) {
-            addCriterion("move_mode_level_no =", value, "moveModeLevelNo");
+        public Criteria andAllocatePriorityEqualTo(String value) {
+            addCriterion("allocate_priority =", value, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoNotEqualTo(String value) {
-            addCriterion("move_mode_level_no <>", value, "moveModeLevelNo");
+        public Criteria andAllocatePriorityNotEqualTo(String value) {
+            addCriterion("allocate_priority <>", value, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoGreaterThan(String value) {
-            addCriterion("move_mode_level_no >", value, "moveModeLevelNo");
+        public Criteria andAllocatePriorityGreaterThan(String value) {
+            addCriterion("allocate_priority >", value, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoGreaterThanOrEqualTo(String value) {
-            addCriterion("move_mode_level_no >=", value, "moveModeLevelNo");
+        public Criteria andAllocatePriorityGreaterThanOrEqualTo(String value) {
+            addCriterion("allocate_priority >=", value, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoLessThan(String value) {
-            addCriterion("move_mode_level_no <", value, "moveModeLevelNo");
+        public Criteria andAllocatePriorityLessThan(String value) {
+            addCriterion("allocate_priority <", value, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoLessThanOrEqualTo(String value) {
-            addCriterion("move_mode_level_no <=", value, "moveModeLevelNo");
+        public Criteria andAllocatePriorityLessThanOrEqualTo(String value) {
+            addCriterion("allocate_priority <=", value, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoLike(String value) {
-            addCriterion("move_mode_level_no like", value, "moveModeLevelNo");
+        public Criteria andAllocatePriorityLike(String value) {
+            addCriterion("allocate_priority like", value, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoNotLike(String value) {
-            addCriterion("move_mode_level_no not like", value, "moveModeLevelNo");
+        public Criteria andAllocatePriorityNotLike(String value) {
+            addCriterion("allocate_priority not like", value, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoIn(List<String> values) {
-            addCriterion("move_mode_level_no in", values, "moveModeLevelNo");
+        public Criteria andAllocatePriorityIn(List<String> values) {
+            addCriterion("allocate_priority in", values, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoNotIn(List<String> values) {
-            addCriterion("move_mode_level_no not in", values, "moveModeLevelNo");
+        public Criteria andAllocatePriorityNotIn(List<String> values) {
+            addCriterion("allocate_priority not in", values, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoBetween(String value1, String value2) {
-            addCriterion("move_mode_level_no between", value1, value2, "moveModeLevelNo");
+        public Criteria andAllocatePriorityBetween(String value1, String value2) {
+            addCriterion("allocate_priority between", value1, value2, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeLevelNoNotBetween(String value1, String value2) {
-            addCriterion("move_mode_level_no not between", value1, value2, "moveModeLevelNo");
+        public Criteria andAllocatePriorityNotBetween(String value1, String value2) {
+            addCriterion("allocate_priority not between", value1, value2, "allocatePriority");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeIsNull() {
-            addCriterion("move_mode_code is null");
+        public Criteria andAllocateModeCodeIsNull() {
+            addCriterion("allocate_mode_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeIsNotNull() {
-            addCriterion("move_mode_code is not null");
+        public Criteria andAllocateModeCodeIsNotNull() {
+            addCriterion("allocate_mode_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeEqualTo(String value) {
-            addCriterion("move_mode_code =", value, "moveModeCode");
+        public Criteria andAllocateModeCodeEqualTo(String value) {
+            addCriterion("allocate_mode_code =", value, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeNotEqualTo(String value) {
-            addCriterion("move_mode_code <>", value, "moveModeCode");
+        public Criteria andAllocateModeCodeNotEqualTo(String value) {
+            addCriterion("allocate_mode_code <>", value, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeGreaterThan(String value) {
-            addCriterion("move_mode_code >", value, "moveModeCode");
+        public Criteria andAllocateModeCodeGreaterThan(String value) {
+            addCriterion("allocate_mode_code >", value, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("move_mode_code >=", value, "moveModeCode");
+        public Criteria andAllocateModeCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("allocate_mode_code >=", value, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeLessThan(String value) {
-            addCriterion("move_mode_code <", value, "moveModeCode");
+        public Criteria andAllocateModeCodeLessThan(String value) {
+            addCriterion("allocate_mode_code <", value, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeLessThanOrEqualTo(String value) {
-            addCriterion("move_mode_code <=", value, "moveModeCode");
+        public Criteria andAllocateModeCodeLessThanOrEqualTo(String value) {
+            addCriterion("allocate_mode_code <=", value, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeLike(String value) {
-            addCriterion("move_mode_code like", value, "moveModeCode");
+        public Criteria andAllocateModeCodeLike(String value) {
+            addCriterion("allocate_mode_code like", value, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeNotLike(String value) {
-            addCriterion("move_mode_code not like", value, "moveModeCode");
+        public Criteria andAllocateModeCodeNotLike(String value) {
+            addCriterion("allocate_mode_code not like", value, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeIn(List<String> values) {
-            addCriterion("move_mode_code in", values, "moveModeCode");
+        public Criteria andAllocateModeCodeIn(List<String> values) {
+            addCriterion("allocate_mode_code in", values, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeNotIn(List<String> values) {
-            addCriterion("move_mode_code not in", values, "moveModeCode");
+        public Criteria andAllocateModeCodeNotIn(List<String> values) {
+            addCriterion("allocate_mode_code not in", values, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeBetween(String value1, String value2) {
-            addCriterion("move_mode_code between", value1, value2, "moveModeCode");
+        public Criteria andAllocateModeCodeBetween(String value1, String value2) {
+            addCriterion("allocate_mode_code between", value1, value2, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeCodeNotBetween(String value1, String value2) {
-            addCriterion("move_mode_code not between", value1, value2, "moveModeCode");
+        public Criteria andAllocateModeCodeNotBetween(String value1, String value2) {
+            addCriterion("allocate_mode_code not between", value1, value2, "allocateModeCode");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameIsNull() {
-            addCriterion("move_mode_name is null");
+        public Criteria andAllocateModeNameIsNull() {
+            addCriterion("allocate_mode_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameIsNotNull() {
-            addCriterion("move_mode_name is not null");
+        public Criteria andAllocateModeNameIsNotNull() {
+            addCriterion("allocate_mode_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameEqualTo(String value) {
-            addCriterion("move_mode_name =", value, "moveModeName");
+        public Criteria andAllocateModeNameEqualTo(String value) {
+            addCriterion("allocate_mode_name =", value, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameNotEqualTo(String value) {
-            addCriterion("move_mode_name <>", value, "moveModeName");
+        public Criteria andAllocateModeNameNotEqualTo(String value) {
+            addCriterion("allocate_mode_name <>", value, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameGreaterThan(String value) {
-            addCriterion("move_mode_name >", value, "moveModeName");
+        public Criteria andAllocateModeNameGreaterThan(String value) {
+            addCriterion("allocate_mode_name >", value, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameGreaterThanOrEqualTo(String value) {
-            addCriterion("move_mode_name >=", value, "moveModeName");
+        public Criteria andAllocateModeNameGreaterThanOrEqualTo(String value) {
+            addCriterion("allocate_mode_name >=", value, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameLessThan(String value) {
-            addCriterion("move_mode_name <", value, "moveModeName");
+        public Criteria andAllocateModeNameLessThan(String value) {
+            addCriterion("allocate_mode_name <", value, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameLessThanOrEqualTo(String value) {
-            addCriterion("move_mode_name <=", value, "moveModeName");
+        public Criteria andAllocateModeNameLessThanOrEqualTo(String value) {
+            addCriterion("allocate_mode_name <=", value, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameLike(String value) {
-            addCriterion("move_mode_name like", value, "moveModeName");
+        public Criteria andAllocateModeNameLike(String value) {
+            addCriterion("allocate_mode_name like", value, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameNotLike(String value) {
-            addCriterion("move_mode_name not like", value, "moveModeName");
+        public Criteria andAllocateModeNameNotLike(String value) {
+            addCriterion("allocate_mode_name not like", value, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameIn(List<String> values) {
-            addCriterion("move_mode_name in", values, "moveModeName");
+        public Criteria andAllocateModeNameIn(List<String> values) {
+            addCriterion("allocate_mode_name in", values, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameNotIn(List<String> values) {
-            addCriterion("move_mode_name not in", values, "moveModeName");
+        public Criteria andAllocateModeNameNotIn(List<String> values) {
+            addCriterion("allocate_mode_name not in", values, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameBetween(String value1, String value2) {
-            addCriterion("move_mode_name between", value1, value2, "moveModeName");
+        public Criteria andAllocateModeNameBetween(String value1, String value2) {
+            addCriterion("allocate_mode_name between", value1, value2, "allocateModeName");
             return (Criteria) this;
         }
 
-        public Criteria andMoveModeNameNotBetween(String value1, String value2) {
-            addCriterion("move_mode_name not between", value1, value2, "moveModeName");
+        public Criteria andAllocateModeNameNotBetween(String value1, String value2) {
+            addCriterion("allocate_mode_name not between", value1, value2, "allocateModeName");
             return (Criteria) this;
         }
 

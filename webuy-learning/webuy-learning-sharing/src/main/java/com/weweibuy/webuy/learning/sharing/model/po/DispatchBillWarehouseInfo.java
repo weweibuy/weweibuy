@@ -5,6 +5,8 @@ import java.util.Date;
 public class DispatchBillWarehouseInfo {
     private Long id;
 
+    private Long dispatchBillInfoId;
+
     private String billNo;
 
     private String orderNo;
@@ -17,7 +19,7 @@ public class DispatchBillWarehouseInfo {
 
     private String bwWarehouseCode;
 
-    private Integer warehouseType;
+    private Short warehouseType;
 
     private String interWarehouseId;
 
@@ -25,7 +27,7 @@ public class DispatchBillWarehouseInfo {
 
     private String interWarehouseName;
 
-    private Integer interWarehouseType;
+    private Short interWarehouseType;
 
     private Date expectOutTime;
 
@@ -41,13 +43,13 @@ public class DispatchBillWarehouseInfo {
 
     private String transportMethodName;
 
-    private String moveType;
+    private String allocateType;
 
-    private String moveModeLevelNo;
+    private String allocatePriority;
 
-    private String moveModeCode;
+    private String allocateModeCode;
 
-    private String moveModeName;
+    private String allocateModeName;
 
     private Boolean deleted;
 
@@ -61,6 +63,14 @@ public class DispatchBillWarehouseInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getDispatchBillInfoId() {
+        return dispatchBillInfoId;
+    }
+
+    public void setDispatchBillInfoId(Long dispatchBillInfoId) {
+        this.dispatchBillInfoId = dispatchBillInfoId;
     }
 
     public String getBillNo() {
@@ -111,11 +121,11 @@ public class DispatchBillWarehouseInfo {
         this.bwWarehouseCode = bwWarehouseCode == null ? null : bwWarehouseCode.trim();
     }
 
-    public Integer getWarehouseType() {
+    public Short getWarehouseType() {
         return warehouseType;
     }
 
-    public void setWarehouseType(Integer warehouseType) {
+    public void setWarehouseType(Short warehouseType) {
         this.warehouseType = warehouseType;
     }
 
@@ -143,11 +153,11 @@ public class DispatchBillWarehouseInfo {
         this.interWarehouseName = interWarehouseName == null ? null : interWarehouseName.trim();
     }
 
-    public Integer getInterWarehouseType() {
+    public Short getInterWarehouseType() {
         return interWarehouseType;
     }
 
-    public void setInterWarehouseType(Integer interWarehouseType) {
+    public void setInterWarehouseType(Short interWarehouseType) {
         this.interWarehouseType = interWarehouseType;
     }
 
@@ -207,36 +217,36 @@ public class DispatchBillWarehouseInfo {
         this.transportMethodName = transportMethodName == null ? null : transportMethodName.trim();
     }
 
-    public String getMoveType() {
-        return moveType;
+    public String getAllocateType() {
+        return allocateType;
     }
 
-    public void setMoveType(String moveType) {
-        this.moveType = moveType == null ? null : moveType.trim();
+    public void setAllocateType(String allocateType) {
+        this.allocateType = allocateType == null ? null : allocateType.trim();
     }
 
-    public String getMoveModeLevelNo() {
-        return moveModeLevelNo;
+    public String getAllocatePriority() {
+        return allocatePriority;
     }
 
-    public void setMoveModeLevelNo(String moveModeLevelNo) {
-        this.moveModeLevelNo = moveModeLevelNo == null ? null : moveModeLevelNo.trim();
+    public void setAllocatePriority(String allocatePriority) {
+        this.allocatePriority = allocatePriority == null ? null : allocatePriority.trim();
     }
 
-    public String getMoveModeCode() {
-        return moveModeCode;
+    public String getAllocateModeCode() {
+        return allocateModeCode;
     }
 
-    public void setMoveModeCode(String moveModeCode) {
-        this.moveModeCode = moveModeCode == null ? null : moveModeCode.trim();
+    public void setAllocateModeCode(String allocateModeCode) {
+        this.allocateModeCode = allocateModeCode == null ? null : allocateModeCode.trim();
     }
 
-    public String getMoveModeName() {
-        return moveModeName;
+    public String getAllocateModeName() {
+        return allocateModeName;
     }
 
-    public void setMoveModeName(String moveModeName) {
-        this.moveModeName = moveModeName == null ? null : moveModeName.trim();
+    public void setAllocateModeName(String allocateModeName) {
+        this.allocateModeName = allocateModeName == null ? null : allocateModeName.trim();
     }
 
     public Boolean getDeleted() {
