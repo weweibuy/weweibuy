@@ -1,0 +1,4 @@
+1. nameServer
+    docker run -p 9876:9876 -v /docker/rocketmq/namesrv/logs:/root/logs -v /docker/rocketmq/namesrv/stort/store --name rocketmq-namesrv  -d   rocketmq:4.4.0  sh mqnamesrv
+2. broker
+    docker run -d -p 10911:10911 -p 10909:10909 -v `pwd`/data/broker/logs:/root/logs -v `pwd`/data/broker/store:/root/store --name rmqbroker --link rmqnamesrv:namesrv -e "NAMESRV_ADDR=namesrv:9876" rocketmqinc/rocketmq sh mqbroker -c ../conf/broker.conf
