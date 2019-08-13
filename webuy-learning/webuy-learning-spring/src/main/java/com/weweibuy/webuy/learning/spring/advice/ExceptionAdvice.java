@@ -24,7 +24,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity handlerException(Exception e) {
         log.error("出错了", e);
-        return ResponseEntity.ok(CommonJsonResponse.success());
+        return ResponseEntity.ok(CommonJsonResponse.success(e.getMessage()));
     }
 
 }

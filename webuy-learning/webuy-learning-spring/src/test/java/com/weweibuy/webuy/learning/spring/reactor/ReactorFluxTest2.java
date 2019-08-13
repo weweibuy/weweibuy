@@ -3,8 +3,13 @@ package com.weweibuy.webuy.learning.spring.reactor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author durenhao
@@ -26,8 +31,49 @@ public class ReactorFluxTest2 {
 
 
     @Test
-    public void test01() throws Exception{
+    public void test01() throws Exception {
+        List<Integer> collect = Stream.iterate(0, i -> i + 1)
+                .limit(100)
+                .collect(Collectors.toList());
 
+        String s = "";
+
+        Flux.fromStream(collect.stream())
+                .window(10, 10)
+                .flatMap(i -> i.collectList())
+                .parallel(3)
+                .runOn(Schedulers.fromExecutor(executor))
+                .map(i -> {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    log.info("转String: {}", i);
+                    return i + "";
+                })
+                .map(i -> {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    log.info("拼接: {}", i);
+                    return i + " hello ";
+                })
+                .doOnNext(i -> {
+                    log.info("doOnNext: {}", i);
+                })
+                .sequential()
+                .reduce(s, (a, b) -> {
+                    log.info("聚合");
+                    return a + b;
+                })
+                .doOnSuccess(i -> {
+                    log.info("success : {}", i);
+                })
+                .subscribe();
+        Thread.sleep(5000);
     }
 
 }

@@ -35,7 +35,6 @@ public class ThreadPoolHolderTest {
      * 队列满了  --> 创建线程执行( maxPoolSize)
      * maxPoolSize 数量满了  --> 拒绝策略
      *
-     *
      * @throws Exception
      */
     @Test
@@ -48,9 +47,9 @@ public class ThreadPoolHolderTest {
                     threadPoolExecutor.execute(() -> {
                         log.info("执行任务: {}", i);
                         try {
-                            if(i <= 3){
+                            if (i <= 3) {
                                 Thread.sleep(2);
-                            }else {
+                            } else {
                                 Thread.sleep(200);
                             }
                             countDownLatch.countDown();
@@ -60,6 +59,25 @@ public class ThreadPoolHolderTest {
                     });
                 });
         countDownLatch.await();
+    }
+
+
+    @Test
+    public void test02() throws Exception{
+        Future<String> submit = threadPoolExecutor.submit(() -> {
+            Thread.sleep(100);
+            log.info("submit  run ... ");
+            return "hello ";
+        });
+
+        Future<String> submit2 = threadPoolExecutor.submit(() -> {
+            Thread.sleep(100);
+            log.info("submit 1  run ... ");
+            return " world ";
+        });
+        submit.get();
+        submit2.get();
+        log.info("run ... ");
     }
 
 

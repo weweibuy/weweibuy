@@ -55,6 +55,7 @@ public class CsvBatchInsertService {
                 .parallel(10)
                 .runOn(Schedulers.fromExecutor(executor))
                 .doOnNext(csvBatchInsertMapper::batchInsert)
+                .map( i -> i)
                 .doOnError(e -> {
                     log.error("【消费数据异常】 >>>  ", e);
                 })
