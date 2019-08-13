@@ -61,3 +61,48 @@
   	"from":300,
   	"size":100
 }
+
+4. 脚本查询 (多字段 运算)
+{
+  "query": {
+		"bool":{
+			"filter":[
+				{
+					"term":{
+						"bill_source":"jd"
+					}
+				},
+				{
+					"term":{
+						"biz_type":"biz_type_bbc"
+					}
+				},
+				{
+					"range": {
+						"create_time":{
+				            "from": "2019-08-02T09:39:12.000Z",
+							"to": "2019-08-11T00:00:00.000Z"
+						}
+					}
+				},
+				{
+					"script":{
+						"script":{
+							"source":"doc['tb_settlement_info_id'].value - doc['tb_warehouse_info_id'].value == 5L",
+							"lang": "painless"
+						}
+					}
+				}
+				]
+		}
+  },
+  "sort":[
+  		{
+  			"create_time":{
+  				"order":"desc"
+  			}
+  		}
+  	],
+  	"from":0,
+  	"size":100
+}
