@@ -8,7 +8,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
     driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-    url: jdbc:mysql://47.99.129.104:3306/webuy_message?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
+    url: jdbc:mysql://106.12.95.245:3306/webuy_message?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
     username: user01
     password: ak402507979
     initialSize: 5
@@ -21,7 +21,7 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
 
   rabbitmq:
-    host: 47.99.129.104
+    host: 106.12.95.245
     port: 5672
     username: user01
     password: ak402507979
@@ -50,7 +50,7 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
+      defaultZone: http://admin:ak402507979@106.12.95.245:7001/eureka
   instance:
     instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
     prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
@@ -125,7 +125,7 @@ sharding:
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: org.gjt.mm.mysql.Driver
-        url: jdbc:mysql://47.99.129.104:3306/webuy_message?useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://106.12.95.245:3306/webuy_message?useUnicode=true&characterEncoding=UTF-8
         username: user01
         password: ak402507979
     config:

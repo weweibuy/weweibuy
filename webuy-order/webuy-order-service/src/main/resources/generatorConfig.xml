@@ -11,7 +11,7 @@
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://47.99.129.104:3306/webuy_order?characterEncoding=UTF-8" userId="user01"
+			connectionURL="jdbc:mysql://106.12.95.245:3306/webuy_order?characterEncoding=UTF-8" userId="user01"
 			password="ak402507979">
 		</jdbcConnection>
 

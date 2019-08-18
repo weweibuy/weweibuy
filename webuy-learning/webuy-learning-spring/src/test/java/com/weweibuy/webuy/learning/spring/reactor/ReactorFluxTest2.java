@@ -8,6 +8,7 @@ import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -74,6 +75,45 @@ public class ReactorFluxTest2 {
                 })
                 .subscribe();
         Thread.sleep(5000);
+    }
+
+
+    @Test
+    public void test02() {
+        Flux.generate(
+                AtomicLong::new,
+                (state, sink) -> {
+                    long i = state.getAndIncrement();
+                    sink.next("3 x " + i + " = " + 3 * i);
+                    if (i == 10) sink.complete();
+                    return state;
+                }, (state) -> System.err.println("state: " + state))
+                .subscribe();
+    }
+
+
+    @Test
+    public void test03() throws InterruptedException {
+       Flux.generate(
+                () -> 0,
+                (state, sink) -> {
+                    sink.next("3 x " + state + " = " + 3*state);
+                    if (state == 10) sink.complete();
+                    return state + 1;
+                })
+               .parallel(3)
+               .runOn(Schedulers.fromExecutor(executor))
+               .doOnNext(i -> {
+                   log.info("doOnNext : {}", i);
+               })
+               .sequential()
+               .doOnComplete(() -> {
+                   log.info("doOnComplete");
+               })
+                .subscribe( i -> {
+                    log.info("subscribe  {}", i);
+                });
+        Thread.sleep(20);
     }
 
 }

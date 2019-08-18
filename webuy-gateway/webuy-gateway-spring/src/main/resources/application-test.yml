@@ -22,7 +22,7 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://admin:ak402507979@47.99.129.104:7001/eureka
+      defaultZone: http://admin:ak402507979@106.12.95.245:7001/eureka
   instance:
     instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
     prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
