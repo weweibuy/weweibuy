@@ -5,9 +5,11 @@
  */
 package com.weweibuy.webuy.learning.spring.utils;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -16,6 +18,18 @@ import java.util.Date;
  **/
 public class DateTimeUtils {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+
+    public static String toStringDate(Date date) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        return localDateTime.format(dateTimeFormatter);
+    }
+
+    public static String toDateFormat(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(date);
+    }
 
     public static LocalDateTime dateToLocalDateTime(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();

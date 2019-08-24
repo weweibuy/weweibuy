@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,21 +56,22 @@ public class FastCsvTest {
 
     @Test
     public void testWrite() throws Exception {
-        File file = new File("C:/Users/z/Desktop/excel/test/fastcsv-test3.txt");
+        File file = new File("C:/Users/z/Desktop/excel/test/fastcsv-test4.txt");
         CsvWriter csvWriter = new CsvWriter();
         csvWriter.setFieldSeparator('\t');
 
 
-        Collection<String[]> data = new ArrayList<>(150010);
+        Collection<String[]> data = new ArrayList<>(150);
 
         for (int i = 0; i < 150000; i++) {
             if (i < 75000) {
-                data.add(new String[]{"325", "2018-07-13", "WH000191", "BB691" + i, "6", null, "100", "0"});
+                data.add(new String[]{"325", "2018-07-13", "仓库" + i, "BB691" + i, "6", null, "100", "0"});
             } else {
                 data.add(new String[]{"325", "2018-07-13", "WH000191", null, null, "sku" + i, "100", "0"});
             }
         }
 
-        csvWriter.write(file, StandardCharsets.UTF_8, data);
+        csvWriter.write(file, Charset.forName("GBK"), data);
     }
+
 }

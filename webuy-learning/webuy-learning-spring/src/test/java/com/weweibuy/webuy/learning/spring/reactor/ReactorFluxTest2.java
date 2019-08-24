@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
@@ -39,14 +40,14 @@ public class ReactorFluxTest2 {
 
         String s = "";
 
-        Flux.fromStream(collect.stream())
+        String block = Flux.fromStream(collect.stream())
                 .window(10, 10)
                 .flatMap(i -> i.collectList())
-                .parallel(3)
-                .runOn(Schedulers.fromExecutor(executor))
+                .parallel(4)
+                .runOn(Schedulers.elastic())
                 .map(i -> {
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(200);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -54,27 +55,18 @@ public class ReactorFluxTest2 {
                     return i + "";
                 })
                 .map(i -> {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    log.info("拼接: {}", i);
                     return i + " hello ";
                 })
-                .doOnNext(i -> {
-                    log.info("doOnNext: {}", i);
-                })
                 .sequential()
+                .doOnTerminate(() -> {
+                    log.info("doOnTerminate ..");
+                })
                 .reduce(s, (a, b) -> {
                     log.info("聚合");
                     return a + b;
                 })
-                .doOnSuccess(i -> {
-                    log.info("success : {}", i);
-                })
-                .subscribe();
-        Thread.sleep(5000);
+                .block();
+        log.error("完成 : {}; 结果: {}", block, s);
     }
 
 
@@ -94,26 +86,55 @@ public class ReactorFluxTest2 {
 
     @Test
     public void test03() throws InterruptedException {
-       Flux.generate(
+        Flux.generate(
                 () -> 0,
                 (state, sink) -> {
-                    sink.next("3 x " + state + " = " + 3*state);
+                    sink.next("3 x " + state + " = " + 3 * state);
                     if (state == 10) sink.complete();
                     return state + 1;
                 })
-               .parallel(3)
-               .runOn(Schedulers.fromExecutor(executor))
-               .doOnNext(i -> {
-                   log.info("doOnNext : {}", i);
-               })
-               .sequential()
-               .doOnComplete(() -> {
-                   log.info("doOnComplete");
-               })
-                .subscribe( i -> {
+                .parallel(3)
+                .runOn(Schedulers.fromExecutor(executor))
+                .doOnNext(i -> {
+                    log.info("doOnNext : {}", i);
+                })
+                .sequential()
+                .doOnComplete(() -> {
+                    log.info("doOnComplete");
+                })
+                .subscribe(i -> {
                     log.info("subscribe  {}", i);
                 });
         Thread.sleep(20);
     }
+
+    @Test
+    public void test04() throws InterruptedException {
+
+        List<Integer> collect = Stream.iterate(0, i -> i + 1)
+                .limit(100)
+                .collect(Collectors.toList());
+
+        Mono<Flux<Integer>> fluxMono = Mono.fromCallable(() -> {
+            return Flux.fromStream(collect.stream());
+        });
+        fluxMono.subscribeOn(Schedulers.fromExecutor(executor))
+                .subscribe(i -> {
+                    i.subscribe(k -> {
+                        log.info("值: {}", k);
+                    });
+                });
+        Thread.sleep(1000);
+    }
+
+
+    @Test
+    public void test05() {
+        List<Integer> collect = Stream.iterate(0, i -> i + 1)
+                .limit(100)
+                .collect(Collectors.toList());
+
+    }
+
 
 }

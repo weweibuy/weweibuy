@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import java.io.IOException;
+import java.util.concurrent.Executor;
+
 /**
  * @author durenhao
  * @date 2019/8/13 23:00
@@ -26,6 +29,9 @@ public class FutureController {
     private AsyncService asyncService;
 
     private DeferredResult<ResponseEntity> deferredResult = new DeferredResult<>();
+
+    @Autowired
+    private Executor executor;
 
     /**
      * 返回DeferredResult对象
@@ -42,6 +48,7 @@ public class FutureController {
 
     /**
      * 对DeferredResult的结果进行设置
+     *
      * @return
      */
     @RequestMapping("/setDeferredResult")
@@ -52,14 +59,33 @@ public class FutureController {
 
     @GetMapping("/download")
     public ResponseEntity<StreamingResponseBody> handle() {
+
+
+
+
         log.info("接收到下载请求...");
 
         StreamingResponseBody responseBody = outputStream -> {
-            log.info("输出流");
-                if (true) {
-                    throw new RuntimeException("下载错误");
+            log.info("输出流...");
+            log.info("异步响应输出流...");
+
+            if (false) {
+                throw new RuntimeException("下载错误");
+            }
+            try {
+                Thread.sleep(10000);
+                outputStream.write("hello StreamingResponseBody".getBytes());
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            } finally {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            outputStream.write("hello StreamingResponseBody".getBytes());
+            }
+
         };
 
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=generic_file_name.json")
