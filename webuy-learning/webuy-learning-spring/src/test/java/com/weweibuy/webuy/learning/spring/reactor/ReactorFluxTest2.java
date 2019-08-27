@@ -38,35 +38,24 @@ public class ReactorFluxTest2 {
                 .limit(100)
                 .collect(Collectors.toList());
 
-        String s = "";
+        StringBuffer stringBuffer = new StringBuffer();
 
-        String block = Flux.fromStream(collect.stream())
+        Flux.fromStream(collect.stream())
                 .window(10, 10)
-                .flatMap(i -> i.collectList())
-                .parallel(4)
-                .runOn(Schedulers.elastic())
-                .map(i -> {
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    log.info("转String: {}", i);
-                    return i + "";
+                .flatMap(i -> {
+                    return i.publishOn(Schedulers.fromExecutor(executor))
+                            .map( a ->{
+                                log.info("转化: {}", a);
+                                return a * 10;
+                            });
                 })
-                .map(i -> {
-                    return i + " hello ";
+                .reduce(stringBuffer, (a, b) -> {
+                    log.info("reduce: {}", b);
+                    return a.append(b);
                 })
-                .sequential()
-                .doOnTerminate(() -> {
-                    log.info("doOnTerminate ..");
-                })
-                .reduce(s, (a, b) -> {
-                    log.info("聚合");
-                    return a + b;
-                })
-                .block();
-        log.error("完成 : {}; 结果: {}", block, s);
+                .subscribe();
+        Thread.sleep(200);
+        log.error("完成 : ; 结果: {}", stringBuffer.toString());
     }
 
 

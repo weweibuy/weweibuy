@@ -2,9 +2,8 @@ package com.weweibuy.webuy.learning.spring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
-import java.util.concurrent.Executor;
 
 /**
  * @author durenhao
@@ -14,7 +13,8 @@ import java.util.concurrent.Executor;
 public class AsyncConfig {
 
     @Bean
-    public Executor threadPoolTaskExecutor() {
+    @Primary
+    public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
         executor.setMaxPoolSize(20);

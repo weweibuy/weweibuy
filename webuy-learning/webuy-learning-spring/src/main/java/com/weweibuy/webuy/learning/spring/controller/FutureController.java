@@ -28,8 +28,6 @@ public class FutureController {
     @Autowired
     private AsyncService asyncService;
 
-    private DeferredResult<ResponseEntity> deferredResult = new DeferredResult<>();
-
     @Autowired
     private Executor executor;
 
@@ -40,28 +38,50 @@ public class FutureController {
      */
     @RequestMapping("/testDeferredResult")
     public DeferredResult<ResponseEntity> testDeferredResult() {
-//        if(true){
-//        throw new RuntimeException("发生异常");
-//        }
+        DeferredResult<ResponseEntity> deferredResult = new DeferredResult<>();
+               executor.execute(() -> {
+                   try {
+                       Thread.sleep(4000);
+                   } catch (InterruptedException e) {
+                       e.printStackTrace();
+                   }
+                   deferredResult.setResult(ResponseEntity.ok(CommonJsonResponse.success()));
+               });
         return deferredResult;
     }
 
-    /**
-     * 对DeferredResult的结果进行设置
-     *
-     * @return
-     */
-    @RequestMapping("/setDeferredResult")
-    public String setDeferredResult() {
-        deferredResult.setResult(ResponseEntity.ok(CommonJsonResponse.success("请求成功了")));
-        return "succeed";
+
+    @RequestMapping("/testDeferredStream")
+    public DeferredResult<ResponseEntity<StreamingResponseBody>> testDeferredStream() {
+        DeferredResult<ResponseEntity<StreamingResponseBody>> deferredResult = new DeferredResult<>();
+        executor.execute(() -> {
+            log.info("异步输出下载流");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            StreamingResponseBody responseBody = outputStream -> {
+                log.info("准备输出流");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                outputStream.write("hello testDeferredResult2".getBytes());
+            };
+            ResponseEntity<StreamingResponseBody> body = ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=generic_file_name.json")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM).body(responseBody);
+            deferredResult.setResult(body);
+
+        });
+        return deferredResult;
     }
+
+
 
     @GetMapping("/download")
     public ResponseEntity<StreamingResponseBody> handle() {
-
-
-
 
         log.info("接收到下载请求...");
 
