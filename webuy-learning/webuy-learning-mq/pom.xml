@@ -9,11 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>webuy-learning-amqp</artifactId>
+    <artifactId>webuy-learning-mq</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>webuy-learning-amqp-producer</module>
-        <module>webuy-learning-amqp-consumer</module>
+        <module>webuy-learning-mq-producer</module>
+        <module>webuy-learning-mq-consumer</module>
     </modules>
 
 

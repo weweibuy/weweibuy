@@ -54,6 +54,8 @@ public class EsDispatchService {
                 queryBuilder.withSort(create_time);
             });
         });
+
+
         Page<EsDispatchBillInfo> search = esDispatchRepository.search(queryBuilder.build());
         return new PageQueryDto(search.getTotalElements(), search.getContent());
     }

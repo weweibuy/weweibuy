@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>webuy-learning-amqp-producer</artifactId>
+    <artifactId>webuy-learning-mq-consumer</artifactId>
 
     <dependencies>
         <dependency>
@@ -17,11 +17,19 @@
             <artifactId>webuy-learning-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--amqp-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
-    </dependencies>
 
+        <!--amqp-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-amqp</artifactId>-->
+        <!--</dependency>-->
+
+        <!--rocketMq-->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
+    </dependencies>
 </project>

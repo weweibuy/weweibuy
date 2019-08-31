@@ -1,32 +1,10 @@
 server:
-  port: 8082
+  port: 8081
 spring:
   profiles:
     active: ${profileActive}
   application:
-    name: learning-amqp-producer
-  zipkin:
-     base-url: http://106.12.95.245:9411
-     enabled: true
-     message-timeout: 10
-     discovery-client-enabled: true
-  sleuth:
-     sampler:
-        probability: 0.1
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
-    driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-    url: jdbc:mysql://106.12.95.245:3306/webuy_learning?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
-    username: user01
-    password: ak402507979
-    initialSize: 5
-    minIdle: 5
-    maxActive: 20
-    maxWait: 60000
-    poolPreparedStatements: true           # 打开PSCache，并且指定每个连接上PSCache的大小
-    maxPoolPreparedStatementPerConnectionSize: 20
-    filters: stat,wall,logback    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    name: learning-mq-consumer
   rabbitmq:
     host: 106.12.95.245
     port: 5672
@@ -48,7 +26,6 @@ spring:
       direct:
         acknowledge-mode: MANUAL
 
-
 eureka:
   client:
     register-with-eureka: true
@@ -61,6 +38,7 @@ eureka:
     health-check-url: http://${eureka.instance.ip-address}:${server.port}/actuator/health
     status-page-url: http://${eureka.instance.ip-address}:${server.port}/actuator/info
     home-page-url: http://${eureka.instance.ip-address}:${server.port}/
+
 
 
 logging:

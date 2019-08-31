@@ -12,7 +12,7 @@
     <description>用来学习</description>
     <modules>
         <module>webuy-learning-common</module>
-        <module>webuy-learning-amqp</module>
+        <module>webuy-learning-mq</module>
         <module>webuy-learning-cache</module>
         <module>webuy-learning-es</module>
         <module>webuy-learning-hystirx</module>
