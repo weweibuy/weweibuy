@@ -85,7 +85,7 @@ spring:
   data:
     elasticsearch:
       cluster-name: my-es
-      cluster-nodes: 106.12.95.245:9300,106.12.95.245:19300,106.12.95.245:29300
+      cluster-nodes: 106.12.95.245:9300
   shardingsphere:
     enabled: true
     datasource:

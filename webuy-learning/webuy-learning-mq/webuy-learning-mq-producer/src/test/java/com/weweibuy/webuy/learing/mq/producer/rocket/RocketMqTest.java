@@ -1,4 +1,4 @@
-package com.weweibuy.webuy.learing.mq.producer;
+package com.weweibuy.webuy.learing.mq.producer.rocket;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Slf4j
-public class MqProducerApplicationTest {
+public class RocketMqTest {
 
     private static final String NAME_SERVER = "106.12.95.245:9876";
 

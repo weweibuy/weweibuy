@@ -12,6 +12,8 @@ docker 挂载安装mysql：
 docker下载 rabbitMQ镜像： docker pull rabbitmq:3.7
 docker 安装rabbitMQ：
 	docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.7
+    docker run -d -p 5672:5672 -p 15672:15672 -m 300m  -e RABBITMQ_DEFAULT_USER=user01 -e RABBITMQ_DEFAULT_PASS=ak402507979 rabbitmq:3-management
+
 
 2.重命名镜像TAG
     docker tag imageid name:tag

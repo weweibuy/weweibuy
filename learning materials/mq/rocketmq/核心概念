@@ -1,0 +1,20 @@
+1. nameServer
+    rocketMQ的配置中心,管理broker
+
+2. broker
+    消息队列
+
+3. Consumer Group
+    消费者分组,不同组监听同一个topic,每个组都会监听到消息; 相同组(集群环境)只有一个监听消费一个消息
+
+4. 顺序消息:
+    4.1 生产者发送消息使可以指定发送到的队列;
+        public SendResult send(Message msg, MessageQueueSelector selector, Object arg);
+    4.2 消费者的顺序监听器,可以从队列(默认4个)中按照生产顺序消费消息
+        MessageListenerOrderly
+
+5. 消费数量
+    默认一次消费数量为1
+
+6. tag
+    类型rabbitMq 的routingKey

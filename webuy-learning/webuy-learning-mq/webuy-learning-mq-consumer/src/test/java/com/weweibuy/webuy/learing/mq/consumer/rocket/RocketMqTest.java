@@ -1,4 +1,4 @@
-package com.weweibuy.webuy.learing.mq.consumer;
+package com.weweibuy.webuy.learing.mq.consumer.rocket;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class MqConsumerApplicationTest {
+public class RocketMqTest {
 
     private static final String NAME_SERVER = "106.12.95.245:9876";
 
@@ -100,7 +100,6 @@ public class MqConsumerApplicationTest {
             Thread.sleep(500);
         }
     }
-
 
     @Test
     public void test03() throws Exception {
