@@ -9,4 +9,7 @@ node.name: node-1
 
 
 2.挂载启动
-docker run  -e ES_JAVA_OPTS="-Xms256m -Xmx256m"  -v /docker/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml -v /docker/elasticsearch/data/:/usr/share/elasticsearch/data/  -v /docker/elasticsearch/logs/:/usr/share/elasticsearch/logs/  -p 9200:9200 -p 9300:9300    -d --name es elasticsearch_ik:5.5.1
+docker run -p 9200:9200 -p 9300:9300 -v /docker/elasticsearch-6.8.2/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml -v /docker/elasticsearch-6.8.2/config/jvm.options:/usr/share/elasticsearch/config/jvm.options -v /docker/elasticsearch-6.8.2/logs/:/usr/share/elasticsearch/logs -v /docker/elasticsearch-6.8.2/data:/usr/share/elasticsearch/data   -d   --name elasticsearch-6.8.2 docker.io/elasticsearch:6.8.2
+
+3. 安装 IK:
+./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.8.2/elasticsearch-analysis-ik-6.8.2.zip

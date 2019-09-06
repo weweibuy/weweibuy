@@ -11,7 +11,7 @@
       -XX:MaxMetaspaceSize：用来指定永久区的最大可用值；
 
 3.JVM设置参数
-    -Xmx300m                   　　　　　　最大堆大小
+    -Xmx300m                   　　　　　　 最大堆大小
     -Xms300m                　　　　　　　　初始堆大小
     -Xmn100m                　  　　　　　　年轻代大小
     -XX:SurvivorRatio=8        　　　　　　Eden区与Survivor区的大小比值，设置为8,则两个Survivor区与一个Eden区的比值为2:8,一个Survivor区占整个年轻代的1/10

@@ -10,7 +10,7 @@ spring:
     port: 5672
     username: user01
     password: ak402507979
-    virtual-host: /learning
+    virtual-host: /test
     connection-timeout: 15000
     listener:    #监听数量
       simple:
