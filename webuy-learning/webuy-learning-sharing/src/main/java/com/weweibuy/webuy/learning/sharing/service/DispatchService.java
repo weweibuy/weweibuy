@@ -2,6 +2,7 @@ package com.weweibuy.webuy.learning.sharing.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.weweibuy.webuy.learning.sharing.manager.DispatchManager;
 import com.weweibuy.webuy.learning.sharing.mapper.DispatchBillDetailMapper;
 import com.weweibuy.webuy.learning.sharing.mapper.DispatchBillInfoMapper;
 import com.weweibuy.webuy.learning.sharing.mapper.DispatchBillSettlementInfoMapper;
@@ -42,6 +43,12 @@ public class DispatchService {
 
     @Autowired
     private DispatchBillSettlementInfoMapper settlementInfoMapper;
+
+    @Autowired
+    private DispatchManager dispatchManager;
+
+    @Autowired
+    private ReceiveService receiveService;
 
     @Autowired
     private Executor executor;
@@ -87,6 +94,12 @@ public class DispatchService {
     }
 
     @Transactional
+    public void addAll(){
+        addHeaderAndDetail();
+        receiveService.addHeaderAndDetail();
+    }
+
+    @Transactional
     public void addHeaderAndDetail() {
         String billNo = "bill_" + UIdHelper.nextId();
         String orderNo = "order_" + UIdHelper.nextId();
@@ -99,7 +112,7 @@ public class DispatchService {
         dispatchBillInfo.setOrderNo(orderNo);
         dispatchBillInfo.setBizFlowNo(UIdHelper.nextStrId());
         dispatchBillInfo.setBillType("bill_type_" + getBizTye());
-        dispatchBillInfo.setBizType(getBizTye());
+        dispatchBillInfo.setBizType("发货" + getBizTye());
         dispatchBillInfo.setBillSource(getSource());
         dispatchBillInfo.setBillStatus("0");
         dispatchBillInfo.setProcessStatus(processStatus);
@@ -122,7 +135,6 @@ public class DispatchService {
         addWarehouseInfo(aLong, billNo, orderNo);
 
         addSettlementInfoInfo(aLong, billNo, orderNo);
-
     }
 
 
@@ -246,6 +258,18 @@ public class DispatchService {
         example.setOrderByClause(orderString.getFinalSql());
         List<DispatchBillInfo> dispatchBillInfos = billInfoMapper.selectByExample(example);
         return new PageQueryDto(objects.getTotal(), dispatchBillInfos);
+    }
+
+    public void updateHeaderAndDetail() {
+        Page<Object> objects = PageHelper.startPage(1, 10);
+        DispatchBillInfoExample example = new DispatchBillInfoExample();
+        example.createCriteria().andBillStatusEqualTo("0");
+        example.setOrderByClause("create_time asc");
+        List<DispatchBillInfo> dispatchBillInfoList = billInfoMapper.selectByExample(example);
+        dispatchBillInfoList.forEach(i -> {
+            dispatchManager.updateDispatch(i.getBillNo());
+        });
+
     }
 
     @Data

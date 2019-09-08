@@ -84,7 +84,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   data:
     elasticsearch:
-      cluster-name: my-es
+      cluster-name: bd-es
       cluster-nodes: 106.12.95.245:9300
   shardingsphere:
     enabled: true

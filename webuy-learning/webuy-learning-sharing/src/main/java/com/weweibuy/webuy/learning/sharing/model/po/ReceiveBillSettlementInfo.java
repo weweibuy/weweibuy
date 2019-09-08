@@ -6,6 +6,8 @@ import java.util.Date;
 public class ReceiveBillSettlementInfo {
     private Long id;
 
+    private Long receiveBillInfoId;
+
     private String billNo;
 
     private String orderNo;
@@ -24,6 +26,14 @@ public class ReceiveBillSettlementInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getReceiveBillInfoId() {
+        return receiveBillInfoId;
+    }
+
+    public void setReceiveBillInfoId(Long receiveBillInfoId) {
+        this.receiveBillInfoId = receiveBillInfoId;
     }
 
     public String getBillNo() {

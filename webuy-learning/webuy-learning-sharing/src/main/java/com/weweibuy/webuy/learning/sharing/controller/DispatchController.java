@@ -40,10 +40,10 @@ public class DispatchController {
     @PostMapping("/batch-add")
     public String batchAddDispatch(Integer count) {
         if (count == null) {
-            count = 1;
+            count = 10000;
         }
         Flux.range(0, count)
-                .parallel(10)
+                .parallel(3)
                 .runOn(Schedulers.fromExecutor(executor))
                 .doOnNext(i -> dispatchService.addHeaderAndDetail())
                 .sequential()
@@ -51,18 +51,40 @@ public class DispatchController {
         return "success";
     }
 
+    @PostMapping("/batch-add-all")
+    public String batchAddDispatch2(Integer count) {
+        if (count == null) {
+            count = 10000;
+        }
+        Flux.range(0, count)
+                .parallel(3)
+                .runOn(Schedulers.fromExecutor(executor))
+                .doOnNext(i -> dispatchService.addAll())
+                .sequential()
+                .subscribe();
+        return "success";
+    }
+
+
+    @GetMapping("/update")
+    public String updateDispatch(){
+        dispatchService.updateHeaderAndDetail();
+        return "success";
+    }
+
+
+
 
     @GetMapping("/total")
-    public Long getTotal(){
+    public Long getTotal() {
         return billInfoMapper.countByExample(null);
     }
 
 
     @PostMapping("/page")
-    public Object pageQuery(@RequestBody DispatchPageQueryVo dispatchPageQueryVo){
+    public Object pageQuery(@RequestBody DispatchPageQueryVo dispatchPageQueryVo) {
         return dispatchService.pageQuery(dispatchPageQueryVo);
     }
-
 
 
 }

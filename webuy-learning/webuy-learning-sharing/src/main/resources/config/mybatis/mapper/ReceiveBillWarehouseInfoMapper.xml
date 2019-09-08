@@ -3,26 +3,27 @@
 <mapper namespace="com.weweibuy.webuy.learning.sharing.mapper.ReceiveBillWarehouseInfoMapper">
   <resultMap id="BaseResultMap" type="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillWarehouseInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="receive_bill_info_id" jdbcType="BIGINT" property="receiveBillInfoId" />
     <result column="bill_no" jdbcType="VARCHAR" property="billNo" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="receive_warehouse_id" jdbcType="VARCHAR" property="receiveWarehouseId" />
     <result column="receive_warehouse_code" jdbcType="VARCHAR" property="receiveWarehouseCode" />
     <result column="receive_warehouse_name" jdbcType="VARCHAR" property="receiveWarehouseName" />
     <result column="bw_receive_warehouse_code" jdbcType="VARCHAR" property="bwReceiveWarehouseCode" />
-    <result column="receive_warehouse_type" jdbcType="INTEGER" property="receiveWarehouseType" />
+    <result column="receive_warehouse_type" jdbcType="SMALLINT" property="receiveWarehouseType" />
     <result column="express_bill_no" jdbcType="VARCHAR" property="expressBillNo" />
     <result column="freight_company_code" jdbcType="VARCHAR" property="freightCompanyCode" />
     <result column="transport_method_code" jdbcType="VARCHAR" property="transportMethodCode" />
     <result column="transport_method_name" jdbcType="VARCHAR" property="transportMethodName" />
-    <result column="move_type" jdbcType="VARCHAR" property="moveType" />
-    <result column="move_mode_level_no" jdbcType="VARCHAR" property="moveModeLevelNo" />
-    <result column="move_mode_code" jdbcType="VARCHAR" property="moveModeCode" />
-    <result column="move_mode_name" jdbcType="VARCHAR" property="moveModeName" />
+    <result column="allocate_type" jdbcType="VARCHAR" property="allocateType" />
+    <result column="allocate_priority" jdbcType="VARCHAR" property="allocatePriority" />
+    <result column="allocate_mode_code" jdbcType="VARCHAR" property="allocateModeCode" />
+    <result column="allocate_mode_name" jdbcType="VARCHAR" property="allocateModeName" />
     <result column="delivery_warehouse_id" jdbcType="VARCHAR" property="deliveryWarehouseId" />
     <result column="delivery_warehouse_code" jdbcType="VARCHAR" property="deliveryWarehouseCode" />
     <result column="delivery_warehouse_name" jdbcType="VARCHAR" property="deliveryWarehouseName" />
     <result column="bw_delivery_warehouse_code" jdbcType="VARCHAR" property="bwDeliveryWarehouseCode" />
-    <result column="delivery_warehouse_type" jdbcType="INTEGER" property="deliveryWarehouseType" />
+    <result column="delivery_warehouse_type" jdbcType="SMALLINT" property="deliveryWarehouseType" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -86,11 +87,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, bill_no, order_no, receive_warehouse_id, receive_warehouse_code, receive_warehouse_name, 
-    bw_receive_warehouse_code, receive_warehouse_type, express_bill_no, freight_company_code, 
-    transport_method_code, transport_method_name, move_type, move_mode_level_no, move_mode_code, 
-    move_mode_name, delivery_warehouse_id, delivery_warehouse_code, delivery_warehouse_name, 
-    bw_delivery_warehouse_code, delivery_warehouse_type, deleted, create_time, update_time
+    id, receive_bill_info_id, bill_no, order_no, receive_warehouse_id, receive_warehouse_code, 
+    receive_warehouse_name, bw_receive_warehouse_code, receive_warehouse_type, express_bill_no, 
+    freight_company_code, transport_method_code, transport_method_name, allocate_type, 
+    allocate_priority, allocate_mode_code, allocate_mode_name, delivery_warehouse_id, 
+    delivery_warehouse_code, delivery_warehouse_name, bw_delivery_warehouse_code, delivery_warehouse_type, 
+    deleted, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillWarehouseInfoExample" resultMap="BaseResultMap">
     select
@@ -123,32 +125,37 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillWarehouseInfo">
-    insert into receive_bill_warehouse_info (id, bill_no, order_no, 
-      receive_warehouse_id, receive_warehouse_code, 
+    insert into receive_bill_warehouse_info (id, receive_bill_info_id, bill_no, 
+      order_no, receive_warehouse_id, receive_warehouse_code, 
       receive_warehouse_name, bw_receive_warehouse_code, 
       receive_warehouse_type, express_bill_no, freight_company_code, 
       transport_method_code, transport_method_name, 
-      move_type, move_mode_level_no, move_mode_code, 
-      move_mode_name, delivery_warehouse_id, delivery_warehouse_code, 
-      delivery_warehouse_name, bw_delivery_warehouse_code, 
-      delivery_warehouse_type, deleted, create_time, 
-      update_time)
-    values (#{id,jdbcType=BIGINT}, #{billNo,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
-      #{receiveWarehouseId,jdbcType=VARCHAR}, #{receiveWarehouseCode,jdbcType=VARCHAR}, 
+      allocate_type, allocate_priority, allocate_mode_code, 
+      allocate_mode_name, delivery_warehouse_id, 
+      delivery_warehouse_code, delivery_warehouse_name, 
+      bw_delivery_warehouse_code, delivery_warehouse_type, 
+      deleted, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{receiveBillInfoId,jdbcType=BIGINT}, #{billNo,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{receiveWarehouseId,jdbcType=VARCHAR}, #{receiveWarehouseCode,jdbcType=VARCHAR}, 
       #{receiveWarehouseName,jdbcType=VARCHAR}, #{bwReceiveWarehouseCode,jdbcType=VARCHAR}, 
-      #{receiveWarehouseType,jdbcType=INTEGER}, #{expressBillNo,jdbcType=VARCHAR}, #{freightCompanyCode,jdbcType=VARCHAR}, 
+      #{receiveWarehouseType,jdbcType=SMALLINT}, #{expressBillNo,jdbcType=VARCHAR}, #{freightCompanyCode,jdbcType=VARCHAR}, 
       #{transportMethodCode,jdbcType=VARCHAR}, #{transportMethodName,jdbcType=VARCHAR}, 
-      #{moveType,jdbcType=VARCHAR}, #{moveModeLevelNo,jdbcType=VARCHAR}, #{moveModeCode,jdbcType=VARCHAR}, 
-      #{moveModeName,jdbcType=VARCHAR}, #{deliveryWarehouseId,jdbcType=VARCHAR}, #{deliveryWarehouseCode,jdbcType=VARCHAR}, 
-      #{deliveryWarehouseName,jdbcType=VARCHAR}, #{bwDeliveryWarehouseCode,jdbcType=VARCHAR}, 
-      #{deliveryWarehouseType,jdbcType=INTEGER}, #{deleted,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{allocateType,jdbcType=VARCHAR}, #{allocatePriority,jdbcType=VARCHAR}, #{allocateModeCode,jdbcType=VARCHAR}, 
+      #{allocateModeName,jdbcType=VARCHAR}, #{deliveryWarehouseId,jdbcType=VARCHAR}, 
+      #{deliveryWarehouseCode,jdbcType=VARCHAR}, #{deliveryWarehouseName,jdbcType=VARCHAR}, 
+      #{bwDeliveryWarehouseCode,jdbcType=VARCHAR}, #{deliveryWarehouseType,jdbcType=SMALLINT}, 
+      #{deleted,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillWarehouseInfo">
     insert into receive_bill_warehouse_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="receiveBillInfoId != null">
+        receive_bill_info_id,
       </if>
       <if test="billNo != null">
         bill_no,
@@ -183,17 +190,17 @@
       <if test="transportMethodName != null">
         transport_method_name,
       </if>
-      <if test="moveType != null">
-        move_type,
+      <if test="allocateType != null">
+        allocate_type,
       </if>
-      <if test="moveModeLevelNo != null">
-        move_mode_level_no,
+      <if test="allocatePriority != null">
+        allocate_priority,
       </if>
-      <if test="moveModeCode != null">
-        move_mode_code,
+      <if test="allocateModeCode != null">
+        allocate_mode_code,
       </if>
-      <if test="moveModeName != null">
-        move_mode_name,
+      <if test="allocateModeName != null">
+        allocate_mode_name,
       </if>
       <if test="deliveryWarehouseId != null">
         delivery_warehouse_id,
@@ -224,6 +231,9 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
+      <if test="receiveBillInfoId != null">
+        #{receiveBillInfoId,jdbcType=BIGINT},
+      </if>
       <if test="billNo != null">
         #{billNo,jdbcType=VARCHAR},
       </if>
@@ -243,7 +253,7 @@
         #{bwReceiveWarehouseCode,jdbcType=VARCHAR},
       </if>
       <if test="receiveWarehouseType != null">
-        #{receiveWarehouseType,jdbcType=INTEGER},
+        #{receiveWarehouseType,jdbcType=SMALLINT},
       </if>
       <if test="expressBillNo != null">
         #{expressBillNo,jdbcType=VARCHAR},
@@ -257,17 +267,17 @@
       <if test="transportMethodName != null">
         #{transportMethodName,jdbcType=VARCHAR},
       </if>
-      <if test="moveType != null">
-        #{moveType,jdbcType=VARCHAR},
+      <if test="allocateType != null">
+        #{allocateType,jdbcType=VARCHAR},
       </if>
-      <if test="moveModeLevelNo != null">
-        #{moveModeLevelNo,jdbcType=VARCHAR},
+      <if test="allocatePriority != null">
+        #{allocatePriority,jdbcType=VARCHAR},
       </if>
-      <if test="moveModeCode != null">
-        #{moveModeCode,jdbcType=VARCHAR},
+      <if test="allocateModeCode != null">
+        #{allocateModeCode,jdbcType=VARCHAR},
       </if>
-      <if test="moveModeName != null">
-        #{moveModeName,jdbcType=VARCHAR},
+      <if test="allocateModeName != null">
+        #{allocateModeName,jdbcType=VARCHAR},
       </if>
       <if test="deliveryWarehouseId != null">
         #{deliveryWarehouseId,jdbcType=VARCHAR},
@@ -282,7 +292,7 @@
         #{bwDeliveryWarehouseCode,jdbcType=VARCHAR},
       </if>
       <if test="deliveryWarehouseType != null">
-        #{deliveryWarehouseType,jdbcType=INTEGER},
+        #{deliveryWarehouseType,jdbcType=SMALLINT},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -307,6 +317,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.receiveBillInfoId != null">
+        receive_bill_info_id = #{record.receiveBillInfoId,jdbcType=BIGINT},
+      </if>
       <if test="record.billNo != null">
         bill_no = #{record.billNo,jdbcType=VARCHAR},
       </if>
@@ -326,7 +339,7 @@
         bw_receive_warehouse_code = #{record.bwReceiveWarehouseCode,jdbcType=VARCHAR},
       </if>
       <if test="record.receiveWarehouseType != null">
-        receive_warehouse_type = #{record.receiveWarehouseType,jdbcType=INTEGER},
+        receive_warehouse_type = #{record.receiveWarehouseType,jdbcType=SMALLINT},
       </if>
       <if test="record.expressBillNo != null">
         express_bill_no = #{record.expressBillNo,jdbcType=VARCHAR},
@@ -340,17 +353,17 @@
       <if test="record.transportMethodName != null">
         transport_method_name = #{record.transportMethodName,jdbcType=VARCHAR},
       </if>
-      <if test="record.moveType != null">
-        move_type = #{record.moveType,jdbcType=VARCHAR},
+      <if test="record.allocateType != null">
+        allocate_type = #{record.allocateType,jdbcType=VARCHAR},
       </if>
-      <if test="record.moveModeLevelNo != null">
-        move_mode_level_no = #{record.moveModeLevelNo,jdbcType=VARCHAR},
+      <if test="record.allocatePriority != null">
+        allocate_priority = #{record.allocatePriority,jdbcType=VARCHAR},
       </if>
-      <if test="record.moveModeCode != null">
-        move_mode_code = #{record.moveModeCode,jdbcType=VARCHAR},
+      <if test="record.allocateModeCode != null">
+        allocate_mode_code = #{record.allocateModeCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.moveModeName != null">
-        move_mode_name = #{record.moveModeName,jdbcType=VARCHAR},
+      <if test="record.allocateModeName != null">
+        allocate_mode_name = #{record.allocateModeName,jdbcType=VARCHAR},
       </if>
       <if test="record.deliveryWarehouseId != null">
         delivery_warehouse_id = #{record.deliveryWarehouseId,jdbcType=VARCHAR},
@@ -365,7 +378,7 @@
         bw_delivery_warehouse_code = #{record.bwDeliveryWarehouseCode,jdbcType=VARCHAR},
       </if>
       <if test="record.deliveryWarehouseType != null">
-        delivery_warehouse_type = #{record.deliveryWarehouseType,jdbcType=INTEGER},
+        delivery_warehouse_type = #{record.deliveryWarehouseType,jdbcType=SMALLINT},
       </if>
       <if test="record.deleted != null">
         deleted = #{record.deleted,jdbcType=BIT},
@@ -384,26 +397,27 @@
   <update id="updateByExample" parameterType="map">
     update receive_bill_warehouse_info
     set id = #{record.id,jdbcType=BIGINT},
+      receive_bill_info_id = #{record.receiveBillInfoId,jdbcType=BIGINT},
       bill_no = #{record.billNo,jdbcType=VARCHAR},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
       receive_warehouse_id = #{record.receiveWarehouseId,jdbcType=VARCHAR},
       receive_warehouse_code = #{record.receiveWarehouseCode,jdbcType=VARCHAR},
       receive_warehouse_name = #{record.receiveWarehouseName,jdbcType=VARCHAR},
       bw_receive_warehouse_code = #{record.bwReceiveWarehouseCode,jdbcType=VARCHAR},
-      receive_warehouse_type = #{record.receiveWarehouseType,jdbcType=INTEGER},
+      receive_warehouse_type = #{record.receiveWarehouseType,jdbcType=SMALLINT},
       express_bill_no = #{record.expressBillNo,jdbcType=VARCHAR},
       freight_company_code = #{record.freightCompanyCode,jdbcType=VARCHAR},
       transport_method_code = #{record.transportMethodCode,jdbcType=VARCHAR},
       transport_method_name = #{record.transportMethodName,jdbcType=VARCHAR},
-      move_type = #{record.moveType,jdbcType=VARCHAR},
-      move_mode_level_no = #{record.moveModeLevelNo,jdbcType=VARCHAR},
-      move_mode_code = #{record.moveModeCode,jdbcType=VARCHAR},
-      move_mode_name = #{record.moveModeName,jdbcType=VARCHAR},
+      allocate_type = #{record.allocateType,jdbcType=VARCHAR},
+      allocate_priority = #{record.allocatePriority,jdbcType=VARCHAR},
+      allocate_mode_code = #{record.allocateModeCode,jdbcType=VARCHAR},
+      allocate_mode_name = #{record.allocateModeName,jdbcType=VARCHAR},
       delivery_warehouse_id = #{record.deliveryWarehouseId,jdbcType=VARCHAR},
       delivery_warehouse_code = #{record.deliveryWarehouseCode,jdbcType=VARCHAR},
       delivery_warehouse_name = #{record.deliveryWarehouseName,jdbcType=VARCHAR},
       bw_delivery_warehouse_code = #{record.bwDeliveryWarehouseCode,jdbcType=VARCHAR},
-      delivery_warehouse_type = #{record.deliveryWarehouseType,jdbcType=INTEGER},
+      delivery_warehouse_type = #{record.deliveryWarehouseType,jdbcType=SMALLINT},
       deleted = #{record.deleted,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
@@ -414,6 +428,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillWarehouseInfo">
     update receive_bill_warehouse_info
     <set>
+      <if test="receiveBillInfoId != null">
+        receive_bill_info_id = #{receiveBillInfoId,jdbcType=BIGINT},
+      </if>
       <if test="billNo != null">
         bill_no = #{billNo,jdbcType=VARCHAR},
       </if>
@@ -433,7 +450,7 @@
         bw_receive_warehouse_code = #{bwReceiveWarehouseCode,jdbcType=VARCHAR},
       </if>
       <if test="receiveWarehouseType != null">
-        receive_warehouse_type = #{receiveWarehouseType,jdbcType=INTEGER},
+        receive_warehouse_type = #{receiveWarehouseType,jdbcType=SMALLINT},
       </if>
       <if test="expressBillNo != null">
         express_bill_no = #{expressBillNo,jdbcType=VARCHAR},
@@ -447,17 +464,17 @@
       <if test="transportMethodName != null">
         transport_method_name = #{transportMethodName,jdbcType=VARCHAR},
       </if>
-      <if test="moveType != null">
-        move_type = #{moveType,jdbcType=VARCHAR},
+      <if test="allocateType != null">
+        allocate_type = #{allocateType,jdbcType=VARCHAR},
       </if>
-      <if test="moveModeLevelNo != null">
-        move_mode_level_no = #{moveModeLevelNo,jdbcType=VARCHAR},
+      <if test="allocatePriority != null">
+        allocate_priority = #{allocatePriority,jdbcType=VARCHAR},
       </if>
-      <if test="moveModeCode != null">
-        move_mode_code = #{moveModeCode,jdbcType=VARCHAR},
+      <if test="allocateModeCode != null">
+        allocate_mode_code = #{allocateModeCode,jdbcType=VARCHAR},
       </if>
-      <if test="moveModeName != null">
-        move_mode_name = #{moveModeName,jdbcType=VARCHAR},
+      <if test="allocateModeName != null">
+        allocate_mode_name = #{allocateModeName,jdbcType=VARCHAR},
       </if>
       <if test="deliveryWarehouseId != null">
         delivery_warehouse_id = #{deliveryWarehouseId,jdbcType=VARCHAR},
@@ -472,7 +489,7 @@
         bw_delivery_warehouse_code = #{bwDeliveryWarehouseCode,jdbcType=VARCHAR},
       </if>
       <if test="deliveryWarehouseType != null">
-        delivery_warehouse_type = #{deliveryWarehouseType,jdbcType=INTEGER},
+        delivery_warehouse_type = #{deliveryWarehouseType,jdbcType=SMALLINT},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},
@@ -488,26 +505,27 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillWarehouseInfo">
     update receive_bill_warehouse_info
-    set bill_no = #{billNo,jdbcType=VARCHAR},
+    set receive_bill_info_id = #{receiveBillInfoId,jdbcType=BIGINT},
+      bill_no = #{billNo,jdbcType=VARCHAR},
       order_no = #{orderNo,jdbcType=VARCHAR},
       receive_warehouse_id = #{receiveWarehouseId,jdbcType=VARCHAR},
       receive_warehouse_code = #{receiveWarehouseCode,jdbcType=VARCHAR},
       receive_warehouse_name = #{receiveWarehouseName,jdbcType=VARCHAR},
       bw_receive_warehouse_code = #{bwReceiveWarehouseCode,jdbcType=VARCHAR},
-      receive_warehouse_type = #{receiveWarehouseType,jdbcType=INTEGER},
+      receive_warehouse_type = #{receiveWarehouseType,jdbcType=SMALLINT},
       express_bill_no = #{expressBillNo,jdbcType=VARCHAR},
       freight_company_code = #{freightCompanyCode,jdbcType=VARCHAR},
       transport_method_code = #{transportMethodCode,jdbcType=VARCHAR},
       transport_method_name = #{transportMethodName,jdbcType=VARCHAR},
-      move_type = #{moveType,jdbcType=VARCHAR},
-      move_mode_level_no = #{moveModeLevelNo,jdbcType=VARCHAR},
-      move_mode_code = #{moveModeCode,jdbcType=VARCHAR},
-      move_mode_name = #{moveModeName,jdbcType=VARCHAR},
+      allocate_type = #{allocateType,jdbcType=VARCHAR},
+      allocate_priority = #{allocatePriority,jdbcType=VARCHAR},
+      allocate_mode_code = #{allocateModeCode,jdbcType=VARCHAR},
+      allocate_mode_name = #{allocateModeName,jdbcType=VARCHAR},
       delivery_warehouse_id = #{deliveryWarehouseId,jdbcType=VARCHAR},
       delivery_warehouse_code = #{deliveryWarehouseCode,jdbcType=VARCHAR},
       delivery_warehouse_name = #{deliveryWarehouseName,jdbcType=VARCHAR},
       bw_delivery_warehouse_code = #{bwDeliveryWarehouseCode,jdbcType=VARCHAR},
-      delivery_warehouse_type = #{deliveryWarehouseType,jdbcType=INTEGER},
+      delivery_warehouse_type = #{deliveryWarehouseType,jdbcType=SMALLINT},
       deleted = #{deleted,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

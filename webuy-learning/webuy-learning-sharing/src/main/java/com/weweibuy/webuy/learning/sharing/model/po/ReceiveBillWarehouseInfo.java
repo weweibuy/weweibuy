@@ -5,6 +5,8 @@ import java.util.Date;
 public class ReceiveBillWarehouseInfo {
     private Long id;
 
+    private Long receiveBillInfoId;
+
     private String billNo;
 
     private String orderNo;
@@ -17,7 +19,7 @@ public class ReceiveBillWarehouseInfo {
 
     private String bwReceiveWarehouseCode;
 
-    private Integer receiveWarehouseType;
+    private Short receiveWarehouseType;
 
     private String expressBillNo;
 
@@ -27,13 +29,13 @@ public class ReceiveBillWarehouseInfo {
 
     private String transportMethodName;
 
-    private String moveType;
+    private String allocateType;
 
-    private String moveModeLevelNo;
+    private String allocatePriority;
 
-    private String moveModeCode;
+    private String allocateModeCode;
 
-    private String moveModeName;
+    private String allocateModeName;
 
     private String deliveryWarehouseId;
 
@@ -43,7 +45,7 @@ public class ReceiveBillWarehouseInfo {
 
     private String bwDeliveryWarehouseCode;
 
-    private Integer deliveryWarehouseType;
+    private Short deliveryWarehouseType;
 
     private Boolean deleted;
 
@@ -57,6 +59,14 @@ public class ReceiveBillWarehouseInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getReceiveBillInfoId() {
+        return receiveBillInfoId;
+    }
+
+    public void setReceiveBillInfoId(Long receiveBillInfoId) {
+        this.receiveBillInfoId = receiveBillInfoId;
     }
 
     public String getBillNo() {
@@ -107,11 +117,11 @@ public class ReceiveBillWarehouseInfo {
         this.bwReceiveWarehouseCode = bwReceiveWarehouseCode == null ? null : bwReceiveWarehouseCode.trim();
     }
 
-    public Integer getReceiveWarehouseType() {
+    public Short getReceiveWarehouseType() {
         return receiveWarehouseType;
     }
 
-    public void setReceiveWarehouseType(Integer receiveWarehouseType) {
+    public void setReceiveWarehouseType(Short receiveWarehouseType) {
         this.receiveWarehouseType = receiveWarehouseType;
     }
 
@@ -147,36 +157,36 @@ public class ReceiveBillWarehouseInfo {
         this.transportMethodName = transportMethodName == null ? null : transportMethodName.trim();
     }
 
-    public String getMoveType() {
-        return moveType;
+    public String getAllocateType() {
+        return allocateType;
     }
 
-    public void setMoveType(String moveType) {
-        this.moveType = moveType == null ? null : moveType.trim();
+    public void setAllocateType(String allocateType) {
+        this.allocateType = allocateType == null ? null : allocateType.trim();
     }
 
-    public String getMoveModeLevelNo() {
-        return moveModeLevelNo;
+    public String getAllocatePriority() {
+        return allocatePriority;
     }
 
-    public void setMoveModeLevelNo(String moveModeLevelNo) {
-        this.moveModeLevelNo = moveModeLevelNo == null ? null : moveModeLevelNo.trim();
+    public void setAllocatePriority(String allocatePriority) {
+        this.allocatePriority = allocatePriority == null ? null : allocatePriority.trim();
     }
 
-    public String getMoveModeCode() {
-        return moveModeCode;
+    public String getAllocateModeCode() {
+        return allocateModeCode;
     }
 
-    public void setMoveModeCode(String moveModeCode) {
-        this.moveModeCode = moveModeCode == null ? null : moveModeCode.trim();
+    public void setAllocateModeCode(String allocateModeCode) {
+        this.allocateModeCode = allocateModeCode == null ? null : allocateModeCode.trim();
     }
 
-    public String getMoveModeName() {
-        return moveModeName;
+    public String getAllocateModeName() {
+        return allocateModeName;
     }
 
-    public void setMoveModeName(String moveModeName) {
-        this.moveModeName = moveModeName == null ? null : moveModeName.trim();
+    public void setAllocateModeName(String allocateModeName) {
+        this.allocateModeName = allocateModeName == null ? null : allocateModeName.trim();
     }
 
     public String getDeliveryWarehouseId() {
@@ -211,16 +221,16 @@ public class ReceiveBillWarehouseInfo {
         this.bwDeliveryWarehouseCode = bwDeliveryWarehouseCode == null ? null : bwDeliveryWarehouseCode.trim();
     }
 
-    public Integer getDeliveryWarehouseType() {
+    public Short getDeliveryWarehouseType() {
         return deliveryWarehouseType;
-    }
-
-    public void setDeliveryWarehouseType(Integer deliveryWarehouseType) {
-        this.deliveryWarehouseType = deliveryWarehouseType;
     }
 
     public Boolean getDeleted() {
         return deleted;
+    }
+
+    public void setDeliveryWarehouseType(Short deliveryWarehouseType) {
+        this.deliveryWarehouseType = deliveryWarehouseType;
     }
 
     public void setDeleted(Boolean deleted) {

@@ -166,6 +166,66 @@ public class ReceiveBillSettlementInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andReceiveBillInfoIdIsNull() {
+            addCriterion("receive_bill_info_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdIsNotNull() {
+            addCriterion("receive_bill_info_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdEqualTo(Long value) {
+            addCriterion("receive_bill_info_id =", value, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdNotEqualTo(Long value) {
+            addCriterion("receive_bill_info_id <>", value, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdGreaterThan(Long value) {
+            addCriterion("receive_bill_info_id >", value, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("receive_bill_info_id >=", value, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdLessThan(Long value) {
+            addCriterion("receive_bill_info_id <", value, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdLessThanOrEqualTo(Long value) {
+            addCriterion("receive_bill_info_id <=", value, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdIn(List<Long> values) {
+            addCriterion("receive_bill_info_id in", values, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdNotIn(List<Long> values) {
+            addCriterion("receive_bill_info_id not in", values, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdBetween(Long value1, Long value2) {
+            addCriterion("receive_bill_info_id between", value1, value2, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveBillInfoIdNotBetween(Long value1, Long value2) {
+            addCriterion("receive_bill_info_id not between", value1, value2, "receiveBillInfoId");
+            return (Criteria) this;
+        }
+
         public Criteria andBillNoIsNull() {
             addCriterion("bill_no is null");
             return (Criteria) this;

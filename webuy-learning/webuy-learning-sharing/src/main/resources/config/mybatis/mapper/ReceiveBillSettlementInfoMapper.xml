@@ -3,6 +3,7 @@
 <mapper namespace="com.weweibuy.webuy.learning.sharing.mapper.ReceiveBillSettlementInfoMapper">
   <resultMap id="BaseResultMap" type="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillSettlementInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="receive_bill_info_id" jdbcType="BIGINT" property="receiveBillInfoId" />
     <result column="bill_no" jdbcType="VARCHAR" property="billNo" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="refund_amount" jdbcType="DECIMAL" property="refundAmount" />
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, bill_no, order_no, refund_amount, deleted, create_time, update_time
+    id, receive_bill_info_id, bill_no, order_no, refund_amount, deleted, create_time, 
+    update_time
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillSettlementInfoExample" resultMap="BaseResultMap">
     select
@@ -102,18 +104,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillSettlementInfo">
-    insert into receive_bill_settlement_info (id, bill_no, order_no, 
-      refund_amount, deleted, create_time, 
-      update_time)
-    values (#{id,jdbcType=BIGINT}, #{billNo,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
-      #{refundAmount,jdbcType=DECIMAL}, #{deleted,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into receive_bill_settlement_info (id, receive_bill_info_id, bill_no, 
+      order_no, refund_amount, deleted, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{receiveBillInfoId,jdbcType=BIGINT}, #{billNo,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{refundAmount,jdbcType=DECIMAL}, #{deleted,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillSettlementInfo">
     insert into receive_bill_settlement_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="receiveBillInfoId != null">
+        receive_bill_info_id,
       </if>
       <if test="billNo != null">
         bill_no,
@@ -137,6 +142,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="receiveBillInfoId != null">
+        #{receiveBillInfoId,jdbcType=BIGINT},
       </if>
       <if test="billNo != null">
         #{billNo,jdbcType=VARCHAR},
@@ -170,6 +178,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.receiveBillInfoId != null">
+        receive_bill_info_id = #{record.receiveBillInfoId,jdbcType=BIGINT},
+      </if>
       <if test="record.billNo != null">
         bill_no = #{record.billNo,jdbcType=VARCHAR},
       </if>
@@ -196,6 +207,7 @@
   <update id="updateByExample" parameterType="map">
     update receive_bill_settlement_info
     set id = #{record.id,jdbcType=BIGINT},
+      receive_bill_info_id = #{record.receiveBillInfoId,jdbcType=BIGINT},
       bill_no = #{record.billNo,jdbcType=VARCHAR},
       order_no = #{record.orderNo,jdbcType=VARCHAR},
       refund_amount = #{record.refundAmount,jdbcType=DECIMAL},
@@ -209,6 +221,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillSettlementInfo">
     update receive_bill_settlement_info
     <set>
+      <if test="receiveBillInfoId != null">
+        receive_bill_info_id = #{receiveBillInfoId,jdbcType=BIGINT},
+      </if>
       <if test="billNo != null">
         bill_no = #{billNo,jdbcType=VARCHAR},
       </if>
@@ -232,7 +247,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.learning.sharing.model.po.ReceiveBillSettlementInfo">
     update receive_bill_settlement_info
-    set bill_no = #{billNo,jdbcType=VARCHAR},
+    set receive_bill_info_id = #{receiveBillInfoId,jdbcType=BIGINT},
+      bill_no = #{billNo,jdbcType=VARCHAR},
       order_no = #{orderNo,jdbcType=VARCHAR},
       refund_amount = #{refundAmount,jdbcType=DECIMAL},
       deleted = #{deleted,jdbcType=BIT},
