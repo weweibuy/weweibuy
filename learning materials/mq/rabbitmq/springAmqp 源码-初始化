@@ -1,2 +1,2 @@
-1. RabbitBootstrapConfiguration
+1. RabbitBootstrapConfiguration, RabbitAutoConfiguration
 2. RabbitListenerAnnotationBeanPostProcessor

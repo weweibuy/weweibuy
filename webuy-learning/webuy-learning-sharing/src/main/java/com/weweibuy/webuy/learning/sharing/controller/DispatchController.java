@@ -57,7 +57,7 @@ public class DispatchController {
             count = 10000;
         }
         Flux.range(0, count)
-                .parallel(3)
+                .parallel(10)
                 .runOn(Schedulers.fromExecutor(executor))
                 .doOnNext(i -> dispatchService.addAll())
                 .sequential()

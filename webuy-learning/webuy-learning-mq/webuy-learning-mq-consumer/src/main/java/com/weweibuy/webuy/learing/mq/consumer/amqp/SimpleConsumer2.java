@@ -7,14 +7,13 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
-import org.springframework.stereotype.Component;
 
 /**
  * @author durenhao
  * @date 2019/9/5 20:50
  **/
 @Slf4j
-@Component
+//@Component
 public class SimpleConsumer2 {
 
     @RabbitListener(queues = "test_queue_01")

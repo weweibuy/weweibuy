@@ -114,10 +114,10 @@ public class ReceiveService {
         receiveBillInfo.setTotalRecordNum(2);
         addDetail(billNo, orderNo, processStatus);
 
+        receiveBillInfoMapper.insertSelective(receiveBillInfo);
         addWarehouseInfo(aLong, billNo, orderNo);
 
         addSettlementInfoInfo(aLong, billNo, orderNo);
-        receiveBillInfoMapper.insertSelective(receiveBillInfo);
 
     }
 

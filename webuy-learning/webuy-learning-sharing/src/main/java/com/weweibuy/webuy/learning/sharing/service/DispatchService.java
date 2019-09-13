@@ -129,12 +129,13 @@ public class DispatchService {
         dispatchBillInfo.setPhone("1380000000");
         dispatchBillInfo.setExpectAmount(20);
         dispatchBillInfo.setTotalRecordNum(2);
-        billInfoMapper.insertSelective(dispatchBillInfo);
         addDetail(billNo, orderNo, processStatus);
 
+        billInfoMapper.insertSelective(dispatchBillInfo);
         addWarehouseInfo(aLong, billNo, orderNo);
 
         addSettlementInfoInfo(aLong, billNo, orderNo);
+
     }
 
 
@@ -264,7 +265,7 @@ public class DispatchService {
         Page<Object> objects = PageHelper.startPage(1, 10);
         DispatchBillInfoExample example = new DispatchBillInfoExample();
         example.createCriteria().andBillStatusEqualTo("0");
-        example.setOrderByClause("create_time asc");
+        example.setOrderByClause("create_time desc");
         List<DispatchBillInfo> dispatchBillInfoList = billInfoMapper.selectByExample(example);
         dispatchBillInfoList.forEach(i -> {
             dispatchManager.updateDispatch(i.getBillNo());
