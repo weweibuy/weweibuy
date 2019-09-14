@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.util.stream.Stream;
+
 @Slf4j
 public class AmqpTest {
 
@@ -60,7 +63,15 @@ public class AmqpTest {
         channel.queueDeclare(FANOUT_QUEUE_NAME, true, false, false, null);
         channel.queueBind(FANOUT_QUEUE_NAME, FANOUT_EXCHANGE_NAME, "test.#");
         byte[] messageBodyBytes = "Hello, world!".getBytes();
-        channel.basicPublish(FANOUT_EXCHANGE_NAME, "test.#", null, messageBodyBytes);
+        Stream.iterate(0 , i -> i+ 1)
+                .limit(100)
+                .forEach(i -> {
+                    try {
+                        channel.basicPublish(FANOUT_EXCHANGE_NAME, "test.#", null, messageBodyBytes);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     /**
@@ -78,8 +89,15 @@ public class AmqpTest {
                 .correlationId(IdWorker.getNextStrId())
                 .contentEncoding("UTF-8")
                 .build();
-
-        channel.basicPublish(DIRECT_EXCHANGE_NAME, "test.#", properties, "properties message".getBytes());
+        Stream.iterate(0 , i -> i+ 1)
+                .limit(100)
+                .forEach(i -> {
+                    try {
+                        channel.basicPublish(DIRECT_EXCHANGE_NAME, "test.#", properties, "properties message".getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
 

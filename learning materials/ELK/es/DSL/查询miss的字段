@@ -1,0 +1,59 @@
+1. upsert 导致字段miss, 查询miss的字段
+{
+	"query": {
+		"bool": {
+			"must": [{
+					"bool": {
+						"must_not": {
+							"exists": {
+								"field": "bill_no"  --> bill_no 字段缺失
+							}
+						}
+					}
+				},
+				{
+					"range": {
+						"update_time": {
+							"from": "2019-09-02T09:39:12.000Z",
+							"to": "2019-09-10T09:39:12.000Z"
+						}
+					}
+				}
+			]
+		}
+	},
+	"sort": [{
+			"update_time": {
+				"order": "desc"
+			}
+		}
+
+	]
+}
+
+2. 删除miss 的字段  Post --> /_index/_type/_delete_by_query
+{
+	"query": {
+		"bool": {
+			"must": [{
+					"bool": {
+						"must_not": {
+							"exists": {
+								"field": "bill_no"
+							}
+						}
+					}
+				},
+				{
+					"range": {
+						"update_time": {
+							"from": "2019-09-02T09:39:12.000Z",
+							"to": "2019-09-10T09:39:12.000Z"
+						}
+					}
+				}
+			]
+		}
+	}
+}
+

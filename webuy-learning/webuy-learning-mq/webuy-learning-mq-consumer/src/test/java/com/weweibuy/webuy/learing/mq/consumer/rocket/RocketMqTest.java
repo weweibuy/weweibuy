@@ -31,7 +31,7 @@ public class RocketMqTest {
     public void bf() throws Exception {
         consumerG1 = new DefaultMQPushConsumer(producerGroup1);
         consumerG1.setNamesrvAddr(NAME_SERVER);
-        consumerG1.subscribe(TOPIC, "abc");
+        consumerG1.subscribe(TOPIC, "dev");
 
         consumerG2 = new DefaultMQPushConsumer(producerGroup2);
         consumerG2.setNamesrvAddr(NAME_SERVER);
@@ -39,6 +39,10 @@ public class RocketMqTest {
 
     }
 
+    /**
+     * 一个group
+     * @throws Exception
+     */
     @Test
     public void test01() throws Exception {
         consumerG1.registerMessageListener(new MessageListenerConcurrently() {
@@ -46,16 +50,6 @@ public class RocketMqTest {
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
                 msgs.stream().forEach(msg -> {
                     log.info("消费组1 Listener1 收到消息: {}", new String(msg.getBody()));
-                });
-                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-            }
-        });
-
-        consumerG1.registerMessageListener(new MessageListenerConcurrently() {
-            @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
-                msgs.stream().forEach(msg -> {
-                    log.info("消费组1 Listener2 收到消息: {}", new String(msg.getBody()));
                 });
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }

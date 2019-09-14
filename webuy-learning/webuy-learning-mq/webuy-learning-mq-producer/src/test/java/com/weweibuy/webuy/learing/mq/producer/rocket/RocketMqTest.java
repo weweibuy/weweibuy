@@ -38,8 +38,13 @@ public class RocketMqTest {
                 .forEach(i -> {
                     Message msg = null;
                     try {
-                        msg = new Message(TOPIC, "test",
-                                ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                        if (i % 2 == 0) {
+                            msg = new Message(TOPIC, "test",
+                                    ("Hello RocketMQ for test " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                        } else {
+                            msg = new Message(TOPIC, "dev",
+                                    ("Hello RocketMQ for dev " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                        }
                         SendResult send = producer.send(msg);
                         String msgId = send.getMsgId();
                         int queueId = send.getMessageQueue().getQueueId();
@@ -55,6 +60,7 @@ public class RocketMqTest {
 
     /**
      * 向指定队列发送
+     *
      * @throws Exception
      */
     @Test

@@ -265,7 +265,7 @@ public class DispatchService {
         Page<Object> objects = PageHelper.startPage(1, 10);
         DispatchBillInfoExample example = new DispatchBillInfoExample();
         example.createCriteria().andBillStatusEqualTo("0");
-        example.setOrderByClause("create_time desc");
+        example.setOrderByClause("create_time asc");
         List<DispatchBillInfo> dispatchBillInfoList = billInfoMapper.selectByExample(example);
         dispatchBillInfoList.forEach(i -> {
             dispatchManager.updateDispatch(i.getBillNo());
