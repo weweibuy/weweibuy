@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @date 2019/6/14 23:08
  **/
 @Service
-public class TestUserService {
+public class TestUserService  {
 
     @Autowired
     private TestUserMapper userMapper;
@@ -42,4 +42,5 @@ public class TestUserService {
                 .collect(Collectors.toList());
 
     }
+
 }

@@ -18,6 +18,7 @@
         <module>webuy-learning-hystirx</module>
         <module>webuy-learning-spring</module>
         <module>webuy-learning-sharing</module>
+        <module>webuy-learning-socket</module>
     </modules>
     <artifactId>webuy-learning</artifactId>
 

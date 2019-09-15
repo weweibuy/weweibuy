@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,9 +32,14 @@ public class SimpleConsumer {
         String correlationId = (String)message.getHeaders().get(AmqpHeaders.CORRELATION_ID);
         Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
         log.info("deliveryTag=={}, correlationId : {}", deliveryTag, correlationId);
-        channel.basicNack(deliveryTag, false, true);
+        channel.basicAck(deliveryTag, false);
 
     }
 
+    @RabbitListener(queues = "test_queue_01")
+    @RabbitHandler
+    public void onMessage(@Payload String message, Channel channel) throws Exception{
+        log.info("收消息: {}", message);
+    }
 
 }
