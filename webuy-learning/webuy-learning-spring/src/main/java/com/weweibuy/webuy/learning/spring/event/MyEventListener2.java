@@ -25,7 +25,6 @@ public class MyEventListener2 implements ApplicationListener<MyEvent> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        String name = event.getName();
-        log.error(event.getSource().toString());
+        log.info("Listener2, msg {}", event.getMsg());
     }
 }

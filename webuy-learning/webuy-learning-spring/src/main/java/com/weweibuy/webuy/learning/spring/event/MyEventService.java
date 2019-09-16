@@ -18,8 +18,8 @@ public class MyEventService implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    public void pushEvent(){
-        this.applicationContext.publishEvent(new MyEvent("hello..Spring..event"));
+    public void pushEvent() {
+        this.applicationContext.publishEvent(new MyEvent(this, "hello..Spring..event"));
         log.error("do..mybiz");
     }
 

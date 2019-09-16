@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyEventListener3 {
 
-
     @Async
     @EventListener
     public void eventListener(MyEvent myEvent){
@@ -24,6 +23,6 @@ public class MyEventListener3 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.error(myEvent.getSource().toString());
+        log.info("Listener3 , msg {}", myEvent.getMsg());
     }
 }

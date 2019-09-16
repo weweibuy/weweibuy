@@ -4,19 +4,15 @@ import lombok.Data;
 import org.springframework.context.ApplicationEvent;
 
 /**
- * @ClassName MyEvent
- * @Description
- * @Author durenhao
- * @Date 2019/3/16 21:04
+ * @author durenhao
+ * @date 2019/9/16 23:10
  **/
 @Data
-public class MyEvent extends ApplicationEvent {
-
-    private String name = "zhangsan";
+public class TestEvent extends ApplicationEvent {
 
     private String msg;
 
-    public MyEvent(Object source, String msg) {
+    public TestEvent(Object source, String msg) {
         super(source);
         this.msg = msg;
     }
