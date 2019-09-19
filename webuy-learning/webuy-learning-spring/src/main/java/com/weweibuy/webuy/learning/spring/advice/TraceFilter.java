@@ -22,6 +22,6 @@ public class TraceFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         long l = System.currentTimeMillis();
         filterChain.doFilter(request, response);
-        log.info("请求耗时: {}", System.currentTimeMillis() - l);
+        log.info("请求耗时: {}, 请求地址: {}", System.currentTimeMillis() - l, request.getRequestURI());
     }
 }
