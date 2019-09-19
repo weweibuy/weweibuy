@@ -17,7 +17,6 @@ public class MyEventListener4 {
     @Async
     @EventListener
     public void onEvent(MyEvent myEvent){
-
         log.error("Listener4: msg: {}", myEvent.getMsg());
     }
 

@@ -20,7 +20,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
     driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-    url: jdbc:mysql://106.12.95.245:3306/webuy_user?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
+    url: jdbc:mysql://106.12.15.87:3306/webuy_user?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
     username: user01
     password: ak402507979
     initialSize: 5

@@ -27,5 +27,11 @@ public class MyEventController {
         return "success";
     }
 
+    @GetMapping("/event/push2")
+    public String pushEvent2(){
+        applicationContext.publishEvent(new TestEvent(this, "test event"));
+        return "success";
+    }
+
 
 }
