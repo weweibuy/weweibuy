@@ -10,7 +10,7 @@ import java.util.List;
  * @author durenhao
  * @date 2019/9/19 21:01
  **/
-@ApiModel(value = "用户信息" )
+@ApiModel(description = "请求数据载体")
 @Data
 public class UserInfo extends PageQuery  {
 

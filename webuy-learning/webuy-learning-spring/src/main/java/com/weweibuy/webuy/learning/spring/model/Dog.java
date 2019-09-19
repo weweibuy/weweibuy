@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2019/9/19 21:11
  **/
 @Data
-@ApiModel("响应信息")
+@ApiModel(description = "狗信息")
 public class Dog {
 
     @ApiModelProperty(value = "狗名字")
