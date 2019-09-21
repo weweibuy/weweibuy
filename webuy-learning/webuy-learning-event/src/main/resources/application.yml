@@ -1,0 +1,34 @@
+
+spring:
+  profiles:
+    active: ${profileActive}
+  application:
+    name: learning-event
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  datasource:
+    driver-class-name: org.gjt.mm.mysql.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://106.12.15.87:3306/webuy_event?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true
+    username: user01
+    password: k402507979
+
+logging:
+  config: classpath:config/logback/logback-spring.xml
+
+
+mybatis:
+  type-aliases-package: com.weweibuy.webuy.learning.event.model.po    # 所有Entity别名类所在包
+  mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://admin:ak402507979@106.12.95.245:7001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
