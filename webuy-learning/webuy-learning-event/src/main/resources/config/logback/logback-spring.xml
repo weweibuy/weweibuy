@@ -23,7 +23,7 @@
     </springProfile>
     <springProfile name="test">
         <property name="log.path" value="/logs/${app_name}/pmp" />
-        <logger name="com.weweibuy.webuy.learning.spring.mapper" level="DEBUG"/>
+        <logger name="com.weweibuy.webuy.learning.event.mapper" level="DEBUG"/>
     </springProfile>
     <property name="appName" value="${app_name}" />
     <!--0. 日志格式和颜色渲染 -->
@@ -31,8 +31,6 @@
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
     <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
     <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
-
-    <conversionRule conversionWord="msg" converterClass="com.weweibuy.webuy.learning.spring.desensitization.logds.LogMessageConverter"/>
 
 
     <!-- 彩色日志格式 -->

@@ -18,12 +18,12 @@
             <groupId>com.weweibuy</groupId>
             <artifactId>webuy-learning-common</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <!--druid数据源-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--mysql驱动-->
@@ -36,6 +36,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
         </dependency>
 
         <!--mybatis分页插件-->

@@ -1,3 +1,6 @@
+server:
+  port: 8888
+
 
 spring:
   profiles:
@@ -6,13 +9,15 @@ spring:
     name: learning-event
   jackson:
     property-naming-strategy: SNAKE_CASE
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
   datasource:
     driver-class-name: org.gjt.mm.mysql.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
+    type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://106.12.15.87:3306/webuy_event?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true
     username: user01
-    password: k402507979
+    password: ak402507979
 
 logging:
   config: classpath:config/logback/logback-spring.xml

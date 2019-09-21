@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.event.model.po;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class BizEvent {
     private Long id;
@@ -19,9 +19,9 @@ public class BizEvent {
 
     private String alarmRule;
 
-    private Date createTime;
+    private LocalDateTime createTime;
 
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     public Long getId() {
         return id;
@@ -87,19 +87,19 @@ public class BizEvent {
         this.alarmRule = alarmRule == null ? null : alarmRule.trim();
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
 }
