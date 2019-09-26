@@ -3,7 +3,7 @@ package com.weweibuy.webuy.learning.socket.bio;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -18,33 +18,44 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class BioClient {
 
-    private static final ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(3, 10, 60L,
+    private static final ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(10, 10, 60L,
             TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), new CustomizableThreadFactory("bio-client-thread-"));
 
     private static String msg = "hello server";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws  Exception {
         Socket socket = new Socket("localhost", 8888);
         sendMsg(socket);
     }
 
 
-    private static void sendMsg(Socket socket) {
+    private static void sendMsg(Socket socket) throws Exception {
+
+        final OutputStream outputStream = socket.getOutputStream();
+        final InputStream inputStream = socket.getInputStream();
+
         EXECUTOR_SERVICE.submit(() -> {
             log.info("客户端准备写出数据");
-            OutputStream outputStream = socket.getOutputStream();
             outputStream.write(msg.getBytes());
+            socket.shutdownOutput();
             outputStream.flush();
-            log.info("客户端准备写出数据完成, 准备接受数据");
+            outputStream.close();
+            return "";
+        });
+
+        EXECUTOR_SERVICE.submit(() -> {
+            log.info("客户端准备读数据");
             byte[] bytes = new byte[1024];
             int len = 0;
             StringBuilder stringBuilder = new StringBuilder();
-            while ((len = socket.getInputStream().read(bytes)) != -1) {
+            while ((len = inputStream.read(bytes)) != -1) {
                 stringBuilder.append(new String(bytes, 0, len));
             }
             log.info("收到服务端数据: {}", stringBuilder.toString());
+            inputStream.close();
             return "";
         });
+
     }
 
 

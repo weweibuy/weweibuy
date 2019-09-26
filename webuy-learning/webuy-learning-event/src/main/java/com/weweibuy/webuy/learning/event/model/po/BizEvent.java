@@ -13,11 +13,17 @@ public class BizEvent {
 
     private String eventStatus;
 
+    private Byte triggerType;
+
+    private String blockThreshold;
+
     private String retryRule;
 
-    private Byte retryCount;
+    private Integer retryCount;
 
     private String alarmRule;
+
+    private Integer alarmCount;
 
     private LocalDateTime createTime;
 
@@ -63,6 +69,22 @@ public class BizEvent {
         this.eventStatus = eventStatus == null ? null : eventStatus.trim();
     }
 
+    public Byte getTriggerType() {
+        return triggerType;
+    }
+
+    public void setTriggerType(Byte triggerType) {
+        this.triggerType = triggerType;
+    }
+
+    public String getBlockThreshold() {
+        return blockThreshold;
+    }
+
+    public void setBlockThreshold(String blockThreshold) {
+        this.blockThreshold = blockThreshold == null ? null : blockThreshold.trim();
+    }
+
     public String getRetryRule() {
         return retryRule;
     }
@@ -71,11 +93,11 @@ public class BizEvent {
         this.retryRule = retryRule == null ? null : retryRule.trim();
     }
 
-    public Byte getRetryCount() {
+    public Integer getRetryCount() {
         return retryCount;
     }
 
-    public void setRetryCount(Byte retryCount) {
+    public void setRetryCount(Integer retryCount) {
         this.retryCount = retryCount;
     }
 
@@ -85,6 +107,14 @@ public class BizEvent {
 
     public void setAlarmRule(String alarmRule) {
         this.alarmRule = alarmRule == null ? null : alarmRule.trim();
+    }
+
+    public Integer getAlarmCount() {
+        return alarmCount;
+    }
+
+    public void setAlarmCount(Integer alarmCount) {
+        this.alarmCount = alarmCount;
     }
 
     public LocalDateTime getCreateTime() {

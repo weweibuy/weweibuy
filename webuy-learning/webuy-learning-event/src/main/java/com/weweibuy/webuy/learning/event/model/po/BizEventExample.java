@@ -445,6 +445,136 @@ public class BizEventExample {
             return (Criteria) this;
         }
 
+        public Criteria andTriggerTypeIsNull() {
+            addCriterion("trigger_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeIsNotNull() {
+            addCriterion("trigger_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeEqualTo(Byte value) {
+            addCriterion("trigger_type =", value, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeNotEqualTo(Byte value) {
+            addCriterion("trigger_type <>", value, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeGreaterThan(Byte value) {
+            addCriterion("trigger_type >", value, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("trigger_type >=", value, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeLessThan(Byte value) {
+            addCriterion("trigger_type <", value, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeLessThanOrEqualTo(Byte value) {
+            addCriterion("trigger_type <=", value, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeIn(List<Byte> values) {
+            addCriterion("trigger_type in", values, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeNotIn(List<Byte> values) {
+            addCriterion("trigger_type not in", values, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeBetween(Byte value1, Byte value2) {
+            addCriterion("trigger_type between", value1, value2, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriggerTypeNotBetween(Byte value1, Byte value2) {
+            addCriterion("trigger_type not between", value1, value2, "triggerType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdIsNull() {
+            addCriterion("block_threshold is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdIsNotNull() {
+            addCriterion("block_threshold is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdEqualTo(String value) {
+            addCriterion("block_threshold =", value, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdNotEqualTo(String value) {
+            addCriterion("block_threshold <>", value, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdGreaterThan(String value) {
+            addCriterion("block_threshold >", value, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdGreaterThanOrEqualTo(String value) {
+            addCriterion("block_threshold >=", value, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdLessThan(String value) {
+            addCriterion("block_threshold <", value, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdLessThanOrEqualTo(String value) {
+            addCriterion("block_threshold <=", value, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdLike(String value) {
+            addCriterion("block_threshold like", value, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdNotLike(String value) {
+            addCriterion("block_threshold not like", value, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdIn(List<String> values) {
+            addCriterion("block_threshold in", values, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdNotIn(List<String> values) {
+            addCriterion("block_threshold not in", values, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdBetween(String value1, String value2) {
+            addCriterion("block_threshold between", value1, value2, "blockThreshold");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlockThresholdNotBetween(String value1, String value2) {
+            addCriterion("block_threshold not between", value1, value2, "blockThreshold");
+            return (Criteria) this;
+        }
+
         public Criteria andRetryRuleIsNull() {
             addCriterion("retry_rule is null");
             return (Criteria) this;
@@ -525,52 +655,52 @@ public class BizEventExample {
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountEqualTo(Byte value) {
+        public Criteria andRetryCountEqualTo(Integer value) {
             addCriterion("retry_count =", value, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountNotEqualTo(Byte value) {
+        public Criteria andRetryCountNotEqualTo(Integer value) {
             addCriterion("retry_count <>", value, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountGreaterThan(Byte value) {
+        public Criteria andRetryCountGreaterThan(Integer value) {
             addCriterion("retry_count >", value, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountGreaterThanOrEqualTo(Byte value) {
+        public Criteria andRetryCountGreaterThanOrEqualTo(Integer value) {
             addCriterion("retry_count >=", value, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountLessThan(Byte value) {
+        public Criteria andRetryCountLessThan(Integer value) {
             addCriterion("retry_count <", value, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountLessThanOrEqualTo(Byte value) {
+        public Criteria andRetryCountLessThanOrEqualTo(Integer value) {
             addCriterion("retry_count <=", value, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountIn(List<Byte> values) {
+        public Criteria andRetryCountIn(List<Integer> values) {
             addCriterion("retry_count in", values, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountNotIn(List<Byte> values) {
+        public Criteria andRetryCountNotIn(List<Integer> values) {
             addCriterion("retry_count not in", values, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountBetween(Byte value1, Byte value2) {
+        public Criteria andRetryCountBetween(Integer value1, Integer value2) {
             addCriterion("retry_count between", value1, value2, "retryCount");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountNotBetween(Byte value1, Byte value2) {
+        public Criteria andRetryCountNotBetween(Integer value1, Integer value2) {
             addCriterion("retry_count not between", value1, value2, "retryCount");
             return (Criteria) this;
         }
@@ -642,6 +772,66 @@ public class BizEventExample {
 
         public Criteria andAlarmRuleNotBetween(String value1, String value2) {
             addCriterion("alarm_rule not between", value1, value2, "alarmRule");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountIsNull() {
+            addCriterion("alarm_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountIsNotNull() {
+            addCriterion("alarm_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountEqualTo(Integer value) {
+            addCriterion("alarm_count =", value, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountNotEqualTo(Integer value) {
+            addCriterion("alarm_count <>", value, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountGreaterThan(Integer value) {
+            addCriterion("alarm_count >", value, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("alarm_count >=", value, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountLessThan(Integer value) {
+            addCriterion("alarm_count <", value, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountLessThanOrEqualTo(Integer value) {
+            addCriterion("alarm_count <=", value, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountIn(List<Integer> values) {
+            addCriterion("alarm_count in", values, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountNotIn(List<Integer> values) {
+            addCriterion("alarm_count not in", values, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountBetween(Integer value1, Integer value2) {
+            addCriterion("alarm_count between", value1, value2, "alarmCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("alarm_count not between", value1, value2, "alarmCount");
             return (Criteria) this;
         }
 

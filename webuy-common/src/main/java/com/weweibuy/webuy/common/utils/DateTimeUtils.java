@@ -3,12 +3,16 @@
  *
  * 注意：本内容仅限于内部传阅，禁止外泄以及用于其他的商业目的
  */
-package com.weweibuy.webuy.learning.spring.utils;
+package com.weweibuy.webuy.common.utils;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -16,6 +20,7 @@ import java.util.Date;
  * @author durenhao
  * @date 2019/7/29 18:14
  **/
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTimeUtils {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -42,6 +47,11 @@ public class DateTimeUtils {
 
     public static Date localDateTimeToDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static long localDateTimeToTimestamp(LocalDateTime localDateTime){
+            long timestamp = localDateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
+            return timestamp;
     }
 
 }

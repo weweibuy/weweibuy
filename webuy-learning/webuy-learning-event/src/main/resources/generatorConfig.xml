@@ -51,6 +51,8 @@
         <table tableName="biz_event"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true">
+            <columnOverride column="retry_count" javaType="Integer"/>
+            <columnOverride column="alarm_count" javaType="Integer"/>
         </table>
 
         <table tableName="biz_event_log"
