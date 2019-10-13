@@ -1,0 +1,12 @@
+
+spring:
+  profiles:
+    active: ${profileActive}
+  application:
+    name: learning-spring-webflux
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+logging:
+  config: classpath:config/logback/logback-spring.xml
+

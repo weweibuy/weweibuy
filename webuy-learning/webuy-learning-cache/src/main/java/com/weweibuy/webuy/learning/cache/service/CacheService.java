@@ -21,5 +21,10 @@ public class CacheService {
         return CommonJsonResponse.success(name);
     }
 
+    @Cacheable(key = "'getCache2'")
+    public CommonJsonResponse<String> getCache2(){
+        log.info("查询数据");
+        return CommonJsonResponse.success("");
+    }
 
 }

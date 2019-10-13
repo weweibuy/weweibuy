@@ -29,7 +29,6 @@ public class BioClientHandler implements Callable<String> {
         PrintWriter printWriter = new PrintWriter(
                 new OutputStreamWriter(outputStream, Charset.forName("UTF-8")));
 
-
         String line = bufferedReader.readLine();
         log.info("[SimpleHttpCommandCenter] socket income: " + line
                 + "," + socket.getInetAddress());

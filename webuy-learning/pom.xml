@@ -20,6 +20,7 @@
         <module>webuy-learning-sharing</module>
         <module>webuy-learning-socket</module>
         <module>webuy-learning-event</module>
+        <module>webuy-learning-webflux</module>
     </modules>
     <artifactId>webuy-learning</artifactId>
 
