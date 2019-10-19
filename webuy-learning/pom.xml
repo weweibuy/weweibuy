@@ -21,6 +21,7 @@
         <module>webuy-learning-socket</module>
         <module>webuy-learning-event</module>
         <module>webuy-learning-webflux</module>
+        <module>webuy-learning-data-sync</module>
     </modules>
     <artifactId>webuy-learning</artifactId>
 

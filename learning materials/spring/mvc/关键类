@@ -1,0 +1,5 @@
+1. HandlerMethodArgumentResolver 接口方法入参转化
+2. AbstractMessageConverterMethodArgumentResolver 读取消息报文
+3. AbstractMessageConverterMethodProcessor.writeWithMessageConverters  写出消息报文
+4. InvocableHandlerMethod.getMethodArgumentValues() 解析方法入参
+5. 参数解析器: RequestMappingHandlerAdapter.getDefaultArgumentResolvers  +  自定定义解析器

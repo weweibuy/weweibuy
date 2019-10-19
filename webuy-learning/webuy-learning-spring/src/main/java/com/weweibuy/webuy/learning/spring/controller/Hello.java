@@ -7,10 +7,11 @@ import com.weweibuy.webuy.learning.spring.model.TestUser;
 import com.weweibuy.webuy.learning.spring.model.eum.SystemEum;
 import com.weweibuy.webuy.learning.spring.service.TestUserService;
 import com.weweibuy.webuy.learning.spring.service.TypeInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -29,7 +31,7 @@ import java.util.Set;
  * @author durenhao
  * @date 2019/4/7 0:10
  **/
-@CacheConfig(cacheNames = "hello")
+@Slf4j
 @RestController("hello")
 @RequestMapping("/api/v1")
 public class Hello implements TypeInterface {
@@ -54,7 +56,8 @@ public class Hello implements TypeInterface {
     }
 
     @PostMapping("/test/hello3")
-    public TestListVo hello3(@RequestBody @Validated TestListVo listVo) {
+    public TestListVo hello3(@RequestBody @Validated TestListVo listVo, BindingResult bindingResult, HttpServletRequest request) {
+        log.info("biz ..... running ");
         validate(listVo);
         return listVo;
     }

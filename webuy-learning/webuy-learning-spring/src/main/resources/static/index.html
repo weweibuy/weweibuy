@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Matomo -->
 <script type="text/javascript">
     var _paq = window._paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
-    (function () {
-        var u = "//106.12.95.245:8888/";
-        _paq.push(['setTrackerUrl', u + 'matomo.php']);
-        _paq.push(['setSiteId', '1']);
-        _paq.push(['setUserId', 'zhang']);
-        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-        g.type = 'text/javascript';
-        g.async = true;
-        g.defer = true;
-        g.src = u + 'matomo.js';
-        s.parentNode.insertBefore(g, s);
+    (function() {
+        var u="//106.12.95.245:8888/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '2']);
+        _paq.push(['setUserId', 'tom']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
     })();
 </script>
+<!-- End Matomo Code -->
+
 <link rel="stylesheet" href="./css/bootstrap.min.css">
 <script src="./js/jquery-2.2.3.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
@@ -35,6 +34,22 @@
 
 
     function test() {
+
+        _paq.push(['setCustomUrl', 'http://www.test.com/abd']);//自定义每个页面链接
+        _paq.push(['setDocumentTitle', 'abd']);
+        _paq.push(['trackPageView', 'abd']);
+        _paq.push(['setCustomUrl', 'http://www.test.com/abd/ABC']);//自定义每个页面链接
+        _paq.push(['setDocumentTitle', 'abd/ABC']);
+        _paq.push(['trackPageView', 'abd/ABC']);
+        _paq.push(['setCustomUrl', 'http://www.test.com/abd/ABC/1213']);//自定义每个页面链接
+        _paq.push(['setDocumentTitle', '/abd/ABC/1213']);
+        _paq.push(['trackPageView', '/abd/ABC/1213']);
+        _paq.push(['setCustomUrl', 'http://www.test.com/123']);//自定义每个页面链接
+        _paq.push(['setDocumentTitle', '123']);
+        _paq.push(['trackPageView', '123']);
+        _paq.push(['setCustomUrl', 'http://www.test.com/qwe']);//自定义每个页面链接
+        _paq.push(['setDocumentTitle', 'qwe']);
+        _paq.push(['trackPageView', 'qwe']);
         var visitor_id;
         // 计算没个页面花费时间
         _paq.push(['enableHeartBeatTimer']);

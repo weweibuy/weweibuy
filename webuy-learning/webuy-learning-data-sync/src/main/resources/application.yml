@@ -1,0 +1,18 @@
+
+spring:
+  profiles:
+    active: ${profileActive}
+  application:
+    name: learning-data-sync
+  datasource:
+    driver-class-name: org.gjt.mm.mysql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://106.12.15.87:3306/webuy_event?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true
+    username: user01
+    password: ak402507979
+
+
+
+
+logging:
+  config: classpath:config/logback/logback-spring.xml

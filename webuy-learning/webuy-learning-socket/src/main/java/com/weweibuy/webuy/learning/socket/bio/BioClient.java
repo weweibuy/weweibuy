@@ -23,9 +23,10 @@ public class BioClient {
 
     private static String msg = "hello server";
 
-    public static void main(String[] args) throws  Exception {
+    public static void main(String[] args) throws Exception {
         Socket socket = new Socket("localhost", 8888);
         sendMsg(socket);
+        Thread.sleep(3000);
     }
 
 
@@ -34,27 +35,18 @@ public class BioClient {
         final OutputStream outputStream = socket.getOutputStream();
         final InputStream inputStream = socket.getInputStream();
 
-        EXECUTOR_SERVICE.submit(() -> {
-            log.info("客户端准备写出数据");
-            outputStream.write(msg.getBytes());
-            socket.shutdownOutput();
-            outputStream.flush();
-            outputStream.close();
-            return "";
-        });
+        log.info("客户端准备写出数据");
+        outputStream.write(msg.getBytes());
+        socket.shutdownOutput();
 
-        EXECUTOR_SERVICE.submit(() -> {
-            log.info("客户端准备读数据");
-            byte[] bytes = new byte[1024];
-            int len = 0;
-            StringBuilder stringBuilder = new StringBuilder();
-            while ((len = inputStream.read(bytes)) != -1) {
-                stringBuilder.append(new String(bytes, 0, len));
-            }
-            log.info("收到服务端数据: {}", stringBuilder.toString());
-            inputStream.close();
-            return "";
-        });
+        log.info("客户端准备读数据");
+        byte[] bytes = new byte[1024];
+        int len = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        while ((len = inputStream.read(bytes)) != -1) {
+            stringBuilder.append(new String(bytes, 0, len));
+        }
+        log.info("收到服务端数据: {}", stringBuilder.toString());
 
     }
 
