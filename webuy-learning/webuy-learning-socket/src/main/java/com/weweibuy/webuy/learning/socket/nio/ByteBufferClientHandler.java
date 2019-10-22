@@ -15,19 +15,15 @@ public class ByteBufferClientHandler implements Callable<String> {
 
     private SocketChannel socket;
 
-    public ByteBufferClientHandler(SocketChannel accept) {
-        socket = accept;
-    }
     @Override
     public String call() throws Exception {
         ByteBuffer allocate = ByteBuffer.allocate(1024);
         int len = 0;
         StringBuilder stringBuilder = new StringBuilder();
-        while ((len = socket.read(allocate)) != -1){
-            String s = new String(allocate.array(), "utf-8");
-            stringBuilder.append(s);
-            allocate.flip();
-        }
+        socket.read(allocate);
+            String s1 = new String(allocate.array(), "utf-8");
+            stringBuilder.append(s1);
+            allocate.clear();
         log.info("收到请求数据: {}", stringBuilder);
         socket.shutdownInput();
         String s = "HTTP/1.1 200 OK\r\n" +  //响应头第一行
@@ -41,5 +37,8 @@ public class ByteBufferClientHandler implements Callable<String> {
         socket.close();
         log.info("关闭连接");
         return "";
+    }
+    public ByteBufferClientHandler(SocketChannel accept) {
+        socket = accept;
     }
 }
