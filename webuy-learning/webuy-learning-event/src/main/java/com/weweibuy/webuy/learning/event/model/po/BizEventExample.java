@@ -165,6 +165,76 @@ public class BizEventExample {
             return (Criteria) this;
         }
 
+        public Criteria andEventNoIsNull() {
+            addCriterion("event_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoIsNotNull() {
+            addCriterion("event_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoEqualTo(String value) {
+            addCriterion("event_no =", value, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoNotEqualTo(String value) {
+            addCriterion("event_no <>", value, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoGreaterThan(String value) {
+            addCriterion("event_no >", value, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoGreaterThanOrEqualTo(String value) {
+            addCriterion("event_no >=", value, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoLessThan(String value) {
+            addCriterion("event_no <", value, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoLessThanOrEqualTo(String value) {
+            addCriterion("event_no <=", value, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoLike(String value) {
+            addCriterion("event_no like", value, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoNotLike(String value) {
+            addCriterion("event_no not like", value, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoIn(List<String> values) {
+            addCriterion("event_no in", values, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoNotIn(List<String> values) {
+            addCriterion("event_no not in", values, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoBetween(String value1, String value2) {
+            addCriterion("event_no between", value1, value2, "eventNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventNoNotBetween(String value1, String value2) {
+            addCriterion("event_no not between", value1, value2, "eventNo");
+            return (Criteria) this;
+        }
+
         public Criteria andBizNoIsNull() {
             addCriterion("biz_no is null");
             return (Criteria) this;
@@ -562,6 +632,256 @@ public class BizEventExample {
 
         public Criteria andEventBodyNotBetween(String value1, String value2) {
             addCriterion("event_body not between", value1, value2, "eventBody");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdIsNull() {
+            addCriterion("parent_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdIsNotNull() {
+            addCriterion("parent_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdEqualTo(String value) {
+            addCriterion("parent_id =", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdNotEqualTo(String value) {
+            addCriterion("parent_id <>", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdGreaterThan(String value) {
+            addCriterion("parent_id >", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdGreaterThanOrEqualTo(String value) {
+            addCriterion("parent_id >=", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdLessThan(String value) {
+            addCriterion("parent_id <", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdLessThanOrEqualTo(String value) {
+            addCriterion("parent_id <=", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdLike(String value) {
+            addCriterion("parent_id like", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdNotLike(String value) {
+            addCriterion("parent_id not like", value, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdIn(List<String> values) {
+            addCriterion("parent_id in", values, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdNotIn(List<String> values) {
+            addCriterion("parent_id not in", values, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdBetween(String value1, String value2) {
+            addCriterion("parent_id between", value1, value2, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentIdNotBetween(String value1, String value2) {
+            addCriterion("parent_id not between", value1, value2, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentIsNull() {
+            addCriterion("is_parent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentIsNotNull() {
+            addCriterion("is_parent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentEqualTo(Boolean value) {
+            addCriterion("is_parent =", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentNotEqualTo(Boolean value) {
+            addCriterion("is_parent <>", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentGreaterThan(Boolean value) {
+            addCriterion("is_parent >", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_parent >=", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentLessThan(Boolean value) {
+            addCriterion("is_parent <", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_parent <=", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentIn(List<Boolean> values) {
+            addCriterion("is_parent in", values, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentNotIn(List<Boolean> values) {
+            addCriterion("is_parent not in", values, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_parent between", value1, value2, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_parent not between", value1, value2, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderIsNull() {
+            addCriterion("event_order is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderIsNotNull() {
+            addCriterion("event_order is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderEqualTo(Integer value) {
+            addCriterion("event_order =", value, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderNotEqualTo(Integer value) {
+            addCriterion("event_order <>", value, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderGreaterThan(Integer value) {
+            addCriterion("event_order >", value, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderGreaterThanOrEqualTo(Integer value) {
+            addCriterion("event_order >=", value, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderLessThan(Integer value) {
+            addCriterion("event_order <", value, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderLessThanOrEqualTo(Integer value) {
+            addCriterion("event_order <=", value, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderIn(List<Integer> values) {
+            addCriterion("event_order in", values, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderNotIn(List<Integer> values) {
+            addCriterion("event_order not in", values, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderBetween(Integer value1, Integer value2) {
+            addCriterion("event_order between", value1, value2, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventOrderNotBetween(Integer value1, Integer value2) {
+            addCriterion("event_order not between", value1, value2, "eventOrder");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNull() {
+            addCriterion("is_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNotNull() {
+            addCriterion("is_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteEqualTo(Boolean value) {
+            addCriterion("is_delete =", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotEqualTo(Boolean value) {
+            addCriterion("is_delete <>", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThan(Boolean value) {
+            addCriterion("is_delete >", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_delete >=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThan(Boolean value) {
+            addCriterion("is_delete <", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_delete <=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIn(List<Boolean> values) {
+            addCriterion("is_delete in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotIn(List<Boolean> values) {
+            addCriterion("is_delete not in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_delete between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_delete not between", value1, value2, "isDelete");
             return (Criteria) this;
         }
 

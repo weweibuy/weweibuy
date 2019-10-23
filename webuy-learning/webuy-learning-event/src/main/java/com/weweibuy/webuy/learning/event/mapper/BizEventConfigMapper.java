@@ -2,9 +2,8 @@ package com.weweibuy.webuy.learning.event.mapper;
 
 import com.weweibuy.webuy.learning.event.model.po.BizEventConfig;
 import com.weweibuy.webuy.learning.event.model.po.BizEventConfigExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface BizEventConfigMapper {
     long countByExample(BizEventConfigExample example);

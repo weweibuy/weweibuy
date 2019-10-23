@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class BizEvent {
     private Long id;
 
+    private String eventNo;
+
     private String bizNo;
 
     private String eventType;
@@ -17,6 +19,14 @@ public class BizEvent {
 
     private String eventBody;
 
+    private String parentId;
+
+    private Boolean isParent;
+
+    private Integer eventOrder;
+
+    private Boolean isDelete;
+
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
@@ -27,6 +37,14 @@ public class BizEvent {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEventNo() {
+        return eventNo;
+    }
+
+    public void setEventNo(String eventNo) {
+        this.eventNo = eventNo == null ? null : eventNo.trim();
     }
 
     public String getBizNo() {
@@ -75,6 +93,38 @@ public class BizEvent {
 
     public void setEventBody(String eventBody) {
         this.eventBody = eventBody == null ? null : eventBody.trim();
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId == null ? null : parentId.trim();
+    }
+
+    public Boolean getIsParent() {
+        return isParent;
+    }
+
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
+    }
+
+    public Integer getEventOrder() {
+        return eventOrder;
+    }
+
+    public void setEventOrder(Integer eventOrder) {
+        this.eventOrder = eventOrder;
+    }
+
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
     }
 
     public LocalDateTime getCreateTime() {

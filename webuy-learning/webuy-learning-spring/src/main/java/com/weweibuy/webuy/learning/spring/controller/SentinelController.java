@@ -34,8 +34,8 @@ public class SentinelController {
         try {
             entry = SphU.entry("HelloWorld");
             Thread.sleep(100);
-            sentinelService.service();
-            sentinelService2.service();
+//            sentinelService.service();
+//            sentinelService2.service();
             return ResponseEntity.ok("success");
         } catch (BlockException e1) {
             /*流控逻辑处理 - 开始*/

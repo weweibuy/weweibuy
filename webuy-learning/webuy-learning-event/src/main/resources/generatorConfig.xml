@@ -53,6 +53,7 @@
                enableDeleteByExample="true" enableSelectByExample="true">
             <columnOverride column="retry_count" javaType="Integer"/>
             <columnOverride column="alarm_count" javaType="Integer"/>
+            <columnOverride column="is_delete" javaType="Boolean"/>
         </table>
 
         <table tableName="biz_event_config"

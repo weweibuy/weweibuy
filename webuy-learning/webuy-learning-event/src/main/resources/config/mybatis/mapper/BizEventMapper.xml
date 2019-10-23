@@ -3,12 +3,17 @@
 <mapper namespace="com.weweibuy.webuy.learning.event.mapper.BizEventMapper">
   <resultMap id="BaseResultMap" type="com.weweibuy.webuy.learning.event.model.po.BizEvent">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="event_no" jdbcType="VARCHAR" property="eventNo" />
     <result column="biz_no" jdbcType="VARCHAR" property="bizNo" />
     <result column="event_type" jdbcType="VARCHAR" property="eventType" />
     <result column="event_status" jdbcType="CHAR" property="eventStatus" />
     <result column="retry_count" jdbcType="TINYINT" property="retryCount" />
     <result column="alarm_count" jdbcType="TINYINT" property="alarmCount" />
     <result column="event_body" jdbcType="VARCHAR" property="eventBody" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="is_parent" jdbcType="BIT" property="isParent" />
+    <result column="event_order" jdbcType="INTEGER" property="eventOrder" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -71,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, biz_no, event_type, event_status, retry_count, alarm_count, event_body, create_time, 
-    update_time
+    id, event_no, biz_no, event_type, event_status, retry_count, alarm_count, event_body, 
+    parent_id, is_parent, event_order, is_delete, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventExample" resultMap="BaseResultMap">
     select
@@ -105,20 +110,25 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEvent">
-    insert into biz_event (id, biz_no, event_type, 
-      event_status, retry_count, alarm_count, 
-      event_body, create_time, update_time
-      )
-    values (#{id,jdbcType=BIGINT}, #{bizNo,jdbcType=VARCHAR}, #{eventType,jdbcType=VARCHAR}, 
-      #{eventStatus,jdbcType=CHAR}, #{retryCount,jdbcType=TINYINT}, #{alarmCount,jdbcType=TINYINT}, 
-      #{eventBody,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+    insert into biz_event (id, event_no, biz_no, 
+      event_type, event_status, retry_count, 
+      alarm_count, event_body, parent_id, 
+      is_parent, event_order, is_delete, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{eventNo,jdbcType=VARCHAR}, #{bizNo,jdbcType=VARCHAR}, 
+      #{eventType,jdbcType=VARCHAR}, #{eventStatus,jdbcType=CHAR}, #{retryCount,jdbcType=TINYINT}, 
+      #{alarmCount,jdbcType=TINYINT}, #{eventBody,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, 
+      #{isParent,jdbcType=BIT}, #{eventOrder,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEvent">
     insert into biz_event
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="eventNo != null">
+        event_no,
       </if>
       <if test="bizNo != null">
         biz_no,
@@ -138,6 +148,18 @@
       <if test="eventBody != null">
         event_body,
       </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="isParent != null">
+        is_parent,
+      </if>
+      <if test="eventOrder != null">
+        event_order,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
       <if test="createTime != null">
         create_time,
       </if>
@@ -148,6 +170,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="eventNo != null">
+        #{eventNo,jdbcType=VARCHAR},
       </if>
       <if test="bizNo != null">
         #{bizNo,jdbcType=VARCHAR},
@@ -166,6 +191,18 @@
       </if>
       <if test="eventBody != null">
         #{eventBody,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="isParent != null">
+        #{isParent,jdbcType=BIT},
+      </if>
+      <if test="eventOrder != null">
+        #{eventOrder,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -187,6 +224,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.eventNo != null">
+        event_no = #{record.eventNo,jdbcType=VARCHAR},
+      </if>
       <if test="record.bizNo != null">
         biz_no = #{record.bizNo,jdbcType=VARCHAR},
       </if>
@@ -205,6 +245,18 @@
       <if test="record.eventBody != null">
         event_body = #{record.eventBody,jdbcType=VARCHAR},
       </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isParent != null">
+        is_parent = #{record.isParent,jdbcType=BIT},
+      </if>
+      <if test="record.eventOrder != null">
+        event_order = #{record.eventOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=BIT},
+      </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -219,12 +271,17 @@
   <update id="updateByExample" parameterType="map">
     update biz_event
     set id = #{record.id,jdbcType=BIGINT},
+      event_no = #{record.eventNo,jdbcType=VARCHAR},
       biz_no = #{record.bizNo,jdbcType=VARCHAR},
       event_type = #{record.eventType,jdbcType=VARCHAR},
       event_status = #{record.eventStatus,jdbcType=CHAR},
       retry_count = #{record.retryCount,jdbcType=TINYINT},
       alarm_count = #{record.alarmCount,jdbcType=TINYINT},
       event_body = #{record.eventBody,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      is_parent = #{record.isParent,jdbcType=BIT},
+      event_order = #{record.eventOrder,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -234,6 +291,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEvent">
     update biz_event
     <set>
+      <if test="eventNo != null">
+        event_no = #{eventNo,jdbcType=VARCHAR},
+      </if>
       <if test="bizNo != null">
         biz_no = #{bizNo,jdbcType=VARCHAR},
       </if>
@@ -252,6 +312,18 @@
       <if test="eventBody != null">
         event_body = #{eventBody,jdbcType=VARCHAR},
       </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="isParent != null">
+        is_parent = #{isParent,jdbcType=BIT},
+      </if>
+      <if test="eventOrder != null">
+        event_order = #{eventOrder,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -263,12 +335,17 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEvent">
     update biz_event
-    set biz_no = #{bizNo,jdbcType=VARCHAR},
+    set event_no = #{eventNo,jdbcType=VARCHAR},
+      biz_no = #{bizNo,jdbcType=VARCHAR},
       event_type = #{eventType,jdbcType=VARCHAR},
       event_status = #{eventStatus,jdbcType=CHAR},
       retry_count = #{retryCount,jdbcType=TINYINT},
       alarm_count = #{alarmCount,jdbcType=TINYINT},
       event_body = #{eventBody,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      is_parent = #{isParent,jdbcType=BIT},
+      event_order = #{eventOrder,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
