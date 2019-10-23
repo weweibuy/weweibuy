@@ -5,25 +5,17 @@ import java.time.LocalDateTime;
 public class BizEvent {
     private Long id;
 
-    private String bizId;
-
-    private String bizType;
+    private String bizNo;
 
     private String eventType;
 
     private String eventStatus;
 
-    private Byte triggerType;
-
-    private String blockThreshold;
-
-    private String retryRule;
-
     private Integer retryCount;
 
-    private String alarmRule;
-
     private Integer alarmCount;
+
+    private String eventBody;
 
     private LocalDateTime createTime;
 
@@ -37,20 +29,12 @@ public class BizEvent {
         this.id = id;
     }
 
-    public String getBizId() {
-        return bizId;
+    public String getBizNo() {
+        return bizNo;
     }
 
-    public void setBizId(String bizId) {
-        this.bizId = bizId == null ? null : bizId.trim();
-    }
-
-    public String getBizType() {
-        return bizType;
-    }
-
-    public void setBizType(String bizType) {
-        this.bizType = bizType == null ? null : bizType.trim();
+    public void setBizNo(String bizNo) {
+        this.bizNo = bizNo == null ? null : bizNo.trim();
     }
 
     public String getEventType() {
@@ -69,30 +53,6 @@ public class BizEvent {
         this.eventStatus = eventStatus == null ? null : eventStatus.trim();
     }
 
-    public Byte getTriggerType() {
-        return triggerType;
-    }
-
-    public void setTriggerType(Byte triggerType) {
-        this.triggerType = triggerType;
-    }
-
-    public String getBlockThreshold() {
-        return blockThreshold;
-    }
-
-    public void setBlockThreshold(String blockThreshold) {
-        this.blockThreshold = blockThreshold == null ? null : blockThreshold.trim();
-    }
-
-    public String getRetryRule() {
-        return retryRule;
-    }
-
-    public void setRetryRule(String retryRule) {
-        this.retryRule = retryRule == null ? null : retryRule.trim();
-    }
-
     public Integer getRetryCount() {
         return retryCount;
     }
@@ -101,20 +61,20 @@ public class BizEvent {
         this.retryCount = retryCount;
     }
 
-    public String getAlarmRule() {
-        return alarmRule;
-    }
-
-    public void setAlarmRule(String alarmRule) {
-        this.alarmRule = alarmRule == null ? null : alarmRule.trim();
-    }
-
     public Integer getAlarmCount() {
         return alarmCount;
     }
 
     public void setAlarmCount(Integer alarmCount) {
         this.alarmCount = alarmCount;
+    }
+
+    public String getEventBody() {
+        return eventBody;
+    }
+
+    public void setEventBody(String eventBody) {
+        this.eventBody = eventBody == null ? null : eventBody.trim();
     }
 
     public LocalDateTime getCreateTime() {

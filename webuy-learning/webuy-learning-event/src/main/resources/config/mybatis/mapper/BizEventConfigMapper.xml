@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weweibuy.webuy.learning.event.mapper.BizEventLogMapper">
-  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.learning.event.model.po.BizEventLog">
+<mapper namespace="com.weweibuy.webuy.learning.event.mapper.BizEventConfigMapper">
+  <resultMap id="BaseResultMap" type="com.weweibuy.webuy.learning.event.model.po.BizEventConfig">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
-    <result column="biz_type" jdbcType="VARCHAR" property="bizType" />
     <result column="event_type" jdbcType="VARCHAR" property="eventType" />
-    <result column="operater" jdbcType="VARCHAR" property="operater" />
-    <result column="operate_type" jdbcType="CHAR" property="operateType" />
+    <result column="trigger_type" jdbcType="TINYINT" property="triggerType" />
+    <result column="block_threshold" jdbcType="INTEGER" property="blockThreshold" />
+    <result column="retry_rule" jdbcType="VARCHAR" property="retryRule" />
+    <result column="alarm_rule" jdbcType="VARCHAR" property="alarmRule" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -70,15 +70,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, biz_id, biz_type, event_type, operater, operate_type, create_time, update_time
+    id, event_type, trigger_type, block_threshold, retry_rule, alarm_rule, create_time, 
+    update_time
   </sql>
-  <select id="selectByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventLogExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventConfigExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from biz_event_log
+    from biz_event_config
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,47 +90,47 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from biz_event_log
+    from biz_event_config
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from biz_event_log
+    delete from biz_event_config
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventLogExample">
-    delete from biz_event_log
+  <delete id="deleteByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventConfigExample">
+    delete from biz_event_config
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventLog">
-    insert into biz_event_log (id, biz_id, biz_type, 
-      event_type, operater, operate_type, 
+  <insert id="insert" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventConfig">
+    insert into biz_event_config (id, event_type, trigger_type, 
+      block_threshold, retry_rule, alarm_rule, 
       create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{bizId,jdbcType=VARCHAR}, #{bizType,jdbcType=VARCHAR}, 
-      #{eventType,jdbcType=VARCHAR}, #{operater,jdbcType=VARCHAR}, #{operateType,jdbcType=CHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{eventType,jdbcType=VARCHAR}, #{triggerType,jdbcType=TINYINT}, 
+      #{blockThreshold,jdbcType=INTEGER}, #{retryRule,jdbcType=VARCHAR}, #{alarmRule,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventLog">
-    insert into biz_event_log
+  <insert id="insertSelective" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventConfig">
+    insert into biz_event_config
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="bizId != null">
-        biz_id,
-      </if>
-      <if test="bizType != null">
-        biz_type,
-      </if>
       <if test="eventType != null">
         event_type,
       </if>
-      <if test="operater != null">
-        operater,
+      <if test="triggerType != null">
+        trigger_type,
       </if>
-      <if test="operateType != null">
-        operate_type,
+      <if test="blockThreshold != null">
+        block_threshold,
+      </if>
+      <if test="retryRule != null">
+        retry_rule,
+      </if>
+      <if test="alarmRule != null">
+        alarm_rule,
       </if>
       <if test="createTime != null">
         create_time,
@@ -142,20 +143,20 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="bizId != null">
-        #{bizId,jdbcType=VARCHAR},
-      </if>
-      <if test="bizType != null">
-        #{bizType,jdbcType=VARCHAR},
-      </if>
       <if test="eventType != null">
         #{eventType,jdbcType=VARCHAR},
       </if>
-      <if test="operater != null">
-        #{operater,jdbcType=VARCHAR},
+      <if test="triggerType != null">
+        #{triggerType,jdbcType=TINYINT},
       </if>
-      <if test="operateType != null">
-        #{operateType,jdbcType=CHAR},
+      <if test="blockThreshold != null">
+        #{blockThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="retryRule != null">
+        #{retryRule,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmRule != null">
+        #{alarmRule,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -165,32 +166,32 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventLogExample" resultType="java.lang.Long">
-    select count(*) from biz_event_log
+  <select id="countByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventConfigExample" resultType="java.lang.Long">
+    select count(*) from biz_event_config
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update biz_event_log
+    update biz_event_config
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.bizId != null">
-        biz_id = #{record.bizId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bizType != null">
-        biz_type = #{record.bizType,jdbcType=VARCHAR},
-      </if>
       <if test="record.eventType != null">
         event_type = #{record.eventType,jdbcType=VARCHAR},
       </if>
-      <if test="record.operater != null">
-        operater = #{record.operater,jdbcType=VARCHAR},
+      <if test="record.triggerType != null">
+        trigger_type = #{record.triggerType,jdbcType=TINYINT},
       </if>
-      <if test="record.operateType != null">
-        operate_type = #{record.operateType,jdbcType=CHAR},
+      <if test="record.blockThreshold != null">
+        block_threshold = #{record.blockThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="record.retryRule != null">
+        retry_rule = #{record.retryRule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alarmRule != null">
+        alarm_rule = #{record.alarmRule,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -204,36 +205,36 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update biz_event_log
+    update biz_event_config
     set id = #{record.id,jdbcType=BIGINT},
-      biz_id = #{record.bizId,jdbcType=VARCHAR},
-      biz_type = #{record.bizType,jdbcType=VARCHAR},
       event_type = #{record.eventType,jdbcType=VARCHAR},
-      operater = #{record.operater,jdbcType=VARCHAR},
-      operate_type = #{record.operateType,jdbcType=CHAR},
+      trigger_type = #{record.triggerType,jdbcType=TINYINT},
+      block_threshold = #{record.blockThreshold,jdbcType=INTEGER},
+      retry_rule = #{record.retryRule,jdbcType=VARCHAR},
+      alarm_rule = #{record.alarmRule,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventLog">
-    update biz_event_log
+  <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventConfig">
+    update biz_event_config
     <set>
-      <if test="bizId != null">
-        biz_id = #{bizId,jdbcType=VARCHAR},
-      </if>
-      <if test="bizType != null">
-        biz_type = #{bizType,jdbcType=VARCHAR},
-      </if>
       <if test="eventType != null">
         event_type = #{eventType,jdbcType=VARCHAR},
       </if>
-      <if test="operater != null">
-        operater = #{operater,jdbcType=VARCHAR},
+      <if test="triggerType != null">
+        trigger_type = #{triggerType,jdbcType=TINYINT},
       </if>
-      <if test="operateType != null">
-        operate_type = #{operateType,jdbcType=CHAR},
+      <if test="blockThreshold != null">
+        block_threshold = #{blockThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="retryRule != null">
+        retry_rule = #{retryRule,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmRule != null">
+        alarm_rule = #{alarmRule,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -244,21 +245,21 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventLog">
-    update biz_event_log
-    set biz_id = #{bizId,jdbcType=VARCHAR},
-      biz_type = #{bizType,jdbcType=VARCHAR},
-      event_type = #{eventType,jdbcType=VARCHAR},
-      operater = #{operater,jdbcType=VARCHAR},
-      operate_type = #{operateType,jdbcType=CHAR},
+  <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventConfig">
+    update biz_event_config
+    set event_type = #{eventType,jdbcType=VARCHAR},
+      trigger_type = #{triggerType,jdbcType=TINYINT},
+      block_threshold = #{blockThreshold,jdbcType=INTEGER},
+      retry_rule = #{retryRule,jdbcType=VARCHAR},
+      alarm_rule = #{alarmRule,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectOneByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventLogExample" resultMap="BaseResultMap">
+  <select id="selectOneByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventConfigExample" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from biz_event_log
+    from biz_event_config
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

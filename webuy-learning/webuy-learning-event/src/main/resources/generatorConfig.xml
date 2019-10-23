@@ -55,7 +55,7 @@
             <columnOverride column="alarm_count" javaType="Integer"/>
         </table>
 
-        <table tableName="biz_event_log"
+        <table tableName="biz_event_config"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true">
         </table>

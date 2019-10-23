@@ -3,16 +3,12 @@
 <mapper namespace="com.weweibuy.webuy.learning.event.mapper.BizEventMapper">
   <resultMap id="BaseResultMap" type="com.weweibuy.webuy.learning.event.model.po.BizEvent">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="biz_id" jdbcType="VARCHAR" property="bizId" />
-    <result column="biz_type" jdbcType="VARCHAR" property="bizType" />
+    <result column="biz_no" jdbcType="VARCHAR" property="bizNo" />
     <result column="event_type" jdbcType="VARCHAR" property="eventType" />
     <result column="event_status" jdbcType="CHAR" property="eventStatus" />
-    <result column="trigger_type" jdbcType="TINYINT" property="triggerType" />
-    <result column="block_threshold" jdbcType="VARCHAR" property="blockThreshold" />
-    <result column="retry_rule" jdbcType="VARCHAR" property="retryRule" />
     <result column="retry_count" jdbcType="TINYINT" property="retryCount" />
-    <result column="alarm_rule" jdbcType="VARCHAR" property="alarmRule" />
     <result column="alarm_count" jdbcType="TINYINT" property="alarmCount" />
+    <result column="event_body" jdbcType="VARCHAR" property="eventBody" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -75,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, biz_id, biz_type, event_type, event_status, trigger_type, block_threshold, retry_rule, 
-    retry_count, alarm_rule, alarm_count, create_time, update_time
+    id, biz_no, event_type, event_status, retry_count, alarm_count, event_body, create_time, 
+    update_time
   </sql>
   <select id="selectByExample" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEventExample" resultMap="BaseResultMap">
     select
@@ -109,16 +105,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEvent">
-    insert into biz_event (id, biz_id, biz_type, 
-      event_type, event_status, trigger_type, 
-      block_threshold, retry_rule, retry_count, 
-      alarm_rule, alarm_count, create_time, 
-      update_time)
-    values (#{id,jdbcType=BIGINT}, #{bizId,jdbcType=VARCHAR}, #{bizType,jdbcType=VARCHAR}, 
-      #{eventType,jdbcType=VARCHAR}, #{eventStatus,jdbcType=CHAR}, #{triggerType,jdbcType=TINYINT}, 
-      #{blockThreshold,jdbcType=VARCHAR}, #{retryRule,jdbcType=VARCHAR}, #{retryCount,jdbcType=TINYINT}, 
-      #{alarmRule,jdbcType=VARCHAR}, #{alarmCount,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into biz_event (id, biz_no, event_type, 
+      event_status, retry_count, alarm_count, 
+      event_body, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{bizNo,jdbcType=VARCHAR}, #{eventType,jdbcType=VARCHAR}, 
+      #{eventStatus,jdbcType=CHAR}, #{retryCount,jdbcType=TINYINT}, #{alarmCount,jdbcType=TINYINT}, 
+      #{eventBody,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEvent">
     insert into biz_event
@@ -126,11 +120,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="bizId != null">
-        biz_id,
-      </if>
-      <if test="bizType != null">
-        biz_type,
+      <if test="bizNo != null">
+        biz_no,
       </if>
       <if test="eventType != null">
         event_type,
@@ -138,23 +129,14 @@
       <if test="eventStatus != null">
         event_status,
       </if>
-      <if test="triggerType != null">
-        trigger_type,
-      </if>
-      <if test="blockThreshold != null">
-        block_threshold,
-      </if>
-      <if test="retryRule != null">
-        retry_rule,
-      </if>
       <if test="retryCount != null">
         retry_count,
       </if>
-      <if test="alarmRule != null">
-        alarm_rule,
-      </if>
       <if test="alarmCount != null">
         alarm_count,
+      </if>
+      <if test="eventBody != null">
+        event_body,
       </if>
       <if test="createTime != null">
         create_time,
@@ -167,11 +149,8 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="bizId != null">
-        #{bizId,jdbcType=VARCHAR},
-      </if>
-      <if test="bizType != null">
-        #{bizType,jdbcType=VARCHAR},
+      <if test="bizNo != null">
+        #{bizNo,jdbcType=VARCHAR},
       </if>
       <if test="eventType != null">
         #{eventType,jdbcType=VARCHAR},
@@ -179,23 +158,14 @@
       <if test="eventStatus != null">
         #{eventStatus,jdbcType=CHAR},
       </if>
-      <if test="triggerType != null">
-        #{triggerType,jdbcType=TINYINT},
-      </if>
-      <if test="blockThreshold != null">
-        #{blockThreshold,jdbcType=VARCHAR},
-      </if>
-      <if test="retryRule != null">
-        #{retryRule,jdbcType=VARCHAR},
-      </if>
       <if test="retryCount != null">
         #{retryCount,jdbcType=TINYINT},
       </if>
-      <if test="alarmRule != null">
-        #{alarmRule,jdbcType=VARCHAR},
-      </if>
       <if test="alarmCount != null">
         #{alarmCount,jdbcType=TINYINT},
+      </if>
+      <if test="eventBody != null">
+        #{eventBody,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -217,11 +187,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.bizId != null">
-        biz_id = #{record.bizId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bizType != null">
-        biz_type = #{record.bizType,jdbcType=VARCHAR},
+      <if test="record.bizNo != null">
+        biz_no = #{record.bizNo,jdbcType=VARCHAR},
       </if>
       <if test="record.eventType != null">
         event_type = #{record.eventType,jdbcType=VARCHAR},
@@ -229,23 +196,14 @@
       <if test="record.eventStatus != null">
         event_status = #{record.eventStatus,jdbcType=CHAR},
       </if>
-      <if test="record.triggerType != null">
-        trigger_type = #{record.triggerType,jdbcType=TINYINT},
-      </if>
-      <if test="record.blockThreshold != null">
-        block_threshold = #{record.blockThreshold,jdbcType=VARCHAR},
-      </if>
-      <if test="record.retryRule != null">
-        retry_rule = #{record.retryRule,jdbcType=VARCHAR},
-      </if>
       <if test="record.retryCount != null">
         retry_count = #{record.retryCount,jdbcType=TINYINT},
       </if>
-      <if test="record.alarmRule != null">
-        alarm_rule = #{record.alarmRule,jdbcType=VARCHAR},
-      </if>
       <if test="record.alarmCount != null">
         alarm_count = #{record.alarmCount,jdbcType=TINYINT},
+      </if>
+      <if test="record.eventBody != null">
+        event_body = #{record.eventBody,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -261,16 +219,12 @@
   <update id="updateByExample" parameterType="map">
     update biz_event
     set id = #{record.id,jdbcType=BIGINT},
-      biz_id = #{record.bizId,jdbcType=VARCHAR},
-      biz_type = #{record.bizType,jdbcType=VARCHAR},
+      biz_no = #{record.bizNo,jdbcType=VARCHAR},
       event_type = #{record.eventType,jdbcType=VARCHAR},
       event_status = #{record.eventStatus,jdbcType=CHAR},
-      trigger_type = #{record.triggerType,jdbcType=TINYINT},
-      block_threshold = #{record.blockThreshold,jdbcType=VARCHAR},
-      retry_rule = #{record.retryRule,jdbcType=VARCHAR},
       retry_count = #{record.retryCount,jdbcType=TINYINT},
-      alarm_rule = #{record.alarmRule,jdbcType=VARCHAR},
       alarm_count = #{record.alarmCount,jdbcType=TINYINT},
+      event_body = #{record.eventBody,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -280,11 +234,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEvent">
     update biz_event
     <set>
-      <if test="bizId != null">
-        biz_id = #{bizId,jdbcType=VARCHAR},
-      </if>
-      <if test="bizType != null">
-        biz_type = #{bizType,jdbcType=VARCHAR},
+      <if test="bizNo != null">
+        biz_no = #{bizNo,jdbcType=VARCHAR},
       </if>
       <if test="eventType != null">
         event_type = #{eventType,jdbcType=VARCHAR},
@@ -292,23 +243,14 @@
       <if test="eventStatus != null">
         event_status = #{eventStatus,jdbcType=CHAR},
       </if>
-      <if test="triggerType != null">
-        trigger_type = #{triggerType,jdbcType=TINYINT},
-      </if>
-      <if test="blockThreshold != null">
-        block_threshold = #{blockThreshold,jdbcType=VARCHAR},
-      </if>
-      <if test="retryRule != null">
-        retry_rule = #{retryRule,jdbcType=VARCHAR},
-      </if>
       <if test="retryCount != null">
         retry_count = #{retryCount,jdbcType=TINYINT},
       </if>
-      <if test="alarmRule != null">
-        alarm_rule = #{alarmRule,jdbcType=VARCHAR},
-      </if>
       <if test="alarmCount != null">
         alarm_count = #{alarmCount,jdbcType=TINYINT},
+      </if>
+      <if test="eventBody != null">
+        event_body = #{eventBody,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -321,16 +263,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.weweibuy.webuy.learning.event.model.po.BizEvent">
     update biz_event
-    set biz_id = #{bizId,jdbcType=VARCHAR},
-      biz_type = #{bizType,jdbcType=VARCHAR},
+    set biz_no = #{bizNo,jdbcType=VARCHAR},
       event_type = #{eventType,jdbcType=VARCHAR},
       event_status = #{eventStatus,jdbcType=CHAR},
-      trigger_type = #{triggerType,jdbcType=TINYINT},
-      block_threshold = #{blockThreshold,jdbcType=VARCHAR},
-      retry_rule = #{retryRule,jdbcType=VARCHAR},
       retry_count = #{retryCount,jdbcType=TINYINT},
-      alarm_rule = #{alarmRule,jdbcType=VARCHAR},
       alarm_count = #{alarmCount,jdbcType=TINYINT},
+      event_body = #{eventBody,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

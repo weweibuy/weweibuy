@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BizEventExample {
+public class BizEventConfigExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public BizEventExample() {
+    public BizEventConfigExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,76 +165,6 @@ public class BizEventExample {
             return (Criteria) this;
         }
 
-        public Criteria andBizNoIsNull() {
-            addCriterion("biz_no is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoIsNotNull() {
-            addCriterion("biz_no is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoEqualTo(String value) {
-            addCriterion("biz_no =", value, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoNotEqualTo(String value) {
-            addCriterion("biz_no <>", value, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoGreaterThan(String value) {
-            addCriterion("biz_no >", value, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoGreaterThanOrEqualTo(String value) {
-            addCriterion("biz_no >=", value, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoLessThan(String value) {
-            addCriterion("biz_no <", value, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoLessThanOrEqualTo(String value) {
-            addCriterion("biz_no <=", value, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoLike(String value) {
-            addCriterion("biz_no like", value, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoNotLike(String value) {
-            addCriterion("biz_no not like", value, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoIn(List<String> values) {
-            addCriterion("biz_no in", values, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoNotIn(List<String> values) {
-            addCriterion("biz_no not in", values, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoBetween(String value1, String value2) {
-            addCriterion("biz_no between", value1, value2, "bizNo");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizNoNotBetween(String value1, String value2) {
-            addCriterion("biz_no not between", value1, value2, "bizNo");
-            return (Criteria) this;
-        }
-
         public Criteria andEventTypeIsNull() {
             addCriterion("event_type is null");
             return (Criteria) this;
@@ -305,263 +235,263 @@ public class BizEventExample {
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusIsNull() {
-            addCriterion("event_status is null");
+        public Criteria andTriggerTypeIsNull() {
+            addCriterion("trigger_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusIsNotNull() {
-            addCriterion("event_status is not null");
+        public Criteria andTriggerTypeIsNotNull() {
+            addCriterion("trigger_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusEqualTo(String value) {
-            addCriterion("event_status =", value, "eventStatus");
+        public Criteria andTriggerTypeEqualTo(Byte value) {
+            addCriterion("trigger_type =", value, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusNotEqualTo(String value) {
-            addCriterion("event_status <>", value, "eventStatus");
+        public Criteria andTriggerTypeNotEqualTo(Byte value) {
+            addCriterion("trigger_type <>", value, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusGreaterThan(String value) {
-            addCriterion("event_status >", value, "eventStatus");
+        public Criteria andTriggerTypeGreaterThan(Byte value) {
+            addCriterion("trigger_type >", value, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("event_status >=", value, "eventStatus");
+        public Criteria andTriggerTypeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("trigger_type >=", value, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusLessThan(String value) {
-            addCriterion("event_status <", value, "eventStatus");
+        public Criteria andTriggerTypeLessThan(Byte value) {
+            addCriterion("trigger_type <", value, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusLessThanOrEqualTo(String value) {
-            addCriterion("event_status <=", value, "eventStatus");
+        public Criteria andTriggerTypeLessThanOrEqualTo(Byte value) {
+            addCriterion("trigger_type <=", value, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusLike(String value) {
-            addCriterion("event_status like", value, "eventStatus");
+        public Criteria andTriggerTypeIn(List<Byte> values) {
+            addCriterion("trigger_type in", values, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusNotLike(String value) {
-            addCriterion("event_status not like", value, "eventStatus");
+        public Criteria andTriggerTypeNotIn(List<Byte> values) {
+            addCriterion("trigger_type not in", values, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusIn(List<String> values) {
-            addCriterion("event_status in", values, "eventStatus");
+        public Criteria andTriggerTypeBetween(Byte value1, Byte value2) {
+            addCriterion("trigger_type between", value1, value2, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusNotIn(List<String> values) {
-            addCriterion("event_status not in", values, "eventStatus");
+        public Criteria andTriggerTypeNotBetween(Byte value1, Byte value2) {
+            addCriterion("trigger_type not between", value1, value2, "triggerType");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusBetween(String value1, String value2) {
-            addCriterion("event_status between", value1, value2, "eventStatus");
+        public Criteria andBlockThresholdIsNull() {
+            addCriterion("block_threshold is null");
             return (Criteria) this;
         }
 
-        public Criteria andEventStatusNotBetween(String value1, String value2) {
-            addCriterion("event_status not between", value1, value2, "eventStatus");
+        public Criteria andBlockThresholdIsNotNull() {
+            addCriterion("block_threshold is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountIsNull() {
-            addCriterion("retry_count is null");
+        public Criteria andBlockThresholdEqualTo(Integer value) {
+            addCriterion("block_threshold =", value, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountIsNotNull() {
-            addCriterion("retry_count is not null");
+        public Criteria andBlockThresholdNotEqualTo(Integer value) {
+            addCriterion("block_threshold <>", value, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountEqualTo(Integer value) {
-            addCriterion("retry_count =", value, "retryCount");
+        public Criteria andBlockThresholdGreaterThan(Integer value) {
+            addCriterion("block_threshold >", value, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountNotEqualTo(Integer value) {
-            addCriterion("retry_count <>", value, "retryCount");
+        public Criteria andBlockThresholdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("block_threshold >=", value, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountGreaterThan(Integer value) {
-            addCriterion("retry_count >", value, "retryCount");
+        public Criteria andBlockThresholdLessThan(Integer value) {
+            addCriterion("block_threshold <", value, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountGreaterThanOrEqualTo(Integer value) {
-            addCriterion("retry_count >=", value, "retryCount");
+        public Criteria andBlockThresholdLessThanOrEqualTo(Integer value) {
+            addCriterion("block_threshold <=", value, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountLessThan(Integer value) {
-            addCriterion("retry_count <", value, "retryCount");
+        public Criteria andBlockThresholdIn(List<Integer> values) {
+            addCriterion("block_threshold in", values, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountLessThanOrEqualTo(Integer value) {
-            addCriterion("retry_count <=", value, "retryCount");
+        public Criteria andBlockThresholdNotIn(List<Integer> values) {
+            addCriterion("block_threshold not in", values, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountIn(List<Integer> values) {
-            addCriterion("retry_count in", values, "retryCount");
+        public Criteria andBlockThresholdBetween(Integer value1, Integer value2) {
+            addCriterion("block_threshold between", value1, value2, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountNotIn(List<Integer> values) {
-            addCriterion("retry_count not in", values, "retryCount");
+        public Criteria andBlockThresholdNotBetween(Integer value1, Integer value2) {
+            addCriterion("block_threshold not between", value1, value2, "blockThreshold");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountBetween(Integer value1, Integer value2) {
-            addCriterion("retry_count between", value1, value2, "retryCount");
+        public Criteria andRetryRuleIsNull() {
+            addCriterion("retry_rule is null");
             return (Criteria) this;
         }
 
-        public Criteria andRetryCountNotBetween(Integer value1, Integer value2) {
-            addCriterion("retry_count not between", value1, value2, "retryCount");
+        public Criteria andRetryRuleIsNotNull() {
+            addCriterion("retry_rule is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountIsNull() {
-            addCriterion("alarm_count is null");
+        public Criteria andRetryRuleEqualTo(String value) {
+            addCriterion("retry_rule =", value, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountIsNotNull() {
-            addCriterion("alarm_count is not null");
+        public Criteria andRetryRuleNotEqualTo(String value) {
+            addCriterion("retry_rule <>", value, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountEqualTo(Integer value) {
-            addCriterion("alarm_count =", value, "alarmCount");
+        public Criteria andRetryRuleGreaterThan(String value) {
+            addCriterion("retry_rule >", value, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountNotEqualTo(Integer value) {
-            addCriterion("alarm_count <>", value, "alarmCount");
+        public Criteria andRetryRuleGreaterThanOrEqualTo(String value) {
+            addCriterion("retry_rule >=", value, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountGreaterThan(Integer value) {
-            addCriterion("alarm_count >", value, "alarmCount");
+        public Criteria andRetryRuleLessThan(String value) {
+            addCriterion("retry_rule <", value, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountGreaterThanOrEqualTo(Integer value) {
-            addCriterion("alarm_count >=", value, "alarmCount");
+        public Criteria andRetryRuleLessThanOrEqualTo(String value) {
+            addCriterion("retry_rule <=", value, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountLessThan(Integer value) {
-            addCriterion("alarm_count <", value, "alarmCount");
+        public Criteria andRetryRuleLike(String value) {
+            addCriterion("retry_rule like", value, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountLessThanOrEqualTo(Integer value) {
-            addCriterion("alarm_count <=", value, "alarmCount");
+        public Criteria andRetryRuleNotLike(String value) {
+            addCriterion("retry_rule not like", value, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountIn(List<Integer> values) {
-            addCriterion("alarm_count in", values, "alarmCount");
+        public Criteria andRetryRuleIn(List<String> values) {
+            addCriterion("retry_rule in", values, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountNotIn(List<Integer> values) {
-            addCriterion("alarm_count not in", values, "alarmCount");
+        public Criteria andRetryRuleNotIn(List<String> values) {
+            addCriterion("retry_rule not in", values, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountBetween(Integer value1, Integer value2) {
-            addCriterion("alarm_count between", value1, value2, "alarmCount");
+        public Criteria andRetryRuleBetween(String value1, String value2) {
+            addCriterion("retry_rule between", value1, value2, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andAlarmCountNotBetween(Integer value1, Integer value2) {
-            addCriterion("alarm_count not between", value1, value2, "alarmCount");
+        public Criteria andRetryRuleNotBetween(String value1, String value2) {
+            addCriterion("retry_rule not between", value1, value2, "retryRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyIsNull() {
-            addCriterion("event_body is null");
+        public Criteria andAlarmRuleIsNull() {
+            addCriterion("alarm_rule is null");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyIsNotNull() {
-            addCriterion("event_body is not null");
+        public Criteria andAlarmRuleIsNotNull() {
+            addCriterion("alarm_rule is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyEqualTo(String value) {
-            addCriterion("event_body =", value, "eventBody");
+        public Criteria andAlarmRuleEqualTo(String value) {
+            addCriterion("alarm_rule =", value, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyNotEqualTo(String value) {
-            addCriterion("event_body <>", value, "eventBody");
+        public Criteria andAlarmRuleNotEqualTo(String value) {
+            addCriterion("alarm_rule <>", value, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyGreaterThan(String value) {
-            addCriterion("event_body >", value, "eventBody");
+        public Criteria andAlarmRuleGreaterThan(String value) {
+            addCriterion("alarm_rule >", value, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyGreaterThanOrEqualTo(String value) {
-            addCriterion("event_body >=", value, "eventBody");
+        public Criteria andAlarmRuleGreaterThanOrEqualTo(String value) {
+            addCriterion("alarm_rule >=", value, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyLessThan(String value) {
-            addCriterion("event_body <", value, "eventBody");
+        public Criteria andAlarmRuleLessThan(String value) {
+            addCriterion("alarm_rule <", value, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyLessThanOrEqualTo(String value) {
-            addCriterion("event_body <=", value, "eventBody");
+        public Criteria andAlarmRuleLessThanOrEqualTo(String value) {
+            addCriterion("alarm_rule <=", value, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyLike(String value) {
-            addCriterion("event_body like", value, "eventBody");
+        public Criteria andAlarmRuleLike(String value) {
+            addCriterion("alarm_rule like", value, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyNotLike(String value) {
-            addCriterion("event_body not like", value, "eventBody");
+        public Criteria andAlarmRuleNotLike(String value) {
+            addCriterion("alarm_rule not like", value, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyIn(List<String> values) {
-            addCriterion("event_body in", values, "eventBody");
+        public Criteria andAlarmRuleIn(List<String> values) {
+            addCriterion("alarm_rule in", values, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyNotIn(List<String> values) {
-            addCriterion("event_body not in", values, "eventBody");
+        public Criteria andAlarmRuleNotIn(List<String> values) {
+            addCriterion("alarm_rule not in", values, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyBetween(String value1, String value2) {
-            addCriterion("event_body between", value1, value2, "eventBody");
+        public Criteria andAlarmRuleBetween(String value1, String value2) {
+            addCriterion("alarm_rule between", value1, value2, "alarmRule");
             return (Criteria) this;
         }
 
-        public Criteria andEventBodyNotBetween(String value1, String value2) {
-            addCriterion("event_body not between", value1, value2, "eventBody");
+        public Criteria andAlarmRuleNotBetween(String value1, String value2) {
+            addCriterion("alarm_rule not between", value1, value2, "alarmRule");
             return (Criteria) this;
         }
 
