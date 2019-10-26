@@ -1,8 +1,20 @@
 package com.weweibuy.webuy.learning.event.model.po;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BizEvent {
+
+    public void setChild(List<BizEvent> child) {
+        this.child = child;
+    }
+
+    public List<BizEvent> getChild() {
+        return child;
+    }
+
+    private List<BizEvent> child;
+
     private Long id;
 
     private String eventNo;
