@@ -26,4 +26,14 @@ public class JdbcEventStore implements EventStore {
         List<BizEvent> bizEvents = bizEventMapper.selectByExample(bizEventExample);
         return bizEvents;
     }
+
+    @Override
+    public Integer exitEvent(BizEvent bizEvent) {
+        return null;
+    }
+
+    @Override
+    public Integer exitEventAndAdd(BizEvent bizEvent, BizEvent bizEvent1) {
+        return null;
+    }
 }

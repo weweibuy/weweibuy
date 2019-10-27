@@ -11,12 +11,16 @@ import java.lang.annotation.Target;
  * @author durenhao
  * @date 2019/9/22 13:11
  **/
-@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @EventListener
 public @interface EventListenerWarp {
 
-
     String condition() default "";
 
+    BlockHandler blockHandler() default @BlockHandler();
+
+    boolean autoDelete() default true;
+
+    boolean autoSave() default true;
 }

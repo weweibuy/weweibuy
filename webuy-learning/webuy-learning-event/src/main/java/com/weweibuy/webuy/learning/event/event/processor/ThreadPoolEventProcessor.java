@@ -25,11 +25,6 @@ public class ThreadPoolEventProcessor extends AbstractLinkedEventProcessor<List<
 
 
     @Override
-    public Integer getOrder() {
-        return 2;
-    }
-
-    @Override
     public void process(EventContext eventContext, List<BizEvent> param) {
         log.info("ThreadPoolEventProcessor running ...");
         param.forEach(e -> {
@@ -41,6 +36,11 @@ public class ThreadPoolEventProcessor extends AbstractLinkedEventProcessor<List<
                 }
             });
         });
+    }
+
+    @Override
+    public Integer getOrder() {
+        return 10;
     }
 
 

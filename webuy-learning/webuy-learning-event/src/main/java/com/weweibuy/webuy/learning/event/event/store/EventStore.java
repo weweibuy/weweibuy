@@ -12,4 +12,8 @@ public interface EventStore {
 
     List<BizEvent> getEvent(Object... args);
 
+    Integer exitEvent(BizEvent bizEvent);
+
+    Integer exitEventAndAdd(BizEvent bizEvent, BizEvent bizEvent1);
+
 }

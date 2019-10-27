@@ -1,9 +1,11 @@
 package com.weweibuy.webuy.learning.event.event.context;
 
+import com.weweibuy.webuy.learning.event.event.store.EventStore;
 import com.weweibuy.webuy.learning.event.model.po.BizEvent;
 import lombok.Data;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -15,13 +17,14 @@ public class EventContext {
 
     private CountDownLatch countDownLatch;
 
-    private CurrentEvent currentEvent;
+    private EventStore eventStore;
 
+    private ConcurrentHashMap<String, CurrentEvent> concurrentEventHashMap = new ConcurrentHashMap<>();
 
     @Data
     protected static class CurrentEvent {
 
-        private BizEvent currentEvent;
+        private BizEvent bizEvent;
 
         private Boolean isChildEvent;
 
@@ -44,6 +47,14 @@ public class EventContext {
 
     public void accomplishOneEvent() {
         countDownLatch.countDown();
+    }
+
+
+    public void putCurrentEvent(BizEvent bizEvent) {
+        CurrentEvent currentEvent = new CurrentEvent();
+        currentEvent.setBizEvent(bizEvent);
+        currentEvent.setOrder(bizEvent.getEventOrder());
+        concurrentEventHashMap.put(bizEvent.getBizNo(), currentEvent);
     }
 
 }

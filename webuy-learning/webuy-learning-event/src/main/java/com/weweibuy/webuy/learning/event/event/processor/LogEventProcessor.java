@@ -24,6 +24,6 @@ public class LogEventProcessor extends AbstractLinkedEventProcessor<List<BizEven
 
     @Override
     public Integer getOrder() {
-        return 1;
+        return 0;
     }
 }

@@ -31,8 +31,8 @@ public class ApplicationEventPushEventProcessor extends AbstractLinkedEventProce
     @Override
     public void process(EventContext eventContext, BizEvent param) {
         log.info("ApplicationEventPushEventProcessor  is running ....");
-        String eventBody = param.getEventBody();
-        applicationContext.publishEvent(JSON.parse(eventBody, defaultRedisConfig));
+        Object parse = JSON.parse(param.getEventBody(), defaultRedisConfig);
+        applicationContext.publishEvent(parse);
         next(eventContext, param);
     }
 

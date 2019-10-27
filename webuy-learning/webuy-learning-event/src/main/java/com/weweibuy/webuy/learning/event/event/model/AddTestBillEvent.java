@@ -11,7 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddTestBillEvent {
+public class AddTestBillEvent implements Event{
+
+    private String eventNo;
 
     private String billNo;
 
@@ -20,6 +22,5 @@ public class AddTestBillEvent {
     private String bizType;
 
     private String whType;
-
 
 }
