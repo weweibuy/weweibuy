@@ -30,6 +30,7 @@ public class ThreadPoolEventProcessor extends AbstractLinkedEventProcessor<List<
         param.forEach(e -> {
             EXECUTOR_SERVICE.submit(() -> {
                 try {
+                    eventContext.putCurrentEvent(e);
                     next(eventContext, e);
                 } finally {
                     eventContext.accomplishOneEvent();

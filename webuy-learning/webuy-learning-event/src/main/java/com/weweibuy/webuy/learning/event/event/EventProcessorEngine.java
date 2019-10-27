@@ -4,7 +4,11 @@ import com.weweibuy.webuy.learning.event.event.context.EventContext;
 import com.weweibuy.webuy.learning.event.event.processor.EventProcessor;
 import com.weweibuy.webuy.learning.event.event.processor.EventProcessorChainHolder;
 import com.weweibuy.webuy.learning.event.event.store.EventStore;
+import com.weweibuy.webuy.learning.event.event.store.EventSupplier;
+import com.weweibuy.webuy.learning.event.event.trigger.TriggerType;
 import com.weweibuy.webuy.learning.event.model.po.BizEvent;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,25 +21,42 @@ import java.util.concurrent.CountDownLatch;
  * @author durenhao
  * @date 2019/10/26 12:05
  **/
+@Slf4j
 @Component
-public class EventProcessorEngine {
+public class EventProcessorEngine implements InitializingBean {
 
     @Autowired
     private EventStore eventStore;
 
+    private static final EventContext EVENT_CONTEXT = new EventContext();
+
     @Autowired
     private EventProcessorChainHolder eventProcessorChainHolder;
 
-    public void process(Object... args) throws InterruptedException {
-        List<BizEvent> event = eventStore.getEvent(args);
+    public void process(TriggerType triggerType, EventSupplier supplier, Object... args) throws InterruptedException {
         EventProcessor chain = eventProcessorChainHolder.getChain();
-        EventContext eventContext = new EventContext();
-        if (event.size() > 0) {
-            eventContext.setCountDownLatch(new CountDownLatch(event.size()));
-            chain.process(eventContext, event);
-            eventContext.await();
+        switch (triggerType) {
+            case JOB_JDBC:
+                List<BizEvent> bizEventList = supplier.get();
+                if (bizEventList.size() > 0) {
+                    EVENT_CONTEXT.setCountDownLatch(new CountDownLatch(bizEventList.size()));
+                    chain.process(EVENT_CONTEXT, bizEventList);
+                    EVENT_CONTEXT.awaitForComplete();
+                }
+                return;
+            case APPLICATION:
+                List<BizEvent> bizEventList1 = supplier.get();
+                chain.process(EVENT_CONTEXT, bizEventList1);
+                break;
+            default:
+                return;
         }
+
     }
 
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        EVENT_CONTEXT.setEventStore(eventStore);
+    }
 }

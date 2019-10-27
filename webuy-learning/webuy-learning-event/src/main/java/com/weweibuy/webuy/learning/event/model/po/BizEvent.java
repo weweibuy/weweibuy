@@ -1,5 +1,7 @@
 package com.weweibuy.webuy.learning.event.model.po;
 
+import com.weweibuy.webuy.learning.event.event.trigger.TriggerType;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,6 +13,16 @@ public class BizEvent {
 
     public List<BizEvent> getChild() {
         return child;
+    }
+
+    private TriggerType triggerType;
+
+    public TriggerType getTriggerType() {
+        return triggerType;
+    }
+
+    public void setTriggerType(TriggerType triggerType) {
+        this.triggerType = triggerType;
     }
 
     private List<BizEvent> child;

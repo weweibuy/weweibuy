@@ -3,7 +3,6 @@ package com.weweibuy.webuy.learning.event.event.processor;
 import com.weweibuy.webuy.learning.event.event.context.EventContext;
 import com.weweibuy.webuy.learning.event.mapper.BizEventMapper;
 import com.weweibuy.webuy.learning.event.model.po.BizEvent;
-import com.weweibuy.webuy.learning.event.model.po.BizEventExample;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,26 +27,8 @@ public class AssociationEventProcessor extends AbstractLinkedEventProcessor<BizE
 
     @Override
     public void process(EventContext eventContext, BizEvent param) {
-        BizEvent eventByPid = getEventByParent(param);
         flatTree(eventContext, Collections.singletonList(param));
     }
-
-    public BizEvent getEventByParent(BizEvent bizEvent) {
-        if (bizEvent.getIsParent()) {
-            String parentId = bizEvent.getEventNo();
-            BizEventExample bizEventExample = new BizEventExample();
-            bizEventExample.createCriteria().andIsDeleteEqualTo(false)
-                    .andParentIdEqualTo(parentId);
-            List<BizEvent> bizEventList = bizEventMapper.selectByExample(bizEventExample);
-            if (CollectionUtils.isEmpty(bizEventList)) {
-                return bizEvent;
-            }
-            bizEvent.setChild(bizEventList);
-            bizEventList.forEach(this::getEventByParent);
-        }
-        return bizEvent;
-    }
-
 
     private void flatTree(EventContext eventContext, List<BizEvent> categoryModels) {
         for (BizEvent categoryModel : categoryModels) {

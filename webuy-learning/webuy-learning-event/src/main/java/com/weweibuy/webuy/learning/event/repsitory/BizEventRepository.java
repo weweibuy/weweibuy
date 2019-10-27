@@ -26,7 +26,7 @@ public class BizEventRepository {
         BizEvent bizEvent1 = new BizEvent();
         bizEvent1.setId(bizEvent.getId());
         bizEvent1.setIsDelete(true);
-        return bizEventMapper.updateByPrimaryKeySelective(bizEvent);
+        return bizEventMapper.updateByPrimaryKeySelective(bizEvent1);
     }
 
 

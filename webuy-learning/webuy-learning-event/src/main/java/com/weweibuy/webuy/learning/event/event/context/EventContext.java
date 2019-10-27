@@ -1,6 +1,7 @@
 package com.weweibuy.webuy.learning.event.event.context;
 
 import com.weweibuy.webuy.learning.event.event.store.EventStore;
+import com.weweibuy.webuy.learning.event.event.trigger.TriggerType;
 import com.weweibuy.webuy.learning.event.model.po.BizEvent;
 import lombok.Data;
 
@@ -15,6 +16,8 @@ import java.util.concurrent.CountDownLatch;
 @Data
 public class EventContext {
 
+    private static final ThreadLocal<CurrentEvent> BIZ_EVENT_THREAD_LOCAL = new ThreadLocal<>();
+
     private CountDownLatch countDownLatch;
 
     private EventStore eventStore;
@@ -22,7 +25,7 @@ public class EventContext {
     private ConcurrentHashMap<String, CurrentEvent> concurrentEventHashMap = new ConcurrentHashMap<>();
 
     @Data
-    protected static class CurrentEvent {
+    public static class CurrentEvent {
 
         private BizEvent bizEvent;
 
@@ -38,23 +41,39 @@ public class EventContext {
 
         private Method blockMethod;
 
+        private TriggerType triggerType;
     }
 
-    public void await() throws InterruptedException {
+    public void awaitForComplete() throws InterruptedException {
         countDownLatch.await();
     }
 
+    public void setCountDownLatch(CountDownLatch countDownLatch) {
+        this.countDownLatch = countDownLatch;
+    }
 
     public void accomplishOneEvent() {
         countDownLatch.countDown();
     }
 
+    public CurrentEvent getCurrentEvent() {
+        return BIZ_EVENT_THREAD_LOCAL.get();
+    }
+
+    public void removeCurrentEvent() {
+        BIZ_EVENT_THREAD_LOCAL.remove();
+    }
+
+    public boolean isContain(BizEvent eventNo) {
+        return concurrentEventHashMap.containsKey(eventNo.getBizNo());
+    }
 
     public void putCurrentEvent(BizEvent bizEvent) {
         CurrentEvent currentEvent = new CurrentEvent();
         currentEvent.setBizEvent(bizEvent);
         currentEvent.setOrder(bizEvent.getEventOrder());
-        concurrentEventHashMap.put(bizEvent.getBizNo(), currentEvent);
+        currentEvent.setTriggerType(bizEvent.getTriggerType());
+        BIZ_EVENT_THREAD_LOCAL.set(currentEvent);
     }
 
 }

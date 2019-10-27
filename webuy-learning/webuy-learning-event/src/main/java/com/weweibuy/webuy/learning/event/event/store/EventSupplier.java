@@ -6,14 +6,10 @@ import java.util.List;
 
 /**
  * @author durenhao
- * @date 2019/10/26 20:14
+ * @date 2019/10/27 22:12
  **/
-public interface EventStore {
+public interface EventSupplier {
 
     List<BizEvent> get(Object... args);
-
-    Integer exitEvent(BizEvent bizEvent);
-
-    void exitEventAndAdd(BizEvent bizEvent, BizEvent bizEvent1);
 
 }

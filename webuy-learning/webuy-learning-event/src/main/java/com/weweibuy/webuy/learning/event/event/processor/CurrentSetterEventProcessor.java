@@ -1,30 +1,31 @@
 package com.weweibuy.webuy.learning.event.event.processor;
 
 import com.weweibuy.webuy.learning.event.event.context.EventContext;
-import com.weweibuy.webuy.learning.event.event.context.EventContextHolder;
 import com.weweibuy.webuy.learning.event.model.po.BizEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
  * @author durenhao
- * @date 2019/10/27 18:24
+ * @date 2019/10/27 23:59
  **/
+@Slf4j
 @Component
-public class ThreadLocalContextProcessor extends AbstractLinkedEventProcessor<BizEvent> {
-
+public class CurrentSetterEventProcessor extends AbstractLinkedEventProcessor<BizEvent> {
 
     @Override
     public void process(EventContext eventContext, BizEvent param) {
-        EventContextHolder.setContext(eventContext);
+        log.info("CurrentSetterEventProcessor  is running ....");
         try {
+            eventContext.putCurrentEvent(param);
             next(eventContext, param);
         } finally {
-            EventContextHolder.clearContext();
+            eventContext.removeCurrentEvent();
         }
     }
 
     @Override
     public Integer getOrder() {
-        return 20;
+        return 50;
     }
 }
