@@ -32,7 +32,7 @@ public class TestListener {
         bizEventVo.setBody(addTestBillEvent2);
         bizEventVo.setEventBody(JSON.toJSONString(addTestBillEvent2, SerializerFeature.WriteClassName));
 
-        return bizEventVo;
+        return null;
     }
 
     @EventListenerWarp
