@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.learning.event.spring;
 
 import com.weweibuy.webuy.learning.event.annotation.EventListenerWarp;
-import com.weweibuy.webuy.learning.event.model.event.biz.BizEventVo;
+import com.weweibuy.webuy.learning.event.event.model.BizEventVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,7 @@ public class SpringEventListener {
     @EventListenerWarp(condition = "#bizEvent.bizType.equals('bbc') && #bizEvent.eventType.equals('dispatch')")
     public BizEventVo onEvent2(BizEventVo bizEvent) {
         log.info("bbc + dispatch 事件发生了 : {}", bizEvent);
-        return BizEventVo.builder().bizType("bbc").eventType("receive").build();
+        return null;
     }
 
 

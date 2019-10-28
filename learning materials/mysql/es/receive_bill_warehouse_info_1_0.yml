@@ -1,0 +1,19 @@
+dataSourceKey: ods1DS
+destination: ods_receive
+outerAdapterKey: es_ods_receive
+groupId: g1
+esMapping:
+  _index: receive_bill_info-2019-09-10
+  _type: _doc
+  _id: _id
+  upsert: true
+  sql: "select bill_no as _id, receive_warehouse_id, receive_warehouse_code, receive_warehouse_name, bw_receive_warehouse_code,
+                  receive_warehouse_type, express_bill_no, freight_company_code, transport_method_code, transport_method_name,
+                  allocate_type, allocate_priority, allocate_mode_code, allocate_mode_name, delivery_warehouse_id, delivery_warehouse_code,
+                  delivery_warehouse_name, bw_delivery_warehouse_code, delivery_warehouse_type, id as tb_warehouse_info_id
+                  from receive_bill_warehouse_info_0"
+
+#  objFields:
+#    _labels: array:;
+#  etlCondition: "where metric_data.client_metric_time>={1979-01-01 00:00:00}"
+  commitBatch: 3000

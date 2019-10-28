@@ -15,6 +15,15 @@ public class ThreadPoolHolderTest {
 
     private ExecutorService threadPoolExecutor;
 
+    private ExecutorService ioThreadPool;
+
+
+    {
+        ioThreadPool = new ThreadPoolExecutor(1, 2, 60L, TimeUnit.SECONDS,
+                new SynchronousQueue<>(), new CustomizableThreadFactory("io-thread-"),
+                new ThreadPoolExecutor.CallerRunsPolicy());
+    }
+
     {
         taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setCorePoolSize(3);
@@ -22,7 +31,7 @@ public class ThreadPoolHolderTest {
         taskExecutor.setThreadNamePrefix("spring-async-");
         taskExecutor.setQueueCapacity(100);
         taskExecutor.initialize();
-        threadPoolExecutor = new ThreadPoolExecutor(3, 10, 60L,
+        threadPoolExecutor = new ThreadPoolExecutor(2, 10, 60L,
                 TimeUnit.SECONDS, new LinkedBlockingDeque<>(100), new CustomizableThreadFactory("jdk-async-"));
     }
 
@@ -63,7 +72,7 @@ public class ThreadPoolHolderTest {
 
 
     @Test
-    public void test02() throws Exception{
+    public void test02() throws Exception {
         Future<String> submit = threadPoolExecutor.submit(() -> {
             Thread.sleep(100);
             log.info("submit  run ... ");
@@ -75,10 +84,60 @@ public class ThreadPoolHolderTest {
             log.info("submit 1  run ... ");
             return " world ";
         });
-        submit.get();
+        String s1 = submit.get();
         submit2.get();
-        log.info("run ... ");
+        String s = submit.get();
+        log.info("run ... {}, {}", s1, s);
     }
 
+    /**
+     * 线程池死锁
+     *
+     * @throws Exception
+     */
+    @Test
+    public void test03() throws Exception {
+        Future<String> stringFuture1 = threadPoolExecutor.submit(() -> {
+            log.info("任务 1 运行");
+            Future<String> stringFuture2 = threadPoolExecutor.submit(() -> {
+                log.info("任务 2 运行");
+                Future<String> stringFuture3 = threadPoolExecutor.submit(() -> {
+                    log.info("任务 3 运行");
+                    return "task 3";
+                });
+                return "task 2" + "  and " + stringFuture3.get();
+            });
+            return "task 1" + "  " + stringFuture2.get();
+        });
+
+        String s = stringFuture1.get();
+        log.info("运行结果: {}", s);
+    }
+
+    @Test
+    public void test04() throws Exception {
+        Future<String> stringFuture1 = ioThreadPool.submit(() -> {
+            log.info("任务 1 运行");
+            Future<String> stringFuture2 = ioThreadPool.submit(() -> {
+                log.info("任务 2 运行");
+                Future<String> stringFuture3 = ioThreadPool.submit(() -> {
+                    log.info("任务 3 运行");
+                    return "task 3";
+                });
+                return "task 2 " + "  and " + stringFuture3.get();
+            });
+            return "task 1" + "  " + stringFuture2.get();
+        });
+
+        boolean done = stringFuture1.isDone();
+        boolean cancelled  = stringFuture1.isCancelled();
+        log.info("id done:{} , is cancelled: {}", done, cancelled);
+        String s = stringFuture1.get();
+        boolean done1 = stringFuture1.isDone();
+        boolean cancelled1 = stringFuture1.isCancelled();
+        log.info("id done:{}; is cancelled: {} ", done1, cancelled1);
+
+        log.info("运行结果: {}", s);
+    }
 
 }

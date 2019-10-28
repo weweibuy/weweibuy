@@ -1,0 +1,21 @@
+dataSourceKey: ods0DS
+destination: ods_receive
+outerAdapterKey: es_ods_receive
+groupId: g1
+esMapping:
+  _index: receive_bill_info-2019-09-10
+  _type: _doc
+  _id: _id
+  upsert: true
+  sql: "select id as tb_receive_info_id , bill_no as _id , bill_no, order_no, biz_flow_no, bill_type, biz_type, refund_reason, expect_time,
+                  departure_time, bill_source, bill_status, channel_code, dispatch_bill_no,
+                  vendcust_id, vendcust_code, vendcust_name, shop_bill_no, buyer_user_name, province,
+                  city, region, address, contact, phone, expect_amount, total_record_num, total_actual_receipt,
+                  remark, allow_receipt_flag, dispatch_immediately_flag, refund_invoice_flag,
+                  deleted, create_time, update_time
+                  from receive_bill_info_0 "
+
+#  objFields:
+#    _labels: array:;
+#  etlCondition: "where metric_data.client_metric_time>={1979-01-01 00:00:00}"
+  commitBatch: 3000

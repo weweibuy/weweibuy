@@ -2,7 +2,10 @@ package com.weweibuy.webuy.learning.event.core;
 
 import com.weweibuy.webuy.learning.event.event.advice.BizEventAdvice;
 import com.weweibuy.webuy.learning.event.event.advice.BizEventAdviceProcessEnter;
+import com.weweibuy.webuy.learning.event.event.context.EventContext;
 import com.weweibuy.webuy.learning.event.event.context.EventContextHolder;
+import com.weweibuy.webuy.learning.event.event.context.EventInvokeTargetContext;
+import com.weweibuy.webuy.learning.event.event.context.EventInvokeTargetContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -27,25 +30,24 @@ public class EventAdvice implements InitializingBean {
     @Autowired
     private List<BizEventAdvice> bizEventAdviceList;
 
+    @Autowired
+    private EventInvokeTargetContextHolder contextHolder;
+
     @Around("@annotation(com.weweibuy.webuy.learning.event.annotation.EventListenerWarp)")
-    public Object around(ProceedingJoinPoint joinPoint) {
-        try {
-            log.info("before event");
-            BizEventAdviceProcessEnter bizEventAdviceProcessEnter = new BizEventAdviceProcessEnter();
-            bizEventAdviceProcessEnter.setSize(bizEventAdviceList.size());
-            bizEventAdviceProcessEnter.setBizEventAdviceList(bizEventAdviceList);
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+        log.info("before event");
+        BizEventAdviceProcessEnter bizEventAdviceProcessEnter = new BizEventAdviceProcessEnter();
+        bizEventAdviceProcessEnter.setSize(bizEventAdviceList.size());
+        bizEventAdviceProcessEnter.setBizEventAdviceList(bizEventAdviceList);
 
-            Object[] args = joinPoint.getArgs();
-            Object arg = args[0];
-            Object o = bizEventAdviceProcessEnter.doProcess(EventContextHolder.getContext(), arg, joinPoint);
+        Object[] args = joinPoint.getArgs();
+        Object arg = args[0];
+        EventContext context = EventContextHolder.getContext();
+        EventInvokeTargetContext targetContext = contextHolder.eventInvokeTargetContext(joinPoint, context.getCurrentEvent().getBizEvent());
+        Object o = bizEventAdviceProcessEnter.doProcess(EventContextHolder.getContext(), targetContext, arg, joinPoint);
 
-            log.info("after event");
-
-            return o;
-        } catch (Throwable e) {
-            log.error("事件切面捕获到异常", e);
-            throw new RuntimeException(e);
-        }
+        log.info("after event");
+        return o;
     }
 
 

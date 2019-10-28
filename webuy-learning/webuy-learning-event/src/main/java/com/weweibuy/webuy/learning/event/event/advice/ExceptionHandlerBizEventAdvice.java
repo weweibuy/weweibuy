@@ -1,6 +1,7 @@
 package com.weweibuy.webuy.learning.event.event.advice;
 
 import com.weweibuy.webuy.learning.event.event.context.EventContext;
+import com.weweibuy.webuy.learning.event.event.context.EventInvokeTargetContext;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
@@ -15,9 +16,14 @@ public class ExceptionHandlerBizEventAdvice implements BizEventAdvice {
 
 
     @Override
-    public Object process(EventContext context, Object event, ProceedingJoinPoint joinPoint, BizEventAdviceChain chain) throws Throwable {
+    public Object process(EventContext context, EventInvokeTargetContext invokeTargetContext, Object event, ProceedingJoinPoint joinPoint, BizEventAdviceChain chain) throws Throwable {
         log.info("ExceptionHandler  advice is running .....");
-        return chain.doProcess(context, event, joinPoint);
+        try {
+            return chain.doProcess(context, invokeTargetContext, event, joinPoint);
+        } catch (Throwable e) {
+            log.error("事件发生异常 : {}", e);
+            return null;
+        }
     }
 
     @Override

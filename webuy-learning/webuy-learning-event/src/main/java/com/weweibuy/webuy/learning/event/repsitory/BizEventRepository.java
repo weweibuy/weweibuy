@@ -2,6 +2,7 @@ package com.weweibuy.webuy.learning.event.repsitory;
 
 import com.weweibuy.webuy.learning.event.mapper.BizEventMapper;
 import com.weweibuy.webuy.learning.event.model.po.BizEvent;
+import com.weweibuy.webuy.learning.event.model.po.BizEventExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +24,21 @@ public class BizEventRepository {
 
 
     public Integer delete(BizEvent bizEvent) {
-        BizEvent bizEvent1 = new BizEvent();
-        bizEvent1.setId(bizEvent.getId());
-        bizEvent1.setIsDelete(true);
-        return bizEventMapper.updateByPrimaryKeySelective(bizEvent1);
+        Long id = bizEvent.getId();
+        if (id != null) {
+            BizEvent bizEvent1 = new BizEvent();
+            bizEvent1.setId(bizEvent.getId());
+            bizEvent1.setIsDelete(true);
+            return bizEventMapper.updateByPrimaryKeySelective(bizEvent1);
+        } else {
+            String eventNo = bizEvent.getEventNo();
+            BizEventExample bizEventExample = new BizEventExample();
+            bizEventExample.createCriteria().andEventNoEqualTo(eventNo);
+            BizEvent bizEvent1 = new BizEvent();
+            bizEvent1.setIsDelete(true);
+            return bizEventMapper.updateByExampleSelective(bizEvent1, bizEventExample);
+        }
+
     }
 
 

@@ -5,7 +5,7 @@
  */
 package com.weweibuy.webuy.learning.spring.time;
 
-import com.weweibuy.webuy.learning.spring.utils.DateTimeUtils;
+import com.weweibuy.webuy.common.utils.DateTimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

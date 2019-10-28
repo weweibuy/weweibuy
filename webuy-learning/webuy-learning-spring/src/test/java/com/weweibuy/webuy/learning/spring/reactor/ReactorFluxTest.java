@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class ReactorFluxTest {
@@ -92,15 +93,20 @@ public class ReactorFluxTest {
 
 
     @Test
-    public void test04() {
+    public void test04() throws InterruptedException {
 
         MyEventProcessor myEventProcessor = new MyEventProcessor();
 
         Flux<String> bridge = Flux.create(sink -> {
             myEventProcessor.register2(new SingleThreadEventListener<String>() {
                 public void onDataChunk(List<String> chunk) {
-                    for (String s : chunk) {
-                        sink.next(s);
+                    try {
+                        for (String s : chunk) {
+                            sink.next(s);
+                            throw new RuntimeException("内部错误");
+                        }
+                    }catch (Exception e){
+                        sink.error(e);
                     }
                 }
 
@@ -115,7 +121,14 @@ public class ReactorFluxTest {
             });
         }, FluxSink.OverflowStrategy.ERROR);
 
-        bridge.subscribe(log::info, i -> {
+        bridge.publishOn(Schedulers.fromExecutor(executor))
+                .doOnComplete(() -> {
+                    log.info(".... 完成了");
+                })
+                .doOnError(i -> {
+                    log.info(".... 出错了");
+                })
+                .subscribe(log::info, i -> {
             log.error(i.getMessage());
         }, () -> {
             log.info("完成");
@@ -125,9 +138,9 @@ public class ReactorFluxTest {
         String[] arr = {"1", "a", "2", "b"};
 
         listener.onDataChunk(Arrays.asList(arr));
-        listener.processError(new RuntimeException("出错了"));
+//        listener.processError(new RuntimeException("出错了"));
         listener.processComplete();
-
+        Thread.sleep(1000);
     }
 
 
@@ -675,6 +688,38 @@ public class ReactorFluxTest {
                 .subscribe(log::info);
     }
 
+    @Test
+    public void test30() throws InterruptedException {
+        ArrayList<Integer> integers = new ArrayList<>();
+        for(int i = 1; i <= 1001; i++){
+            integers.add(i);
+        }
+
+        Long count = 0L;
+
+        Flux.fromStream(integers.stream())
+                .window(100, 100)
+                .flatMap(i -> {
+                    return i.collectList();
+                })
+                .parallel(3)
+                .runOn(Schedulers.fromExecutor(executor))
+                .map(i -> {
+                    return i.stream().collect(Collectors.summarizingInt(value -> value));
+                })
+                .doOnNext(i -> {
+                    log.info("总和: {}", i.getSum());
+                })
+                .sequential()
+                .reduce(count, (a, b) -> {
+                    log.info("计算");
+                    return a + b.getSum();
+                })
+                .doOnNext(i -> {
+                    log.info("结果总和: {}", i);
+                })
+                .subscribe();
+    }
 
 
 

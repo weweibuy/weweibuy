@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.event.event.store;
 
-import com.weweibuy.webuy.learning.event.model.po.BizEvent;
+import com.weweibuy.webuy.learning.event.event.model.BizEventVo;
 
 import java.util.List;
 
@@ -10,10 +10,10 @@ import java.util.List;
  **/
 public interface EventStore {
 
-    List<BizEvent> get(Object... args);
+    List<BizEventVo> get(Object... args);
 
-    Integer exitEvent(BizEvent bizEvent);
+    Integer exitEvent(BizEventVo bizEvent);
 
-    void exitEventAndAdd(BizEvent bizEvent, BizEvent bizEvent1);
+    void exitEventAndAdd(BizEventVo bizEvent, BizEventVo bizEvent1);
 
 }

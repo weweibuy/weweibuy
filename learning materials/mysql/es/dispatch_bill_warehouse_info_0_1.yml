@@ -1,0 +1,20 @@
+dataSourceKey: ods0DS
+destination: ods_dispatch
+outerAdapterKey: es_ods_dispatch
+groupId: g1
+esMapping:
+  _index: dispatch_bill_info-2019-09-10
+  _type: _doc
+  _id: _id
+  upsert: true
+#  pk: id
+  sql: "select bill_no as _id, warehouse_id, warehouse_code, warehouse_name, bw_warehouse_code, warehouse_type,
+                                   inter_warehouse_id, inter_warehouse_code, inter_warehouse_name, inter_warehouse_type,
+                                   expect_out_time, express_type, freight_mode_flag, express_bill_no, freight_company_code,
+                                   transport_method_code, transport_method_name, allocate_type, allocate_priority, allocate_mode_code,
+                                   allocate_mode_name, id as tb_warehouse_info_id, inter_bw_warehouse_code
+                                   from  dispatch_bill_warehouse_info_1 "
+#  objFields:
+#    _labels: array:;
+#  etlCondition: "where metric_data.client_metric_time>={1979-01-01 00:00:00}"
+  commitBatch: 3000

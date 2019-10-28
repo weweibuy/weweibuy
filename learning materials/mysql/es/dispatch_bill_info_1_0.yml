@@ -1,0 +1,22 @@
+dataSourceKey: ods1DS
+destination: ods_dispatch
+outerAdapterKey: es_ods_dispatch
+groupId: g1
+esMapping:
+  _index: dispatch_bill_info-2019-09-10
+  _type: dispatch_bill_info
+  _id: _id
+  upsert: true
+#  pk: id
+  sql: "select  id as tb_dispatch_info_id ,  bill_no as _id , bill_no ,  order_no, biz_flow_no,  bill_type,  biz_type,  bill_source,  bill_status,
+                    channel_code,  source_bill_no,  manual_bill_no,  prefinish_bill_no,
+                    vendcust_id,  vendcust_code, vendcust_name,  batch_no,  batch_mark,  dispatch_reason,
+                    expect_arrival_time, departure_time,  shop_bill_no,  buyer_user_name,  province,  city,
+                    region,  address,  contact,  phone, expect_amount,  total_record_num,  total_actual_shipment,
+                    remark,  print_invoice_flag,  with_invoice_flag,  allow_receipt_flag,  allow_partial_delivery_flag,
+                    dispatch_immediately_flag,  deleted,  create_time,  update_time
+                    from dispatch_bill_info_0 "
+#  objFields:
+#    _labels: array:;
+#  etlCondition: "where metric_data.client_metric_time>={1979-01-01 00:00:00}"
+  commitBatch: 3000

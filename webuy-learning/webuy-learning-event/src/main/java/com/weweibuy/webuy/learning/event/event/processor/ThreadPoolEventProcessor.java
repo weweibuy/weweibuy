@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.learning.event.event.processor;
 
 import com.weweibuy.webuy.learning.event.event.context.EventContext;
-import com.weweibuy.webuy.learning.event.model.po.BizEvent;
+import com.weweibuy.webuy.learning.event.event.model.BizEventVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.stereotype.Component;
@@ -18,19 +18,18 @@ import java.util.concurrent.TimeUnit;
  **/
 @Slf4j
 @Component
-public class ThreadPoolEventProcessor extends AbstractLinkedEventProcessor<List<BizEvent>> {
+public class ThreadPoolEventProcessor extends AbstractLinkedEventProcessor<List<BizEventVo>> {
 
     private static final ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(10, 10,
             60, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(100), new CustomizableThreadFactory("event-thread-"));
 
 
     @Override
-    public void process(EventContext eventContext, List<BizEvent> param) {
+    public void process(EventContext eventContext, List<BizEventVo> param) {
         log.info("ThreadPoolEventProcessor running ...");
         param.forEach(e -> {
             EXECUTOR_SERVICE.submit(() -> {
                 try {
-                    eventContext.putCurrentEvent(e);
                     next(eventContext, e);
                 } finally {
                     eventContext.accomplishOneEvent();

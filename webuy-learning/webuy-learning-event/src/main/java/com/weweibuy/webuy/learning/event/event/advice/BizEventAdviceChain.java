@@ -1,6 +1,7 @@
 package com.weweibuy.webuy.learning.event.event.advice;
 
 import com.weweibuy.webuy.learning.event.event.context.EventContext;
+import com.weweibuy.webuy.learning.event.event.context.EventInvokeTargetContext;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
@@ -9,8 +10,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
  **/
 public interface BizEventAdviceChain {
 
-
-    Object doProcess(EventContext context, Object event, ProceedingJoinPoint joinPoint) throws Throwable;
+    Object doProcess(EventContext context, EventInvokeTargetContext invokeTargetContext, Object event, ProceedingJoinPoint joinPoint) throws Throwable;
 
 
 }

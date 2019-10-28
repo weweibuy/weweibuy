@@ -1,0 +1,18 @@
+dataSourceKey: ods0DS
+destination: ods_dispatch_receipt_detail
+outerAdapterKey: es_ods_dispatch_receipt_detail
+groupId: g1
+esMapping:
+  _index: dispatch_receipt_detail-2019-09-30
+  _type: _doc
+  _id: _id
+  upsert: true
+#  pk: id
+  sql: "select  id as tb_dispatch_receipt_detail_id, bill_no as _id, bill_no , order_no, process_status, sequence, bar_code, material_code, delivery_company_code,
+                    delivery_company_name, delivery_express_bill_no, weight, package_no, box_no, amount,
+                    estimate_total_amount, difference_amount, deleted, create_time
+                    from dispatch_receipt_detail_0"
+#  objFields:
+#    _labels: array:;
+#  etlCondition: "where metric_data.client_metric_time>={1979-01-01 00:00:00}"
+  commitBatch: 3000

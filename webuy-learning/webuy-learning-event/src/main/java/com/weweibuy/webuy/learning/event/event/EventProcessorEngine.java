@@ -1,12 +1,12 @@
 package com.weweibuy.webuy.learning.event.event;
 
 import com.weweibuy.webuy.learning.event.event.context.EventContext;
+import com.weweibuy.webuy.learning.event.event.model.BizEventVo;
 import com.weweibuy.webuy.learning.event.event.processor.EventProcessor;
 import com.weweibuy.webuy.learning.event.event.processor.EventProcessorChainHolder;
 import com.weweibuy.webuy.learning.event.event.store.EventStore;
 import com.weweibuy.webuy.learning.event.event.store.EventSupplier;
 import com.weweibuy.webuy.learning.event.event.trigger.TriggerType;
-import com.weweibuy.webuy.learning.event.model.po.BizEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class EventProcessorEngine implements InitializingBean {
         EventProcessor chain = eventProcessorChainHolder.getChain();
         switch (triggerType) {
             case JOB_JDBC:
-                List<BizEvent> bizEventList = supplier.get();
+                List<BizEventVo> bizEventList = supplier.get();
                 if (bizEventList.size() > 0) {
                     EVENT_CONTEXT.setCountDownLatch(new CountDownLatch(bizEventList.size()));
                     chain.process(EVENT_CONTEXT, bizEventList);
@@ -45,7 +45,7 @@ public class EventProcessorEngine implements InitializingBean {
                 }
                 return;
             case APPLICATION:
-                List<BizEvent> bizEventList1 = supplier.get();
+                List<BizEventVo> bizEventList1 = supplier.get();
                 chain.process(EVENT_CONTEXT, bizEventList1);
                 break;
             default:

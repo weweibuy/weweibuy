@@ -1,5 +1,6 @@
 package com.weweibuy.webuy.learning.event.event.context;
 
+import com.weweibuy.webuy.learning.event.event.model.BizEventVo;
 import com.weweibuy.webuy.learning.event.event.store.EventStore;
 import com.weweibuy.webuy.learning.event.event.trigger.TriggerType;
 import com.weweibuy.webuy.learning.event.model.po.BizEvent;
@@ -27,7 +28,7 @@ public class EventContext {
     @Data
     public static class CurrentEvent {
 
-        private BizEvent bizEvent;
+        private BizEventVo bizEvent;
 
         private Boolean isChildEvent;
 
@@ -68,7 +69,7 @@ public class EventContext {
         return concurrentEventHashMap.containsKey(eventNo.getBizNo());
     }
 
-    public void putCurrentEvent(BizEvent bizEvent) {
+    public void putCurrentEvent(BizEventVo bizEvent) {
         CurrentEvent currentEvent = new CurrentEvent();
         currentEvent.setBizEvent(bizEvent);
         currentEvent.setOrder(bizEvent.getEventOrder());
