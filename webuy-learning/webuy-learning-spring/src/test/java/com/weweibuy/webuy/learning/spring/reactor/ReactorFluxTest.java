@@ -4,6 +4,7 @@ import com.weweibuy.webuy.learning.spring.hystirx.HealthCounts;
 import com.weweibuy.webuy.learning.spring.hystirx.HystrixEvent1;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.reactivestreams.Subscription;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import reactor.core.publisher.*;
 import reactor.core.scheduler.Schedulers;
@@ -16,6 +17,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 public class ReactorFluxTest {
@@ -105,7 +107,7 @@ public class ReactorFluxTest {
                             sink.next(s);
                             throw new RuntimeException("内部错误");
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         sink.error(e);
                     }
                 }
@@ -129,10 +131,10 @@ public class ReactorFluxTest {
                     log.info(".... 出错了");
                 })
                 .subscribe(log::info, i -> {
-            log.error(i.getMessage());
-        }, () -> {
-            log.info("完成");
-        });
+                    log.error(i.getMessage());
+                }, () -> {
+                    log.info("完成");
+                });
         SingleThreadEventListener listener = myEventProcessor.getSingleThreadEventListener();
 
         String[] arr = {"1", "a", "2", "b"};
@@ -147,35 +149,69 @@ public class ReactorFluxTest {
     @Test
     public void test05() throws InterruptedException {
         MessageProcessor myMessageProcessor = new MessageProcessor();
-        Flux<String> bridge = Flux.create(sink -> {
+        Flux<String> bridge = Flux.<String>create(sink -> {
             myMessageProcessor.register(
                     new MyMessageListener<String>() {
 
-                        public void onMessage(List<String> messages) {
-                            for (String s : messages) {
-                                sink.next(s);
-                            }
+                        public void onMessage(String messages) {
+                            sink.next(messages);
+                        }
+
+                        @Override
+                        public void onEventStopped() {
+                            log.info("发布事件完成");
+                            sink.complete();
                         }
                     });
-            sink.onRequest(n -> {
-                List<String> messages = myMessageProcessor.request(n);
-                for (String s : messages) {
-                    log.info(s + "     request");
-                    sink.next(s);
+        }, FluxSink.OverflowStrategy.BUFFER)
+                .publishOn(Schedulers.newSingle("newSingle"), 1);
+
+        bridge.subscribe(new BaseSubscriber<String>() {
+            @Override
+            protected void hookOnSubscribe(Subscription subscription) {
+                request(1);
+            }
+
+            @Override
+            protected void hookOnNext(String value) {
+                log.info("【收到消息】：{}", value);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            });
+                request(1);
+            }
+
+            @Override
+            protected void hookOnComplete() {
+                log.info("订阅事件完毕");
+                countDownLatch.countDown();
+
+            }
+
+
         });
 
-        bridge.subscribe(log::error);
-
         MyMessageListener listener = myMessageProcessor.getListener();
-        String[] arr = {"1", "a", "2", "b"};
-        listener.onMessage(Arrays.asList(arr));
-        myMessageProcessor.request(1L);
-        myMessageProcessor.request(1L);
-        myMessageProcessor.request(1L);
-        myMessageProcessor.request(1L);
-        Thread.sleep(100);
+
+        executor.submit(() -> {
+            Stream.iterate(0, n -> n + 1)
+                    .limit(10)
+                    .map(i -> i + "")
+                    .forEach(i -> {
+                        listener.onMessage(i);
+                        log.warn("【发送消息】: {}", i);
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    });
+            listener.onEventStopped();
+        });
+        countDownLatch.await();
+
     }
 
 
@@ -691,7 +727,7 @@ public class ReactorFluxTest {
     @Test
     public void test30() throws InterruptedException {
         ArrayList<Integer> integers = new ArrayList<>();
-        for(int i = 1; i <= 1001; i++){
+        for (int i = 1; i <= 1001; i++) {
             integers.add(i);
         }
 
@@ -720,7 +756,6 @@ public class ReactorFluxTest {
                 })
                 .subscribe();
     }
-
 
 
 }
