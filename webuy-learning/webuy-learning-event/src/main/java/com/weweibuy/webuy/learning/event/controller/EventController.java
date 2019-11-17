@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/event/test")
 public class EventController {
-
     @GetMapping("/add")
     public String addNewEvent(){
         AddTestBillEvent addTestBillEvent = new AddTestBillEvent();

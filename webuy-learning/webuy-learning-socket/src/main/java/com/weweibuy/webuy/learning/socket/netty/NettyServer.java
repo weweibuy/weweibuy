@@ -29,7 +29,9 @@ public class NettyServer {
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         socketChannel.pipeline()
                                 .addLast("decoder", new StringDecoder())
-                                .addLast(new DiscardServerHandler());
+                                .addLast(new DiscardServerHandler())
+                                .addLast(new SimpleChannelHandlerAdapter())
+                        ;
                     }
                 })
                 .option(ChannelOption.SO_BACKLOG, 128)

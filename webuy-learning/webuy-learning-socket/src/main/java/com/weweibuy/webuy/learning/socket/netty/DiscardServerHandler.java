@@ -2,6 +2,7 @@ package com.weweibuy.webuy.learning.socket.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author durenhao
  * @date 2019/10/20 17:51
  **/
+@ChannelHandler.Sharable
 @Slf4j
 public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
 
@@ -19,6 +21,9 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
         log.info("通道读取, 数据: {}", msg);
         String response = "hello from server";
         ByteBuf resp = Unpooled.copiedBuffer(response.getBytes());
+        if(true){
+            throw new RuntimeException("创建buffer 异常");
+        }
         ctx.write(resp);
         ctx.flush();
     }
@@ -26,7 +31,7 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) { // (4)
         log.info("发生异常", cause);
-        ctx.close();
+        ctx.fireExceptionCaught(cause);
     }
 
     @Override

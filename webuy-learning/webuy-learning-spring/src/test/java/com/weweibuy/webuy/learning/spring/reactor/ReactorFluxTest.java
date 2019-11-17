@@ -164,6 +164,9 @@ public class ReactorFluxTest {
                         }
                     });
         }, FluxSink.OverflowStrategy.BUFFER)
+                .doOnRequest(n -> {
+                    log.info("收到请求: {}", n);
+                })
                 .publishOn(Schedulers.newSingle("newSingle"), 1);
 
         bridge.subscribe(new BaseSubscriber<String>() {
@@ -556,28 +559,6 @@ public class ReactorFluxTest {
 
     }
 
-
-    @Test
-    public void test23() {
-        // 热订阅
-        UnicastProcessor<String> hotSource = UnicastProcessor.create();
-
-        Flux<String> hotFlux = hotSource.publish()
-
-                .autoConnect()
-                .map(String::toUpperCase);
-
-        hotFlux.subscribe(d -> System.out.println("Subscriber 1 to Hot Source: " + d));
-
-        hotSource.onNext("blue");
-        hotSource.onNext("green");
-
-        hotFlux.subscribe(d -> System.out.println("Subscriber 2 to Hot Source: " + d));
-
-        hotSource.onNext("orange");
-        hotSource.onNext("purple");
-        hotSource.onComplete();
-    }
 
 
     @Test
