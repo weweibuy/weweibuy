@@ -17,7 +17,9 @@ public class SpringEventController {
     private ApplicationContext applicationContext;
 
     @RequestMapping("/jit")
-    public Object jitEvent(){
+    public Object jitEvent(Long id){
+        TestEvent jit = TestEvent.builder().bizType("jit").id(id).build();
+        applicationContext.publishEvent(jit);
         return "success";
     }
 

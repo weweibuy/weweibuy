@@ -1,0 +1,16 @@
+{
+ "query":{
+ 	"bool":{
+ 		"must":[
+ 			{
+  				"match": {
+ 					"draft_keyword": {
+ 					"query": "C003 out_325WH001211",
+ 					 "minimum_should_match": 2
+ 					}
+ 				}
+ 			}
+ 			]
+ 	}
+ }
+}
