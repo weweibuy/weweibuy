@@ -9,6 +9,8 @@ node.name: node-1
 
 
 2.挂载启动
+授权 data 和 logs 目录: 775
+
 docker run -p 9200:9200 -p 9300:9300 -v /docker/elasticsearch-6.8.2/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml -v /docker/elasticsearch-6.8.2/config/jvm.options:/usr/share/elasticsearch/config/jvm.options -v /docker/elasticsearch-6.8.2/logs/:/usr/share/elasticsearch/logs -v /docker/elasticsearch-6.8.2/data:/usr/share/elasticsearch/data   -d   --name elasticsearch-6.8.2 docker.io/elasticsearch:6.8.2
 
 3. 安装 IK:

@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 @Slf4j
 public class RocketMqTest {
 
-    private static final String NAME_SERVER = "106.12.95.245:9876";
+    private static final String NAME_SERVER = "122.51.171.126:9876";
 
     private static final String TOPIC = "test_producer_topic";
 

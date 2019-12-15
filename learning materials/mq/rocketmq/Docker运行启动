@@ -1,5 +1,7 @@
 1. nameServer
-    docker run -p 9876:9876 -v /docker/rocketmq/namesrv/logs:/root/logs -v /docker/rocketmq/namesrv/stort/store --name rocketmq-namesrv  -d   rocketmq:4.4.0  sh mqnamesrv
+    docker run -d  --network rocketmq-net  -v /docker/rocketmq/nameserver/bin:/opt/rocketmq-4.4.0/bin -v /docker/rocketmq/nameserver/conf:/opt/rocketmq-4.4.0/conf -v /docker/rocketmq/nameserver/logs:/home/rocketmq/logs -p 9876:9876   --name  rocketmq-nameserver rocketmq:4.4.0 sh mqnamesrv
 2. broker
-    docker run -d -p 10911:10911 -p 10909:10909 -v /docker/rocketmq/broker/logs:/root/logs -v /docker/rocketmq/broker/store:/root/store --name rmqbroker   -e "NAMESRV_ADDR=106.12.95.245:9876" rocketmq:4.4.0  sh mqbroker -c ../conf/broker.conf
+
+docker run  -d  -p 10911:10911 -p 10909:10909 --network rocketmq-net  -v /docker/rocketmq/broker/bin:/opt/rocketmq-4.4.0/bin -v /docker/rocketmq/broker/conf:/opt/rocketmq-4.4.0/conf -v /docker/rocketmq/broker/logs:/home/rocketmq/logs    --name rocketmq-broker rocketmq:4.4.0 sh mqbroker -c ../conf/broker.conf
+
     docker 中启动注意配置 broker.conf 中 brokerIP1 = 106.12.95.245(非docker 虚拟网卡地址)

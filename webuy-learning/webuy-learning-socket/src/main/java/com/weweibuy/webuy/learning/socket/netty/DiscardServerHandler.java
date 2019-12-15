@@ -21,9 +21,6 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
         log.info("通道读取, 数据: {}", msg);
         String response = "hello from server";
         ByteBuf resp = Unpooled.copiedBuffer(response.getBytes());
-        if(true){
-            throw new RuntimeException("创建buffer 异常");
-        }
         ctx.write(resp);
         ctx.flush();
     }
