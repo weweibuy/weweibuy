@@ -1,0 +1,6 @@
+1. oap启动
+docker run -d -p 11800:11800 --network es-net --name skywalking-oap-server   -v /docker/skywalking/oap/docker-entrypoint.sh://skywalking/docker-entrypoint.sh -v /docker/skywalking/oap/config:/skywalking/config -v /docker/skywalking/oap/logs:/skywalking/logs  -e SW_L0AD_CONFIG_FILE_FROM_VOLUME=true -v /docker/skywalking/oap/lib/mysql-connector-java-5.1.48.jar:/skywalking/oap-libs/mysql-connector-java-5.1.48.jar  skywalking-oap-server:6.5.0
+
+2. ui 启动
+
+docker run -d -p 8080:8080  -v /docker/skywalking/ui/docker-entrypoint.sh:/skywalking/docker-entrypoint.sh -v /docker/skywalking/ui/webapp/webapp.yml:/skywalking/webapp/webapp.yml   --network es-net -e SW_OAP_ADDRESS=skywalking-oap-server:12800
