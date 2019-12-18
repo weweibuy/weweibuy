@@ -23,10 +23,18 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-actuator</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-eureka</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
-
+        <!--<dependency>-->
+            <!--<groupId>org.apache.skywalking</groupId>-->
+            <!--<artifactId>apm-toolkit-logback-1.x</artifactId>-->
+            <!--<version>6.5.0</version>-->
+        <!--</dependency>-->
 
         <!--mysql驱动-->
         <dependency>
