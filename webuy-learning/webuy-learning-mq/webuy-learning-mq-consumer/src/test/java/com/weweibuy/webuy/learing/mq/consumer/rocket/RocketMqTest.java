@@ -57,6 +57,17 @@ public class RocketMqTest {
 
         consumerG1.start();
 
+        consumerG1.setConsumeThreadMax(1);
+        int max = consumerG1.getConsumeThreadMax();
+        int mix = consumerG1.getConsumeThreadMin();
+
+
+        System.err.println(max);
+        System.err.println(mix);
+
+
+
+
         consumerG2.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {

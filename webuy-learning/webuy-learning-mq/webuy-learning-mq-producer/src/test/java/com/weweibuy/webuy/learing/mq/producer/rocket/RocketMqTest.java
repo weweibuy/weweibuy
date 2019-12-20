@@ -29,12 +29,14 @@ public class RocketMqTest {
         producer = new DefaultMQProducer(producerGroup);
         producer.setNamesrvAddr(NAME_SERVER);
         producer.start();
+        int clientCallbackExecutorThreads = producer.getClientCallbackExecutorThreads();
+        System.err.println(clientCallbackExecutorThreads);
     }
 
     @Test
     public void test01() throws Exception {
         Stream.iterate(0, n -> n + 1)
-                .limit(10)
+                .limit(1)
                 .forEach(i -> {
                     Message msg = null;
                     try {

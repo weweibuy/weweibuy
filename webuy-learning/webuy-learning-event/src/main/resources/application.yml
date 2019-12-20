@@ -28,3 +28,13 @@ mybatis:
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
 
 
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://admin:ak402507979@122.51.171.126:7001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+    prefer-ip-address: true
+    ip-address: 127.0.0.1

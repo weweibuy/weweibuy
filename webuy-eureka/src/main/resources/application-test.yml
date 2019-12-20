@@ -9,7 +9,7 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
     prefer-ip-address: true
-    ip-address: 106.12.95.245
+    ip-address: 122.51.171.126
   server:
     enable-self-preservation: false  #关闭自我保护,开启自我保护eureka不会注销任何微服务
     response-cache-auto-expiration-in-seconds: 120
