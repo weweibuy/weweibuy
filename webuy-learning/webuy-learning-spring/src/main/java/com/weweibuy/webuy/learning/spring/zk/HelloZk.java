@@ -9,7 +9,6 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @ClassName HelloZk
@@ -18,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2019/3/10 21:43
  **/
 @Slf4j
-@RestController
-@RequestMapping("/zk")
+//@RestController
+//@RequestMapping("/zk")
 public class HelloZk {
 
     /*
@@ -29,8 +28,6 @@ public class HelloZk {
      *   EPHEMERAL：临时
      *   EPHEMERAL_SEQUENTIAL：临时并且带序列号
      */
-
-
     @Autowired
     private CuratorFramework curatorFramework;
 

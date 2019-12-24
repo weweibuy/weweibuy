@@ -7,7 +7,6 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.*;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
  * @date 2019/4/22 22:42
  **/
 @Slf4j
-@Configuration
+//@Configuration
 public class CuratorZkConfig {
 
     @Bean

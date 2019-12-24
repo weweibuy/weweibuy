@@ -1,6 +1,5 @@
 package com.weweibuy.webuy.learning.sharing;
 
-import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +14,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @MapperScan(basePackages = "com.weweibuy.webuy.learning.sharing.mapper")
 @EnableEurekaClient
 @EnableDiscoveryClient
-@EnableApolloConfig
 public class ApplicationSharing {
 
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+server:
+  port: 8090
 
 spring:
   profiles:
@@ -6,19 +8,27 @@ spring:
     name: learning-spring
   jackson:
     property-naming-strategy: SNAKE_CASE
-
+  datasource:
+    driver-class-name: org.gjt.mm.mysql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://106.12.208.53:3306/webuy_learning?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true
+    username: user01
+    password: ak402507979
 
 logging:
   config: classpath:config/logback/logback-spring.xml
-
-app:
-  id: ${spring.application.name}
-apollo:
-  meta: http://106.12.15.87:9080
-  bootstrap:
-    namespaces: application,sentinel
 
 
 mybatis:
   type-aliases-package: com.weweibuy.webuy.learning.spring.model.po    # 所有Entity别名类所在包
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://admin:ak402507979@122.51.171.126:7001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
+    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
+    ip-address: 127.0.0.1

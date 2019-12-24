@@ -50,29 +50,23 @@
         </dependency>
 
         <!--sentinel 控制台client-->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-transport-simple-http</artifactId>
-            <version>1.6.2</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba.csp</groupId>-->
+            <!--<artifactId>sentinel-transport-simple-http</artifactId>-->
+            <!--<version>1.6.2</version>-->
+        <!--</dependency>-->
 
-        <!--apollo动态规则-->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-apollo</artifactId>
-            <version>1.6.2</version>
-        </dependency>
+        <!--&lt;!&ndash;apollo动态规则&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba.csp</groupId>-->
+            <!--<artifactId>sentinel-datasource-apollo</artifactId>-->
+            <!--<version>1.6.2</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-annotation-aspectj</artifactId>
             <version>1.6.2</version>
-        </dependency>
-
-        <!--druid数据源-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
         </dependency>
 
         <!--mysql驱动-->
