@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MyCacheUser {
 
-    private final MyCacheBean myCacheBean;
+    private final IValue myCacheBean;
 
 
-    public MyCacheUser(MyCacheBean myCacheBean) {
+    public MyCacheUser(IValue myCacheBean) {
         this.myCacheBean = myCacheBean;
     }
 

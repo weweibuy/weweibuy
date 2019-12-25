@@ -14,19 +14,18 @@ public class MyFactoryBean implements FactoryBean<Object> {
 
     @Override
     public Object getObject() throws Exception {
-        Class<?>[] cArr = {IValue.class};
-        Object o = Proxy.newProxyInstance(MyCacheBean.class.getClassLoader(), cArr, (a, b, c) -> {
-            if (s != null) {
-                return b.invoke(c);
-            } else {
-                return s;
+        Object o = Proxy.newProxyInstance(IValue.class.getClassLoader(), new Class[]{IValue.class}, (a, b, c) -> {
+            if (s == null) {
+                s = new MyCacheBean().getValue();
             }
+            return s;
+
         });
         return o;
     }
 
     @Override
     public Class<?> getObjectType() {
-        return MyCacheBean.class;
+        return IValue.class;
     }
 }
