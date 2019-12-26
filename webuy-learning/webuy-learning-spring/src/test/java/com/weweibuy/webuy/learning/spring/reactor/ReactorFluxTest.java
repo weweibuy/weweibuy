@@ -560,7 +560,6 @@ public class ReactorFluxTest {
     }
 
 
-
     @Test
     public void test24() throws InterruptedException {
         EmitterProcessor<HystrixEvent1> processor = EmitterProcessor.<HystrixEvent1>create();
@@ -738,5 +737,18 @@ public class ReactorFluxTest {
                 .subscribe();
     }
 
+
+    @Test
+    public void test31() {
+        List<String> stringList = Stream.iterate(0, n -> n + 1)
+                .limit(10)
+                .map(i -> i + "")
+                .collect(Collectors.toList());
+
+        Flux.fromIterable(stringList)
+                .doOnNext(log::info)
+                .map(i -> i + " A")
+                .subscribe(log::error);
+    }
 
 }

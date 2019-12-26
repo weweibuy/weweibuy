@@ -6,14 +6,15 @@ spring:
   application:
     name: learning-mq-producer
   rabbitmq:
-    host: 106.12.95.245
+    host: 122.51.171.126
     port: 5672
     username: user01
     password: ak402507979
-    virtual-host: /learning
+    virtual-host: /message
     connection-timeout: 15000
     listener:    #监听数量
       simple:
+        default-requeue-rejected: false  #重试次数超过上面的设置之后是否丢弃（false不丢弃时需要写相应代码将该消息加入死信队列）
         concurrency: 1    #最小监听数
         max-concurrency: 10  #最大监听数
         acknowledge-mode: MANUAL  #手动应答
@@ -21,17 +22,21 @@ spring:
           max-attempts: 3   #最大重试次数
           enabled: true  #是否开启消费者重试（为false时关闭消费者重试，这时消费端代码异常会一直重复收到消息）
           initial-interval: 2000  #重试间隔时间（单位毫秒
-        default-requeue-rejected: false  #重试次数超过上面的设置之后是否丢弃（false不丢弃时需要写相应代码将该消息加入死信队列）
         prefetch: 1   #一次可以消费的消息,可用于限流
       direct:
         acknowledge-mode: MANUAL
+
+rocketmq:
+  name-server: 122.51.171.126:9876
+  producer:
+    group:  my-producer-group
 
 
 eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://admin:ak402507979@106.12.95.245:7001/eureka
+      defaultZone: http://admin:ak402507979@122.51.171.126:7001/eureka
   instance:
     instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
     prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置

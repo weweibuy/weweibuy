@@ -15,7 +15,7 @@ public class RocketMqTest {
 
     private static final String NAME_SERVER = "122.51.171.126:9876";
 
-    private static final String TOPIC = "test_producer_topic";
+    private static final String TOPIC = "TEST_SAMPLE_01";
 
     private String producerGroup1 = "test_producer_group1";
 
@@ -31,7 +31,7 @@ public class RocketMqTest {
     public void bf() throws Exception {
         consumerG1 = new DefaultMQPushConsumer(producerGroup1);
         consumerG1.setNamesrvAddr(NAME_SERVER);
-        consumerG1.subscribe(TOPIC, "dev");
+        consumerG1.subscribe(TOPIC, "*");
 
         consumerG2 = new DefaultMQPushConsumer(producerGroup2);
         consumerG2.setNamesrvAddr(NAME_SERVER);

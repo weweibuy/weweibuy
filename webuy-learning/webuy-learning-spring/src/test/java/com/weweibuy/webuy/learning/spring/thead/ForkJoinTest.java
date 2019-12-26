@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Spliterator;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,11 +35,12 @@ public class ForkJoinTest {
         Spliterator<Integer> spliterator = collect.spliterator();
 
         long l = System.currentTimeMillis();
+        Integer invoke = FORK_JOIN_POOL.invoke(new CountTask(spliterator));
 
-        ForkJoinTask<Integer> submit = FORK_JOIN_POOL.submit(new CountTask(spliterator));
-        ForkJoinTask<List<String>> submit1 = FORK_JOIN_POOL.submit(new StringTask(collect.spliterator()));
-        System.err.println(submit.get());
-        System.err.println(submit1.get().size());
+//        ForkJoinTask<Integer> submit = FORK_JOIN_POOL.submit(new CountTask(spliterator));
+//        ForkJoinTask<List<String>> submit1 = FORK_JOIN_POOL.submit(new StringTask(collect.spliterator()));
+//        System.err.println(submit.get());
+//        System.err.println(submit1.get().size());
         log.info("用时: {}", System.currentTimeMillis() - l);
 
     }
