@@ -64,7 +64,7 @@ public class CommonJsonResponse<T> implements Serializable {
     }
 
     public static<T> CommonJsonResponse success(T data){
-        return new CommonJsonResponse<T>(CommonStatus.SUCCESS.toString(), null, null, data);
+        return new CommonJsonResponse<>(CommonStatus.SUCCESS.toString(), null, null, data);
     }
 
 }
