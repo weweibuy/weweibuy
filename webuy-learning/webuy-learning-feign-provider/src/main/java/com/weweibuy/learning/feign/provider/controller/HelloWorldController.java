@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloWorldController {
 
     @GetMapping("/hello")
-    public CommonJsonResponse<String> hello() {
-        return CommonJsonResponse.success("hello!");
+    public CommonJsonResponse<String> hello() throws InterruptedException {
+        Thread.sleep(200);
+        return CommonJsonResponse.success("hello i am provider");
     }
 
 
