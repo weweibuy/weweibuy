@@ -28,6 +28,7 @@ public class RocketMqTest {
     public void bf() throws Exception {
         producer = new DefaultMQProducer(producerGroup);
         producer.setNamesrvAddr(NAME_SERVER);
+        producer.setProducerGroup("12");
         producer.start();
         int clientCallbackExecutorThreads = producer.getClientCallbackExecutorThreads();
         System.err.println(clientCallbackExecutorThreads);
@@ -47,7 +48,14 @@ public class RocketMqTest {
                             msg = new Message(TOPIC, "dev",
                                     ("Hello RocketMQ for dev " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
                         }
-                        SendResult send = producer.send(msg);
+
+//                        msg.setBuyerId();
+//                        msg.setTags();
+//                        msg.setKeys();
+//                        msg.setFlag();
+//                        msg.setWaitStoreMsgOK();
+//                        producer.send();
+                        SendResult send = producer.send(msg, 1);
                         String msgId = send.getMsgId();
                         int queueId = send.getMessageQueue().getQueueId();
                         log.info("发送消息 messageId: {} 成功; 队列: {}", msgId, queueId);

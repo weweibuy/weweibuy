@@ -24,6 +24,8 @@ public class RocketSampleProducer {
 
     public void send(String topic, String msg){
         rocketMQTemplate.convertAndSend(topic, msg);
+//        rocketMQTemplate.send();
+//        rocketMQTemplate.sendOneWayOrderly();
     }
 
 }
