@@ -71,7 +71,7 @@
         <spring-cloud-hystrix-dashboard.version>1.4.6.RELEASE</spring-cloud-hystrix-dashboard.version>
         <apollo.vsersion>1.3.0</apollo.vsersion>
         <rxjava.version>2.2.4</rxjava.version>
-        <zk-client.vserion>3.4.5</zk-client.vserion>
+        <zk-client.vserion>3.4.14</zk-client.vserion>
         <guava.version>26.0-jre</guava.version>
         <sharding-jdbc.version>3.0.0.M4</sharding-jdbc.version>
     </properties>
