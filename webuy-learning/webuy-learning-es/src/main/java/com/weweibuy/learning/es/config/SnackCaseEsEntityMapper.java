@@ -33,4 +33,6 @@ public class SnackCaseEsEntityMapper implements EntityMapper {
     public <T> T mapToObject(String source, Class<T> clazz) throws IOException {
         return objectMapper.readValue(source, clazz);
     }
+
+
 }

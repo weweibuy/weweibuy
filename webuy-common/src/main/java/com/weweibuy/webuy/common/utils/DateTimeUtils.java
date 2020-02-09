@@ -36,6 +36,10 @@ public class DateTimeUtils {
         return simpleDateFormat.format(date);
     }
 
+    public static String toDateFormat(LocalDateTime date) {
+        return date.format(dateTimeFormatter);
+    }
+
     public static LocalDateTime dateToLocalDateTime(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
@@ -49,9 +53,9 @@ public class DateTimeUtils {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public static long localDateTimeToTimestamp(LocalDateTime localDateTime){
-            long timestamp = localDateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
-            return timestamp;
+    public static long localDateTimeToTimestamp(LocalDateTime localDateTime) {
+        long timestamp = localDateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
+        return timestamp;
     }
 
 }

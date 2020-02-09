@@ -24,6 +24,7 @@
         <module>webuy-learning-data-sync</module>
         <module>webuy-learning-feign-provider</module>
         <module>webuy-learning-feign-consume</module>
+        <module>webuy-learning-es-rest</module>
     </modules>
     <artifactId>webuy-learning</artifactId>
 

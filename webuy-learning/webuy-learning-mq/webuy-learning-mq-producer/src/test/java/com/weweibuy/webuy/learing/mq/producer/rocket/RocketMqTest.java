@@ -26,12 +26,10 @@ public class RocketMqTest {
 
     @Before
     public void bf() throws Exception {
-        producer = new DefaultMQProducer(producerGroup);
+        producer = new DefaultMQProducer();
         producer.setNamesrvAddr(NAME_SERVER);
-        producer.setProducerGroup("12");
+        producer.setProducerGroup(producerGroup);
         producer.start();
-        int clientCallbackExecutorThreads = producer.getClientCallbackExecutorThreads();
-        System.err.println(clientCallbackExecutorThreads);
     }
 
     @Test
@@ -42,10 +40,10 @@ public class RocketMqTest {
                     Message msg = null;
                     try {
                         if (i % 2 == 0) {
-                            msg = new Message(TOPIC, "test",
+                            msg = new Message(TOPIC,
                                     ("Hello RocketMQ for test " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
                         } else {
-                            msg = new Message(TOPIC, "dev",
+                            msg = new Message(TOPIC,
                                     ("Hello RocketMQ for dev " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
                         }
 
@@ -55,12 +53,13 @@ public class RocketMqTest {
 //                        msg.setFlag();
 //                        msg.setWaitStoreMsgOK();
 //                        producer.send();
-                        SendResult send = producer.send(msg, 1);
+                        SendResult send = producer.send(msg, 3000);
                         String msgId = send.getMsgId();
                         int queueId = send.getMessageQueue().getQueueId();
                         log.info("发送消息 messageId: {} 成功; 队列: {}", msgId, queueId);
                         log.info("{}", send);
                     } catch (Exception e) {
+                        log.error("异常",e);
                     }
 
                 });
