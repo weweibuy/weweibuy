@@ -9,30 +9,6 @@ server:
     session:
       timeout: 600
 
-spring:
-   datasource:
-     type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
-     driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
-     url: jdbc:mysql://106.12.15.87:3306/webuy_auth?useUnicode=true&characterEncoding=UTF-8             # 数据库名称
-     username: user01
-     password: ak402507979
-     initialSize: 5
-     minIdle: 5
-     maxActive: 20
-     maxWait: 60000
-     poolPreparedStatements: true           # 打开PSCache，并且指定每个连接上PSCache的大小
-     maxPoolPreparedStatementPerConnectionSize: 20
-     filters: stat,wall,logback    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
-   security:
-     user:
-       name: admin
-       password: ak402507979
-   redis:
-     timeout: 5000 # 连接超时时间（毫秒）
-     host: 122.51.171.126  #Redis服务器地址
-     port: 6379 # Redis服务器连接端口
-     password: ak402507979 # Redis服务器连接密码（默认为空）
 
 security:
    oauth2:

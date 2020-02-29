@@ -36,6 +36,12 @@
                     <!--<groupId>org.springframework.security.oauth</groupId>-->
                 <!--</exclusion>-->
             <!--</exclusions>-->
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-actuator-autoconfigure</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--<dependency>-->
@@ -50,11 +56,6 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
-        <!--druid数据源-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>
 
         <!--mysql驱动-->
         <dependency>
