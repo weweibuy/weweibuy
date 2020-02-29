@@ -1,8 +1,7 @@
 package com.weweibuy.webuy.gateway.spring.security;
 
-import com.alibaba.fastjson.JSON;
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
-import com.weweibuy.webuy.common.eum.CommonWebMsg;
+import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -29,7 +28,7 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
     @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {
-           return action(exchange, chain);
+            return action(exchange, chain);
         };
     }
 
@@ -38,11 +37,11 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
         return action(exchange, chain);
     }
 
-    public Mono<Void> action(ServerWebExchange exchange, GatewayFilterChain chain){
+    public Mono<Void> action(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         HttpHeaders headers = request.getHeaders();
         log.error("进入 AuthenticationFilter, path:{}", request.getPath());
-        if(!headers.containsKey("Authorization")){
+        if (!headers.containsKey("Authorization")) {
             log.error("权限不足");
             return write403Response(exchange);
         }
@@ -55,11 +54,12 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
         return 1;
     }
 
-    private Mono<Void> write403Response(ServerWebExchange exchange){
+    private Mono<Void> write403Response(ServerWebExchange exchange) {
         ServerHttpResponse response = exchange.getResponse();
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         response.setStatusCode(HttpStatus.FORBIDDEN);
-        return response.writeWith(Flux.just(response.bufferFactory().wrap(JSON.toJSONBytes(CommonJsonResponse.fail(CommonWebMsg.FORBIDDEN)))));
+        return response.writeWith(Flux.just(response.bufferFactory()
+                .wrap(JackJsonUtils.writeAsByte(CommonCodeJsonResponse.forbidden()))));
     }
 
 }

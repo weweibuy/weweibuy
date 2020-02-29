@@ -1,7 +1,5 @@
 package com.weweibuy.webuy.learning.event.event.processor;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.parser.ParserConfig;
 import com.weweibuy.webuy.learning.event.event.context.EventContext;
 import com.weweibuy.webuy.learning.event.event.model.BizEventVo;
 import com.weweibuy.webuy.learning.event.event.trigger.TriggerType;
@@ -19,11 +17,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationEventPushEventProcessor extends AbstractLinkedEventProcessor<BizEventVo> {
 
-    private final static ParserConfig defaultRedisConfig = new ParserConfig();
-
-    static {
-        defaultRedisConfig.setAutoTypeSupport(true);
-    }
+//    private final static ParserConfig defaultRedisConfig = new ParserConfig();
+//
+//    static {
+//        defaultRedisConfig.setAutoTypeSupport(true);
+//    }
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -40,7 +38,8 @@ public class ApplicationEventPushEventProcessor extends AbstractLinkedEventProce
                 break;
             default:
                 if (StringUtils.isNotBlank(param.getEventBody())) {
-                    Object parse = JSON.parse(param.getEventBody(), defaultRedisConfig);
+//                    Object parse = JSON.parse(param.getEventBody(), defaultRedisConfig);
+                    Object parse = new Object();
                     applicationContext.publishEvent(parse);
                 }
         }

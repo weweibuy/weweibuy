@@ -3,7 +3,6 @@ package com.weweibuy.webuy.auth;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -18,7 +17,6 @@ import org.springframework.social.config.annotation.EnableSocial;
  * @Date 2018/12/15 10:41
  **/
 @SpringBootApplication
-@EnableEurekaClient
 @EnableDiscoveryClient
 @EnableAuthorizationServer
 @EnableFeignClients(basePackages = "com.weweibuy.user.client") // 这里需要指定basePackages否则找不到bean

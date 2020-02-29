@@ -1,5 +1,7 @@
 package com.weweibuy.webuy.common.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 
 /**
@@ -8,6 +10,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  * @Author durenhao
  * @Date 2019/1/19 22:18
  **/
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CodeUtils {
 
     public static String getSmsCode(Integer length){

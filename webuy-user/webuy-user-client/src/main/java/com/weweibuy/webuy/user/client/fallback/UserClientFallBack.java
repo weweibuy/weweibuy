@@ -1,8 +1,7 @@
 package com.weweibuy.webuy.user.client.fallback;
 
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.user.client.UserClient;
-import com.weweibuy.webuy.user.common.eum.UserWebMsgEum;
-import com.weweibuy.webuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +24,8 @@ public class UserClientFallBack implements FallbackFactory<UserClient> {
         log.error(throwable.getMessage());
         return new UserClient() {
             @Override
-            public UserWebResult<WebuyUser> loadUserByUsername(String username) {
-                return UserWebResult.fail(UserWebMsgEum.UNKNOWN_WRONG);
+            public CommonDataJsonResponse<WebuyUser> loadUserByUsername(String username) {
+                return null;
             }
         };
     }

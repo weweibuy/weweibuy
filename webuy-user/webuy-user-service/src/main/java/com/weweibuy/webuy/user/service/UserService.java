@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.user.service;
 
-import com.weweibuy.webuy.user.common.model.dto.UserWebResult;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import com.weweibuy.webuy.user.common.model.po.WebuyUserExample;
 import com.weweibuy.webuy.user.model.form.RegisterForm;
@@ -14,11 +14,11 @@ import com.weweibuy.webuy.user.service.base.BaseCrudService;
  **/
 public interface UserService extends BaseCrudService<WebuyUser, WebuyUserExample>{
 
-    UserWebResult sendVerificationCode(String phoneNum);
+    CommonDataJsonResponse sendVerificationCode(String phoneNum);
 
-    UserWebResult registerUser(RegisterForm registerForm);
+    CommonDataJsonResponse registerUser(RegisterForm registerForm);
 
-    UserWebResult checkAccountExist(String phoneNum);
+    CommonDataJsonResponse checkAccountExist(String phoneNum);
 
-    UserWebResult loadUserByUsername(String username) throws Exception;
+    CommonDataJsonResponse loadUserByUsername(String username) throws Exception;
 }

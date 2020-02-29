@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.spring.controller;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.learning.spring.exception.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class ExceptionController {
         if (true) {
             throw new ClientException("业务处理出错了");
         }
-        return ResponseEntity.ok(CommonJsonResponse.success());
+        return ResponseEntity.ok(CommonDataJsonResponse.success());
     }
 
 
@@ -29,7 +29,7 @@ public class ExceptionController {
     public ResponseEntity test02() throws InterruptedException {
         Thread.sleep(100);
         log.info("处理业务");
-        return ResponseEntity.ok(CommonJsonResponse.success());
+        return ResponseEntity.ok(CommonDataJsonResponse.success());
     }
 
 

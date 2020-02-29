@@ -16,18 +16,12 @@
         <module>webuy-gateway</module>
         <module>webuy-backstage</module>
         <module>webuy-search</module>
-        <module>webuy-bus</module>
         <module>webuy-message</module>
-        <module>webuy-order</module>
         <module>webuy-task</module>
         <module>webuy-admin</module>
-        <module>webuy-product</module>
-        <module>webuy-inventory</module>
-        <module>webuy-pay</module>
         <module>webuy-auth</module>
         <module>webuy-user</module>
         <module>webuy-support</module>
-        <module>webuy-sleuth</module>
         <module>webuy-learning</module>
         <module>uid-generator</module>
     </modules>

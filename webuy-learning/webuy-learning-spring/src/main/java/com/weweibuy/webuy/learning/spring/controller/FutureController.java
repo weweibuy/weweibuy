@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.spring.controller;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
 import com.weweibuy.webuy.learning.spring.async.AsyncService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class FutureController {
                    } catch (InterruptedException e) {
                        e.printStackTrace();
                    }
-                   deferredResult.setResult(ResponseEntity.ok(CommonJsonResponse.success()));
+                   deferredResult.setResult(ResponseEntity.ok(CommonCodeJsonResponse.success()));
                });
         return deferredResult;
     }

@@ -1,6 +1,6 @@
 package com.weweibuy.learning.feign.provider.controller;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.*;
 public class HelloWorldController {
 
     @GetMapping("/hello")
-    public CommonJsonResponse<String> helloGet() {
-        return CommonJsonResponse.success("hello i am provider get method");
+    public CommonDataJsonResponse<String> helloGet() {
+        return CommonDataJsonResponse.success("hello i am provider get method");
     }
 
 
     @PostMapping("/hello")
-    public CommonJsonResponse<String> helloPost(@RequestBody CommonJsonResponse<String> commonJsonResponse,
+    public CommonDataJsonResponse<String> helloPost(@RequestBody CommonDataJsonResponse<String> commonJsonResponse,
                                                 @RequestHeader(value = "token") String token,
                                                 String sign) {
         log.info("date : {}", commonJsonResponse.getData());
         log.info("token : {}", token);
         log.info("sign : {}", sign);
-        return CommonJsonResponse.success("hello i am provider post method");
+        return CommonDataJsonResponse.success("hello i am provider post method");
     }
 
 

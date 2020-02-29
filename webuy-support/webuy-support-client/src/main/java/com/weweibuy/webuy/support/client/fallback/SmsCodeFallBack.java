@@ -1,6 +1,7 @@
 package com.weweibuy.webuy.support.client.fallback;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.webuy.common.model.eum.CommonResponseEum;
 import com.weweibuy.webuy.support.client.SmsCodeClient;
 import feign.Response;
 import feign.hystrix.FallbackFactory;
@@ -25,8 +26,9 @@ public class SmsCodeFallBack implements FallbackFactory<SmsCodeClient> {
         return new SmsCodeClient() {
 
             @Override
-            public ResponseEntity<CommonJsonResponse> getSmsCode(String mobile, String token) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new CommonJsonResponse<String>("FALL", 0, "cuowu", null));
+            public ResponseEntity<CommonDataJsonResponse<String>> getSmsCode(String mobile, String token) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(CommonDataJsonResponse.response(CommonResponseEum.UNAUTHORIZED, null));
             }
 
             @Override

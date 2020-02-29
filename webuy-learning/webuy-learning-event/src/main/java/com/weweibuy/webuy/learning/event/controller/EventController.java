@@ -18,11 +18,11 @@ public class EventController {
     @GetMapping("/add")
     public String addNewEvent(){
         AddTestBillEvent addTestBillEvent = new AddTestBillEvent();
-        addTestBillEvent.setBillNo("billNo_" + IdWorker.getNextId());
+        addTestBillEvent.setBillNo("billNo_" + IdWorker.nextStringId());
         addTestBillEvent.setBillType("receive");
         addTestBillEvent.setWhType("WH1111");
         addTestBillEvent.setBizType("B2B");
-        BizEventHelper.save("test_" + IdWorker.getNextId(), addTestBillEvent, EventTypeEum.TEST_EVENT);
+        BizEventHelper.save("test_" + IdWorker.nextStringId(), addTestBillEvent, EventTypeEum.TEST_EVENT);
         return "success";
     }
 

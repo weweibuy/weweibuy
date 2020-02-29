@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.gateway.spring.routes.dynamic;
 
-import com.alibaba.fastjson.JSON;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import com.weweibuy.webuy.gateway.spring.constant.GatewayRouteConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -29,7 +29,7 @@ public class RedisStoreDynamicRoutes implements RouteDefinitionRepository {
 
 
         redisTemplate.opsForHash().values(GatewayRouteConstant.GATEWAY_ROUTES).stream()
-                .forEach(routeDefinition -> routeDefinitions.add(JSON.parseObject(routeDefinition.toString(), RouteDefinition.class)));
+                .forEach(routeDefinition -> routeDefinitions.add(JackJsonUtils.readValue(routeDefinition.toString(), RouteDefinition.class)));
 
         return Flux.fromIterable(routeDefinitions);
     }
@@ -37,7 +37,7 @@ public class RedisStoreDynamicRoutes implements RouteDefinitionRepository {
     @Override
     public Mono<Void> save(Mono<RouteDefinition> route) {
         return route.flatMap(r -> {
-            redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, r.getId(), JSON.toJSONString(r));
+            redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, r.getId(), JackJsonUtils.write(r));
             return Mono.empty();
         });
     }

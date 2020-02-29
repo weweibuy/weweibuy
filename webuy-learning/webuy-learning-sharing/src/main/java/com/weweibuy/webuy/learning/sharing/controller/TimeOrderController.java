@@ -1,6 +1,7 @@
 package com.weweibuy.webuy.learning.sharing.controller;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.learning.sharing.model.vo.IdOffsetQueryVo;
 import com.weweibuy.webuy.learning.sharing.model.vo.PageQueryVo;
 import com.weweibuy.webuy.learning.sharing.service.TimeOrderService;
@@ -37,23 +38,23 @@ public class TimeOrderController {
 
 
     @GetMapping("/sharing/page-get")
-    public CommonJsonResponse getHeader(PageQueryVo vo){
-        return CommonJsonResponse.success(timeOrderService.getHeaders(vo));
+    public CommonCodeJsonResponse getHeader(PageQueryVo vo){
+        return CommonDataJsonResponse.success(timeOrderService.getHeaders(vo));
     }
 
     @GetMapping("/sharing/page-get/id-offset")
-    public CommonJsonResponse getHeaderIdOffset(IdOffsetQueryVo vo){
-        return CommonJsonResponse.success(timeOrderService.getHeadersWithId(vo));
+    public CommonCodeJsonResponse getHeaderIdOffset(IdOffsetQueryVo vo){
+        return CommonDataJsonResponse.success(timeOrderService.getHeadersWithId(vo));
     }
 
     @GetMapping("/sharing/no-sharing-page-get")
-    public CommonJsonResponse getNoSharingHeader(PageQueryVo vo){
-        return CommonJsonResponse.success(timeOrderService.noSharingPageQuery(vo));
+    public CommonCodeJsonResponse getNoSharingHeader(PageQueryVo vo){
+        return CommonDataJsonResponse.success(timeOrderService.noSharingPageQuery(vo));
     }
 
     @GetMapping("/sharing/details")
-    public CommonJsonResponse selectDetail(String no){
-        return CommonJsonResponse.success(timeOrderService.getDetailByOrderNo(no));
+    public CommonCodeJsonResponse selectDetail(String no){
+        return CommonDataJsonResponse.success(timeOrderService.getDetailByOrderNo(no));
     }
 
 }

@@ -1,7 +1,6 @@
 package com.weweibuy.webuy.gateway.spring.controller;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
-import com.weweibuy.webuy.common.eum.CommonWebMsg;
+import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +15,8 @@ import reactor.core.publisher.Mono;
 public class GatewayFallbackController {
 
     @RequestMapping("/default-fallback")
-    public Mono<ResponseEntity<CommonJsonResponse>> fallback() {
-        return Mono.just(ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(CommonJsonResponse.fail(CommonWebMsg.FALL_BACK)));
+    public Mono<ResponseEntity<CommonCodeJsonResponse>> fallback() {
+        return Mono.just(ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(CommonCodeJsonResponse.unknownException()));
     }
 
 }

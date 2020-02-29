@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.learing.mq.consumer.amqp;
 
 import com.rabbitmq.client.Channel;
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -21,7 +21,7 @@ public class SimpleConsumer {
 
     @RabbitListener(queues = "test_queue_01")
     @RabbitHandler
-    public void onMessage(@Payload CommonJsonResponse<String> msg, @Header(AmqpHeaders.DELIVERY_TAG) Long deliveryTag, Channel channel) throws Exception {
+    public void onMessage(@Payload CommonDataJsonResponse<String> msg, @Header(AmqpHeaders.DELIVERY_TAG) Long deliveryTag, Channel channel) throws Exception {
         log.info("msg 是: {}", msg.getData());
         channel.basicAck(deliveryTag, false);
     }

@@ -1,8 +1,8 @@
 package com.weweibuy.webuy.user.client;
 
-import com.weweibuy.webuy.user.common.model.dto.UserWebResult;
-import com.weweibuy.webuy.user.common.model.po.WebuyUser;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.user.client.fallback.UserClientFallBack;
+import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,5 +18,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserClient {
 
     @RequestMapping(value = "/loadUserByUsername", method = RequestMethod.GET )
-    public UserWebResult<WebuyUser> loadUserByUsername(@RequestParam(value = "username") String username);
+    public CommonDataJsonResponse<WebuyUser> loadUserByUsername(@RequestParam(value = "username") String username);
 }

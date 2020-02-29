@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.user.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import com.weweibuy.webuy.user.common.model.vo.PhoneVerifyCodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -30,18 +30,19 @@ public class VerificationCodeUtil {
     private static final Long SEND_SPACE = 45000L;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         redisTemplate = StringRedisTemplate;
     }
 
     /**
      * 发送手机验证码，过期时间10分钟
+     *
      * @param phoneNum
      * @return
      */
-    public static boolean sendVerificationCode(String phoneNum){
+    public static boolean sendVerificationCode(String phoneNum) {
         redisTemplate.opsForValue().set(VERIFICATION_CODE_PREFIX + phoneNum,
-                JSONObject.toJSONString(new PhoneVerifyCodeVo(CodeUtil.getPhoneVerificationCode(),
+                JackJsonUtils.write(new PhoneVerifyCodeVo(CodeUtil.getPhoneVerificationCode(),
                         System.currentTimeMillis())), VERIFICATION_CODE_EXPIRE_TIME, TimeUnit.SECONDS);
         // TODO 发送验证码
         return true;
@@ -49,39 +50,42 @@ public class VerificationCodeUtil {
 
     /**
      * 获取验证码
+     *
      * @param phoneNum
      * @return 不存在返回null;
      */
-    public static String getVerificationCode(String phoneNum){
+    public static String getVerificationCode(String phoneNum) {
         String json = redisTemplate.opsForValue().get(VERIFICATION_CODE_PREFIX + phoneNum);
-        if(json == null){
+        if (json == null) {
             return null;
         }
-        return (JSONObject.parseObject(json, PhoneVerifyCodeVo.class).getCode()+"").trim();
+        return (JackJsonUtils.readValue(json, PhoneVerifyCodeVo.class).getCode() + "").trim();
     }
 
     /**
      * 是否可以发送验证码，没45s发送一次
+     *
      * @param phoneNum
      * @return
      */
-    public static boolean canSendPhoneVerifyCode(String phoneNum){
-       String json = redisTemplate.opsForValue().get(VERIFICATION_CODE_PREFIX + phoneNum);
-       if(json == null || System.currentTimeMillis() - JSONObject.parseObject(json, PhoneVerifyCodeVo.class).getTimeStamp() > SEND_SPACE){
-           return true;
-       }
-       return false;
+    public static boolean canSendPhoneVerifyCode(String phoneNum) {
+        String json = redisTemplate.opsForValue().get(VERIFICATION_CODE_PREFIX + phoneNum);
+        if (json == null || System.currentTimeMillis() - JackJsonUtils.readValue(json, PhoneVerifyCodeVo.class).getTimeStamp() > SEND_SPACE) {
+            return true;
+        }
+        return false;
     }
 
 
     /**
      * 获取手机验证码对象
+     *
      * @param phoneNum
      * @return
      */
-    public static PhoneVerifyCodeVo getPhoneVerifyCodeVo(String phoneNum){
+    public static PhoneVerifyCodeVo getPhoneVerifyCodeVo(String phoneNum) {
         String json = redisTemplate.opsForValue().get(VERIFICATION_CODE_PREFIX + phoneNum);
-        return JSONObject.parseObject(json, PhoneVerifyCodeVo.class);
+        return JackJsonUtils.readValue(json, PhoneVerifyCodeVo.class);
     }
 
 }

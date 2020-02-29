@@ -1,13 +1,16 @@
 package com.weweibuy.webuy.message.client;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.message.client.fallback.MessageClientFallBack;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
 import com.weweibuy.webuy.message.common.model.vo.ConfirmMessageVo;
 import com.weweibuy.webuy.message.common.model.vo.PreSaveMessageVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -22,7 +25,7 @@ public interface MessageClient {
 
 
     @RequestMapping(value = "/pre-save", method = RequestMethod.POST)
-    public CommonJsonResponse<MessageDto> saveMessage(@RequestBody PreSaveMessageVo message, BindingResult result);
+    public CommonDataJsonResponse<MessageDto> saveMessage(@RequestBody PreSaveMessageVo message, BindingResult result);
 
 
     /**
@@ -32,7 +35,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/send-message", method = RequestMethod.PUT)
-    public CommonJsonResponse<MessageDto> sendMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataJsonResponse<MessageDto> sendMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 
     /**
@@ -42,7 +45,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/re-send-message", method = RequestMethod.PUT)
-    public CommonJsonResponse<MessageDto> reSendMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataJsonResponse<MessageDto> reSendMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 
     /**
@@ -52,7 +55,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public CommonJsonResponse deleteBizFailMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataJsonResponse deleteBizFailMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 
     /**
@@ -62,7 +65,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/confirm-message", method = RequestMethod.DELETE)
-    public CommonJsonResponse<MessageDto> confirmMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataJsonResponse<MessageDto> confirmMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 
     /**
@@ -73,7 +76,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/{id}/{correlationId}", method = RequestMethod.GET)
-    public CommonJsonResponse<MessageDto> getMessageByDeliverTag(@PathVariable Long id, @PathVariable String correlationId);
+    public CommonDataJsonResponse<MessageDto> getMessageByDeliverTag(@PathVariable Long id, @PathVariable String correlationId);
 
 
     /**
@@ -84,7 +87,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/page/{page}/row/{row}", method = RequestMethod.GET)
-    public CommonJsonResponse<List<MessageDto>> getMessages(@PathVariable Integer page, @PathVariable Integer row);
+    public CommonDataJsonResponse<List<MessageDto>> getMessages(@PathVariable Integer page, @PathVariable Integer row);
 
     /**
      * 分页获取认定为死亡的消息（重发次数达到一定的值）
@@ -92,7 +95,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/dead/page/{page}/row/{row}", method = RequestMethod.GET)
-    public CommonJsonResponse<MessageDto> getDeadMessage(@PathVariable Integer page, @PathVariable Integer row);
+    public CommonDataJsonResponse<MessageDto> getDeadMessage(@PathVariable Integer page, @PathVariable Integer row);
 
     /**
      * 重发死亡的消息
@@ -100,6 +103,6 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/dead/send", method = RequestMethod.PUT)
-    public CommonJsonResponse reSendDeadMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataJsonResponse reSendDeadMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 }

@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.message.client.fallback;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
-import com.weweibuy.webuy.common.eum.CommonWebMsg;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.webuy.common.model.eum.CommonResponseEum;
 import com.weweibuy.webuy.message.client.MessageClient;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
 import com.weweibuy.webuy.message.common.model.vo.ConfirmMessageVo;
@@ -27,48 +27,56 @@ public class MessageClientFallBack implements FallbackFactory<MessageClient> {
     public MessageClient create(Throwable throwable) {
         return new MessageClient() {
             @Override
-            public CommonJsonResponse<MessageDto> saveMessage(PreSaveMessageVo message, BindingResult result) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse<MessageDto> saveMessage(PreSaveMessageVo message, BindingResult result) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+
             }
 
             @Override
-            public CommonJsonResponse<MessageDto> sendMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse<MessageDto> sendMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+
             }
 
             @Override
-            public CommonJsonResponse<MessageDto> reSendMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse<MessageDto> reSendMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+
             }
 
             @Override
-            public CommonJsonResponse deleteBizFailMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse deleteBizFailMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+
             }
 
             @Override
-            public CommonJsonResponse<MessageDto> confirmMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse<MessageDto> confirmMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+
             }
 
             @Override
-            public CommonJsonResponse<MessageDto> getMessageByDeliverTag(Long id, String correlationId) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse<MessageDto> getMessageByDeliverTag(Long id, String correlationId) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+
             }
 
             @Override
-            public CommonJsonResponse<List<MessageDto>> getMessages(Integer page, Integer row) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse<List<MessageDto>> getMessages(Integer page, Integer row) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+
             }
 
             @Override
-            public CommonJsonResponse<MessageDto> getDeadMessage(Integer page, Integer row) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse<MessageDto> getDeadMessage(Integer page, Integer row) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+
             }
 
             @Override
-            public CommonJsonResponse reSendDeadMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonJsonResponse.fail(CommonWebMsg.FALL_BACK);
+            public CommonDataJsonResponse reSendDeadMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
             }
         };
     }

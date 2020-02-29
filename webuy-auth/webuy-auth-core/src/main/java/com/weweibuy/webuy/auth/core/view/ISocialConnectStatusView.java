@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.auth.core.view;
 
-import com.alibaba.fastjson.JSONObject;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import org.springframework.social.connect.Connection;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -32,6 +32,6 @@ public class ISocialConnectStatusView extends AbstractView {
             hashMap.put(key, CollectionUtils.isEmpty(connectionMap.get(key)));
         }
         httpServletResponse.setContentType("application/json;charset=UTF-8");
-        httpServletResponse.getWriter().write(JSONObject.toJSONString(hashMap));
+        httpServletResponse.getWriter().write(JackJsonUtils.write(hashMap));
     }
 }

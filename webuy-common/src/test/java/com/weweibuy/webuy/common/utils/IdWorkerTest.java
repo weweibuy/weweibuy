@@ -10,7 +10,7 @@ public class IdWorkerTest {
         int i = 3 << 3 | 23;
         System.err.println(i);
         System.err.println(3268 + 24);
-        long nextId = IdWorker.getNextId();
+        long nextId = IdWorker.nextId();
         System.err.println(nextId);
     }
 

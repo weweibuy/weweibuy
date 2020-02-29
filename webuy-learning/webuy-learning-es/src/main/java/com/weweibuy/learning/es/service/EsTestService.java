@@ -62,10 +62,10 @@ public class EsTestService implements InitializingBean {
 
     private void generateAndSink() {
         EsJitTimeOrderHeader header = new EsJitTimeOrderHeader();
-        long uid = IdWorker.getNextId();
+        long uid = IdWorker.nextId();
         header.setId(uid);
         log.info("id : {}", uid);
-        header.setTimeOrderNo(IdWorker.getNextStrId());
+        header.setTimeOrderNo(IdWorker.nextStringId());
         header.setWarehouseName(WAREHOUSE_NAME);
         header.setWarehouseCode(WAREHOUSE_CODE);
         header.setVendorCode(VENDOR_CODE);

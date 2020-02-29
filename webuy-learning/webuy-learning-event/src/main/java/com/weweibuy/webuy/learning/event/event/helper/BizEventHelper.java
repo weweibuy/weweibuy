@@ -1,8 +1,5 @@
 package com.weweibuy.webuy.learning.event.event.helper;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.weweibuy.webuy.common.utils.IdWorker;
 import com.weweibuy.webuy.learning.event.event.config.EventConfig;
 import com.weweibuy.webuy.learning.event.model.po.BizEvent;
 import com.weweibuy.webuy.learning.event.repsitory.BizEventRepository;
@@ -33,8 +30,8 @@ public class BizEventHelper {
         BizEvent bizEvent = new BizEvent();
         bizEvent.setEventType(eventConfig.getEventType());
         bizEvent.setBizNo(bizNo);
-        bizEvent.setEventBody(JSON.toJSONString(eventBody, SerializerFeature.WriteClassName));
-        bizEvent.setEventNo(IdWorker.getNextStrId());
+//        bizEvent.setEventBody(JSON.toJSONString(eventBody, SerializerFeature.WriteClassName));
+//        bizEvent.setEventNo(IdWorker.getNextStrId());
         bizEventRepository.insert(bizEvent);
     }
 

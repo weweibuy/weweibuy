@@ -5,7 +5,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.weweibuy.webuy.backstage.mapper.base.BaseMapper;
 import com.weweibuy.webuy.backstage.service.base.BaseService;
-import com.weweibuy.webuy.common.dto.CommonPageResult;
+import com.weweibuy.webuy.common.model.dto.CommonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -76,7 +76,7 @@ public class BaseServiceImpl<T, V> implements BaseService<T, V> {
         Page<Object> page1 = PageHelper.startPage(page, rows);
         List<T> list = selectByExample(null);
         CommonPageResult pageBean = new CommonPageResult();
-        pageBean.setRows(list);
+        pageBean.setList(list);
         pageBean.setTotal(page1.getTotal());
         return pageBean;
     }

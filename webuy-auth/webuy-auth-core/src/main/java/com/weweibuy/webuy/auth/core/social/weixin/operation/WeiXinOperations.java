@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.auth.core.social.weixin.operation;
 
-import com.alibaba.fastjson.JSONObject;
 import com.weweibuy.webuy.auth.core.model.vo.WeiXinTokenResponse;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
@@ -88,7 +88,7 @@ public class WeiXinOperations extends OAuth2Template {
             log.error("换取token失败, 响应的结果{}", result);
             throw new RestClientException("换取token失败");
         }
-        WeiXinTokenResponse tokenResponse = JSONObject.parseObject(result, WeiXinTokenResponse.class);
+        WeiXinTokenResponse tokenResponse = JackJsonUtils.readValue(result, WeiXinTokenResponse.class);
         return new WeiXinAccessGrant(tokenResponse.getAccess_token(), tokenResponse.getScope(), tokenResponse.getRefresh_token(),
                 tokenResponse.getExpires_in(), tokenResponse.getOpenid());
     }

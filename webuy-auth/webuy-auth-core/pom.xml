@@ -18,6 +18,13 @@
             <artifactId>webuy-common</artifactId>
         </dependency>
 
+        <!-- commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
         <!--oauth2-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

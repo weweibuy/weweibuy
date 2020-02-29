@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.gateway.spring.controller;
 
-import com.alibaba.fastjson.JSON;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import com.weweibuy.webuy.gateway.spring.constant.GatewayRouteConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
@@ -28,10 +28,11 @@ public class DynamicRoutesController {
 
     /**
      * 把路由信息放入redis, 接下来要做的就是操作redis,来跟改路由配置
+     *
      * @return
      */
     @RequestMapping("/add-route")
-    public String push(){
+    public String push() {
         RouteDefinition definition = new RouteDefinition();
         definition.setId("auth_0");
         definition.setUri(UriComponentsBuilder.fromUriString("lb://webuy-auth").build().toUri());
@@ -46,8 +47,6 @@ public class DynamicRoutesController {
         definition2.setId("auth_2");
         definition2.setUri(UriComponentsBuilder.fromUriString("lb://webuy-auth").build().toUri());
         definition2.setOrder(0);
-
-
 
 
         PredicateDefinition predicate = new PredicateDefinition();
@@ -108,9 +107,9 @@ public class DynamicRoutesController {
         definition.setFilters(Arrays.asList(filter, filter2, filter1));
         definition1.setFilters(Arrays.asList(filter, filter2));
         definition2.setFilters(Arrays.asList(filter, filter2));
-        redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_0", JSON.toJSONString(definition));
-        redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_1", JSON.toJSONString(definition1));
-        redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_2", JSON.toJSONString(definition2));
+        redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_0", JackJsonUtils.write(definition));
+        redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_1", JackJsonUtils.write(definition1));
+        redisTemplate.opsForHash().put(GatewayRouteConstant.GATEWAY_ROUTES, "auth_2", JackJsonUtils.write(definition2));
 
         return "success";
 

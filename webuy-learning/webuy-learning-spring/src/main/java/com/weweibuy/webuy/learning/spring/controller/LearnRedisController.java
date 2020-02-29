@@ -1,8 +1,7 @@
 package com.weweibuy.webuy.learning.spring.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
-import com.weweibuy.webuy.common.eum.CommonWebMsg;
+import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -24,15 +23,15 @@ public class LearnRedisController {
     private StringRedisTemplate redisTemplate;
 
     @RequestMapping("/add-hash")
-    private String addHash(){
-        redisTemplate.opsForHash().put("hk1", "k1", JSON.toJSONString(CommonJsonResponse.success()));
-        redisTemplate.opsForHash().put("hk1", "k2", JSON.toJSONString(CommonJsonResponse.fail(CommonWebMsg.FAIL)));
+    private String addHash() {
+        redisTemplate.opsForHash().put("hk1", "k1", JackJsonUtils.write(CommonCodeJsonResponse.success()));
+        redisTemplate.opsForHash().put("hk1", "k2", JackJsonUtils.write(CommonCodeJsonResponse.unknownException()));
 
         return "success";
     }
 
     @RequestMapping("/get-hash")
-    private Object getHash(){
+    private Object getHash() {
         HashOperations<String, Object, Object> forHash = redisTemplate.opsForHash();
         Map<Object, Object> hk1 = forHash.entries("hk1");
         List<Object> objects = forHash.values("hk1");

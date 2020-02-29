@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.user.service.impl;
 
-import com.weweibuy.webuy.user.common.eum.UserWebMsgEum;
-import com.weweibuy.webuy.user.common.model.dto.UserWebResult;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.webuy.common.model.eum.CommonResponseEum;
 import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import com.weweibuy.webuy.user.common.model.po.WebuyUserExample;
 import com.weweibuy.webuy.user.mapper.WebuyUserMapper;
@@ -36,7 +36,7 @@ public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExa
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public UserWebResult sendVerificationCode(String phoneNum) {
+    public CommonDataJsonResponse sendVerificationCode(String phoneNum) {
         Message message = MessageBuilder.withBody(phoneNum.getBytes())
                 .setCorrelationId("12134")
                 .build();
@@ -44,27 +44,27 @@ public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExa
         // convertSendAndReceive CorrelationId 是Spring AMQP 自动弄的自增
         // TODO  convertAndSend 与 convertSendAndReceive 区别！！！
         rabbitTemplate.convertAndSend("user_sms_code", "", message);
-        return UserWebResult.success();
+        return CommonDataJsonResponse.success(null);
     }
 
     @Override
     @Transactional
-    public UserWebResult registerUser(RegisterForm registerForm) {
+    public CommonDataJsonResponse registerUser(RegisterForm registerForm) {
         WebuyUser user = new WebuyUser();
         WebuyUserExample example = new WebuyUserExample();
         example.createCriteria().andUsernameEqualTo(registerForm.getUsername());
         List<WebuyUser> webuyUsers = userMapper.selectByExample(example);
         if(webuyUsers != null && webuyUsers.size() > 0){
-            return UserWebResult.fail(UserWebMsgEum.USER_EXIST);
+            return CommonDataJsonResponse.response(CommonResponseEum.BAD_REQUEST_PARAM, null);
         }
         user.setUsername(registerForm.getUsername());
         user.setPhone(registerForm.getPhone());
         user.setPassword(passwordEncoder.encode(registerForm.getPassword()));
         int i = userMapper.insertSelective(user);
         if(i > 0){
-            return UserWebResult.success();
+            return CommonDataJsonResponse.success(null);
         }
-        return UserWebResult.fail(UserWebMsgEum.DO_NOT_RESUBMIT);
+        return CommonDataJsonResponse.response(CommonResponseEum.BAD_REQUEST_PARAM, null);
     }
 
     /**
@@ -73,26 +73,26 @@ public class UserServiceImpl extends BaseCrudServiceImpl<WebuyUser, WebuyUserExa
      * @return
      */
     @Override
-    public UserWebResult checkAccountExist(String phoneNum) {
+    public CommonDataJsonResponse checkAccountExist(String phoneNum) {
         WebuyUserExample example = new WebuyUserExample();
         example.createCriteria().andPhoneEqualTo(phoneNum);
         List<WebuyUser> userList = userMapper.selectByExample(example);
         if(userList == null || userList.size() > 0){
-            return UserWebResult.fail();
+            return CommonDataJsonResponse.response(CommonResponseEum.BAD_REQUEST_PARAM, null);
         }
-        return UserWebResult.success();
+        return CommonDataJsonResponse.success(null);
     }
 
     @Override
-    public UserWebResult loadUserByUsername(String username) throws Exception {
+    public CommonDataJsonResponse loadUserByUsername(String username) throws Exception {
         WebuyUserExample example = new WebuyUserExample();
         WebuyUserExample.Criteria criteria = example.createCriteria();
         criteria.andUsernameEqualTo(username);
         List<WebuyUser> webuyUsers = userMapper.selectByExample(example);
         if(webuyUsers == null || webuyUsers.size() == 0){
-            return UserWebResult.fail(UserWebMsgEum.USER_INFO_NOT_EXIST);
+            return CommonDataJsonResponse.response(CommonResponseEum.BAD_REQUEST_PARAM, null);
         }
         WebuyUser webuyUser = webuyUsers.get(0);
-        return UserWebResult.success(webuyUser);
+        return CommonDataJsonResponse.success(webuyUser);
     }
 }

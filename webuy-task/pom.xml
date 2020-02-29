@@ -13,6 +13,12 @@
 
     <dependencies>
 
+        <!-- commons-email -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+        </dependency>
+
         <!--通用工程依赖-->
         <dependency>
             <groupId>com.weweibuy</groupId>

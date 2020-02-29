@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.support.client;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import feign.Request;
 import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface SmsCodeClient {
 
     @RequestMapping(value = "/smsCode/{mobile}", method = RequestMethod.GET)
-    ResponseEntity<CommonJsonResponse> getSmsCode(@PathVariable("mobile") String mobile, @RequestHeader(value = "Token") String token);
+    ResponseEntity<CommonDataJsonResponse<String>> getSmsCode(@PathVariable("mobile") String mobile, @RequestHeader(value = "Token") String token);
 
     @RequestMapping(value = "/smsCode/{mobile}", method = RequestMethod.GET)
     Response getSmsCode2(@PathVariable("mobile") String mobile);

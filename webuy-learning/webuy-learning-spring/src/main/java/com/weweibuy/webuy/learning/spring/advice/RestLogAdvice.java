@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.spring.advice;
 
-import com.alibaba.fastjson.JSON;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @date 2019/5/19 0:43
  **/
 @Slf4j
-public class RestLogAdvice implements  ResponseBodyAdvice {
+public class RestLogAdvice implements ResponseBodyAdvice {
 
 
 //    @Override
@@ -48,7 +48,7 @@ public class RestLogAdvice implements  ResponseBodyAdvice {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        log.info("【响应日志】响应体内容: {}", JSON.toJSONString(body));
+        log.info("【响应日志】响应体内容: {}", JackJsonUtils.write(body));
         return "hello";
     }
 }

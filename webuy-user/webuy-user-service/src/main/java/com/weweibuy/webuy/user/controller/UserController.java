@@ -1,8 +1,9 @@
 package com.weweibuy.webuy.user.controller;
 
+import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.webuy.common.model.eum.CommonResponseEum;
 import com.weweibuy.webuy.support.client.SmsCodeClient;
-import com.weweibuy.webuy.user.common.eum.UserWebMsgEum;
-import com.weweibuy.webuy.user.common.model.dto.UserWebResult;
 import com.weweibuy.webuy.user.model.form.RegisterForm;
 import com.weweibuy.webuy.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -26,7 +27,7 @@ import java.util.concurrent.Executor;
  **/
 @Slf4j
 @RestController
-@RequestMapping(produces="application/json;charset=UTF-8")
+@RequestMapping(produces = "application/json;charset=UTF-8")
 //@Validated  // 如果对单个参数验证这个注解要加载类上
 @Api(value = "用户接口")
 public class UserController {
@@ -44,23 +45,24 @@ public class UserController {
 
     /**
      * 根据手机号获取验证码
+     *
      * @param
      * @return
      */
     @GetMapping("/register/verificationCode/{phoneNum}")
     @ApiOperation(value = "获取验证码", notes = "1分钟获取一次验证码")
-    public UserWebResult sendVerificationCode(@PathVariable  String phoneNum){
-        if(phoneNum == null || !phoneNum.matches("^[1][3,4,5,7,8][0-9]{9}$")){
-            return UserWebResult.fail(UserWebMsgEum.PHONE_NUM_PATTERN_WRONG);
+    public CommonDataJsonResponse sendVerificationCode(@PathVariable String phoneNum) {
+        if (phoneNum == null || !phoneNum.matches("^[1][3,4,5,7,8][0-9]{9}$")) {
+            return CommonDataJsonResponse.response(CommonResponseEum.BAD_REQUEST_PARAM, null);
         }
         return userService.sendVerificationCode(phoneNum);
     }
 
     @GetMapping("/checkAccountExist/{phoneNum}")
     @ApiOperation(value = "检测手机号对应账号是否存在")
-    public UserWebResult checkAccountExist(@PathVariable String phoneNum){
-        if(StringUtils.isBlank(phoneNum)){
-            return UserWebResult.paramBlank();
+    public CommonCodeJsonResponse checkAccountExist(@PathVariable String phoneNum) {
+        if (StringUtils.isBlank(phoneNum)) {
+            return CommonDataJsonResponse.badRequestParam();
         }
         return userService.checkAccountExist(phoneNum);
     }
@@ -68,9 +70,9 @@ public class UserController {
 
     @PostMapping("/register/signUp")
     @ApiOperation(value = "注册用户")
-    public UserWebResult registerUser(@Valid @RequestBody RegisterForm registerForm, BindingResult result) throws Exception {
-        if(result.hasErrors()){
-            return UserWebResult.fail(UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL);
+    public CommonCodeJsonResponse registerUser(@Valid @RequestBody RegisterForm registerForm, BindingResult result) throws Exception {
+        if (result.hasErrors()) {
+            return CommonDataJsonResponse.badRequestParam("UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL");
         }
         log.info("注册用户");
         executor.execute(() -> {
@@ -91,19 +93,18 @@ public class UserController {
 
     /**
      * 提供给权限服务的加载用户信息的接口
+     *
      * @return
      */
     @GetMapping("/loadUserByUsername")
     @ApiOperation(value = "提供给权限服务的加载用户信息")
-    public UserWebResult loadUserByUsername(@ApiParam(required = true) String username) throws Exception {
-        if(StringUtils.isBlank(username)){
-            return UserWebResult.fail("用户名密码不能为空");
+    public CommonCodeJsonResponse loadUserByUsername(@ApiParam(required = true) String username) throws Exception {
+        if (StringUtils.isBlank(username)) {
+            return CommonDataJsonResponse.badRequestParam("用户名密码不能为空");
         }
         log.info("loadUserByUsername: {}", username);
-        UserWebResult webResult = userService.loadUserByUsername(username);
-        return webResult;
+        return userService.loadUserByUsername(username);
     }
-
 
 
 }

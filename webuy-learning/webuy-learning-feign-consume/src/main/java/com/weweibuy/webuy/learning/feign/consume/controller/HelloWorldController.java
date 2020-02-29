@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.feign.consume.controller;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.learning.feign.consume.client.HelloClient;
 import com.weweibuy.webuy.learning.feign.consume.client.LearningClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +35,7 @@ public class HelloWorldController {
 
     @GetMapping("/hello2")
     public Object hello2() {
-        return helloClient.helloPost("token123", CommonJsonResponse.success("success"), "sign123");
+        return helloClient.helloPost("token123", CommonDataJsonResponse.success("success"), "sign123");
     }
 
 

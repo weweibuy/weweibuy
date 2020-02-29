@@ -5,7 +5,7 @@
  */
 package com.weweibuy.webuy.learing.mq.producer.sample;
 
-import com.weweibuy.webuy.common.dto.CommonJsonResponse;
+import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import lombok.Data;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ public class RabbitSampleProducer {
         User user = new User();
         user.setUserName(msg);
         user.setBirthday(new Date());
-        CommonJsonResponse<User> success = CommonJsonResponse.success(user);
+        CommonDataJsonResponse<User> success = CommonDataJsonResponse.success(user);
         rabbitTemplate.convertAndSend(exchange, routingKey, success);
     }
 

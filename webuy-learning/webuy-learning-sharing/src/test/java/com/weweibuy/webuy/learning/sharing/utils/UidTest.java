@@ -32,14 +32,14 @@ public class UidTest {
 
     @Test
     public void test01() throws Exception {
-        long nextId1 = IdWorker.getNextId();
+        long nextId1 = IdWorker.nextId();
         long l = System.currentTimeMillis();
         System.err.println(l);
         Stream.iterate(0, n -> n + 1)
                 .limit(1000000)
                 .forEach(i -> {
                     EXECUTOR.execute(() -> {
-                        IdWorker.getNextId();
+                        IdWorker.nextId();
                         COUNT_DOWN_LATCH.countDown();
                     });
                 });

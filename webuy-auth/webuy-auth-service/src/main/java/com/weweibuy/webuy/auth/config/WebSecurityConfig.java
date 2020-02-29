@@ -55,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 formLogin()
                 .loginPage("http://localhost:8080/auth/login")
                 .and();
+
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).
             formLogin()  // 登录方式
                 // 在使用zuul代理之后,这里的登录地址使用uri将直接暴露ip
@@ -70,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() //  对请求授权
                 // 对指定目录放行
                 .antMatchers( "/login","/fonts/**", "/css/**", "/img/**", "/js/**",
-                        "/code/*", "/authentication/mobile", "/hello", "/hello2","/actuator/**")
+                        "/code/*", "/authentication/mobile", "/hello", "/hello2","/actuator/**", "/gw/**")
                 .permitAll()
                 .anyRequest()  // 所有请求
                 .authenticated()  // 需要授权

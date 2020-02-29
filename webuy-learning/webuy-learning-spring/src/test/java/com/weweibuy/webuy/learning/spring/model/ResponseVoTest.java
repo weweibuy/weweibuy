@@ -1,6 +1,5 @@
 package com.weweibuy.webuy.learning.spring.model;
 
-import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
@@ -10,13 +9,6 @@ import reactor.core.scheduler.Schedulers;
 @Slf4j
 public class ResponseVoTest {
 
-    @Test
-    public void test(){
-        String json = "{\"code\":\"12\", \"msg\":\"QAZ\"}";
-        ResponseVo responseVo = JSON.parseObject(json, ResponseVo.class);
-        System.err.println(responseVo);
-
-    }
 
 
     @Test

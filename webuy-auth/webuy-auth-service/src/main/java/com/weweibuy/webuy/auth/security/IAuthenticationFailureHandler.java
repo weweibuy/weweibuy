@@ -1,8 +1,8 @@
 package com.weweibuy.webuy.auth.security;
 
-import com.alibaba.fastjson.JSONObject;
 import com.weweibuy.webuy.auth.core.config.eum.LoginResponseType;
 import com.weweibuy.webuy.auth.core.config.properties.SecurityProperties;
+import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -33,7 +33,7 @@ public class IAuthenticationFailureHandler extends SimpleUrlAuthenticationFailur
             super.onAuthenticationFailure(httpServletRequest, httpServletResponse, e);
         }else {
             httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(e.getMessage()));
+            httpServletResponse.getWriter().write(JackJsonUtils.write(e.getMessage()));
         }
     }
 }

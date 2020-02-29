@@ -86,7 +86,7 @@ public class AmqpTest {
         channel.queueBind(QUEUE_NAME, DIRECT_EXCHANGE_NAME, "test.#");
         AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
                 .deliveryMode(2)
-                .correlationId(IdWorker.getNextStrId())
+                .correlationId(IdWorker.nextStringId())
                 .contentEncoding("UTF-8")
                 .build();
         Stream.iterate(0 , i -> i+ 1)
