@@ -53,7 +53,7 @@
 
     <!--2. 输出到文档-->
     <!-- 2.1 level为 DEBUG 日志，时间滚动输出  -->
-    <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="DEBUG_FILE" additivity="false" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 正在记录的日志文档的路径及文档名 -->
         <file>${log.path}/web_debug.log</file>
         <!--日志文档输出格式-->
