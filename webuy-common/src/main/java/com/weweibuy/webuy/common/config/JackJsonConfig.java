@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/3/1 10:57
  **/
 @Configuration
-public class JackConfig {
+public class JackJsonConfig {
 
 
     @Bean

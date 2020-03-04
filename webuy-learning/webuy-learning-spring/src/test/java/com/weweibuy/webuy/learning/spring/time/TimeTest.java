@@ -5,7 +5,6 @@
  */
 package com.weweibuy.webuy.learning.spring.time;
 
-import com.weweibuy.webuy.common.utils.DateTimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -34,20 +33,6 @@ public class TimeTest {
 
     @Test
     public void test02() {
-        Date date = new Date();
-        long l = System.currentTimeMillis();
-        for (int i = 0; i < 100000; i++) {
-            DateTimeUtils.toStringDate(date);
-        }
-        log.info("local date 用时: {}", (System.currentTimeMillis() - l));
-
-        long l2 = System.currentTimeMillis();
-        for (int i = 0; i < 100000; i++) {
-            DateTimeUtils.toDateFormat(date);
-        }
-        log.info("simple date 用时: {}", (System.currentTimeMillis() - l2));
-        System.err.println(DateTimeUtils.toStringDate(date));
-        System.err.println(DateTimeUtils.toDateFormat(date));
     }
 
 

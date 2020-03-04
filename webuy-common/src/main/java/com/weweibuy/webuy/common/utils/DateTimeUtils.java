@@ -5,16 +5,16 @@
  */
 package com.weweibuy.webuy.common.utils;
 
+import com.weweibuy.webuy.common.model.constant.CommonConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author durenhao
@@ -23,27 +23,20 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTimeUtils {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
 
     public static String toStringDate(Date date) {
         LocalDateTime localDateTime = dateToLocalDateTime(date);
-        return localDateTime.format(dateTimeFormatter);
+        return localDateTime.format(CommonConstant.DateConstant.STANDARD_DATE_TIME_FORMATTER);
     }
 
-    public static String toDateFormat(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return simpleDateFormat.format(date);
-    }
 
     public static String toDateFormat(LocalDateTime date) {
-        return date.format(dateTimeFormatter);
+        return date.format(CommonConstant.DateConstant.STANDARD_DATE_TIME_FORMATTER);
     }
 
     public static LocalDateTime dateToLocalDateTime(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
-
 
     public static LocalDateTime systemTimestampToLocalDateTime(long timestamp) {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
@@ -53,9 +46,22 @@ public class DateTimeUtils {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public static long localDateTimeToTimestamp(LocalDateTime localDateTime) {
-        long timestamp = localDateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
-        return timestamp;
+
+    public static long localDateTimeToTimestampMilli(LocalDateTime localDateTime) {
+        return localDateTime.toInstant(ZoneOffset.of(CommonConstant.DateConstant.TIME_OFFSET_ID)).toEpochMilli();
+    }
+
+    public static long localDateTimeToTimestampSecond(LocalDateTime localDateTime) {
+        return localDateTime.toEpochSecond(ZoneOffset.of(CommonConstant.DateConstant.TIME_OFFSET_ID));
+    }
+
+
+    public static long toMils(Long duration, TimeUnit timeUnit) {
+        return timeUnit.toMillis(duration);
+    }
+
+    public static boolean isCurrentTimeOverInterval(LocalDateTime localDateTime, long interval) {
+        return System.currentTimeMillis() - localDateTimeToTimestampMilli(localDateTime) > interval;
     }
 
 }

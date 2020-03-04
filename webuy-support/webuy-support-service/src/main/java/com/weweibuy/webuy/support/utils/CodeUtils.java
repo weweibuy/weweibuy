@@ -1,4 +1,4 @@
-package com.weweibuy.webuy.common.utils;
+package com.weweibuy.webuy.support.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
