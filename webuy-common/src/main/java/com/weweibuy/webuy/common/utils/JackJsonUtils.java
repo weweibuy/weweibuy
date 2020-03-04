@@ -35,7 +35,8 @@ public class JackJsonUtils {
         MVC_OBJECT_MAPPER = objectMapper;
         PropertyNamingStrategy propertyNamingStrategy = objectMapper.getPropertyNamingStrategy();
 
-        if (propertyNamingStrategy == null) {
+        if (propertyNamingStrategy == null || PropertyNamingStrategy.LOWER_CAMEL_CASE.getClass().getSimpleName()
+                .equals(propertyNamingStrategy.getClass().getSimpleName())) {
             CAMEL_CASE_MAPPER = objectMapper;
             SNAKE_CASE_MAPPER = objectMapperBuilder.createXmlMapper(false)
                     .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
@@ -44,57 +45,57 @@ public class JackJsonUtils {
                 .equals(propertyNamingStrategy.getClass().getSimpleName())) {
             SNAKE_CASE_MAPPER = objectMapper;
             CAMEL_CASE_MAPPER = objectMapperBuilder.createXmlMapper(false)
-                    .propertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE)
+                    .propertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE)
                     .build();
         } else {
             throw new IllegalStateException("Jackson objectMapper NamingStrategy 为: " + propertyNamingStrategy.getClass().getSimpleName() + "目前不支持");
         }
     }
 
-    public static <T> T snakeCaseReadValue(String json, Class<? extends T> clazz) {
+    public static <T> T readSnakeCaseValue(String json, Class<? extends T> clazz) {
         try {
-            return MVC_OBJECT_MAPPER.readValue(json, clazz);
+            return SNAKE_CASE_MAPPER.readValue(json, clazz);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static <T> T snakeCaseReadValue(String json, JavaType javaType) {
+    public static <T> T readSnakeCaseValue(String json, JavaType javaType) {
         try {
-            return MVC_OBJECT_MAPPER.readValue(json, javaType);
+            return SNAKE_CASE_MAPPER.readValue(json, javaType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static <T> T snakeCaseReadValue(byte[] json, Class<? extends T> clazz) {
+    public static <T> T readSnakeCaseValue(byte[] json, Class<? extends T> clazz) {
         try {
-            return MVC_OBJECT_MAPPER.readValue(json, clazz);
+            return SNAKE_CASE_MAPPER.readValue(json, clazz);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static <T> T snakeCaseReadValue(byte[] json, JavaType javaType) {
+    public static <T> T readSnakeCaseValue(byte[] json, JavaType javaType) {
         try {
-            return MVC_OBJECT_MAPPER.readValue(json, javaType);
+            return SNAKE_CASE_MAPPER.readValue(json, javaType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-    public static String snakeCaseWrite(Object object) {
+    public static String writeSnakeCase(Object object) {
         try {
-            return MVC_OBJECT_MAPPER.writeValueAsString(object);
+            return SNAKE_CASE_MAPPER.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static byte[] snakeCaseWriteAsByte(Object object) {
+    public static byte[] writeSnakeCaseAsByte(Object object) {
         try {
-            return MVC_OBJECT_MAPPER.writeValueAsBytes(object);
+            return SNAKE_CASE_MAPPER.writeValueAsBytes(object);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -150,50 +151,50 @@ public class JackJsonUtils {
     }
 
 
-    public static <T> T camelCaseReadValue(String json, Class<? extends T> clazz) {
+    public static <T> T readCamelCaseValue(String json, Class<? extends T> clazz) {
         try {
-            return MVC_OBJECT_MAPPER.readValue(json, clazz);
+            return CAMEL_CASE_MAPPER.readValue(json, clazz);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static <T> T camelCaseReadValue(String json, JavaType javaType) {
+    public static <T> T readCamelCaseValue(String json, JavaType javaType) {
         try {
-            return MVC_OBJECT_MAPPER.readValue(json, javaType);
+            return CAMEL_CASE_MAPPER.readValue(json, javaType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static <T> T camelCaseReadValue(byte[] json, Class<? extends T> clazz) {
+    public static <T> T readCamelCaseValue(byte[] json, Class<? extends T> clazz) {
         try {
-            return MVC_OBJECT_MAPPER.readValue(json, clazz);
+            return CAMEL_CASE_MAPPER.readValue(json, clazz);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static <T> T camelCaseReadValue(byte[] json, JavaType javaType) {
+    public static <T> T readCamelCaseValue(byte[] json, JavaType javaType) {
         try {
-            return MVC_OBJECT_MAPPER.readValue(json, javaType);
+            return CAMEL_CASE_MAPPER.readValue(json, javaType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-    public static String camelCaseWrite(Object object) {
+    public static String writeCamelCase(Object object) {
         try {
-            return MVC_OBJECT_MAPPER.writeValueAsString(object);
+            return CAMEL_CASE_MAPPER.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static byte[] camelCaseWriteAsByte(Object object) {
+    public static byte[] writeCamelCaseAsByte(Object object) {
         try {
-            return MVC_OBJECT_MAPPER.writeValueAsBytes(object);
+            return CAMEL_CASE_MAPPER.writeValueAsBytes(object);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
