@@ -21,6 +21,16 @@ spring:
     port: 6379 # Redis服务器连接端口
     password: ak402507979 # Redis服务器连接密码（默认为空）
 
+  cloud:
+    consul:
+      host: 127.0.0.1
+      discovery:
+        prefer-ip-address: true
+        instance-id: ${spring.application.name}:${spring.cloud.consul.discovery.ip-address}:${server.port}
+        ip-address: 127.0.0.1
+        health-check-path: /endpoint/_health
+        health-check-critical-timeout: 10s
+        health-check-interval: 3s
 
 logging:
   config: classpath:config/logback/logback-spring.xml
