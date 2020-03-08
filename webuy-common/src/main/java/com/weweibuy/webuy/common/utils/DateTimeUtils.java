@@ -9,10 +9,7 @@ import com.weweibuy.webuy.common.model.constant.CommonConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -62,6 +59,10 @@ public class DateTimeUtils {
 
     public static boolean isCurrentTimeOverInterval(LocalDateTime localDateTime, long interval) {
         return System.currentTimeMillis() - localDateTimeToTimestampMilli(localDateTime) > interval;
+    }
+
+    public static Duration between(LocalDateTime start, LocalDateTime end) {
+        return Duration.between(start, end);
     }
 
 }
