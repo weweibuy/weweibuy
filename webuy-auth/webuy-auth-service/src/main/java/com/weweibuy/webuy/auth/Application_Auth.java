@@ -1,5 +1,6 @@
 package com.weweibuy.webuy.auth;
 
+import com.weweibuy.framework.rocketmq.annotation.EnableRocket;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -11,6 +12,7 @@ import org.springframework.social.config.annotation.EnableSocial;
 /**
  * 权限服务
  * TODO 登录或处理页面是有大量的 redisConnection  Opening 和 Closing 需要弄清是谁在操作是否影响性能是否可以优化
+ *
  * @ClassName Application_Auth
  * @Description
  * @Author durenhao
@@ -22,6 +24,7 @@ import org.springframework.social.config.annotation.EnableSocial;
 @EnableFeignClients(basePackages = "com.weweibuy.user.client") // 这里需要指定basePackages否则找不到bean
 @EnableSocial
 @ComponentScan(basePackages = {"com.weweibuy.webuy.auth", "com.weweibuy.webuy.user.client.fallback"})
+@EnableRocket
 public class Application_Auth {
 
     public static void main(String[] args) {
