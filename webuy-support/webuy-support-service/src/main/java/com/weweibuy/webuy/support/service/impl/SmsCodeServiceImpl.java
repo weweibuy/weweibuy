@@ -1,7 +1,6 @@
 package com.weweibuy.webuy.support.service.impl;
 
 import com.weweibuy.webuy.support.service.SmsCodeService;
-import com.weweibuy.webuy.common.utils.CodeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -30,7 +29,7 @@ public class SmsCodeServiceImpl implements SmsCodeService {
 
     @Override
     public void sendSmsCode(String mobile) {
-        String smsCode = CodeUtils.getSmsCode(CODE_LENGTH);
+        String smsCode = "121344";
         log.info("验证码: {}", smsCode);
         redisTemplate.opsForValue().set(KEY_PREFIX + mobile, smsCode,
                 EXPIRE_IN_MINUTES, TimeUnit.MINUTES);

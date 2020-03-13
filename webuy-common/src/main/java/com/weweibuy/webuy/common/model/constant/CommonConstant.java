@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public interface CommonConstant {
 
 
-    public interface DateConstant{
+    public interface DateConstant {
 
         String TIME_OFFSET_ID = "+8";
 
@@ -20,14 +20,14 @@ public interface CommonConstant {
     }
 
 
-    public interface CharsetConstant{
+    public interface CharsetConstant {
 
-          String UTF8_STR = "UTF-8";
+        String UTF8_STR = "UTF-8";
 
 
     }
 
-    public interface SignConstant{
+    public interface SignConstant {
 
         public static final String HMAC_SHA256 = "HmacSHA256";
 
