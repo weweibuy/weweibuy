@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  **/
 public interface CommonConstant {
 
+    String NONE_VIEW_STR = "N/A";
 
     public interface DateConstant {
 

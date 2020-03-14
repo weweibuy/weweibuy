@@ -3,6 +3,7 @@ package com.weweibuy.webuy.learning.feign.consume.controller;
 import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.learning.feign.consume.client.HelloClient;
 import com.weweibuy.webuy.learning.feign.consume.client.LearningClient;
+import com.weweibuy.webuy.learning.feign.consume.service.AsyncConsumeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,16 +22,25 @@ public class HelloWorldController {
 
     private final ExecutorService executorService;
 
+    private final AsyncConsumeService asyncConsumeService;
 
-    public HelloWorldController(HelloClient helloClient, LearningClient learningClient, ExecutorService executorService) {
+
+    public HelloWorldController(HelloClient helloClient, LearningClient learningClient, ExecutorService executorService, AsyncConsumeService asyncConsumeService) {
         this.helloClient = helloClient;
         this.learningClient = learningClient;
         this.executorService = executorService;
+        this.asyncConsumeService = asyncConsumeService;
     }
 
     @GetMapping("/hello")
     public Object hello() throws Exception {
         return helloClient.hello();
+    }
+
+    @GetMapping("/hello-sync")
+    public Object helloSync() throws Exception {
+        asyncConsumeService.consume();;
+        return "success";
     }
 
     @GetMapping("/hello2")

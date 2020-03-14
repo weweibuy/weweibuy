@@ -1,7 +1,13 @@
 server:
   port: 9000
 
+logging:
+  config: classpath:config/logback/logback-spring.xml
+
+
 spring:
+  profiles:
+    active: ${profileActive}
   jackson:
     propertyNamingStrategy: SNAKE_CASE
   application:
