@@ -1,0 +1,51 @@
+https://blog.csdn.net/baichoufei90/article/details/82901270
+
+ES 创建文档的过程
+		当分片所在的节点接收到来自协调节点的请求后，会将请求写入到Memory Buffer，
+	然后定时（默认是每隔1秒）写入到Filesystem Cache，这个从Momery Buffer到Filesystem Cache的过程就叫做refresh；
+		当然在某些情况下，存在Momery Buffer和Filesystem Cache的数据可能会丢失，ES是通过translog的机制来保证数据的可靠性的。
+		其实现机制是接收到请求后，同时也会写入到translog中，当Filesystem cache中的数据写入到磁盘中时，才会清除掉，这个过程叫做flush；
+	在flush过程中，内存中的缓冲将被清除，内容被写入一个新段，段的fsync将创建一个新的提交点，
+	并将内容刷新到磁盘，旧的translog将被删除并开始一个新的translog。
+	flush触发的时机是定时触发（默认30分钟）或者translog变得太大（默认为512M）时；
+	
+	PUT /my_index/_settings    设置 translog 刷新间隔
+	{
+		"index.translog.durability": "async",
+		"index.translog.sync_interval": "5s"
+	}
+
+	PUT /my_index/_settings   设置refresh 间隔
+	{ 
+		"refresh_interval": "1s"
+	} 
+
+ES 搜索过程:  
+	　　搜索被执行成一个两阶段过程，我们称之为 Query Then Fetch；
+　　在初始查询阶段时，查询会广播到索引中每一个分片拷贝（主分片或者副本分片）。 
+	每个分片在本地执行搜索并构建一个匹配文档的大小为 from + size 的优先队列。
+	PS：在搜索的时候是会查询Filesystem Cache的，但是有部分数据还在Memory Buffer，所以搜索是近实时的。
+　　每个分片返回各自优先队列中 所有文档的 ID 和排序值 给协调节点，它合并这些值到自己的优先队列中来产生一个全局排序后的结果列表。
+　　接下来就是 取回阶段，协调节点辨别出哪些文档需要被取回并向相关的分片提交多个 GET 请求。
+	每个分片加载并 丰富 文档，如果有需要的话，接着返回文档给协调节点。一旦所有的文档都被取回了，协调节点返回结果给客户端。
+　　补充：Query Then Fetch的搜索类型在文档相关性打分的时候参考的是本分片的数据，这样在文档数量较少的时候可能不够准确，
+	DFS Query Then Fetch增加了一个预查询的处理，询问Term和Document frequency，这个评分更准确，但是性能会变差。
+
+
+
+must 与 should, must_not, filter: 区别
+	must的两个条件都必须满足，should中的两个条件至少满足一个就可以
+	must_not 与 must 相反
+	filter 不参与计算分数
+	{
+	  "bool": {
+	    "should": [
+	      { "term": { "body": "how"}},
+	      { "term": { "body": "not"}},
+	      { "term": { "body": "to"}},
+	      { "term": { "body": "be"}}
+	    ],
+	    "minimum_should_match": 3
+	  }
+	}
+	should 可以设置匹配次数
