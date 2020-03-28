@@ -22,7 +22,6 @@
         <logger name="o.s.d.redis.core" level="INFO"/>
     </springProfile>
     <springProfile name="test">
-        <property name="log.path" value="/logs/${app_name}/pmp" />
         <logger name="com.weweibuy.webuy.learning.event.mapper" level="DEBUG"/>
     </springProfile>
     <property name="appName" value="${app_name}" />

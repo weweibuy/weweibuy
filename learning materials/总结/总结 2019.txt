@@ -102,6 +102,7 @@ Java虚拟机的内存布局 --- 1.8
 				from  1/10
 
 				to    1/10
+				-Xmn1024m 设置yong区大小
 			old     2/3
 			设置参数： -Xms 500m  -Xmx 500m
 
