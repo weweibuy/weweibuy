@@ -9,3 +9,7 @@
   在   /etc/sysctl.conf文件最后添加一行
   vm.max_map_count=262144
   即可永久修改
+
+
+  es ：默认进行外部通信的端口9200 分布式的情况下 es各个节点之间的通信用的是9300端口
+  docker run -e     ES_JAVA_OPTS='-Xms256m' -d -p 9200:9200 -p 9300:9300 --name ES_01  镜像名称

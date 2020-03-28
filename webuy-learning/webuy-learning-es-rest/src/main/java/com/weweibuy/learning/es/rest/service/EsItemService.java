@@ -18,6 +18,9 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -48,7 +51,8 @@ public class EsItemService {
 
     public List search(String keyword) throws IOException {
 
-        SearchRequest searchRequest = new SearchRequest("learning_item");
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("learning_item");
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery().must(QueryBuilders.matchQuery("title", keyword));
 
@@ -57,7 +61,7 @@ public class EsItemService {
         sourceBuilder.from(2);
 
         RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("create_time");
-        rangeQuery.from(DateTimeUtils.toDateFormat(LocalDateTime.now().plusYears(-2)));
+        rangeQuery.from(DateTimeUtils.toDateFormat(LocalDateTime.now().plusYears(-10)));
         rangeQuery.to(DateTimeUtils.toDateFormat(LocalDateTime.now()));
 
         boolQueryBuilder.filter(rangeQuery);
@@ -83,11 +87,6 @@ public class EsItemService {
 
     }
 
-    public void insert() {
-
-    }
-
-
     public void batchInsert() {
 
     }
@@ -102,7 +101,7 @@ public class EsItemService {
 
 
         BulkRequest bulkRequest = new BulkRequest();
-        itemList.stream().map(i -> JacksonUtils.objectToString(i))
+        itemList.stream().map(JacksonUtils::objectToString)
                 .forEach(s -> {
                     IndexRequest indexRequest = new IndexRequest("learning_item");
                     indexRequest.source(s, XContentType.JSON);
@@ -118,4 +117,46 @@ public class EsItemService {
 
     }
 
+    /**
+     * 分页拆查询
+     * @param keyWord 关键词
+     * @return 查询结果
+     * @throws IOException
+     */
+    public List<TbItem> pageQuery(String keyWord) throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+
+        searchRequest.indices("learning_item");
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        //全局搜索
+        boolQueryBuilder.must(QueryBuilders.matchAllQuery());
+        //如搜索条件为“小米手机”这里must会分词为“小米”和“手机”这两个词是or关系
+//        boolQueryBuilder.must(QueryBuilders.matchPhraseQuery("title", "三星"));
+
+        RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("create_time");
+        rangeQuery.from(DateTimeUtils.toDateFormat(LocalDateTime.now().plusYears(-10)));
+        rangeQuery.to(DateTimeUtils.toDateFormat(LocalDateTime.now()));
+        //排序
+        FieldSortBuilder price = SortBuilders.fieldSort("price").order(SortOrder.DESC);
+        //构建检索条件
+        boolQueryBuilder.filter(QueryBuilders.matchQuery("title", keyWord))
+                .filter(rangeQuery);
+
+        sourceBuilder.query(boolQueryBuilder).
+                sort(price)
+                .from(0)
+                .size(100);
+
+        SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        List<TbItem> tbItems = new ArrayList<>();
+        searchResponse.getHits().forEach(
+                message -> {
+                    String sourceString = message.getSourceAsString();
+                    TbItem tbItem = JacksonUtils.stringToObject(sourceString, TbItem.class);
+                    tbItems.add(tbItem);
+                }
+        );
+        return tbItems;
+    }
 }

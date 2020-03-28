@@ -49,8 +49,7 @@ public class EsDispatchService {
 
         pageQueryVo.getOrderList().ifPresent(list -> {
             list.forEach(i -> {
-                FieldSortBuilder create_time = SortBuilders.fieldSort(i.getFiled())
-                        .order("ASC".equals(i.getValue()) ? SortOrder.ASC : SortOrder.DESC);
+                FieldSortBuilder create_time = SortBuilders.fieldSort(i.getFiled()).order("ASC".equals(i.getValue()) ? SortOrder.ASC : SortOrder.DESC);
                 queryBuilder.withSort(create_time);
             });
         });
@@ -59,6 +58,4 @@ public class EsDispatchService {
         Page<EsDispatchBillInfo> search = esDispatchRepository.search(queryBuilder.build());
         return new PageQueryDto(search.getTotalElements(), search.getContent());
     }
-
-
 }

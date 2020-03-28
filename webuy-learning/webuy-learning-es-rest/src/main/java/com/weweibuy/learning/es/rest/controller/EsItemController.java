@@ -35,4 +35,8 @@ public class EsItemController {
         return esItemService.search(keyword);
     }
 
+    @GetMapping("/query")
+    public List<TbItem> query(String keyword) throws IOException {
+        return esItemService.pageQuery(keyword);
+    }
 }

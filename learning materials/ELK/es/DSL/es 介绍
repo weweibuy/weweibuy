@@ -1,0 +1,7 @@
+elasticsearch
+简介：
+是一个分布式搜索服务，提供rest ful api ,底层基于 lucene，采用多shard 方式保证数据安全，
+并且提供resharding功能，github等大型站点也采用es作为搜索服务。
+
+优点：
+可以快递存储，搜索和分析海量数据。springBoot通过整合 spring date elasticsearch 支持es。
