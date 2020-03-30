@@ -31,3 +31,8 @@
     -verbose:gc
     -Xloggc:gcc.log            GC 日志输出文件
     -XX:+TraceClassLoading            　　　  监控类的加载
+
+4. jmm young gc 过程
+   s0 ： s1 ：eden = 1: 1: 8
+   s0 和 s1是交替使用的  当s1和edan区满了触发young gc  s1和edan存货对象全部 s0中,s1 和 edan伤处所有对象;下一次young gc 周而复始这个而过程
+   每一次young gc 存活下来的对象 age +1 , 到达6 时 jvm 此对象经常被引用不再轻易删除,放入老年代。
