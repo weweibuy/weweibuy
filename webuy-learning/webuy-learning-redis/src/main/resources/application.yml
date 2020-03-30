@@ -13,18 +13,24 @@ spring:
     url: jdbc:mysql://106.12.15.87:3306/webuy_event?useUnicode=true&characterEncoding=UTF-8&allowMutiQueries=true
     username: user01
     password: ak402507979
+  redis:
+      database: 5
+      host: 122.51.171.126
+      port: 6379 # Redis服务器连接端口
+      password: ak402507979 # Redis服务器连接密码（默认为空）
 
 
-
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@106.12.95.245:7001/eureka
-  instance:
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
-    prefer-ip-address: true
-    ip-address: 127.0.0.1
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://admin:ak402507979@106.12.95.245:7001/eureka
+#  instance:
+#    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}
+#    prefer-ip-address: true
+#    ip-address: 127.0.0.1
 
 logging:
   config: classpath:config/logback/logback-spring.xml
+#加载配置信息
+debug: true
