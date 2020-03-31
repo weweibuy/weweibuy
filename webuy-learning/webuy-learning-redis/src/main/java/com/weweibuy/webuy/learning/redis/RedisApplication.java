@@ -19,11 +19,14 @@ import org.springframework.cache.annotation.EnableCaching;
 //@EnableDiscoveryClient
 @SpringBootApplication
 @EnableCaching
+
+/**
+ * @author zhang.suxing
+ * @date 2020/3/29 12:36
+ **/
 public class RedisApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RedisApplication.class, args);
     }
-
-
 }

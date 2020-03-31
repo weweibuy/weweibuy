@@ -23,7 +23,17 @@ public class SimpleConsumer {
     @RabbitHandler
     public void onMessage(@Payload CommonDataJsonResponse<String> msg, @Header(AmqpHeaders.DELIVERY_TAG) Long deliveryTag, Channel channel) throws Exception {
         log.info("msg 是: {}", msg.getData());
+        /**
+         * 若消息已经被消费，但是后续代码抛出异常，使用spring进行管理的话，消费端业务路基被回滚，也会造成实际消息的丢失
+         * 手动调用以下防方法进行确认，手动确认可以在业务失败进行一些操作,以下为不同确认策略。
+         * ack
+         * nack
+         * reject
+         *
+         */
         channel.basicAck(deliveryTag, false);
+        channel.basicNack(deliveryTag, false, true);
+        channel.basicReject(deliveryTag, true);
     }
 
 

@@ -4,6 +4,7 @@ import com.weweibuy.webuy.common.model.ResponseCodeAndMsg;
 import com.weweibuy.webuy.common.model.eum.CommonResponseEum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class CommonDataJsonResponse<T> extends CommonCodeJsonResponse {
 
     private T data;
@@ -22,14 +24,13 @@ public class CommonDataJsonResponse<T> extends CommonCodeJsonResponse {
         this.data = data;
     }
 
-
     public static <T> CommonDataJsonResponse<T> success(T data) {
-        return new CommonDataJsonResponse(CommonResponseEum.SUCCESS, data);
+        return new CommonDataJsonResponse<>(CommonResponseEum.SUCCESS, data);
     }
 
 
     public static <T> CommonDataJsonResponse<T> response(ResponseCodeAndMsg codeAndMsg, T data) {
-        return new CommonDataJsonResponse(codeAndMsg, data);
+        return new CommonDataJsonResponse<>(codeAndMsg, data);
     }
 
 }

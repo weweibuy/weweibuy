@@ -17,4 +17,4 @@
     默认一次消费数量为1
 
 6. tag
-    类型rabbitMq 的routingKey
+    类似rabbitMq 的routingKey
