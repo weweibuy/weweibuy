@@ -26,13 +26,13 @@ public class SimpleConsumer {
         /**
          * 若消息已经被消费，但是后续代码抛出异常，使用spring进行管理的话，消费端业务路基被回滚，也会造成实际消息的丢失
          * 手动调用以下防方法进行确认，手动确认可以在业务失败进行一些操作,以下为不同确认策略。
-         * ack
-         * nack
-         * reject
+         * ack   消息接收到并且被成功消费
+         * nack  消息接收到，但是消费失败，可设置重新入队列等待别的消费者消费，也可以选择直接丢弃
+         * reject 消息被拒绝
          *
          */
         channel.basicAck(deliveryTag, false);
-        channel.basicNack(deliveryTag, false, true);
+//        channel.basicNack(deliveryTag, false, true);
         channel.basicReject(deliveryTag, true);
     }
 
