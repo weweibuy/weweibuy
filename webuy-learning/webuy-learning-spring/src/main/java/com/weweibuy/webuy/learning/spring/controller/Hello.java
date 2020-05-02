@@ -1,5 +1,6 @@
 package com.weweibuy.webuy.learning.spring.controller;
 
+import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
 import com.weweibuy.webuy.learning.spring.model.TestListVo;
 import com.weweibuy.webuy.learning.spring.model.TestUser;
 import com.weweibuy.webuy.learning.spring.service.TestUserService;
@@ -10,10 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,12 +34,12 @@ public class Hello implements TypeInterface {
     @Autowired
     private TestUserService userService;
 
-    @RequestMapping("/hello")
-    public String hello(HttpServletResponse response) {
+    @GetMapping("/hello")
+    public Object hello(HttpServletResponse response) {
         Cookie cookie = new Cookie("test_gateway_cookie", "test_gateway_cookie_value");
         response.addCookie(cookie);
         response.addHeader("test_gateway_header", "test_gateway_header_value");
-        return "hello.. i am learn spring...";
+        return CommonCodeJsonResponse.success();
     }
 
     @RequestMapping("/test/hello")
