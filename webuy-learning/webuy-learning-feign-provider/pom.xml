@@ -12,9 +12,10 @@
     <artifactId>webuy-learning-feign-provider</artifactId>
 
     <dependencies>
+
         <dependency>
-            <groupId>com.weweibuy</groupId>
-            <artifactId>webuy-learning-common</artifactId>
+            <groupId>com.weweibuy.framework</groupId>
+            <artifactId>common-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

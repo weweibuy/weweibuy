@@ -25,6 +25,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public ResponseEntity<JsonResponseDto> test01() {
+        log.info("hello ...... ");
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new JsonResponseDto());

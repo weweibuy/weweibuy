@@ -26,6 +26,7 @@
         <module>webuy-learning-feign-consume</module>
         <module>webuy-learning-es-rest</module>
         <module>webuy-learning-redis</module>
+        <module>webuy-learning-spark</module>
     </modules>
     <artifactId>webuy-learning</artifactId>
 

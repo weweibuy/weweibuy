@@ -1,6 +1,6 @@
 package com.weweibuy.learning.feign.provider.controller;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataJsonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
