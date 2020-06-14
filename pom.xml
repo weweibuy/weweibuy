@@ -311,6 +311,24 @@
                 <version>${weweibuy.framework.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.weweibuy.framework</groupId>
+                <artifactId>common-core</artifactId>
+                <version>${weweibuy.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.weweibuy.framework</groupId>
+                <artifactId>common-log</artifactId>
+                <version>${weweibuy.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.weweibuy.framework</groupId>
+                <artifactId>common-mvc</artifactId>
+                <version>${weweibuy.framework.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
