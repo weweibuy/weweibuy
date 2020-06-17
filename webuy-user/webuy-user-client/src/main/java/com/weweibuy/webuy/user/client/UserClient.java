@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.user.client;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.user.client.fallback.UserClientFallBack;
 import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import org.springframework.cloud.openfeign.FeignClient;

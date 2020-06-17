@@ -29,7 +29,6 @@ spring:
         instance-id: ${spring.application.name}:${spring.cloud.consul.discovery.ip-address}:${server.port}
         ip-address: 127.0.0.1
         health-check-path: /endpoint/_health
-        health-check-critical-timeout: 10s
         health-check-interval: 3s
 
 logging:

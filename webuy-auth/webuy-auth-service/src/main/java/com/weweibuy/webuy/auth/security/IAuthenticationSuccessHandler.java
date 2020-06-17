@@ -1,9 +1,9 @@
 package com.weweibuy.webuy.auth.security;
 
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import com.weweibuy.webuy.auth.config.AuthorizationServerConfig;
 import com.weweibuy.webuy.auth.core.config.properties.SecurityProperties;
 import com.weweibuy.webuy.auth.model.dto.JwtResponseDto;
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

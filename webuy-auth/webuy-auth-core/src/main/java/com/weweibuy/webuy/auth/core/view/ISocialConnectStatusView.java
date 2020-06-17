@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.auth.core.view;
 
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import org.springframework.social.connect.Connection;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;

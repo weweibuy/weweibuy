@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.auth.core.social.weixin.operation;
 
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import com.weweibuy.webuy.auth.core.model.vo.WeiXinTokenResponse;
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;

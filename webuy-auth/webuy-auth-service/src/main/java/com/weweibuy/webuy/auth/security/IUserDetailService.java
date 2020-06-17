@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.auth.security;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.user.client.UserClient;
 import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import lombok.extern.slf4j.Slf4j;

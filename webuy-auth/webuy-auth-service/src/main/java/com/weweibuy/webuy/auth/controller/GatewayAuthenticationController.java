@@ -1,9 +1,9 @@
 package com.weweibuy.webuy.auth.controller;
 
+import com.weweibuy.framework.common.core.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataJsonResponse;
 import com.weweibuy.webuy.auth.model.dto.AuthorizationReq;
 import com.weweibuy.webuy.auth.model.dto.AuthorizationResp;
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
