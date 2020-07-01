@@ -1,0 +1,1 @@
+docker run -d  --network es-net -p 8083:8083 -p 8086:8086 -p 8089:8089/udp --name influxdb  -v /etc/localtime:/etc/localtime -v /docker/influxdb/conf/influxdb.conf:/etc/influxdb/influxdb.conf -v /docker/influxdb/data:/var/lib/influxdb/data -v /docker/influxdb/meta:/var/lib/influxdb/meta -v /docker/influxdb/wal:/var/lib/influxdb/wal influxdb:1.8.0
