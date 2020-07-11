@@ -31,10 +31,6 @@ spring:
         health-check-path: /endpoint/_health
         health-check-interval: 3s
 
-logging:
-  config: classpath:config/logback/logback-spring.xml
-
-
 mybatis:
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
 
@@ -58,5 +54,5 @@ webuy:
 
 rocket-mq:
   name-server: 122.51.171.126:9876
-  provider:
+  producer:
     group:  AUTH_P
