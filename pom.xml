@@ -23,6 +23,7 @@
         <module>webuy-support</module>
         <module>webuy-learning</module>
         <module>uid-generator</module>
+        <module>webuy-learning/webuy-learning-activity</module>
     </modules>
 
 
@@ -436,9 +437,9 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <!--<excludes>-->
-                    <!--<exclude>static</exclude>-->
-                    <!--<exclude>**/*.html</exclude>-->
-                    <!--<exclude>webjars</exclude>-->
+                <!--<exclude>static</exclude>-->
+                <!--<exclude>**/*.html</exclude>-->
+                <!--<exclude>webjars</exclude>-->
                 <!--</excludes>-->
             </resource>
         </resources>
