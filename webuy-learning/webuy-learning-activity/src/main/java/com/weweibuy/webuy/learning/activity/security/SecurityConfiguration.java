@@ -39,10 +39,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
 
         String[][] usersGroupsAndRoles = {
-                {"salaboy", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
-                {"ryandawsonuk", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
-                {"erdemedeiros", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
-                {"other", "password", "ROLE_ACTIVITI_USER", "GROUP_otherTeam"},
+                {"tom", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
+                {"jack", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
+                {"luck", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
+                {"json", "password", "ROLE_ACTIVITI_USER", "GROUP_otherTeam"},
                 {"admin", "password", "ROLE_ACTIVITI_ADMIN"},
         };
 
@@ -60,12 +60,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/druid/**")
-                .permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+                .permitAll();
     }
 
     @Bean
