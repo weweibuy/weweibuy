@@ -30,6 +30,9 @@ public class SimpleConsumer2 {
         String correlationId = (String)message.getHeaders().get(AmqpHeaders.CORRELATION_ID);
         Long deliveryTag = (Long)message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
         log.error("deliveryTag=={}, correlationId : {}", deliveryTag, correlationId);
+        if(true ){
+            throw new RuntimeException("xxx");
+        }
         channel.basicNack(deliveryTag, false, false);
 
     }

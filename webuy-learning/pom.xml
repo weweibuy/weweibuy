@@ -27,6 +27,7 @@
         <module>webuy-learning-es-rest</module>
         <module>webuy-learning-redis</module>
         <module>webuy-learning-spark</module>
+        <module>webuy-learning-flowable</module>
     </modules>
     <artifactId>webuy-learning</artifactId>
 
