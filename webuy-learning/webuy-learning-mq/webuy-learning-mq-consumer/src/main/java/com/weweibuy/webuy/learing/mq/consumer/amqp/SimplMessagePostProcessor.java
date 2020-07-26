@@ -19,7 +19,7 @@ public class SimplMessagePostProcessor implements MessagePostProcessor {
 
     @Override
     public Message postProcessMessage(Message message) throws AmqpException {
-        log.info("message: {}", message.getBody());
+        log.info("message: {}", new String(message.getBody()));
         return message;
     }
 }

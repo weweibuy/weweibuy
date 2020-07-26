@@ -25,10 +25,14 @@ public class RabbitConfig {
     @Autowired(required = false)
     private List<MessagePostProcessor> messagePostProcessorList;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Bean
-    public MessageConverter messageConverter(ObjectMapper objectMapper) {
+    public MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter(objectMapper);
     }
+
 
     @Bean(name = "rabbitListenerContainerFactory")
     @ConditionalOnProperty(prefix = "spring.rabbitmq.listener", name = "type", havingValue = "simple", matchIfMissing = true)
@@ -36,11 +40,12 @@ public class RabbitConfig {
             SimpleRabbitListenerContainerFactoryConfigurer configurer,
             ConnectionFactory connectionFactory) {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        if(CollectionUtils.isNotEmpty(messagePostProcessorList)){
+        if (CollectionUtils.isNotEmpty(messagePostProcessorList)) {
             MessagePostProcessor[] arr = new MessagePostProcessor[messagePostProcessorList.size()];
             messagePostProcessorList.toArray(arr);
             factory.setAfterReceivePostProcessors(arr);
         }
+        factory.setMessageConverter(messageConverter());
         configurer.configure(factory, connectionFactory);
         return factory;
     }
