@@ -1016,7 +1016,8 @@ Spring
 17、用过哪些MQ，怎么用的，和其他mq比较有什么优缺点，MQ的连接是线程安全的吗
 
 
-18、MQ系统的数据如何保证不丢失
+18、MQ系统的数据如何保证不丢失 具体请参考文章 [https://www.jianshu.com/p/2c5eebfd0e95]
+
 	RabbitMq:
 		所以一般来说，如果你要确保说写rabbitmq的消息别丢，可以开启confirm模式，在生产者那里设置开启confirm模式之后，你每次写的消息都会分配一个唯一的id，
 		然后如果写入了rabbitmq中，rabbitmq会给你回传一个ack消息，告诉你说这个消息ok了。如果rabbitmq没能处理这个消息，
