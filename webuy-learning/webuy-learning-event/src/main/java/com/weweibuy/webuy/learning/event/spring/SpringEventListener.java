@@ -16,7 +16,7 @@ public class SpringEventListener {
 
     public static final Long ID  = 12L;
 
-    @EventListener(condition = "#bizEvent.bizType == 'jit' && #bizEvent.id.equals(#systemProperties.get('server.port'))")
+    @EventListener(condition = "#bizEvent.bizType == 'jit'")
     public void onEvent(TestEvent bizEvent) {
         log.info("jit + receive 事件发生了: {}", bizEvent);
     }

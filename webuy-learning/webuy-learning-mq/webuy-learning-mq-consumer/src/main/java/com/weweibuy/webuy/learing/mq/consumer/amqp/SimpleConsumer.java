@@ -8,7 +8,9 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author durenhao
@@ -21,8 +23,8 @@ public class SimpleConsumer {
 
     @RabbitListener(queues = "test_queue_01")
     public void onMessage(Message message, @Header(AmqpHeaders.DELIVERY_TAG) Long deliveryTag,
-                          @Header Map<String, String> headers, Channel channel) throws Exception {
-        log.info("msg 是: {}", message);
+                          Channel channel) throws Exception {
+        log.info("消费消息", message);
         /**
          * 若消息已经被消费，但是后续代码抛出异常，使用spring进行管理的话，消费端业务路基被回滚，也会造成实际消息的丢失
          * 手动调用以下防方法进行确认，手动确认可以在业务失败进行一些操作,以下为不同确认策略。

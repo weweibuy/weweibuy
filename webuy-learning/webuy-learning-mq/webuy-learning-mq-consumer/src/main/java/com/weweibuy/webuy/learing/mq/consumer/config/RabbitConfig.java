@@ -1,7 +1,6 @@
 package com.weweibuy.webuy.learing.mq.consumer.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -40,12 +39,13 @@ public class RabbitConfig {
             SimpleRabbitListenerContainerFactoryConfigurer configurer,
             ConnectionFactory connectionFactory) {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        if (CollectionUtils.isNotEmpty(messagePostProcessorList)) {
-            MessagePostProcessor[] arr = new MessagePostProcessor[messagePostProcessorList.size()];
-            messagePostProcessorList.toArray(arr);
-            factory.setAfterReceivePostProcessors(arr);
-        }
+//        if (CollectionUtils.isNotEmpty(messagePostProcessorList)) {
+//            MessagePostProcessor[] arr = new MessagePostProcessor[messagePostProcessorList.size()];
+//            messagePostProcessorList.toArray(arr);
+//            factory.setAfterReceivePostProcessors(arr);
+//        }
         factory.setMessageConverter(messageConverter());
+        factory.setAdviceChain(new RabbitConsumerMethodAdvice());
         configurer.configure(factory, connectionFactory);
         return factory;
     }
