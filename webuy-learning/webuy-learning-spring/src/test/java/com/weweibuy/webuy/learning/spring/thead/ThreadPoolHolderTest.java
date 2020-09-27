@@ -130,7 +130,7 @@ public class ThreadPoolHolderTest {
         });
 
         boolean done = stringFuture1.isDone();
-        boolean cancelled  = stringFuture1.isCancelled();
+        boolean cancelled = stringFuture1.isCancelled();
         log.info("id done:{} , is cancelled: {}", done, cancelled);
         String s = stringFuture1.get();
         boolean done1 = stringFuture1.isDone();
@@ -139,5 +139,7 @@ public class ThreadPoolHolderTest {
 
         log.info("运行结果: {}", s);
     }
+
+
 
 }

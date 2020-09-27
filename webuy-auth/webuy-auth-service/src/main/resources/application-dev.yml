@@ -15,6 +15,10 @@ security:
      client:
        client-id: webuy
        client-secret: webuy123
+spring:
+  session:
+    redis:
+      flush-mode:
 
 
 
