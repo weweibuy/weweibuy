@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.backstage.exceptionHandler;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public CommonCodeJsonResponse handleException(Exception e){
+    public CommonCodeResponse handleException(Exception e){
         e.printStackTrace();
         return null;
     }

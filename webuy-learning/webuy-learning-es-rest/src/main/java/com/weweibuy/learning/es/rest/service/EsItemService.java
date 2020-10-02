@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weweibuy.learning.es.rest.mapper.TbItemMapper;
 import com.weweibuy.learning.es.rest.model.po.TbItem;
 import com.weweibuy.learning.es.rest.utils.JacksonUtils;
-import com.weweibuy.webuy.common.utils.DateTimeUtils;
+import com.weweibuy.framework.common.core.utils.DateTimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -61,8 +61,8 @@ public class EsItemService {
         sourceBuilder.from(2);
 
         RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("create_time");
-        rangeQuery.from(DateTimeUtils.toDateFormat(LocalDateTime.now().plusYears(-10)));
-        rangeQuery.to(DateTimeUtils.toDateFormat(LocalDateTime.now()));
+        rangeQuery.from(DateTimeUtils.toStringDate(LocalDateTime.now().plusYears(-10)));
+        rangeQuery.to(DateTimeUtils.toStringDate(LocalDateTime.now()));
 
         boolQueryBuilder.filter(rangeQuery);
         sourceBuilder.query(boolQueryBuilder);
@@ -135,8 +135,8 @@ public class EsItemService {
 //        boolQueryBuilder.must(QueryBuilders.matchPhraseQuery("title", "三星"));
 
         RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("create_time");
-        rangeQuery.from(DateTimeUtils.toDateFormat(LocalDateTime.now().plusYears(-10)));
-        rangeQuery.to(DateTimeUtils.toDateFormat(LocalDateTime.now()));
+        rangeQuery.from(DateTimeUtils.toStringDate(LocalDateTime.now().plusYears(-10)));
+        rangeQuery.to(DateTimeUtils.toStringDate(LocalDateTime.now()));
         //排序
         FieldSortBuilder price = SortBuilders.fieldSort("price").order(SortOrder.DESC);
         //构建检索条件

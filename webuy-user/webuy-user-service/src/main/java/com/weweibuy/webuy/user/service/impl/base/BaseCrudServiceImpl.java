@@ -2,7 +2,7 @@ package com.weweibuy.webuy.user.service.impl.base;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.weweibuy.webuy.common.model.dto.CommonPageResult;
+import com.weweibuy.framework.common.core.model.dto.CommonPageResult;
 import com.weweibuy.webuy.user.mapper.base.BaseCrudMapper;
 import com.weweibuy.webuy.user.service.base.BaseCrudService;
 import org.springframework.beans.factory.annotation.Autowired;

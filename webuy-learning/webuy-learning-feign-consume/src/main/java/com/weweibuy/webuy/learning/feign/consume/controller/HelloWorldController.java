@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.feign.consume.controller;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.webuy.learning.feign.consume.client.HelloClient;
 import com.weweibuy.webuy.learning.feign.consume.client.LearningClient;
 import com.weweibuy.webuy.learning.feign.consume.service.AsyncConsumeService;
@@ -45,7 +45,7 @@ public class HelloWorldController {
 
     @GetMapping("/hello2")
     public Object hello2() {
-        return helloClient.helloPost("token123", CommonDataJsonResponse.success("success"), "sign123");
+        return helloClient.helloPost("token123", CommonDataResponse.success("success"), "sign123");
     }
 
 

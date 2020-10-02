@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.spring.client;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface HelloClient {
 
     @GetMapping("/hello")
-    CommonDataJsonResponse<String> hello();
+    CommonDataResponse<String> hello();
 
 
 }

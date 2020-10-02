@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.gateway.authentication;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class IAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType("application/json;charset=utf-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
-        CommonCodeJsonResponse fail = CommonCodeJsonResponse.badRequestParam();
+        CommonCodeResponse fail = CommonCodeResponse.badRequestParam();
         String jsonString = JackJsonUtils.write(fail);
         response.getWriter().write(jsonString);
     }

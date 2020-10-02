@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.user.utils;
 
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import com.weweibuy.webuy.user.common.model.vo.PhoneVerifyCodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

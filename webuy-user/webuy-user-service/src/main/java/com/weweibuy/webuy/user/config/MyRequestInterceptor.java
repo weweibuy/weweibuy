@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.user.config;
 
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;

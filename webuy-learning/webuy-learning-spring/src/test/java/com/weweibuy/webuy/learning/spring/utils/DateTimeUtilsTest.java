@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.spring.utils;
 
-import com.weweibuy.webuy.common.utils.DateTimeUtils;
+import com.weweibuy.framework.common.core.utils.DateTimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class DateTimeUtilsTest {
         String format = localDateTime.format(dateTimeFormatter);
 
         Date date1 = DateTimeUtils.localDateTimeToDate(localDateTime);
-        LocalDateTime localDateTime1 = DateTimeUtils.systemTimestampToLocalDateTime(System.currentTimeMillis());
+        LocalDateTime localDateTime1 = DateTimeUtils.timestampMilliToLocalDateTime(System.currentTimeMillis());
         String format1 = localDateTime1.format(dateTimeFormatter);
         Date date2 = DateTimeUtils.localDateTimeToDate(localDateTime1);
 

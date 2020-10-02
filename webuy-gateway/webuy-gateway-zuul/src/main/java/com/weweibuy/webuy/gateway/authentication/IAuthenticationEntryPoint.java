@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.gateway.authentication;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.core.AuthenticationException;
@@ -39,11 +39,11 @@ public class IAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setContentType("application/json;charset=utf-8");
         Throwable cause = authException.getCause();
         if(cause instanceof InvalidTokenException){
-            CommonCodeJsonResponse fail = CommonCodeJsonResponse.badRequestParam();
+            CommonCodeResponse fail = CommonCodeResponse.badRequestParam();
             String jsonString = JackJsonUtils.write(fail);
             response.getWriter().write(jsonString);
         }else {
-            CommonCodeJsonResponse fail = CommonCodeJsonResponse.badRequestParam("ResourcesWebMsg.TOKEN_INVALID");
+            CommonCodeResponse fail = CommonCodeResponse.badRequestParam("ResourcesWebMsg.TOKEN_INVALID");
             String jsonString = JackJsonUtils.write(fail);
             response.getWriter().write(jsonString);
         }

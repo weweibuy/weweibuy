@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.event.controller;
 
-import com.weweibuy.webuy.common.utils.IdWorker;
+import com.weweibuy.framework.common.core.utils.IdWorker;
 import com.weweibuy.webuy.learning.event.event.config.EventTypeEum;
 import com.weweibuy.webuy.learning.event.event.helper.BizEventHelper;
 import com.weweibuy.webuy.learning.event.event.model.AddTestBillEvent;

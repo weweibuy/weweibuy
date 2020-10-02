@@ -2,7 +2,7 @@ package com.weweibuy.webuy.gateway.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.util.concurrent.RateLimiter;
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -32,7 +32,7 @@ public class PrimaryRateLimiterFilter extends OncePerRequestFilter {
         if(!b){
             log.info("网络限流，无法请求");
             ObjectMapper mapper = new ObjectMapper();
-            CommonCodeJsonResponse fail = CommonCodeJsonResponse.requestLimit();
+            CommonCodeResponse fail = CommonCodeResponse.requestLimit();
             String json = mapper.writeValueAsString(fail);
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(json);

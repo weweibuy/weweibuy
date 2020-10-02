@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.auth.controller;
 
-import com.weweibuy.framework.common.core.model.dto.CommonCodeJsonResponse;
-import com.weweibuy.framework.common.core.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.webuy.auth.model.dto.AuthorizationReq;
 import com.weweibuy.webuy.auth.model.dto.AuthorizationResp;
 import lombok.extern.slf4j.Slf4j;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class GatewayAuthenticationController {
 
     @PostMapping("/authorize")
-    public CommonCodeJsonResponse authorize(@RequestBody AuthorizationReq AuthorizationReq) {
+    public CommonCodeResponse authorize(@RequestBody AuthorizationReq AuthorizationReq) {
         log.info("请求: {}", AuthorizationReq);
         AuthorizationResp resp = new AuthorizationResp();
         resp.setAppId("124");
         resp.setAppKey("app_key_123");
         resp.setAppSecret("app_secret_123");
         resp.setAppId("service_123");
-        return CommonDataJsonResponse.success(resp);
+        return CommonDataResponse.success(resp);
     }
 
 

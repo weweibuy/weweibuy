@@ -4,7 +4,7 @@ import com.weweibuy.learning.es.model.es.EsJitTimeOrderHeader;
 import com.weweibuy.learning.es.model.es.MetricData;
 import com.weweibuy.learning.es.respository.EsJitTimeOrderHeaderRepository;
 import com.weweibuy.learning.es.respository.MetricDataEsRepository;
-import com.weweibuy.webuy.common.utils.IdWorker;
+import com.weweibuy.framework.common.core.utils.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

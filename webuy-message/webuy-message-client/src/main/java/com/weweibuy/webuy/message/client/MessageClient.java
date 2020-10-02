@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.message.client;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.webuy.message.client.fallback.MessageClientFallBack;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
 import com.weweibuy.webuy.message.common.model.vo.ConfirmMessageVo;
@@ -25,7 +25,7 @@ public interface MessageClient {
 
 
     @RequestMapping(value = "/pre-save", method = RequestMethod.POST)
-    public CommonDataJsonResponse<MessageDto> saveMessage(@RequestBody PreSaveMessageVo message, BindingResult result);
+    public CommonDataResponse<MessageDto> saveMessage(@RequestBody PreSaveMessageVo message, BindingResult result);
 
 
     /**
@@ -35,7 +35,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/send-message", method = RequestMethod.PUT)
-    public CommonDataJsonResponse<MessageDto> sendMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataResponse<MessageDto> sendMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 
     /**
@@ -45,7 +45,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/re-send-message", method = RequestMethod.PUT)
-    public CommonDataJsonResponse<MessageDto> reSendMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataResponse<MessageDto> reSendMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 
     /**
@@ -55,7 +55,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public CommonDataJsonResponse deleteBizFailMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataResponse deleteBizFailMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 
     /**
@@ -65,7 +65,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/confirm-message", method = RequestMethod.DELETE)
-    public CommonDataJsonResponse<MessageDto> confirmMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataResponse<MessageDto> confirmMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 
     /**
@@ -76,7 +76,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/{id}/{correlationId}", method = RequestMethod.GET)
-    public CommonDataJsonResponse<MessageDto> getMessageByDeliverTag(@PathVariable Long id, @PathVariable String correlationId);
+    public CommonDataResponse<MessageDto> getMessageByDeliverTag(@PathVariable Long id, @PathVariable String correlationId);
 
 
     /**
@@ -87,7 +87,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/page/{page}/row/{row}", method = RequestMethod.GET)
-    public CommonDataJsonResponse<List<MessageDto>> getMessages(@PathVariable Integer page, @PathVariable Integer row);
+    public CommonDataResponse<List<MessageDto>> getMessages(@PathVariable Integer page, @PathVariable Integer row);
 
     /**
      * 分页获取认定为死亡的消息（重发次数达到一定的值）
@@ -95,7 +95,7 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/dead/page/{page}/row/{row}", method = RequestMethod.GET)
-    public CommonDataJsonResponse<MessageDto> getDeadMessage(@PathVariable Integer page, @PathVariable Integer row);
+    public CommonDataResponse<MessageDto> getDeadMessage(@PathVariable Integer page, @PathVariable Integer row);
 
     /**
      * 重发死亡的消息
@@ -103,6 +103,6 @@ public interface MessageClient {
      * @return
      */
     @RequestMapping(value = "/dead/send", method = RequestMethod.PUT)
-    public CommonDataJsonResponse reSendDeadMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
+    public CommonDataResponse reSendDeadMessage(@RequestBody ConfirmMessageVo confirmMessageVo);
 
 }

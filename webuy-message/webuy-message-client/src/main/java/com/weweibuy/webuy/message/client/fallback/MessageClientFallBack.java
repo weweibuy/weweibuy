@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.message.client.fallback;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
-import com.weweibuy.webuy.common.model.eum.CommonResponseEum;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
+import com.weweibuy.framework.common.core.model.eum.CommonErrorCodeEum;
 import com.weweibuy.webuy.message.client.MessageClient;
 import com.weweibuy.webuy.message.common.model.dto.MessageDto;
 import com.weweibuy.webuy.message.common.model.vo.ConfirmMessageVo;
@@ -27,56 +27,56 @@ public class MessageClientFallBack implements FallbackFactory<MessageClient> {
     public MessageClient create(Throwable throwable) {
         return new MessageClient() {
             @Override
-            public CommonDataJsonResponse<MessageDto> saveMessage(PreSaveMessageVo message, BindingResult result) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse<MessageDto> saveMessage(PreSaveMessageVo message, BindingResult result) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
 
             }
 
             @Override
-            public CommonDataJsonResponse<MessageDto> sendMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse<MessageDto> sendMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
 
             }
 
             @Override
-            public CommonDataJsonResponse<MessageDto> reSendMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse<MessageDto> reSendMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
 
             }
 
             @Override
-            public CommonDataJsonResponse deleteBizFailMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse deleteBizFailMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
 
             }
 
             @Override
-            public CommonDataJsonResponse<MessageDto> confirmMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse<MessageDto> confirmMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
 
             }
 
             @Override
-            public CommonDataJsonResponse<MessageDto> getMessageByDeliverTag(Long id, String correlationId) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse<MessageDto> getMessageByDeliverTag(Long id, String correlationId) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
 
             }
 
             @Override
-            public CommonDataJsonResponse<List<MessageDto>> getMessages(Integer page, Integer row) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse<List<MessageDto>> getMessages(Integer page, Integer row) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
 
             }
 
             @Override
-            public CommonDataJsonResponse<MessageDto> getDeadMessage(Integer page, Integer row) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse<MessageDto> getDeadMessage(Integer page, Integer row) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
 
             }
 
             @Override
-            public CommonDataJsonResponse reSendDeadMessage(ConfirmMessageVo confirmMessageVo) {
-                return CommonDataJsonResponse.response(CommonResponseEum.UNKNOWN_EXCEPTION, null);
+            public CommonDataResponse reSendDeadMessage(ConfirmMessageVo confirmMessageVo) {
+                return CommonDataResponse.response(CommonErrorCodeEum.UNKNOWN_EXCEPTION, null);
             }
         };
     }

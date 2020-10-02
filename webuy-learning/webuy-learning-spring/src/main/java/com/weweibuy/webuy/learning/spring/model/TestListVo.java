@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.spring.model;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.cglib.beans.BeanCopier;
@@ -27,6 +27,6 @@ public class TestListVo {
 
     private List<TestUser> users;
 
-    private CommonCodeJsonResponse response;
+    private CommonCodeResponse response;
 
 }

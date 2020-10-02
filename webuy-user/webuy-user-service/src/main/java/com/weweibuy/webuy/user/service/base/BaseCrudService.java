@@ -1,6 +1,7 @@
 package com.weweibuy.webuy.user.service.base;
 
-import com.weweibuy.webuy.common.model.dto.CommonPageResult;
+
+import com.weweibuy.framework.common.core.model.dto.CommonPageResult;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.weweibuy.webuy.user.controller;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
-import com.weweibuy.webuy.common.model.eum.CommonResponseEum;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
+import com.weweibuy.framework.common.core.model.eum.CommonErrorCodeEum;
 import com.weweibuy.webuy.support.client.SmsCodeClient;
 import com.weweibuy.webuy.user.model.form.RegisterForm;
 import com.weweibuy.webuy.user.service.UserService;
@@ -51,18 +51,18 @@ public class UserController {
      */
     @GetMapping("/register/verificationCode/{phoneNum}")
     @ApiOperation(value = "获取验证码", notes = "1分钟获取一次验证码")
-    public CommonDataJsonResponse sendVerificationCode(@PathVariable String phoneNum) {
+    public CommonDataResponse sendVerificationCode(@PathVariable String phoneNum) {
         if (phoneNum == null || !phoneNum.matches("^[1][3,4,5,7,8][0-9]{9}$")) {
-            return CommonDataJsonResponse.response(CommonResponseEum.BAD_REQUEST_PARAM, null);
+            return CommonDataResponse.response(CommonErrorCodeEum.BAD_REQUEST_PARAM, null);
         }
         return userService.sendVerificationCode(phoneNum);
     }
 
     @GetMapping("/checkAccountExist/{phoneNum}")
     @ApiOperation(value = "检测手机号对应账号是否存在")
-    public CommonCodeJsonResponse checkAccountExist(@PathVariable String phoneNum) {
+    public CommonCodeResponse checkAccountExist(@PathVariable String phoneNum) {
         if (StringUtils.isBlank(phoneNum)) {
-            return CommonDataJsonResponse.badRequestParam();
+            return CommonDataResponse.badRequestParam();
         }
         return userService.checkAccountExist(phoneNum);
     }
@@ -70,9 +70,9 @@ public class UserController {
 
     @PostMapping("/register/signUp")
     @ApiOperation(value = "注册用户")
-    public CommonCodeJsonResponse registerUser(@Valid @RequestBody RegisterForm registerForm, BindingResult result) throws Exception {
+    public CommonCodeResponse registerUser(@Valid @RequestBody RegisterForm registerForm, BindingResult result) throws Exception {
         if (result.hasErrors()) {
-            return CommonDataJsonResponse.badRequestParam("UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL");
+            return CommonDataResponse.badRequestParam("UserWebMsgEum.USERNAME_OR_PWD_NOT_NULL");
         }
         log.info("注册用户");
         executor.execute(() -> {
@@ -98,9 +98,9 @@ public class UserController {
      */
     @GetMapping("/loadUserByUsername")
     @ApiOperation(value = "提供给权限服务的加载用户信息")
-    public CommonCodeJsonResponse loadUserByUsername(@ApiParam(required = true) String username) throws Exception {
+    public CommonCodeResponse loadUserByUsername(@ApiParam(required = true) String username) throws Exception {
         if (StringUtils.isBlank(username)) {
-            return CommonDataJsonResponse.badRequestParam("用户名密码不能为空");
+            return CommonDataResponse.badRequestParam("用户名密码不能为空");
         }
         log.info("loadUserByUsername: {}", username);
         return userService.loadUserByUsername(username);

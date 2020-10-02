@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.learning.sharing.utils;
 
 import com.baidu.fsg.uid.UidGenerator;
-import com.weweibuy.webuy.common.utils.IdWorker;
+import com.weweibuy.framework.common.core.utils.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

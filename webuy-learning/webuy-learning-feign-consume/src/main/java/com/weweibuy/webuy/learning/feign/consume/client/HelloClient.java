@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.feign.consume.client;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface HelloClient {
 
     @GetMapping("/hello")
-    CommonDataJsonResponse<String> hello();
+    CommonDataResponse<String> hello();
 
 
     @PostMapping("/hello")
-    CommonDataJsonResponse<String> helloPost(@RequestHeader(value = "token") String token,
-                                             CommonDataJsonResponse commonJsonResponse,
+    CommonDataResponse<String> helloPost(@RequestHeader(value = "token") String token,
+                                             CommonDataResponse commonJsonResponse,
                                          @RequestParam("sign") String sign);
 
 

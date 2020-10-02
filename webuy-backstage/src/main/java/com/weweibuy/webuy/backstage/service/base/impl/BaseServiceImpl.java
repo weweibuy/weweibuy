@@ -5,7 +5,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.weweibuy.webuy.backstage.mapper.base.BaseMapper;
 import com.weweibuy.webuy.backstage.service.base.BaseService;
-import com.weweibuy.webuy.common.model.dto.CommonPageResult;
+import com.weweibuy.framework.common.core.model.dto.CommonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;

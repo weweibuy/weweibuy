@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.support.controller;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.webuy.support.service.SmsCodeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,9 +34,9 @@ public class SmsCodeController {
         log.info("查询验证码, 手机号码: {}", mobile);
 
         if (StringUtils.isBlank(mobile)) {
-            return ResponseEntity.ok(CommonCodeJsonResponse.badRequestParam());
+            return ResponseEntity.ok(CommonCodeResponse.badRequestParam());
         }
-        return ResponseEntity.ok(CommonDataJsonResponse.success(smsCodeService.getSmsCode(mobile)));
+        return ResponseEntity.ok(CommonDataResponse.success(smsCodeService.getSmsCode(mobile)));
     }
 
 }

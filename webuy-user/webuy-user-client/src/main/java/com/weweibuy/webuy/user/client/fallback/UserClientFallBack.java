@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.user.client.fallback;
 
-import com.weweibuy.framework.common.core.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.webuy.user.client.UserClient;
 import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import feign.hystrix.FallbackFactory;
@@ -24,7 +24,7 @@ public class UserClientFallBack implements FallbackFactory<UserClient> {
         log.error(throwable.getMessage());
         return new UserClient() {
             @Override
-            public CommonDataJsonResponse<WebuyUser> loadUserByUsername(String username) {
+            public CommonDataResponse<WebuyUser> loadUserByUsername(String username) {
                 return null;
             }
         };

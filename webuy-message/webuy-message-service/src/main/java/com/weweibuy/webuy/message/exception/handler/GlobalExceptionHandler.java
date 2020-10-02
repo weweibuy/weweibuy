@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.message.exception.handler;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
 import com.weweibuy.webuy.message.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public CommonCodeJsonResponse handleException(Exception e){
+    public CommonCodeResponse handleException(Exception e){
         log.error(e.getMessage());
-        return CommonCodeJsonResponse.unknownException();
+        return CommonCodeResponse.unknownException();
     }
 
     @ExceptionHandler(BizException.class)
-    public CommonCodeJsonResponse handleBizException(BizException e){
+    public CommonCodeResponse handleBizException(BizException e){
         log.error(e.getMessage());
-        return CommonCodeJsonResponse.badRequestParam();
+        return CommonCodeResponse.badRequestParam();
     }
 
 }

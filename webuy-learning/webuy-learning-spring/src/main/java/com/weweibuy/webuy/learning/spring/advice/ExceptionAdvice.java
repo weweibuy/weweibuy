@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.learning.spring.advice;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.webuy.learning.spring.exception.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +19,13 @@ public class ExceptionAdvice {
     @ExceptionHandler(value = ClientException.class)
     public ResponseEntity handlerException(ClientException e) {
         log.error("出错了", e);
-        return ResponseEntity.ok(CommonCodeJsonResponse.success());
+        return ResponseEntity.ok(CommonCodeResponse.success());
     }
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity handlerException(Exception e) {
         log.error("出错了", e);
-        return ResponseEntity.ok(CommonDataJsonResponse.success(e.getMessage()));
+        return ResponseEntity.ok(CommonDataResponse.success(e.getMessage()));
     }
 
 }

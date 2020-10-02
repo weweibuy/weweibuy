@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,13 @@ public class HelloController {
     @GetMapping("/hello")
     @ResponseBody
     public String hello() throws InterruptedException {
+        Thread.sleep(100);
+        return "authHello... get";
+    }
+
+    @PostMapping("/hello")
+    @ResponseBody
+    public String helloPost() throws InterruptedException {
         Thread.sleep(100);
         return "authHello... get";
     }

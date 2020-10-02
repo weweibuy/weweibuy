@@ -1,7 +1,7 @@
 package com.weweibuy.webuy.gateway.spring.security;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -59,7 +59,7 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         response.setStatusCode(HttpStatus.FORBIDDEN);
         return response.writeWith(Flux.just(response.bufferFactory()
-                .wrap(JackJsonUtils.writeAsByte(CommonCodeJsonResponse.forbidden()))));
+                .wrap(JackJsonUtils.writeAsByte(CommonCodeResponse.forbidden()))));
     }
 
 }

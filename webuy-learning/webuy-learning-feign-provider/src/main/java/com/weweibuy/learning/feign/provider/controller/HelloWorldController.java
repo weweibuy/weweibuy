@@ -1,7 +1,7 @@
 package com.weweibuy.learning.feign.provider.controller;
 
 import com.weweibuy.framework.common.core.exception.Exceptions;
-import com.weweibuy.framework.common.core.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,13 +24,13 @@ import java.io.InputStream;
 public class HelloWorldController {
 
     @GetMapping("/hello")
-    public CommonDataJsonResponse<String> helloGet() {
-        return CommonDataJsonResponse.success("hello i am provider get method");
+    public CommonDataResponse<String> helloGet() {
+        return CommonDataResponse.success("hello i am provider get method");
     }
 
 
     @PostMapping("/hello")
-    public CommonDataJsonResponse<String> helloPost(@RequestBody CommonDataJsonResponse<String> commonJsonResponse,
+    public CommonDataResponse<String> helloPost(@RequestBody CommonDataResponse<String> commonJsonResponse,
                                                     @RequestHeader(value = "token") String token,
                                                     String sign) {
         log.info("date : {}", commonJsonResponse.getData());
@@ -39,7 +39,7 @@ public class HelloWorldController {
         if (true) {
             throw Exceptions.unknown();
         }
-        return CommonDataJsonResponse.success("hello i am provider post method");
+        return CommonDataResponse.success("hello i am provider post method");
     }
 
     @PostMapping("/hello-file")

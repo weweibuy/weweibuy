@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.gateway.spring.controller;
 
-import com.weweibuy.webuy.common.utils.JackJsonUtils;
+import com.weweibuy.framework.common.core.utils.JackJsonUtils;
 import com.weweibuy.webuy.gateway.spring.constant.GatewayRouteConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.FilterDefinition;

@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.spring.swagger;
 
-import com.weweibuy.webuy.common.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.webuy.learning.spring.model.Dog;
 import com.weweibuy.webuy.learning.spring.model.UserInfo;
 import com.weweibuy.webuy.learning.spring.model.error.ApiError;
@@ -30,8 +30,8 @@ public class SwaggerController {
 
     @ApiOperation(value = "测试接口")
     @PostMapping("/user")
-    public ResponseEntity<CommonDataJsonResponse<Dog>> addUserInfo(@RequestBody UserInfo userInfo){
-        return ResponseEntity.ok(CommonDataJsonResponse.success(new Dog()));
+    public ResponseEntity<CommonDataResponse<Dog>> addUserInfo(@RequestBody UserInfo userInfo){
+        return ResponseEntity.ok(CommonDataResponse.success(new Dog()));
     }
 
 }

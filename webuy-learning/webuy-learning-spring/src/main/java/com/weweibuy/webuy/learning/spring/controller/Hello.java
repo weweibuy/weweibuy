@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.learning.spring.controller;
 
-import com.weweibuy.webuy.common.model.dto.CommonCodeJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonCodeResponse;
 import com.weweibuy.webuy.learning.spring.model.TestListVo;
 import com.weweibuy.webuy.learning.spring.model.TestUser;
 import com.weweibuy.webuy.learning.spring.service.TestUserService;
@@ -39,7 +39,7 @@ public class Hello implements TypeInterface {
         Cookie cookie = new Cookie("test_gateway_cookie", "test_gateway_cookie_value");
         response.addCookie(cookie);
         response.addHeader("test_gateway_header", "test_gateway_header_value");
-        return CommonCodeJsonResponse.success();
+        return CommonCodeResponse.success();
     }
 
     @RequestMapping("/test/hello")

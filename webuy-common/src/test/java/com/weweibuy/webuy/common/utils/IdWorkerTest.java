@@ -1,5 +1,6 @@
 package com.weweibuy.webuy.common.utils;
 
+import com.weweibuy.framework.common.core.utils.IdWorker;
 import org.junit.Test;
 
 public class IdWorkerTest {

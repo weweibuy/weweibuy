@@ -1,6 +1,6 @@
 package com.weweibuy.webuy.auth.security;
 
-import com.weweibuy.framework.common.core.model.dto.CommonDataJsonResponse;
+import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.webuy.user.client.UserClient;
 import com.weweibuy.webuy.user.common.model.po.WebuyUser;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class IUserDetailService implements UserDetailsService, SocialUserDetails
         if(true){
             return new User("tom", encoder.encode("123456"), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
         }
-        CommonDataJsonResponse<WebuyUser> userWebResult = userClient.loadUserByUsername(username);
+        CommonDataResponse<WebuyUser> userWebResult = userClient.loadUserByUsername(username);
         return new User(username, ((WebuyUser) userWebResult.getData()).getPassword(),
                 AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
 

@@ -30,6 +30,7 @@ spring:
         ip-address: 127.0.0.1
         health-check-path: /endpoint/_health
         health-check-interval: 3s
+        health-check-critical-timeout: 5m
 
 mybatis:
   mapper-locations: classpath:config/mybatis/mapper/**/*.xml                       # mapper映射文件
