@@ -10,3 +10,4 @@ spring:
 flowable:
   database-schema-update: true
   history-level: audit
+  async-executor-activate: false
