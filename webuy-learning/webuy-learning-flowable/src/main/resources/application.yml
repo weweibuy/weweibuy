@@ -11,3 +11,12 @@ flowable:
   database-schema-update: true
   history-level: audit
   async-executor-activate: false
+#  idm:
+#    app:
+#      admin:
+#        user-id: admin
+#      password: test
+#      first-name: Test
+#      last-name: Administrator
+#      email: test-admin@example-domain.tld
+
