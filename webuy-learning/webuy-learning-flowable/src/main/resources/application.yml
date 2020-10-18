@@ -8,22 +8,9 @@ spring:
     username: user01
     password: ak402507979
 flowable:
-  rest:
-    app:
-      authentication-mode:
-      admin:
-        user-id: rest-admin
-        password: test
-        first-name: Test
-        last-name: Administrator
-        email: test-admin@example-domain.tld
-#  idm:
-#    app:
-#      admin:
-#        user-id: admin
-#      password: test
-#      first-name: Test
-#      last-name: Administrator
-#      email: test-admin@example-domain.tld
+  database-schema-update: true
+  history-level: audit
+  async-executor-activate: false
+
 
 
