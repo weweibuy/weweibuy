@@ -1,0 +1,9 @@
+/idm-api
+/form-api/*
+/event-registry-api
+/dmn-api/*
+/content-api
+/cmmn-api/*
+/app-api
+/external-job-api
+/process-api

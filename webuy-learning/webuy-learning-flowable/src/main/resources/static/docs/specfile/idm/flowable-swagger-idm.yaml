@@ -1,0 +1,836 @@
+---
+swagger: "2.0"
+info:
+  description: "# flowable / flowəb(ə)l /\r\n\r\n- a compact and highly efficient\
+    \ workflow and Business Process Management (BPM) platform for developers, system\
+    \ admins and business users.\r\n- a lightning fast, tried and tested BPMN 2 process\
+    \ engine written in Java. It is Apache 2.0 licensed open source, with a committed\
+    \ community.\r\n- can run embedded in a Java application, or as a service on a\
+    \ server, a cluster, and in the cloud. It integrates perfectly with Spring. With\
+    \ a rich Java and REST API, it is the ideal engine for orchestrating human or\
+    \ system activities."
+  version: "v1"
+  title: "Flowable IDM REST API"
+  contact:
+    name: "Flowable"
+    url: "http://www.flowable.org/"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/idm-api"
+tags:
+- name: "Engine"
+- name: "Groups"
+- name: "Privileges"
+- name: "Users"
+schemes:
+- "http"
+- "https"
+paths:
+  /groups:
+    get:
+      tags:
+      - "Groups"
+      summary: "List groups"
+      description: ""
+      operationId: "listGroups"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "Only return group with the given id"
+        required: false
+        type: "string"
+      - name: "name"
+        in: "query"
+        description: "Only return groups with the given name"
+        required: false
+        type: "string"
+      - name: "type"
+        in: "query"
+        description: "Only return groups with the given type"
+        required: false
+        type: "string"
+      - name: "nameLike"
+        in: "query"
+        description: "Only return groups with a name like the given value."
+        required: false
+        type: "string"
+      - name: "member"
+        in: "query"
+        description: "Only return groups which have a member with the given username."
+        required: false
+        type: "string"
+      - name: "sort"
+        in: "query"
+        description: "Property to sort on, to be used together with the order."
+        required: false
+        type: "string"
+        enum:
+        - "id"
+        - "name"
+        - "type"
+      responses:
+        200:
+          description: "Indicates the requested groups were returned."
+          schema:
+            $ref: "#/definitions/DataResponseGroupResponse"
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - "Groups"
+      summary: "Create a group"
+      description: ""
+      operationId: "createGroup"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/GroupRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GroupResponse"
+        201:
+          description: "Indicates the group was created."
+        400:
+          description: "Indicates the id of the group was missing."
+      security:
+      - basicAuth: []
+  /groups/{groupId}:
+    get:
+      tags:
+      - "Groups"
+      summary: "Get a single group"
+      description: ""
+      operationId: "getGroup"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "groupId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the group exists and is returned."
+          schema:
+            $ref: "#/definitions/GroupResponse"
+        404:
+          description: "Indicates the requested group does not exist."
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - "Groups"
+      summary: "Update a group"
+      description: "All request values are optional. For example, you can only include\
+        \ the name attribute in the request body JSON-object, only updating the name\
+        \ of the group, leaving all other fields unaffected. When an attribute is\
+        \ explicitly included and is set to null, the group-value will be updated\
+        \ to null."
+      operationId: "updateGroup"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "groupId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/GroupRequest"
+      responses:
+        200:
+          description: "Indicates the group was updated."
+          schema:
+            $ref: "#/definitions/GroupResponse"
+        404:
+          description: "Indicates the requested group was not found."
+        409:
+          description: "Indicates the requested group was updated simultaneously."
+      security:
+      - basicAuth: []
+    delete:
+      tags:
+      - "Groups"
+      summary: "Delete a group"
+      description: ""
+      operationId: "deleteGroup"
+      parameters:
+      - name: "groupId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Indicates the group was found and  has been deleted. Response-body\
+            \ is intentionally empty."
+        404:
+          description: "Indicates the requested group does not exist."
+      security:
+      - basicAuth: []
+  /groups/{groupId}/members:
+    post:
+      tags:
+      - "Groups"
+      summary: "Add a member to a group"
+      description: ""
+      operationId: "createMembership"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "groupId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/MembershipRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/MembershipResponse"
+        201:
+          description: "Indicates the group was found and the member has been added."
+        400:
+          description: "Indicates the userId was not included in the request body."
+        404:
+          description: "Indicates the requested group was not found."
+        409:
+          description: "Indicates the requested user is already a member of the group."
+      security:
+      - basicAuth: []
+  /groups/{groupId}/members/{userId}:
+    delete:
+      tags:
+      - "Groups"
+      summary: "Delete a member from a group"
+      description: ""
+      operationId: "deleteMembership"
+      parameters:
+      - name: "groupId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Indicates the group was found and the member has been deleted.\
+            \ The response body is left empty intentionally."
+        404:
+          description: "Indicates the requested group was not found or that the user\
+            \ is not a member of the group. The status description contains additional\
+            \ information about the error."
+      security:
+      - basicAuth: []
+  /idm-management/engine:
+    get:
+      tags:
+      - "Engine"
+      summary: "Get IDM engine info"
+      description: "Returns a read-only view of the engine that is used in this REST-service."
+      operationId: "getEngineInfo"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Indicates the engine info is returned."
+          schema:
+            $ref: "#/definitions/EngineInfoResponse"
+      security:
+      - basicAuth: []
+  /privileges:
+    get:
+      tags:
+      - "Privileges"
+      summary: "List privileges"
+      description: ""
+      operationId: "listPrivileges"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "Only return privileges with the given id"
+        required: false
+        type: "string"
+      - name: "name"
+        in: "query"
+        description: "Only return privileges with the given name"
+        required: false
+        type: "string"
+      - name: "userId"
+        in: "query"
+        description: "Only return privileges with the given userId"
+        required: false
+        type: "string"
+      - name: "groupId"
+        in: "query"
+        description: "Only return privileges with the given groupId"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the requested privileges were returned."
+          schema:
+            $ref: "#/definitions/DataResponsePrivilegeResponse"
+      security:
+      - basicAuth: []
+  /privileges/{privilegeId}:
+    get:
+      tags:
+      - "Privileges"
+      summary: "Get a single privilege"
+      description: ""
+      operationId: "getUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "privilegeId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the privilege exists and is returned."
+          schema:
+            $ref: "#/definitions/PrivilegeResponse"
+        404:
+          description: "Indicates the requested privilege does not exist."
+      security:
+      - basicAuth: []
+  /privileges/{privilegeId}/group/{groupId}:
+    delete:
+      tags:
+      - "Privileges"
+      summary: "Deletes a privilege for a group"
+      description: ""
+      operationId: "deleteGroupPrivilege"
+      parameters:
+      - name: "privilegeId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "groupId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the group privilege has been deleted"
+      security:
+      - basicAuth: []
+  /privileges/{privilegeId}/groups:
+    get:
+      tags:
+      - "Privileges"
+      summary: "List all groups for a given privilege"
+      description: ""
+      operationId: "listPrivilegeGroups"
+      parameters:
+      - name: "privilegeId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the privilege exists and its groups are returned."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/GroupResponse"
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - "Privileges"
+      summary: "Adds a privilege for a group"
+      description: ""
+      operationId: "addGroupPrivilege"
+      parameters:
+      - name: "privilegeId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AddGroupPrivilegeRequest"
+      responses:
+        200:
+          description: "Indicates the group privilege has been added"
+      security:
+      - basicAuth: []
+  /privileges/{privilegeId}/users:
+    get:
+      tags:
+      - "Privileges"
+      summary: "List all users for a given privilege"
+      description: ""
+      operationId: "listPrivilegeUsers"
+      parameters:
+      - name: "privilegeId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the privilege exists and its users are returned."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UserResponse"
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - "Privileges"
+      summary: "Adds a privilege for a user"
+      description: ""
+      operationId: "addUserPrivilege"
+      parameters:
+      - name: "privilegeId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AddUserPrivilegeRequest"
+      responses:
+        200:
+          description: "Indicates the user privilege has been added"
+      security:
+      - basicAuth: []
+  /privileges/{privilegeId}/users/{userId}:
+    delete:
+      tags:
+      - "Privileges"
+      summary: "Deletes a privilege for a user"
+      description: ""
+      operationId: "deleteUserPrivilege"
+      parameters:
+      - name: "privilegeId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the user privilege has been deleted"
+      security:
+      - basicAuth: []
+  /users:
+    get:
+      tags:
+      - "Users"
+      summary: "List users"
+      description: ""
+      operationId: "listUsers"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "Only return group with the given id"
+        required: false
+        type: "string"
+      - name: "firstName"
+        in: "query"
+        description: "Only return users with the given firstname"
+        required: false
+        type: "string"
+      - name: "lastName"
+        in: "query"
+        description: "Only return users with the given lastname"
+        required: false
+        type: "string"
+      - name: "displayName"
+        in: "query"
+        description: "Only return users with the given displayName"
+        required: false
+        type: "string"
+      - name: "email"
+        in: "query"
+        description: "Only return users with the given email"
+        required: false
+        type: "string"
+      - name: "firstNameLike"
+        in: "query"
+        description: "Only return users with a firstname like the given value."
+        required: false
+        type: "string"
+      - name: "lastNameLike"
+        in: "query"
+        description: "Only return users with a lastname like the given value. "
+        required: false
+        type: "string"
+      - name: "displayNameLike"
+        in: "query"
+        description: "Only return users with a displayName like the given value. "
+        required: false
+        type: "string"
+      - name: "emailLike"
+        in: "query"
+        description: "Only return users with an email like the given value."
+        required: false
+        type: "string"
+      - name: "memberOfGroup"
+        in: "query"
+        description: "Only return users which are a member of the given group."
+        required: false
+        type: "string"
+      - name: "sort"
+        in: "query"
+        description: "Property to sort on, to be used together with the order."
+        required: false
+        type: "string"
+        enum:
+        - "id"
+        - "firstName"
+        - "lastname"
+        - "email"
+        - "displayName"
+      responses:
+        200:
+          description: "Indicates the group exists and is returned."
+          schema:
+            $ref: "#/definitions/DataResponseUserResponse"
+      security:
+      - basicAuth: []
+    post:
+      tags:
+      - "Users"
+      summary: "Create a user"
+      description: ""
+      operationId: "createUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/UserRequest"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        201:
+          description: "Indicates the user was created."
+        400:
+          description: "Indicates the id of the user was missing."
+      security:
+      - basicAuth: []
+  /users/{userId}:
+    get:
+      tags:
+      - "Users"
+      summary: "Get a single user"
+      description: ""
+      operationId: "getUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the user exists and is returned."
+          schema:
+            $ref: "#/definitions/UserResponse"
+        404:
+          description: "Indicates the requested user does not exist."
+      security:
+      - basicAuth: []
+    put:
+      tags:
+      - "Users"
+      summary: "Update a user"
+      description: "All request values are optional. For example, you can only include\
+        \ the firstName attribute in the request body JSON-object, only updating the\
+        \ firstName of the user, leaving all other fields unaffected. When an attribute\
+        \ is explicitly included and is set to null, the user-value will be updated\
+        \ to null. Example: {\"firstName\" : null} will clear the firstName of the\
+        \ user)."
+      operationId: "updateUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/UserRequest"
+      responses:
+        200:
+          description: "Indicates the user was updated."
+          schema:
+            $ref: "#/definitions/UserResponse"
+        404:
+          description: "Indicates the requested user was not found."
+        409:
+          description: "Indicates the requested user was updated simultaneously."
+      security:
+      - basicAuth: []
+    delete:
+      tags:
+      - "Users"
+      summary: "Delete a user"
+      description: ""
+      operationId: "deleteUser"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Indicates the user was found and  has been deleted. Response-body\
+            \ is intentionally empty."
+        404:
+          description: "Indicates the requested user was not found."
+      security:
+      - basicAuth: []
+securityDefinitions:
+  basicAuth:
+    type: "basic"
+definitions:
+  AddGroupPrivilegeRequest:
+    type: "object"
+    properties:
+      groupId:
+        type: "string"
+  AddUserPrivilegeRequest:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+  DataResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          type: "object"
+      total:
+        type: "integer"
+        format: "int64"
+      start:
+        type: "integer"
+        format: "int32"
+      sort:
+        type: "string"
+      order:
+        type: "string"
+      size:
+        type: "integer"
+        format: "int32"
+  DataResponseGroupResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/GroupResponse"
+      total:
+        type: "integer"
+        format: "int64"
+      start:
+        type: "integer"
+        format: "int32"
+      sort:
+        type: "string"
+      order:
+        type: "string"
+      size:
+        type: "integer"
+        format: "int32"
+  DataResponsePrivilegeResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/PrivilegeResponse"
+      total:
+        type: "integer"
+        format: "int64"
+      start:
+        type: "integer"
+        format: "int32"
+      sort:
+        type: "string"
+      order:
+        type: "string"
+      size:
+        type: "integer"
+        format: "int32"
+  DataResponseUserResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/UserResponse"
+      total:
+        type: "integer"
+        format: "int64"
+      start:
+        type: "integer"
+        format: "int32"
+      sort:
+        type: "string"
+      order:
+        type: "string"
+      size:
+        type: "integer"
+        format: "int32"
+  EngineInfoResponse:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "default"
+      resourceUrl:
+        type: "string"
+        example: "file://flowable/flowable.cfg.xml"
+      exception:
+        type: "string"
+        example: "null"
+      version:
+        type: "string"
+        example: "6.3.1"
+  GroupRequest:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "testgroup"
+      url:
+        type: "string"
+        example: "http://localhost:8182/groups/groupId"
+      name:
+        type: "string"
+        example: "Test group"
+      type:
+        type: "string"
+        example: "Test type"
+      nameChanged:
+        type: "boolean"
+      typeChanged:
+        type: "boolean"
+  GroupResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "testgroup"
+      url:
+        type: "string"
+        example: "http://localhost:8182/groups/groupId"
+      name:
+        type: "string"
+        example: "Test group"
+      type:
+        type: "string"
+        example: "Test type"
+  MembershipRequest:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+        example: "kermit"
+  MembershipResponse:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+        example: "kermit"
+      url:
+        type: "string"
+        example: "http://localhost:8182/groups/sales/members/userId"
+      groupId:
+        type: "string"
+        example: "sales"
+  PrivilegeResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      users:
+        type: "array"
+        items:
+          $ref: "#/definitions/UserResponse"
+      groups:
+        type: "array"
+        items:
+          $ref: "#/definitions/GroupResponse"
+  UserRequest:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "testuser"
+      firstName:
+        type: "string"
+        example: "John"
+      lastName:
+        type: "string"
+        example: "Doe"
+      displayName:
+        type: "string"
+        example: "John Doe"
+      email:
+        type: "string"
+        example: "no-reply@flowable.org"
+      password:
+        type: "string"
+  UserResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "testuser"
+      firstName:
+        type: "string"
+        example: "John"
+      lastName:
+        type: "string"
+        example: "Doe"
+      displayName:
+        type: "string"
+        example: "John Doe"
+      email:
+        type: "string"
+        example: "no-reply@flowable.org"
+      password:
+        type: "string"
