@@ -8,7 +8,7 @@ spring:
     username: user01
     password: ak402507979
     hikari:
-      register-mbeans: true
+      max-lifetime: 10000
   activiti:
     database-schema-update: true
     # 开启历史库

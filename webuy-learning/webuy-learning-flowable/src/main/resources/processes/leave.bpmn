@@ -17,7 +17,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status == 2}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_15" name="通过" sourceRef="_5" targetRef="_6">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status == 1}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"/>
     </sequenceFlow>
     <sequenceFlow id="_16" sourceRef="_6" targetRef="_7"/>
     <sequenceFlow id="_17" name="拒绝" sourceRef="_7" targetRef="_8">
