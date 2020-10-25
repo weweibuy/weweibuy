@@ -1,12 +1,12 @@
 package com.weweibuy.webuy.learning.flowable.user;
 
 import com.weweibuy.framework.common.core.exception.Exceptions;
+import com.weweibuy.webuy.learning.flowable.support.UserHelper;
 import org.flowable.common.engine.impl.interceptor.CommandContext;
 import org.flowable.idm.api.NativeUserQuery;
 import org.flowable.idm.api.User;
 import org.flowable.idm.engine.impl.UserQueryImpl;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,28 +15,25 @@ import java.util.List;
  **/
 public class CustomUserQuery extends UserQueryImpl implements NativeUserQuery {
 
-
     @Override
     public long executeCount(CommandContext commandContext) {
-        return 1L;
+        return UserHelper.countUser(this);
     }
 
     @Override
     public List<User> executeList(CommandContext commandContext) {
-        return Collections.emptyList();
+        return UserHelper.queryUser(this);
     }
 
 
     @Override
     public NativeUserQuery sql(String s) {
-        notSupportFunc();
-        return null;
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     @Override
     public NativeUserQuery parameter(String s, Object o) {
-        notSupportFunc();
-        return null;
+        throw Exceptions.business("不支持用户操作相关功能");
     }
 
     private void notSupportFunc() {

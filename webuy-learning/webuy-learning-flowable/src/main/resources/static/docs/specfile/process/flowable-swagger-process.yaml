@@ -6586,7 +6586,7 @@ paths:
         name: "body"
         required: false
         schema:
-          $ref: "#/definitions/TaskActionRequest"
+          $ref: "#/definitions/CustomerTaskActionRequest"
       responses:
         200:
           description: "Indicates the action was executed."
