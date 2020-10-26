@@ -1,0 +1,21 @@
+package compare
+
+import com.weweibuy.webuy.learning.drools.model.CompareVO
+
+
+rule "test_1"
+    when
+        $compare:CompareVO(name == "tom" && age == 12 && arr contains "1" && "1" matches match )
+    then
+        System.err.println("test_1 匹配成功");
+end
+
+rule "test_2"
+    when
+        $compare:CompareVO("1" memberOf  arr )
+    then
+        System.err.println("test_2 匹配成功");
+end
+
+
+

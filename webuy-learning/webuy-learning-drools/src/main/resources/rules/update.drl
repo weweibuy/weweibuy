@@ -1,0 +1,43 @@
+package test_update
+import com.weweibuy.webuy.learning.drools.model.User
+
+
+
+rule "rule4"
+    salience 1000 // 优先级 越大越优先
+    when
+        $user:User(age == 10)
+    then
+        System.err.println("年龄等于10删除");
+        retract($user); // 删除
+end
+
+
+rule "rule3"
+    when
+        $user:User(age == 10)
+    then
+        User u = new User();
+        u.setAge(20);
+        System.err.println("年龄等于10");
+        insert(u);
+end
+
+rule "rule1"
+    when
+        $user:User(age < 10)
+    then
+        $user.setAge($user.getAge() + 5);
+        update($user);
+        System.err.println("年龄小于10");
+end
+
+
+rule "rule2"
+    when
+        $user:User(age > 10)
+    then
+        System.err.println("年龄大于10");
+end
+
+

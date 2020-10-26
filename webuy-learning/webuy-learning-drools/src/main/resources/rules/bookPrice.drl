@@ -1,0 +1,36 @@
+package book.price
+
+import com.weweibuy.webuy.learning.drools.model.Order
+
+rule "book_price_1"
+    when
+        $order:Order(oriPrice < 100) // 到工作内存中找满足(oriPrice < 100)的Order对象--> 交给引用 order
+    then
+        $order.setRealPrice($order.getOriPrice());
+        System.err.println("价格小于100 不优惠");
+end
+
+rule "book_price_2"
+    when
+        $order:Order(oriPrice >= 100 && oriPrice < 200) // 到工作内存中找满足(oriPrice < 100)的Order对象--> 交给引用 order
+    then
+        $order.setRealPrice($order.getOriPrice() - 20);
+        System.err.println("价格大于100小于200 优惠20元");
+end
+
+
+rule "book_price_3"
+    when
+        $order:Order(oriPrice >= 200 && oriPrice < 300) // 到工作内存中找满足(oriPrice < 100)的Order对象--> 交给引用 order
+    then
+        $order.setRealPrice($order.getOriPrice() - 50);
+        System.err.println("价格大于200小于300 优惠50元");
+end
+
+rule "book_price_4"
+    when
+        $order:Order(oriPrice >= 300) // 到工作内存中找满足(oriPrice < 100)的Order对象--> 交给引用 order
+    then
+        $order.setRealPrice($order.getOriPrice() - 100);
+        System.err.println("价格大于300  优惠100元");
+end
