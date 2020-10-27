@@ -1,0 +1,17 @@
+package function_test
+import com.weweibuy.webuy.learning.drools.model.User
+import org.apache.commons.lang3.StringUtils
+
+
+function String hello(String name){
+    return "hello" + name;
+}
+
+rule "function_test"
+    when
+        $user:User(StringUtils.isNotBlank(username));
+    then
+        String hello = hello($user.getUsername());
+        System.err.println("调用函数: " +hello);
+
+ end

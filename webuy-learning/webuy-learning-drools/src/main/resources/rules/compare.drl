@@ -4,6 +4,7 @@ import com.weweibuy.webuy.learning.drools.model.CompareVO
 
 
 rule "test_1"
+    activation-group "test"  // 相同组只有一个规则可以命中
     when
         $compare:CompareVO(name == "tom" && age == 12 && arr contains "1" && "1" matches match )
     then
@@ -11,6 +12,8 @@ rule "test_1"
 end
 
 rule "test_2"
+    salience 10
+    activation-group "test"
     when
         $compare:CompareVO("1" memberOf  arr )
     then

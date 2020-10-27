@@ -1,0 +1,11 @@
+package query_test
+
+import com.weweibuy.webuy.learning.drools.model.User
+
+query "query_test"
+    $user:User(age == 12);
+end
+
+query "query_test2"(String name)
+    $user:User(age == 12 && username == name);
+end

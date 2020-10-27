@@ -1,0 +1,41 @@
+package agenda_group
+
+import com.weweibuy.webuy.learning.drools.model.User
+
+
+rule "agenda_grouptest1"
+    agenda-group "a1"
+    auto-focus true // 聚焦不是"a1", 任然可以匹配
+    when
+    then
+        System.err.println("agenda-group a1 r1");
+end
+
+rule "agenda_grouptest2"
+    agenda-group "a1"
+    when
+    then
+        System.err.println("agenda-group a1 r2");
+end
+
+rule "agenda_grouptest3"
+    agenda-group "a2"
+    when
+    then
+        System.err.println("agenda-group a1 r3");
+end
+
+rule "agenda_grouptest4"
+    when
+    then
+     System.err.println("agenda-group a1 r4");
+end
+
+
+rule "agenda_grouptest5"
+//    timer(2s 3s)
+    timer(cron:0/2 * * * * ?)
+    when
+    then
+     System.err.println("agenda-group a1 r5");
+end

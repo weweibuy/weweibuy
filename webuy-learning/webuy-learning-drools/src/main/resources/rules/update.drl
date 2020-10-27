@@ -5,6 +5,7 @@ import com.weweibuy.webuy.learning.drools.model.User
 
 rule "rule4"
     salience 1000 // 优先级 越大越优先
+    enabled false
     when
         $user:User(age == 10)
     then

@@ -1,0 +1,32 @@
+package global_test
+import com.weweibuy.webuy.learning.drools.model.User
+
+global java.lang.Integer count
+
+global java.util.List list
+global com.weweibuy.webuy.learning.drools.service.UserService userService
+
+
+
+
+rule "global1"
+    when
+    then
+        System.err.println("list :" + list);
+        System.err.println("count :" + count);
+        list.add("11212");
+        count = count + 10;
+end
+
+
+
+rule "global2"
+    when
+    then
+        System.err.println("list :" + list);
+        System.err.println("count :" + count);
+        User user = new User();
+        user.setAge(12);
+        user.setUsername("tom");
+        userService.logUser(user);
+end

@@ -1,0 +1,16 @@
+package dr_data
+import java.text.SimpleDateFormat
+import java.util.Date
+
+
+
+rule "data1"
+    date-effective "2020-10-27 22:04:00"
+    date-expires "2020-10-27 22:06:00"
+    timer(0s 5s)
+    when
+    then
+        System.err.println("2020-10-27 21:46:00 生效任务, 当前时间:" +
+        new SimpleDateFormat("yyyy-MM-dd HH:m()m:ss").format(new Date()));
+end
+
