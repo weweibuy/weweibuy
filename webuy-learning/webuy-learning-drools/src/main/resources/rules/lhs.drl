@@ -1,0 +1,42 @@
+package lhs_test
+
+import com.weweibuy.webuy.learning.drools.model.User
+
+
+rule "lhs_test"
+    when
+    $user:User(username in ("tom", "jack"))
+    then
+    System.err.println("lhs_test  " + $user);
+ end
+
+
+rule "lhs_test1"
+    when
+    $user:User(username not in ("tom", "jack"))
+    then
+    System.err.println("lhs_test  " + $user);
+ end
+
+
+rule "lhs_test2"
+    when
+        eval(false);
+    then
+    System.err.println("lhs_test2  ");
+ end
+
+rule "lhs_test3"
+    when
+        not User(username not in ("tom", "jack"))
+    then
+    System.err.println("lhs_test3  not ");
+ end
+
+
+ rule "lhs_test4"
+     when
+         exists User(username not in ("tom", "jack"))
+     then
+     System.err.println("lhs_test4  exists ");
+  end

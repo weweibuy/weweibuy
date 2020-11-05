@@ -1,0 +1,31 @@
+package extend_test
+
+import com.weweibuy.webuy.learning.drools.model.User
+
+
+
+
+rule "extend_test_1"
+    when
+        User(age > 10);
+    then
+        System.err.println("extend_test_1 年龄大于10");
+        drools.halt(); // 终止执行其他规则
+        drools.getWorkingMemory();
+end
+
+
+rule "extend_test_2" extends extend_test_1
+    when
+        User(age < 20);
+    then
+        System.err.println("extend_test_2 年龄大于10 小于 20");
+end
+
+
+rule "extend_test_3"
+    when
+        User(age > 10);
+    then
+        System.err.println("extend_test_3 年龄大于10");
+end
