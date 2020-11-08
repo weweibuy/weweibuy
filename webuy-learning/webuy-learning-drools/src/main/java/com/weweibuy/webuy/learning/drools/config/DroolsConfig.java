@@ -23,7 +23,7 @@ import java.io.IOException;
 public class DroolsConfig {
 
     //指定规则文件存放的目录
-    private static final String RULES_PATH = "rules/";
+    private static final String RULES_PATH = "map/";
 
     private final KieServices kieServices = KieServices.Factory.get();
 
@@ -48,7 +48,8 @@ public class DroolsConfig {
         kieRepository.addKieModule(kieRepository::getDefaultReleaseId);
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem());
         kieBuilder.buildAll();
-        return kieServices.newKieContainer(kieRepository.getDefaultReleaseId());
+        KieContainer kieContainer = kieServices.newKieContainer(kieRepository.getDefaultReleaseId());
+        return kieContainer;
     }
 
     @Bean

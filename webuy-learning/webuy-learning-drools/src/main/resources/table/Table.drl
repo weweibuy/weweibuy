@@ -1,0 +1,35 @@
+package rules;
+//generated from Decision Table
+import com.itheima.drools.entity.PersonInfoEntity;
+import java.util.List;
+global java.util.List listRules;
+// rule values at B10, header at B5
+rule "personCheck_10"
+	salience 65535
+	agenda-group "sign"
+	when
+		$person : PersonInfoEntity(sex != "男")
+	then
+		listRules.add("性别不对");
+end
+
+// rule values at B11, header at B5
+rule "personCheck_11"
+	salience 65534
+	agenda-group "sign"
+	when
+		$person : PersonInfoEntity(age < 22 || age > 25)
+	then
+		listRules.add("年龄不合适");
+end
+
+// rule values at B12, header at B5
+rule "personCheck_12"
+	salience 65533
+	agenda-group "sign"
+	when
+		$person : PersonInfoEntity(salary < 10000)
+	then
+		listRules.add("工资太低了");
+end
+

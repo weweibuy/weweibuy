@@ -1,0 +1,27 @@
+package map_r
+import java.util.Map
+
+
+rule "map_r"
+    when
+        $map:Map(age > 12)
+    then
+        $map.put("name", "tom");
+        System.err.println("age 是: " + $map.get("age"));
+ end
+
+rule "map_r1"
+    when
+        $map:Map(tax.income > 3500)
+    then
+        System.err.println("age 收入大于3500");
+ end
+
+ rule "map_r2"
+     when
+         $map:Map(map != null)
+     then
+     Object map = $map.get("map");
+     ((Map)map).put("namei", "xxx");
+     System.err.println("map map");
+  end

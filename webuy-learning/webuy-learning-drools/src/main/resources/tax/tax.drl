@@ -1,0 +1,137 @@
+package tax
+import com.weweibuy.webuy.learning.drools.model.tax.TaxVO
+import java.math.BigDecimal
+
+
+
+rule "shoulTaxRule"
+    salience 1000
+    no-loop true
+    when
+        $taxVO:TaxVO();
+    then
+        if($taxVO.getIncome().compareTo(BigDecimal.valueOf(3500)) < 0){
+            $taxVO.setTaxRatio(BigDecimal.ZERO);
+            $taxVO.setDeductAmount(BigDecimal.ZERO);
+            $taxVO.setTaxAmount(BigDecimal.ZERO);
+            $taxVO.setTaxedIncome($taxVO.getIncome());
+            $taxVO.setShouldTaxAmount(BigDecimal.ZERO);
+            drools.halt();
+        }else {
+            $taxVO.setShouldTaxAmount($taxVO.getIncome().subtract(BigDecimal.valueOf(3500)));
+            System.err.println("update ...");
+            update($taxVO);
+        }
+
+end
+
+
+rule "taxRule1500"
+    salience 900
+    when
+        $taxVO:TaxVO(shouldTaxAmount <= 1500);
+    then
+        BigDecimal taxRatio = BigDecimal.valueOf(0.03);
+        BigDecimal deductAmount = BigDecimal.ZERO;
+        BigDecimal taxAmount = computeTax($taxVO.getShouldTaxAmount(),deductAmount, taxRatio );
+        $taxVO.setTaxRatio(taxRatio);
+        $taxVO.setDeductAmount(deductAmount);
+        $taxVO.setTaxAmount(taxAmount);
+        $taxVO.setTaxedIncome(computeTaxedIncome($taxVO.getIncome(), taxAmount));
+end
+
+
+rule "taxRule4500"
+    salience 800
+    when
+        $taxVO:TaxVO(1500 < shouldTaxAmount && shouldTaxAmount <= 4500);
+    then
+        BigDecimal taxRatio = BigDecimal.valueOf(0.03);
+        BigDecimal deductAmount = BigDecimal.ZERO;
+        BigDecimal taxAmount = computeTax($taxVO.getShouldTaxAmount(),deductAmount, taxRatio );
+        $taxVO.setTaxRatio(taxRatio);
+        $taxVO.setDeductAmount(deductAmount);
+        $taxVO.setTaxAmount(taxAmount);
+        $taxVO.setTaxedIncome(computeTaxedIncome($taxVO.getIncome(), taxAmount));
+end
+
+rule "taxRule9000"
+    salience 500
+    when
+        $taxVO:TaxVO(4500 < shouldTaxAmount && shouldTaxAmount <= 9000);
+    then
+       BigDecimal taxRatio = BigDecimal.valueOf(0.02);
+              BigDecimal deductAmount = BigDecimal.valueOf(555);
+        BigDecimal taxAmount = computeTax($taxVO.getShouldTaxAmount(),deductAmount, taxRatio );
+        $taxVO.setTaxRatio(taxRatio);
+        $taxVO.setDeductAmount(deductAmount);
+        $taxVO.setTaxAmount(taxAmount);
+        $taxVO.setTaxedIncome(computeTaxedIncome($taxVO.getIncome(), taxAmount));
+end
+
+rule "taxRule35000"
+    salience 400
+    when
+        $taxVO:TaxVO(9000 < shouldTaxAmount && shouldTaxAmount <= 35000);
+    then
+        BigDecimal taxRatio = BigDecimal.valueOf(0.25);
+        BigDecimal deductAmount = BigDecimal.valueOf(1005);
+        BigDecimal taxAmount = computeTax($taxVO.getShouldTaxAmount(),deductAmount, taxRatio );
+        $taxVO.setTaxRatio(taxRatio);
+        $taxVO.setDeductAmount(deductAmount);
+        $taxVO.setTaxAmount(taxAmount);
+        $taxVO.setTaxedIncome(computeTaxedIncome($taxVO.getIncome(), taxAmount));
+end
+
+
+rule "taxRule55000"
+    salience 300
+    when
+        $taxVO:TaxVO(35000 < shouldTaxAmount && shouldTaxAmount <= 55000);
+    then
+        BigDecimal taxRatio = BigDecimal.valueOf(0.3);
+        BigDecimal deductAmount = BigDecimal.valueOf(2755);
+        BigDecimal taxAmount = computeTax($taxVO.getShouldTaxAmount(),deductAmount, taxRatio );
+        $taxVO.setTaxRatio(taxRatio);
+        $taxVO.setDeductAmount(deductAmount);
+        $taxVO.setTaxAmount(taxAmount);
+        $taxVO.setTaxedIncome(computeTaxedIncome($taxVO.getIncome(), taxAmount));
+end
+
+rule "taxRule80000"
+    salience 200
+    when
+        $taxVO:TaxVO(55000 < shouldTaxAmount && shouldTaxAmount <= 80000);
+    then
+        BigDecimal taxRatio = BigDecimal.valueOf(0.35);
+        BigDecimal deductAmount = BigDecimal.valueOf(5505);
+        BigDecimal taxAmount = computeTax($taxVO.getShouldTaxAmount(),deductAmount, taxRatio );
+        $taxVO.setTaxRatio(taxRatio);
+        $taxVO.setDeductAmount(deductAmount);
+        $taxVO.setTaxAmount(taxAmount);
+        $taxVO.setTaxedIncome(computeTaxedIncome($taxVO.getIncome(), taxAmount));
+end
+
+rule "taxRule80000up"
+    salience 100
+    when
+        $taxVO:TaxVO(80000 < shouldTaxAmount);
+    then
+        BigDecimal taxRatio = BigDecimal.valueOf(0.45);
+        BigDecimal deductAmount = BigDecimal.valueOf(3505);
+        BigDecimal taxAmount = computeTax($taxVO.getShouldTaxAmount(),deductAmount, taxRatio );
+        $taxVO.setTaxRatio(taxRatio);
+        $taxVO.setDeductAmount(deductAmount);
+        $taxVO.setTaxAmount(taxAmount);
+        $taxVO.setTaxedIncome(computeTaxedIncome($taxVO.getIncome(), taxAmount));
+end
+
+
+function BigDecimal computeTax(BigDecimal shouldTaxAmount, BigDecimal deductAmount, BigDecimal taxRatio){
+   return shouldTaxAmount.subtract(deductAmount).multiply(taxRatio);
+}
+
+
+function BigDecimal computeTaxedIncome(BigDecimal income, BigDecimal taxAmount){
+   return income.subtract(taxAmount);
+}
