@@ -8,7 +8,8 @@ rule "map_r"
     then
         $map.put("name", "tom");
         System.err.println("age 是: " + $map.get("age"));
- end
+end
+
 
 rule "map_r1"
     when
@@ -24,4 +25,11 @@ rule "map_r1"
      Object map = $map.get("map");
      ((Map)map).put("namei", "xxx");
      System.err.println("map map");
-  end
+end
+
+rule "map_r3"
+    when
+        $map:Map(age memberOf ["12","13"])
+    then
+        System.err.println("memberOf");
+end

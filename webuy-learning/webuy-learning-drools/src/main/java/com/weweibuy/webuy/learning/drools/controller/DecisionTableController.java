@@ -27,7 +27,8 @@ public class DecisionTableController {
     @GetMapping("/table")
     public String table() throws FileNotFoundException {
         //指定决策表xls文件的磁盘路径
-        String realPath = "F:/Down load/download/drools教程/讲义及资料/第四天/资料/testRule.xls";
+//        String realPath = "F:/Down load/download/drools教程/讲义及资料/第四天/资料/testRule.xls";
+        String realPath = "F:/Down load/download/drools教程/讲义及资料/第四天/资料/insuranceInfoCheck.xls";
         File file = new File(realPath);
         InputStream is = new FileInputStream(file);
         SpreadsheetCompiler compiler = new SpreadsheetCompiler();
