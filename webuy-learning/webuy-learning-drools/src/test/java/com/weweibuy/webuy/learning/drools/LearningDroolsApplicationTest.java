@@ -16,6 +16,8 @@ public class LearningDroolsApplicationTest {
         KieBase kieBase = kieHelper.build();
         KieContainer kieContainer = kieHelper.getKieContainer();
         KieSession kieSession = kieBase.newKieSession();
+
+
     }
 
 

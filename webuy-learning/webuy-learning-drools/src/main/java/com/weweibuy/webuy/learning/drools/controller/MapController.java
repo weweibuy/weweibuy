@@ -1,6 +1,5 @@
 package com.weweibuy.webuy.learning.drools.controller;
 
-import com.weweibuy.framework.common.core.utils.DateTimeUtils;
 import com.weweibuy.webuy.learning.drools.model.tax.TaxVO;
 import lombok.RequiredArgsConstructor;
 import org.kie.api.KieBase;
@@ -33,9 +32,10 @@ public class MapController {
         if (income != null) {
             taxVO.setIncome(BigDecimal.valueOf(income));
         }
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+        objectObjectHashMap.put("income", income);
         hashMap.put("age", age + "");
-        hashMap.put("tax", taxVO);
-        hashMap.put("date", DateTimeUtils.stringToLocalDateTime(date));
+        hashMap.put("tax", objectObjectHashMap);
         hashMap.put("map", new HashMap<>());
         kieSession.insert(hashMap);
         kieSession.fireAllRules();
