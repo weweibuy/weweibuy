@@ -15,8 +15,9 @@ end
 
 rule "map_r1"
     when
-        $map:Map(tax.income > 3500)
+        $map:Map(tax != null && tax.income > 3500)
     then
+        Number tax = (Number)$map.get("tax");
         System.err.println("收入大于3500");
  end
 
@@ -34,4 +35,12 @@ rule "map_r3"
         $map:Map(age memberOf ["12","13"])
     then
         System.err.println("memberOf");
+end
+
+
+rule "map_r4"
+    when
+        $map:Map(list.size() > 1)
+    then
+        System.err.println("list.size() > 1");
 end

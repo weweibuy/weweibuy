@@ -2,6 +2,7 @@ package com.weweibuy.learning.feign.provider.controller;
 
 import com.weweibuy.framework.common.core.exception.Exceptions;
 import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
+import com.weweibuy.framework.common.core.support.SystemIdGetter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ import java.io.InputStream;
  **/
 @Slf4j
 @RestController
-public class HelloWorldController {
+public class HelloWorldController implements SystemIdGetter{
 
     @GetMapping("/hello")
     public CommonDataResponse<String> helloGet() {
@@ -59,4 +60,8 @@ public class HelloWorldController {
 
     }
 
+    @Override
+    public String getSystemId() {
+        return "xx";
+    }
 }

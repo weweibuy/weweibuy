@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +36,12 @@ public class MapController {
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
         objectObjectHashMap.put("income", income);
         hashMap.put("age", age + "");
-        hashMap.put("tax", objectObjectHashMap);
+        hashMap.put("tax", new HashMap<>());
         hashMap.put("map", new HashMap<>());
+        ArrayList<Object> arrayList = new ArrayList<>();
+        arrayList.add("1");
+        arrayList.add("2");
+        hashMap.put("list", arrayList);
         kieSession.insert(hashMap);
         kieSession.fireAllRules();
         kieSession.dispose();

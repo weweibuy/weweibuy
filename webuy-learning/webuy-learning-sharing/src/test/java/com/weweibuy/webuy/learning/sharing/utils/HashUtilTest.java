@@ -13,10 +13,12 @@ public class HashUtilTest {
     @Test
     public void FNVHash1() throws Exception {
         long l = System.currentTimeMillis();
-        Stream.iterate(0, n -> n + 1)
-                .limit(10000000)
-                .forEach(i -> HashUtil.FNVHash1(str + i));
-        log.info("用时: {}", System.currentTimeMillis() - l);
+//        Stream.iterate(0, n -> n + 1)
+//                .limit(10000000)
+//                .forEach(i -> HashUtil.FNVHash1(str + i));
+//        log.info("用时: {}", System.currentTimeMillis() - l);
+        int i = HashUtil.FNVHash1("12121212");
+        System.err.println(i);
     }
 
 
