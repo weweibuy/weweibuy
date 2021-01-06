@@ -4,8 +4,8 @@ import com.weweibuy.webuy.learning.spring.model.BillQueryVo;
 import com.weweibuy.webuy.learning.spring.model.vo.OptionalVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -45,7 +45,7 @@ public class OptionalController {
                 })
                 .map(i -> {
                     log.info("用快递单号查询回执明细");
-                    int i1 = RandomUtils.nextInt(0, 10);
+                    int i1 = RandomUtils.nextInt( 10);
                     if (i1 % 2 == 0) {
                         return Collections.singletonList("1213");
                     }

@@ -735,6 +735,7 @@ public class ReactorFluxTest {
                     log.info("结果总和: {}", i);
                 })
                 .subscribe();
+        Thread.sleep(1000);
     }
 
 
@@ -750,5 +751,7 @@ public class ReactorFluxTest {
                 .map(i -> i + " A")
                 .subscribe(log::error);
     }
+
+
 
 }
