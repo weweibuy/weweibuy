@@ -126,6 +126,12 @@
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java</artifactId>
+            <version>2021-02-28T11-48-01-dc2cdda7</version>
+        </dependency>
+
 
     </dependencies>
 
