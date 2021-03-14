@@ -1,9 +1,6 @@
 server:
   port: 9000
 
-logging:
-  config: classpath:config/logback/logback-spring.xml
-
 
 spring:
   profiles:

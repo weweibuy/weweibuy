@@ -1,6 +1,5 @@
 package com.weweibuy.learning.feign.provider.controller;
 
-import com.weweibuy.framework.common.core.exception.Exceptions;
 import com.weweibuy.framework.common.core.model.dto.CommonDataResponse;
 import com.weweibuy.framework.common.core.support.SystemIdGetter;
 import lombok.extern.slf4j.Slf4j;
@@ -37,9 +36,6 @@ public class HelloWorldController implements SystemIdGetter{
         log.info("date : {}", commonJsonResponse.getData());
         log.info("token : {}", token);
         log.info("sign : {}", sign);
-        if (true) {
-            throw Exceptions.unknown();
-        }
         return CommonDataResponse.success("hello i am provider post method");
     }
 
