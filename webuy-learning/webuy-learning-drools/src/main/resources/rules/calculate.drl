@@ -1,0 +1,32 @@
+package calculate
+
+import com.weweibuy.webuy.learning.drools.model.CalculateVO
+
+rule "calculate_big"
+    when
+        $order:CalculateVO(price > 100) // 到工作内存中找满足(oriPrice < 100)的Order对象--> 交给引用 order
+    then
+        System.err.println("价格大于100");
+end
+
+rule "calculate_big2"
+    when
+        $order:CalculateVO(price == 100) // 到工作内存中找满足(oriPrice < 100)的Order对象--> 交给引用 order
+    then
+        System.err.println("价格等于100");
+end
+
+
+rule "calculate_big3"
+    when
+        $order:CalculateVO(price / qty  > 100) // 到工作内存中找满足(oriPrice < 100)的Order对象--> 交给引用 order
+    then
+        System.err.println("price / qty  > 100");
+end
+
+rule "calculate_big4"
+    when
+        $order:CalculateVO((price / qty) + qty > 100) // 到工作内存中找满足(oriPrice < 100)的Order对象--> 交给引用 order
+    then
+        System.err.println("(price / qty) + qty");
+end

@@ -14,6 +14,6 @@ public class MyRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
-        log.error("请求参数: {}", JackJsonUtils.write(template.body()));
+        log.error("请求参数: {}", JackJsonUtils.writeCamelCase(template.body()));
     }
 }

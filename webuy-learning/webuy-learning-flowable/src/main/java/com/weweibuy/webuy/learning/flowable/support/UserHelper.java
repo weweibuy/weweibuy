@@ -66,7 +66,7 @@ public class UserHelper {
 
     private static User userRespDTOToUser(UserRespDTO dto) {
         UserEntityImpl userEntity = new UserEntityImpl();
-        userEntity.setDisplayName(dto.getName());
+        userEntity.setDisplayName(dto.getFullName());
         userEntity.setId(dto.getUsername());
         userEntity.setEmail(dto.getUsername());
         userEntity.setFirstName(dto.getUsername());

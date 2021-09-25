@@ -1,0 +1,651 @@
+---
+swagger: "2.0"
+info:
+  description: "# flowable / flowəb(ə)l /\r\n\r\n- a compact and highly efficient\
+    \ workflow and Business Process Management (BPM) platform for developers, system\
+    \ admins and business users.\r\n- a lightning fast, tried and tested BPMN 2 process\
+    \ engine written in Java. It is Apache 2.0 licensed open source, with a committed\
+    \ community.\r\n- can run embedded in a Java application, or as a service on a\
+    \ server, a cluster, and in the cloud. It integrates perfectly with Spring. With\
+    \ a rich Java and REST API, it is the ideal engine for orchestrating human or\
+    \ system activities."
+  version: "v1"
+  title: "Flowable External Worker Job REST API"
+  contact:
+    name: "Flowable"
+    url: "http://www.flowable.org/"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/flowable-rest/external-job-api"
+tags:
+- name: "Acquire and Execute"
+- name: "Info and Query"
+schemes:
+- "http"
+- "https"
+paths:
+  /acquire/jobs:
+    post:
+      tags:
+      - "Acquire and Execute"
+      summary: "Acquire External Worker Jobs"
+      description: ""
+      operationId: "acquireAndLockJobs"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AcquireExternalWorkerJobRequest"
+      responses:
+        200:
+          description: "Indicates the jobs were acquired and locked."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/AcquiredExternalWorkerJobResponse"
+        400:
+          description: "Indicates the request was invalid."
+        403:
+          description: "Indicates the user does not have the rights acquire the jobs."
+  /acquire/jobs/{jobId}/bpmnError:
+    post:
+      tags:
+      - "Acquire and Execute"
+      summary: "Complete an External Worker Job with a BPMN Error"
+      description: ""
+      operationId: "bpmnErrorJob"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/ExternalWorkerJobErrorRequest"
+      responses:
+        204:
+          description: "Indicates the job was successfully completed."
+          schema:
+            type: "object"
+        400:
+          description: "Indicates the request was invalid."
+        403:
+          description: "Indicates the user does not have the rights complete the job."
+        404:
+          description: "Indicates the job does not exist."
+  /acquire/jobs/{jobId}/cmmnTerminate:
+    post:
+      tags:
+      - "Acquire and Execute"
+      summary: "Complete an External Worker Job with a cmmn terminate transition"
+      description: ""
+      operationId: "terminateCmmnJob"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/ExternalWorkerJobTerminateRequest"
+      responses:
+        204:
+          description: "Indicates the job was successfully transitioned."
+          schema:
+            type: "object"
+        400:
+          description: "Indicates the request was invalid."
+        403:
+          description: "Indicates the user does not have the rights complete the job."
+        404:
+          description: "Indicates the job does not exist."
+  /acquire/jobs/{jobId}/complete:
+    post:
+      tags:
+      - "Acquire and Execute"
+      summary: "Complete an External Worker Jobs"
+      description: ""
+      operationId: "completeJob"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/ExternalWorkerJobCompleteRequest"
+      responses:
+        204:
+          description: "Indicates the job was successfully completed."
+          schema:
+            type: "object"
+        400:
+          description: "Indicates the request was invalid."
+        403:
+          description: "Indicates the user does not have the rights complete the job."
+        404:
+          description: "Indicates the job does not exist."
+  /acquire/jobs/{jobId}/fail:
+    post:
+      tags:
+      - "Acquire and Execute"
+      summary: "Fail an External Worker Job"
+      description: ""
+      operationId: "failJob"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/ExternalWorkerJobFailureRequest"
+      responses:
+        204:
+          description: "Indicates the job was successfully completed."
+          schema:
+            type: "object"
+        400:
+          description: "Indicates the request was invalid."
+        403:
+          description: "Indicates the user does not have the rights complete the job."
+        404:
+          description: "Indicates the job does not exist."
+  /jobs:
+    get:
+      tags:
+      - "Info and Query"
+      summary: "List External Worker Jobs"
+      description: ""
+      operationId: "listExternalWorkerJobs"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "elementId"
+        in: "query"
+        description: "Only return jobs with the given elementId"
+        required: false
+        type: "string"
+      - name: "elementName"
+        in: "query"
+        description: "Only return jobs with the given elementName"
+        required: false
+        type: "string"
+      - name: "exceptionMessage"
+        in: "query"
+        description: "Only return jobs with the given exception message"
+        required: false
+        type: "string"
+      - name: "executionId"
+        in: "query"
+        description: "Only return jobs with the given executionId"
+        required: false
+        type: "string"
+      - name: "id"
+        in: "query"
+        description: "Only return job with the given id"
+        required: false
+        type: "string"
+      - name: "locked"
+        in: "query"
+        description: "Only return jobs that are locked"
+        required: false
+        type: "boolean"
+      - name: "processDefinitionId"
+        in: "query"
+        description: "Only return jobs with the given processDefinitionId"
+        required: false
+        type: "string"
+      - name: "processInstanceId"
+        in: "query"
+        description: "Only return jobs with the processInstanceId"
+        required: false
+        type: "string"
+      - name: "scopeDefinitionId"
+        in: "query"
+        description: "Only return jobs with the given scopeDefinitionId"
+        required: false
+        type: "string"
+      - name: "scopeId"
+        in: "query"
+        description: "Only return jobs with the given scopeId"
+        required: false
+        type: "string"
+      - name: "subScopeId"
+        in: "query"
+        description: "Only return jobs with the given subScopeId"
+        required: false
+        type: "string"
+      - name: "tenantId"
+        in: "query"
+        description: "Only return jobs with the given tenant id"
+        required: false
+        type: "string"
+      - name: "tenantIdLike"
+        in: "query"
+        description: "Only return jobs with a tenantId like the given value"
+        required: false
+        type: "string"
+      - name: "unlocked"
+        in: "query"
+        description: "Only return jobs that are unlocked"
+        required: false
+        type: "boolean"
+      - name: "withException"
+        in: "query"
+        description: "Only return jobs with an exception"
+        required: false
+        type: "boolean"
+      - name: "withoutTenantId"
+        in: "query"
+        description: "Only return jobs without a tenantId"
+        required: false
+        type: "boolean"
+      responses:
+        200:
+          description: "Indicates the requested jobs were returned."
+          schema:
+            $ref: "#/definitions/DataResponseExternalWorkerJobResponse"
+        400:
+          description: "Indicates an illegal value has been used in a url query parameter.\
+            \ Status description contains additional details about the error."
+        403:
+          description: "Indicates the user does not have the rights to query for external\
+            \ worker jobs."
+  /jobs/{jobId}:
+    get:
+      tags:
+      - "Info and Query"
+      summary: "Get a single external worker job"
+      description: ""
+      operationId: "getExternalWorkerJob"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "jobId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Indicates the requested job was returned."
+          schema:
+            $ref: "#/definitions/ExternalWorkerJobResponse"
+        403:
+          description: "Indicates the user does not have the rights access the job."
+        404:
+          description: "Indicates the requested job was not found."
+securityDefinitions:
+  basicAuth:
+    type: "basic"
+definitions:
+  AcquireExternalWorkerJobRequest:
+    type: "object"
+    required:
+    - "lockDuration"
+    - "topic"
+    - "workerId"
+    properties:
+      topic:
+        type: "string"
+        example: "order"
+        description: "Acquire jobs with the given topic"
+      lockDuration:
+        type: "string"
+        example: "PT10M"
+        description: "The acquired jobs will be locked with this lock duration. ISO-8601\
+          \ duration format PnDTnHnMn.nS with days considered to be exactly 24 hours."
+      numberOfTasks:
+        type: "integer"
+        format: "int32"
+        example: 1
+        description: "The number of tasks that should be acquired. Default is 1."
+      numberOfRetries:
+        type: "integer"
+        format: "int32"
+        example: 10
+        description: "The number of retries if an optimistic lock exception occurs\
+          \ during acquiring. Default is 5"
+      workerId:
+        type: "string"
+        example: "orderWorker1"
+        description: "The id of the external worker that would be used for locking\
+          \ the job"
+      scopeType:
+        type: "string"
+        example: "cmmn"
+        description: "Only acquire jobs with the given scope type"
+    description: "Request that is used for acquiring external worker jobs"
+  AcquiredExternalWorkerJobResponse:
+    type: "object"
+    required:
+    - "id"
+    - "url"
+    properties:
+      id:
+        type: "string"
+        example: "8"
+        description: "The id of the external job"
+      url:
+        type: "string"
+        example: "http://localhost:8182/external-job-api/jobs/8"
+        description: "The url of the external job"
+      correlationId:
+        type: "string"
+        example: "50"
+        description: "The correlation id of the external job"
+      processInstanceId:
+        type: "string"
+        example: "5"
+        description: "The process instance id for the external job"
+      processDefinitionId:
+        type: "string"
+        example: "customerProcess:1:4"
+        description: "The process definition id for the external job"
+      executionId:
+        type: "string"
+        example: "7"
+        description: "The execution id for the external job"
+      scopeId:
+        type: "string"
+        example: "20"
+        description: "The scope id for the external job"
+      subScopeId:
+        type: "string"
+        example: "21"
+        description: "The sub scope id for the external job"
+      scopeDefinitionId:
+        type: "string"
+        example: "customerCase:1:39"
+        description: "The scope definition id for the external job"
+      scopeType:
+        type: "string"
+        example: "cmmn"
+        description: "The scope type for the external job"
+      elementId:
+        type: "string"
+        example: "customer"
+        description: "The id of the element in the model"
+      elementName:
+        type: "string"
+        example: "Process Customer Task"
+        description: "The name of the element in the model"
+      retries:
+        type: "integer"
+        format: "int32"
+        example: 3
+        description: "The remaining number of retries"
+      exceptionMessage:
+        type: "string"
+        example: "null"
+        description: "The exception message for the job"
+      dueDate:
+        type: "string"
+        format: "date-time"
+        example: "2021-05-04T16:35:10.474Z"
+        description: "The due date for the job"
+      createTime:
+        type: "string"
+        format: "date-time"
+        example: "2020-05-04T16:35:10.474Z"
+        description: "The creation time of the job"
+      tenantId:
+        type: "string"
+        example: "flowable"
+        description: "The tenant if of the job"
+      lockOwner:
+        type: "string"
+        example: "worker1"
+        description: "The id of the lock owner. If not set then the job is not locked"
+      lockExpirationTime:
+        type: "string"
+        format: "date-time"
+        example: "2020-05-04T16:35:10.474Z"
+        description: "The time when the lock expires"
+      variables:
+        type: "array"
+        description: "The variables from the scope of the job"
+        items:
+          $ref: "#/definitions/EngineRestVariable"
+  DataResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          type: "object"
+      total:
+        type: "integer"
+        format: "int64"
+      start:
+        type: "integer"
+        format: "int32"
+      sort:
+        type: "string"
+      order:
+        type: "string"
+      size:
+        type: "integer"
+        format: "int32"
+  DataResponseExternalWorkerJobResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/ExternalWorkerJobResponse"
+      total:
+        type: "integer"
+        format: "int64"
+      start:
+        type: "integer"
+        format: "int32"
+      sort:
+        type: "string"
+      order:
+        type: "string"
+      size:
+        type: "integer"
+        format: "int32"
+  EngineRestVariable:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "myVariable"
+        description: "Name of the variable"
+      type:
+        type: "string"
+        example: "string"
+        description: "Type of the variable."
+      value:
+        type: "object"
+        example: "test"
+        description: "Value of the variable."
+      valueUrl:
+        type: "string"
+        example: "http://...."
+  ExternalWorkerJobCompleteRequest:
+    type: "object"
+    required:
+    - "workerId"
+    properties:
+      workerId:
+        type: "string"
+        description: "The id of the external worker that executes the action. Must\
+          \ match the id of the worker who has most recently locked the job."
+      variables:
+        type: "array"
+        description: "The variables that should be passed to the job scope"
+        items:
+          $ref: "#/definitions/EngineRestVariable"
+    description: "Request that is used for completing external worker jobs"
+  ExternalWorkerJobErrorRequest:
+    type: "object"
+    required:
+    - "workerId"
+    properties:
+      workerId:
+        type: "string"
+        description: "The id of the external worker that executes the action. Must\
+          \ match the id of the worker who has most recently locked the job."
+      variables:
+        type: "array"
+        description: "The variables that should be passed to the job scope"
+        items:
+          $ref: "#/definitions/EngineRestVariable"
+      errorCode:
+        type: "string"
+        description: "The BPMN error code"
+    description: "Request that is used for completing external worker jobs with a\
+      \ bpmn error"
+  ExternalWorkerJobFailureRequest:
+    type: "object"
+    required:
+    - "workerId"
+    properties:
+      workerId:
+        type: "string"
+        description: "The id of the external worker that reports the failure. Must\
+          \ match the id of the worker who has most recently locked the job."
+      errorMessage:
+        type: "string"
+        example: "Database not available"
+        description: "Error message for the failure"
+      errorDetails:
+        type: "string"
+        description: "Details for the failure"
+      retries:
+        type: "integer"
+        format: "int32"
+        description: "The new number of retries. If not set it will be reduced by\
+          \ 1. If 0 the job will be moved ot the dead letter table and would no longer\
+          \ be available for acquiring."
+      retryTimeout:
+        type: "string"
+        example: "PT20M"
+        description: "The timeout after which the job should be made available again.\
+          \ ISO-8601 duration format PnDTnHnMn.nS with days considered to be exactly\
+          \ 24 hours."
+    description: "Request that is used for failing external worker jobs"
+  ExternalWorkerJobResponse:
+    type: "object"
+    required:
+    - "id"
+    - "url"
+    properties:
+      id:
+        type: "string"
+        example: "8"
+        description: "The id of the external job"
+      url:
+        type: "string"
+        example: "http://localhost:8182/external-job-api/jobs/8"
+        description: "The url of the external job"
+      correlationId:
+        type: "string"
+        example: "50"
+        description: "The correlation id of the external job"
+      processInstanceId:
+        type: "string"
+        example: "5"
+        description: "The process instance id for the external job"
+      processDefinitionId:
+        type: "string"
+        example: "customerProcess:1:4"
+        description: "The process definition id for the external job"
+      executionId:
+        type: "string"
+        example: "7"
+        description: "The execution id for the external job"
+      scopeId:
+        type: "string"
+        example: "20"
+        description: "The scope id for the external job"
+      subScopeId:
+        type: "string"
+        example: "21"
+        description: "The sub scope id for the external job"
+      scopeDefinitionId:
+        type: "string"
+        example: "customerCase:1:39"
+        description: "The scope definition id for the external job"
+      scopeType:
+        type: "string"
+        example: "cmmn"
+        description: "The scope type for the external job"
+      elementId:
+        type: "string"
+        example: "customer"
+        description: "The id of the element in the model"
+      elementName:
+        type: "string"
+        example: "Process Customer Task"
+        description: "The name of the element in the model"
+      retries:
+        type: "integer"
+        format: "int32"
+        example: 3
+        description: "The remaining number of retries"
+      exceptionMessage:
+        type: "string"
+        example: "null"
+        description: "The exception message for the job"
+      dueDate:
+        type: "string"
+        format: "date-time"
+        example: "2021-05-04T16:35:10.474Z"
+        description: "The due date for the job"
+      createTime:
+        type: "string"
+        format: "date-time"
+        example: "2020-05-04T16:35:10.474Z"
+        description: "The creation time of the job"
+      tenantId:
+        type: "string"
+        example: "flowable"
+        description: "The tenant if of the job"
+      lockOwner:
+        type: "string"
+        example: "worker1"
+        description: "The id of the lock owner. If not set then the job is not locked"
+      lockExpirationTime:
+        type: "string"
+        format: "date-time"
+        example: "2020-05-04T16:35:10.474Z"
+        description: "The time when the lock expires"
+  ExternalWorkerJobTerminateRequest:
+    type: "object"
+    required:
+    - "workerId"
+    properties:
+      workerId:
+        type: "string"
+        description: "The id of the external worker that executes the action. Must\
+          \ match the id of the worker who has most recently locked the job."
+      variables:
+        type: "array"
+        description: "The variables that should be passed to the job scope"
+        items:
+          $ref: "#/definitions/EngineRestVariable"
+    description: "Request that is used for terminating external worker jobs"

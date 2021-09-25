@@ -69,8 +69,8 @@ public class GroupHelper {
 
     private static Group userRespDTOToUser(GroupRespDTO dto) {
         GroupEntityImpl groupEntity = new GroupEntityImpl();
-        groupEntity.setId(dto.getGroupKey());
-        groupEntity.setName(dto.getName());
+        groupEntity.setId(dto.getGroupCode());
+        groupEntity.setName(dto.getGroupName());
         return groupEntity;
     }
 }

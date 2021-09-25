@@ -1,15 +1,20 @@
 package com.weweibuy.webuy.learning.drools.controller;
 
+import com.weweibuy.webuy.learning.drools.model.CalculateVO;
 import com.weweibuy.webuy.learning.drools.model.CompareVO;
 import com.weweibuy.webuy.learning.drools.model.Order;
 import com.weweibuy.webuy.learning.drools.model.User;
 import com.weweibuy.webuy.learning.drools.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.drools.core.base.RuleNameEqualsAgendaFilter;
+import org.drools.core.base.RuleNameStartsWithAgendaFilter;
 import org.kie.api.KieBase;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.AgendaFilter;
 import org.kie.api.runtime.rule.QueryResults;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -124,5 +129,15 @@ public class TestController {
         return user;
     }
 
+    @PostMapping("/calculate")
+    public String calculate(@RequestBody CalculateVO c) {
+        KieSession kieSession = kieBase.newKieSession();
+        AgendaFilter filter = new RuleNameStartsWithAgendaFilter("calculate_big");
+//        kieSession.fireAllRules(filter);
+        kieSession.insert(c);
+        kieSession.fireAllRules(filter);
+        kieSession.dispose();
+        return "xx";
+    }
 
 }

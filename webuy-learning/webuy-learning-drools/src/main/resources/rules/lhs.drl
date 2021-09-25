@@ -8,7 +8,7 @@ rule "lhs_test"
     $user:User(username in ("tom", "jack"))
     then
     System.err.println("lhs_test  " + $user);
- end
+end
 
 
 rule "lhs_test1"

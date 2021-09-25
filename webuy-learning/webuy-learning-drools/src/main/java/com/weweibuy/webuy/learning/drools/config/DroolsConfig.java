@@ -23,7 +23,7 @@ import java.io.IOException;
 public class DroolsConfig {
 
     //指定规则文件存放的目录
-    private static final String RULES_PATH = "map/";
+    private static final String RULES_PATH = "rules/";
 
     private final KieServices kieServices = KieServices.Factory.get();
 

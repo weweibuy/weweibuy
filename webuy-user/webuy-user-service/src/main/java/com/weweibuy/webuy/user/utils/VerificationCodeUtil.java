@@ -42,7 +42,7 @@ public class VerificationCodeUtil {
      */
     public static boolean sendVerificationCode(String phoneNum) {
         redisTemplate.opsForValue().set(VERIFICATION_CODE_PREFIX + phoneNum,
-                JackJsonUtils.write(new PhoneVerifyCodeVo(CodeUtil.getPhoneVerificationCode(),
+                JackJsonUtils.writeCamelCase(new PhoneVerifyCodeVo(CodeUtil.getPhoneVerificationCode(),
                         System.currentTimeMillis())), VERIFICATION_CODE_EXPIRE_TIME, TimeUnit.SECONDS);
         // TODO 发送验证码
         return true;

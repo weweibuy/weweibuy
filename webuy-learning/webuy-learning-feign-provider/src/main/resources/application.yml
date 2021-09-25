@@ -9,7 +9,10 @@ spring:
     propertyNamingStrategy: SNAKE_CASE
   application:
     name: learning-feign-provider
-
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
   cloud:
     consul:
       host: 127.0.0.1
@@ -20,3 +23,18 @@ spring:
         health-check-path: /endpoint/_common/_health
         health-check-critical-timeout: 10s
         health-check-interval: 3s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'prometheus'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        pushgateway:
+          enabled: true
+          baseUrl: http://106.12.208.53:9091
+          push-rate: 15s

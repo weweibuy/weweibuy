@@ -67,7 +67,7 @@
         <zk-client.vserion>3.4.5</zk-client.vserion>
         <guava.version>26.0-jre</guava.version>
         <sharding-jdbc.version>3.0.0.M4</sharding-jdbc.version>
-        <weweibuy.framework.version>1.0-SNAPSHOT</weweibuy.framework.version>
+        <weweibuy.framework.version>1.2-SNAPSHOT</weweibuy.framework.version>
     </properties>
 
     <dependencyManagement>

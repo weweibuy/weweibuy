@@ -24,8 +24,8 @@ public class LearnRedisController {
 
     @RequestMapping("/add-hash")
     private String addHash() {
-        redisTemplate.opsForHash().put("hk1", "k1", JackJsonUtils.write(CommonCodeResponse.success()));
-        redisTemplate.opsForHash().put("hk1", "k2", JackJsonUtils.write(CommonCodeResponse.unknownException()));
+        redisTemplate.opsForHash().put("hk1", "k1", JackJsonUtils.writeCamelCase(CommonCodeResponse.success()));
+        redisTemplate.opsForHash().put("hk1", "k2", JackJsonUtils.writeCamelCase(CommonCodeResponse.unknownException()));
 
         return "success";
     }

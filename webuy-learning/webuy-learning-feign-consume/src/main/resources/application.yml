@@ -1,9 +1,6 @@
 server:
   port: 9010
 
-logging:
-  config: classpath:config/logback/logback-spring.xml
-
 
 spring:
   profiles:
@@ -12,13 +9,28 @@ spring:
     propertyNamingStrategy: SNAKE_CASE
   application:
     name: learning-feign-consume
+  cloud:
+    consul:
+      host: 127.0.0.1
+      discovery:
+        prefer-ip-address: true
+        instance-id: ${spring.application.name}:${spring.cloud.consul.discovery.ip-address}:${server.port}
+        ip-address: 127.0.0.1
+        health-check-path: /endpoint/_common/_health
+        health-check-critical-timeout: 10s
+        health-check-interval: 3s
 
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:ak402507979@122.51.171.126:7001/eureka
-  instance:
-    instance-id: ${spring.application.name}:${eureka.instance.ip-address}:${server.port}  #必须唯一
-    prefer-ip-address: true     #访问路径可以显示IP地址,此为内网ip,如果server和client不在同一网段使用ip-address:配置
-    ip-address: 127.0.0.1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'prometheus'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    export:
+      prometheus:
+        pushgateway:
+          enabled: true
+          baseUrl: http://106.12.208.53:9091
+          push-rate: 15s
