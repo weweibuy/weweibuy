@@ -15,3 +15,10 @@ docker run -p 9200:9200 -p 9300:9300 -v /docker/elasticsearch-6.8.2/config/elast
 
 3. 安装 IK:
 ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.8.2/elasticsearch-analysis-ik-6.8.2.zip
+
+
+
+docker run -d  -e TZ=Asia/Shanghai -p 9200:9200 -v /data/docker/elasticsearch/config:/usr/share/elasticsearch/config -v /data/docker/elasticsearch/data:/usr/share/elasticsearch/data   -v /data/docker/elasticsearch/logs:/usr/share/elasticsearch/logs -v /data/docker/elasticsearch/plugins:/usr/share/elasticsearch/plugins  --network=network1  --name elasticsearch elasticsearch:8.5.3
+
+3. 修改密码:
+./elasticsearch-reset-password --username elastic -i
